@@ -34,6 +34,7 @@ alias ircterm 'ssh -t isao@devservices "screen -dr irc"'
 # http://episteme.arstechnica.com/eve/forums/a/tpc/f/8300945231/m/284004131041
 # view man page as a PDF
 if(-x /Applications/Preview.app) alias man2pdf 'man -t \!* | open -f -a /Applications/Preview.app'
+
 if(-X osascript) alias findercwd 'cd `osascript ~/Repos/shell/osx/findercwd.applescript`'
 
 #

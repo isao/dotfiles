@@ -9,7 +9,7 @@ complete chgrp 'p/1/g/'
 complete df 'c/--/(all human-readable kilobytes local megabytes)/'
 complete du 'c/--/(all total dereference-args human-readable kilobytes count-links dereference megabytes separate-dirs summarize one-file-system exclude-from exclude max-depth/'
 
-complete {find,findfile.sh} 'n/-{,i}name/f/' 'n/-newer/f/' 'n/-{,n}cpio/f/' 'n/-exec/c/' 'n/-ok/c/' 'n/-user/u/' 'n/-group/g/' 'n/-fstype/(nfs 4.2)/' 'n/-type/(b c d f l p s)/' 'c/-/(and atime cpio ctime depth empty exec fstype group iname inum iregex ls maxdepth mindepth mtime name ncpio newer nogroup not nouser ok or path perm print prune regex size type user xdev)/' 'p/*/d/'
+complete {find,findfile.sh} 'n/-{,i}name/f/' 'n/-newer/f/' 'n/-{,n}cpio/f/' 'n/-exec/c/' 'n/-ok/c/' 'n/-user/u/' 'n/-group/g/' 'n/-fstype/(nfs 4.2)/' 'n/-type/(b c d f l p s)/' 'c/-/(and atime cpio ctime depth empty exec fstype group iname inum iregex ls maxdepth mindepth mtime name ncpio newer nogroup not nouser ok or path perm print prune regex size type user xdev)/' 'n/*/d/'
 complete {{,e,f}grep,codegrep.sh} 'c/--/(after-context before-context context count exclude file files-with-matches files-without-match fixed-strings include invert-match no-filename no-messages only-matching perl-regexp recursive with-filename)/'
 
 complete kill 'c/%/j/' 'c/-/S/'
@@ -47,7 +47,9 @@ complete ssh 'c/*@/$_myhosts//' 'p/*/$_myusers/@'
 #
 if(-X bbedit) complete bbedit 'c/--/(background clean create front-window maketags new-window print pipe-title scratchpad worksheet view-top resume wait)/'
 
-if(-X brew) complete brew 'c/--/(verbose prefix cache config)/' 'p/1/(install list info home rm remove create edit ln link unlink prune outdated deps uses doctor cat cleanup update log fetch)/' 'n~{deps,uses,cat,cleanup,log,home,edit}~`brew list`~' 'n/info/(--github --all)/'
+if(-X brew) complete brew 'c/--/(verbose prefix cache config)/' 'p/1/(install list info home rm remove create edit ln link unlink prune outdated deps uses doctor cat cleanup update log fetch search)/' 'n~{deps,uses,cat,cleanup,log,home,edit}~`brew list`~' 'n/info/(--github --all)/'
+
+if(-X port) complete port 'p/1/(search info variants deps dependents install uninstall activate deactivate installed location contents provides sync outdated upgrade clean echo list version selfupdate help)/' 'n/echo/(current active inactive installed requested uninstalled outdated)/'
 
 if(-X git) then
 	#if(-X git) complete git 'p/1/(add bisect branch checkout clone commit config diff fetch grep init log merge mv pull push rebase reset rm show status tag)/'
@@ -58,7 +60,5 @@ if(-X git) then
 endif
 
 if(-X nano) complete nano 'c/--/(autoindent backup help nowrap)/'
-
-if(-X port) complete port 'p/1/(search info variants deps dependents install uninstall activate deactivate installed location contents provides sync outdated upgrade clean echo list version selfupdate help)/' 'n/echo/(current active inactive installed requested uninstalled outdated)/'
 
 if(-X svn) complete svn 'p/1/(add blame cat checkout cleanup commit copy delete diff export help import info list lock log merge mkdir move propdel propedit propget proplist propset resolved revert status switch unlock update)//' 'n/prop{del,edit,get,set}/(svn:executable svn:externals svn:ignore svn:keywords svn:mime-type)//' 'c/--/(quiet verbose username password)/'

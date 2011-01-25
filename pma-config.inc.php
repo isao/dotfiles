@@ -32,7 +32,7 @@ $cfg['SQLQuery']['Validate'] = true;
 $i = 1;
 $cfg['Servers'][$i]['auth_type'] = 'config';//cookie|config
 $cfg['Servers'][$i]['user'] = 'root';
-$cfg['Servers'][$i]['password'] = 'pavCAN7';
+$cfg['Servers'][$i]['password'] = '***';
 $cfg['Servers'][$i]['host'] = '127.0.0.1';
 $cfg['Servers'][$i]['verbose'] = 'isao’s mbp';
 $cfg['Servers'][$i]['connect_type'] = 'socket';//socket|tcp
@@ -43,7 +43,7 @@ $cfg['Servers'][$i]['extension'] = 'mysqli';
 //run ./scripts/create_tables.sql
 $cfg['Servers'][$i]['pmadb']           = 'phpmyadmin';
 $cfg['Servers'][$i]['controluser']     = 'pma';
-$cfg['Servers'][$i]['controlpass']     = 'XePXF93sN849wxmh';
+$cfg['Servers'][$i]['controlpass']     = '***';
 
 $cfg['Servers'][$i]['bookmarktable']   = 'pma_bookmark';
 $cfg['Servers'][$i]['column_info']     = 'pma_column_info';
