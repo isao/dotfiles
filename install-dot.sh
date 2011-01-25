@@ -32,3 +32,12 @@ ln -svi $dotdir/dotssh-config ~/.ssh/config
 ln -svi $dotdir/dotsvn-config ~/.subversion/config
 ln -svi $dotdir/php-* \
 	`php -i |grep 'this dir for additional .ini files' |awk '{print $NF}'`
+
+echo "paste these lines at the end of httpd.conf, or copy/symlink the files where they will"
+echo "be included:"
+echo
+for i in $dotdir/httpd-*
+do
+	echo "Include $i"
+done
+echo
