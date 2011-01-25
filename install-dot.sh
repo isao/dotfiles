@@ -25,13 +25,15 @@ symlink_dotstar()
 	}
 }
 
-[[ ! -d $dotdir ]] && "install files should be at '$dotdir' but they're not"
+[[ ! -d $dotdir ]] && err "source files should be at '$dotdir' but they're not"
+[[ -d ~/Repos ]] && ln -svi $dotdir ~/Repos
 
 symlink_dotstar
 ln -svi $dotdir/dotssh-config ~/.ssh/config
 ln -svi $dotdir/dotsvn-config ~/.subversion/config
 ln -svi $dotdir/php-* \
 	`php -i |grep 'this dir for additional .ini files' |awk '{print $NF}'`
+
 
 echo "paste these lines at the end of httpd.conf, or copy/symlink the files where they will"
 echo "be included:"

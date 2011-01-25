@@ -17,7 +17,7 @@
 	ui = auto
 
 [pack]
-	; use all cpu cores
+	;use all cpu cores
 	threads = 0
 
 [web]
