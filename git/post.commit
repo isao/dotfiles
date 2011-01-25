@@ -1,0 +1,2 @@
+#!/bin/sh
+afplay ~/.dotfiles/git/yaaayyy.wav > /dev/null 2>&1 &
