@@ -28,8 +28,8 @@ alias showpath 'echo $PATH | tr : "\n"'
 alias checkpath 'ls -ld `echo $PATH | tr : "\n"`'
 
 # bf irc
-alias irclog 'ssh isao@devservices "tail \!* irclogs/localhost/?usx-fe.log"'
-alias ircterm 'ssh -t isao@devservices "screen -dr irc"'
+alias irclog 'ssh isao@10.213.3.180 "tail \!* /home/garnold/usx-fe.log"'
+alias ircterm 'ssh -t isao@10.213.3.180 "screen -dr irc"'
 
 # http://episteme.arstechnica.com/eve/forums/a/tpc/f/8300945231/m/284004131041
 # view man page as a PDF
