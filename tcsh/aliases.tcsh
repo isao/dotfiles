@@ -27,9 +27,10 @@ alias showenv 'env | sort'
 alias showpath 'echo $PATH | tr : "\n"'
 alias checkpath 'ls -ld `echo $PATH | tr : "\n"`'
 
-# bf irc
+# bf
 alias irclog 'ssh isao@10.213.3.180 "tail \!* /home/garnold/usx-fe.log"'
 alias ircterm 'ssh -t isao@10.213.3.180 "screen -dr irc"'
+alias pu '( cd /Users/isao/Repos/usx/tests && phpunit )'
 
 # http://episteme.arstechnica.com/eve/forums/a/tpc/f/8300945231/m/284004131041
 # view man page as a PDF
