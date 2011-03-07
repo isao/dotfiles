@@ -11,6 +11,7 @@ setenv CVSIGNORE '.DS_Store,._?*,.FBC*,.#?*'
 setenv GREP_OPTIONS '--binary-files=without-match'
 setenv LESS '--tabs=2 --LONG-PROMPT --ignore-case --RAW-CONTROL-CHARS'
 setenv RSYNC_RSH $CVS_RSH
+setenv GEM_HOME `brew --prefix`/Cellar/gems/1.8
 
 #
 # shell interactivity
