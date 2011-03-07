@@ -5,10 +5,7 @@
 [core]
 	pager = cat
 	;works for git, not tig:
-	;  editor = bbedit --wait --resume
-	;file bbedit..sh:
-	;  #!/bin/sh
-	;  bbedit --wait --resume $@
+	;	 editor = bbedit --wait --resume
 	editor = bbedit..sh
 	excludesfile = ~/.gitignore
 
@@ -41,6 +38,10 @@
 	cmd = bbdiff --wait --resume "$LOCAL" "$REMOTE"
 [alias]
 	bbmerge = mergetool
+
+[alias]
+	pull-rebase-no-ff = pull --rebase --no-ff
+	ln = log --no-merges --name-status
 
 [tig]
 	tab-size = 2
