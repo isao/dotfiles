@@ -49,7 +49,7 @@ endif
 
 if(-X git) then
   alias gs 'git status --short --untracked-files=no \!*'
-  alias gs? 'git status --short --untracked-files=normal \!*'
+  alias gs? 'git status --short --untracked-files=normal \!* && git stash list'
   alias gu 'git gui \!*'
   if(-X bbdiff) alias gd 'git difftool \!*'
 endif
