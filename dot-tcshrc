@@ -2,10 +2,10 @@
 # env vars
 #
 set path=(/{,s}bin /usr/{,s,local/}bin)
-if(-X port) set path=(/opt/local/{,s,apache2/}bin $path)
-if(-X brew) then
-  set path=(`brew --prefix`/bin $path)
-  setenv GEM_HOME `brew --prefix`/Cellar/gems/1.8
+if(-d /opt/local) set path=(/opt/local/{,s,apache2/}bin $path)
+if(-d /opt/brew) then
+  set path=(/opt/brew/bin $path)
+  setenv GEM_HOME /opt/brew/Cellar/gems/1.8
 endif
 
 setenv EDITOR `which bbedit..sh nano pico edit vim vi | grep '^/' | head -1`
