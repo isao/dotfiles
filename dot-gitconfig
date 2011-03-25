@@ -6,7 +6,6 @@
   pager = cat
   ;works for git, not tig:
   ;  editor = bbedit --wait --resume
-  editor = bbedit..sh
   excludesfile = ~/.gitignore
 
 [color]
