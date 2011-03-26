@@ -28,7 +28,7 @@ alias showpath 'echo $PATH | tr : "\n"'
 alias checkpath 'ls -ld `echo $PATH | tr : "\n"`'
 
 # bf
-alias irclog 'ssh isao@10.213.3.180 "tail \!* /home/garnold/usx-fe.log"'
+alias irclog 'ssh isao@10.213.3.180 "tail \!* usx-fe.log"'
 alias ircterm 'ssh -t isao@10.213.3.180 "screen -dr irc"'
 alias pu '( cd /Users/isao/Repos/usx/tests && phpunit )'
 
