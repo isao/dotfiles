@@ -1,2 +1,2 @@
 #!/bin/sh
-afplay ~/.dotfiles/git/yaaayyy.wav > /dev/null 2>&1 &
+afplay `dirname $0`/yaaayyy.wav > /dev/null 2>&1 &
