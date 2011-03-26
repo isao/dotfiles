@@ -56,8 +56,8 @@
   status = Escape view-main
   main = Escape view-status
 
-  generic = < !git stash
-  generic = > !git stash pop
+  ;generic = < !git stash
+  ;generic = > !git stash pop
   generic = ^p !git pull --rebase --no-ff
 
   ;sends all files to stage or commit to bbdiff
