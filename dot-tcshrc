@@ -18,6 +18,8 @@ setenv GREP_OPTIONS '--binary-files=without-match'
 setenv LESS '--tabs=2 --LONG-PROMPT --ignore-case --RAW-CONTROL-CHARS'
 setenv RSYNC_RSH $CVS_RSH
 
+if(-X node) setenv NODE_PATH /opt/brew/lib/node
+
 #
 # shell interactivity
 #
