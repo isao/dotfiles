@@ -39,7 +39,7 @@
   bbmerge = mergetool
 
 [alias]
-  pub = !"for i in origin backup usx199; do echo push $i...; git push $i; done; echo done"
+  pub = !"for i in origin backup; do echo push $i...; git push $i; done; echo done"
   pull-rebase-no-ff = pull --rebase --no-ff
   ln = log --no-merges --name-status
 
