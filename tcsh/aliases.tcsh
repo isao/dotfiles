@@ -4,7 +4,7 @@
 alias . pwd
 alias .. 'cd ..'
 alias cd.. 'cd ..'
-alias ls 'ls-F'
+alias ls 'ls -F'
 alias ll '/bin/ls -lF \!*'
 alias lsd '/bin/ls -l \!* | grep ^d'  # ls dirs only
 alias ls. '/bin/ls -dF .?*'  # ls dot files & dirs only
