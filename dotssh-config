@@ -6,6 +6,6 @@
 ServerAliveInterval 300
 ServerAliveCountMax 3
 
-Host *,!10.213.3.180
+Host *,!10.213.3.180,!etherjar.com
 	ControlPath ~/.ssh/master-%r@%h:%p
 	ControlMaster auto
