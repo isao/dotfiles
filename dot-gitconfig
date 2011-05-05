@@ -66,7 +66,7 @@
 
   ;open in bbedit
   ;generic = b !open -b com.barebones.bbedit %(file)
-  generic = ^b !bbedit..sh %(file)
+  generic = ^b !bbedit %(file)
 
   ;reveal current selection in a Finder window
   generic = ^f !open -R %(file)
