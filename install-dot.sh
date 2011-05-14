@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 #config file dir
-dotdir=~/.dotfiles
+dotdir=~/Repos/dotfiles
 
 err()
 {
@@ -17,7 +17,8 @@ symlink_dotstar()
 		cd $dotdir
 		for i in dot-*
 		do
-			#replace dot- with . in filenames
+			#replace "dot-" with "." in filenames
+			# -i prompt if target file already exists
 			ln -svi $dotdir/$i ~/${i/dot-/.}
 			#for cmd: ln -svi .dotfiles/dot-gitconfig /Users/isao/.gitconfig
 			#link is: ~/.gitconfig -> .dotfiles/dot-gitconfig
@@ -26,7 +27,6 @@ symlink_dotstar()
 }
 
 [[ ! -d $dotdir ]] && err "source files should be at '$dotdir' but they're not"
-[[ -d ~/Repos ]] && ln -svi $dotdir ~/Repos
 
 symlink_dotstar
 ln -svi $dotdir/dotssh-config ~/.ssh/config
