@@ -3,7 +3,7 @@
   email = isao.yagi@gmail.com
 
 [core]
-  pager = cat
+  pager = less -S
   ;works for git, not tig:
   ;  editor = bbedit --wait --resume
   excludesfile = ~/.gitignore
