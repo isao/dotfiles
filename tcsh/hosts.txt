@@ -1,3 +1,2 @@
 etherjar.com
-devsandbox
-devservices
+paintcorner.corp
