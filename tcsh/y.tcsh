@@ -11,7 +11,7 @@ if(-X yvm) complete yvm 'c/--/(config console create list pmadd pmlist pmremove 
 
 ##Y!
 #set yroot name if applicable
-if(-l /.yroot) then
+if(! $?YROOT_NAME && -l /.yroot) then
 	set YROOT_NAME=`readlink /.yroot`
 	set YROOT_NAME=`basename $YROOT_NAME`
 endif
