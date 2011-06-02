@@ -32,6 +32,7 @@ if($?USER && $?prompt && -r $_mysrcs) then
 	source $_mysrcs/aliases.tcsh
 	source $_mysrcs/terminal.tcsh
 	source $_mysrcs/completions.tcsh
+	source $_mysrcs/y.tcsh
 endif
 unset $_mysrcs
 
