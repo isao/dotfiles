@@ -9,6 +9,7 @@ if(-d /opt/brew) then
     setenv GEM_HOME `ls /opt/brew/Cellar/gems | sort -n | head -1`
   endif
 endif
+if(-d /home/y/bin) set path=(/home/y/bin $path)
 
 setenv EDITOR `which bbedit..sh nano vim vi | grep '^/' | head -1`
 setenv CVSEDITOR $EDITOR
