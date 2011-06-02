@@ -33,7 +33,7 @@ alias checkpath 'ls -ld `echo $PATH | tr : "\n"`'
 #alias pu '( cd /Users/isao/Repos/usx/tests && phpunit \!*)'
 
 if(-X icalBuddy) then
-  alias icb "icalBuddy -b '* ' -df '%b %d' -tf '%H:%M' -eed -nc -npn -po datetime,title,location -eep notes,url -ps '|\t| - |' eventsToday\!*"
+  alias icb "icalBuddy -f -b '' -df '%m %d' -tf '%H:%M' -eed -nc -npn -po datetime,title,location -eep notes,url -ps '|\t| |' eventsToday\!*"
   icb
 endif
 
