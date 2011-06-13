@@ -1,14 +1,13 @@
 #this file goes in ~/.ssh/config see `man ssh_config`
 
-#Host 174.132.132.187 stage.media160.com
-#	Port 50001
-
 ServerAliveInterval 300
 ServerAliveCountMax 3
 
-Host *,!etherjar.com
-	ControlPath ~/.ssh/master-%r@%h:%p
-	ControlMaster auto
-
-Host *.yahoo.com
+Host *.corp *.yahoo.com
   Protocol 2
+
+#persistent connections
+#Host *,!corp,!yahoo.com,!etherjar.com
+#	ControlPath ~/.ssh/master-%r@%h:%p
+#	ControlMaster auto
+
