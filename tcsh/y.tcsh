@@ -1,7 +1,11 @@
-if(-d /home/y/bin) set path=(/home/y/bin $path)
+if(! -d /home/y/bin) exit
 
-if(-X yssh) alias ssh yssh
-if(-X yscp) alias scp yscp
+set path=(/home/y/bin $path)
+
+if(-X yssh) then
+  alias ssh yssh
+  alias scp yscp
+endif
 
 if(-X yinst) complete yinst 'p/1/(activate changed check check-config clean clone collect create crontab cvsunzip deactivate diff env fetch help history install lock ls man packages platform range reload remove repair restart restore save self-install self-update set ssh start stop tag unlock unset version which-dist)/' 'n/ls/(-all -build -Buildtime -comment -config -custodian -dependencies -description -files -dirs -Flags -install_info -leaf -link -nocollection -noname -noversion -prefix -sys -time -yicf)/' 'n/install/(-branch -collection -downgrade -dryrun -force -live -noactivate -nocheck_data -noexecute -nonewer_build -noprerequisites -norepair_data -nostart -noupgrade -refresh -refresh_branch -refresh_collection -refresh_same_branch -replace -same -set -use_restart)/' 'n/-branch/(current stable test)/' 'p/*/f:*.tgz/'
 if(-X yinst_create) complete yinst_create 'c/--/(buildtype platform stage_dir target_dir clean dumpyicf keyed debug help)//' 'n/--buildtype/(release test link nightly)/' 'p/*/f:*.yicf/'
@@ -12,8 +16,8 @@ if(-X yvm) complete yvm 'c/--/(config console create list pmadd pmlist pmremove 
 ##Y!
 #set yroot name if applicable
 if(! $?YROOT_NAME && -l /.yroot) then
-	set YROOT_NAME=`readlink /.yroot`
-	set YROOT_NAME=`basename $YROOT_NAME`
+  setenv YROOT_NAME=`readlink /.yroot`
+  setenv YROOT_NAME=$YROOT_NAME:h
 endif
 
 ##Y!
