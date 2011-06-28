@@ -11,29 +11,29 @@ if(-d /opt/brew) then
 endif
 
 setenv EDITOR `which bbedit..sh nano vim vi | grep '^/' | head -1`
-setenv CVSEDITOR $EDITOR
-setenv SVN_EDITOR $EDITOR
-setenv VISUAL $EDITOR
 setenv CVS_RSH ssh
 setenv CVSIGNORE '.DS_Store,._?*,.FBC*,.#?*'
 setenv GREP_OPTIONS '--binary-files=without-match'
 setenv LESS '--tabs=2 -iFMRX'
 setenv RSYNC_RSH $CVS_RSH
 
-if(-X node) setenv NODE_PATH /opt/brew/lib/node
+if(-X node && -d /opt/brew/lib/node) setenv NODE_PATH /opt/brew/lib/node
+
 
 #
 # shell interactivity
 #
-
-set _mysrcs=~/Repos/dotfiles/tcsh
-if($?USER && $?prompt && -r $_mysrcs) then
-	source $_mysrcs/aliases.tcsh
-	source $_mysrcs/terminal.tcsh
-	source $_mysrcs/completions.tcsh
-	source $_mysrcs/y.tcsh
+if($?USER && $?prompt && -l $HOME/.tcshrc) then
+  #this file is a symlink from ~/.tcshrc to <somedir>/dot-tcsrc
+  #source <somedir>/tcsh/*.tcsh
+  set _mysrcs = `readlink ~/.tcshrc`
+  set _mysrcs = $_mysrcs:h/tcsh
+  source $_mysrcs/aliases.tcsh
+  source $_mysrcs/terminal.tcsh
+  source $_mysrcs/completions.tcsh
+  source $_mysrcs/y.tcsh
+  unset $_mysrcs
 endif
-unset $_mysrcs
 
 # see also
 # /usr/share/tcsh/examples/tcsh.defaults
