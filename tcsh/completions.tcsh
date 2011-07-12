@@ -26,7 +26,7 @@ complete uncomplete 'p/*/X/'
 
 # completion sets using personal lists
 set _myhosts=(`cat -s $_mysrcs/hosts.txt| grep -v '^#'`)
-set _myusers=(`cat -s $_mysrcs/users.txt`)
+set _myusers=(`cat -s $_mysrcs/users.txt| grep -v '^#'`)
 
 complete {host,nslookup,ping,route} 'p/*/$_myhosts/'
 

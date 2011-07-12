@@ -7,7 +7,7 @@
   ;works for git, not tig:
   ;  editor = bbedit --wait --resume
   excludesfile = ~/.gitignore
-	quotepath = false
+  quotepath = false
 
 [color]
   ;colorize output on console

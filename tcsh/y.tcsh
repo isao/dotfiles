@@ -13,14 +13,12 @@ if(-X yroot) complete yroot 'c/--/(create dryrun images list local-home mount ps
 if(-X yvm) complete yvm 'c/--/(config console create list pmadd pmlist pmremove remove rename restart start stop suspend)/' 'n/--list/(--status)/' 'p@2@D:/home/y/var/yvm@@'
 
 
-##Y!
 #set yroot name if applicable
 if(! $?YROOT_NAME && -l /.yroot) then
   setenv YROOT_NAME=`readlink /.yroot`
   setenv YROOT_NAME=$YROOT_NAME:h
 endif
 
-##Y!
 #keep separate histories for my *nix boxes & yroots
 #because they share a single home dir nfs mounted
 if($?YROOT_NAME) then
