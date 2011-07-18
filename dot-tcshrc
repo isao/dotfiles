@@ -2,12 +2,17 @@
 # env vars
 #
 set path=(/{,s}bin /usr/{,s,local/}bin)
-if(-d /opt/local) set path=(/opt/local/{,s,apache2/}bin $path)
+if(-d /opt/local) then
+  set path=(/opt/local/{,s,apache2/}bin $path)
+endif
 if(-d /opt/brew) then
   set path=(/opt/brew/{,s}bin $path)
   if(-d /opt/brew/Cellar/gems) then
     setenv GEM_HOME `ls /opt/brew/Cellar/gems | sort -n | head -1`
   endif
+endif
+if(-d /opt/isao) then
+  set path=(/opt/isao $path)
 endif
 
 setenv EDITOR `which bbedit..sh nano vim vi | grep '^/' | head -1`
@@ -26,7 +31,7 @@ if(-X node && -d /opt/brew/lib/node) setenv NODE_PATH /opt/brew/lib/node
 if($?USER && $?prompt && -l $HOME/.tcshrc) then
   #this file is a symlink from ~/.tcshrc to <somedir>/dot-tcsrc
   #source <somedir>/tcsh/*.tcsh
-  set _mysrcs = `readlink ~/.tcshrc`
+  set _mysrcs = `readlink $HOME/.tcshrc`
   set _mysrcs = $_mysrcs:h/tcsh
   source $_mysrcs/aliases.tcsh
   source $_mysrcs/terminal.tcsh
