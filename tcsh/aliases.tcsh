@@ -41,7 +41,9 @@ endif
 # view man page as a PDF
 if(-x /Applications/Preview.app) alias man2pdf 'man -t \!* | open -f -a /Applications/Preview.app'
 
-if(-X osascript) alias findercwd 'cd `osascript ~/Repos/shell/osx/findercwd.applescript`'
+if(-X osascript) then
+  alias fcd 'cd `osascript ~/Repos/1st/shell/osx/findercwd.applescript`'
+endif
 
 #
 # other
