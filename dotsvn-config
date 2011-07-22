@@ -158,3 +158,15 @@ enable-auto-props = yes
 Thumbs.db = svn:ignore
 .DS_Store = svn:ignore
 ._* = svn:ignore
+.git = svn:ignore
+
+#xcode
+**/*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev*
+*.swp
+*~.nib
+build/
+xcuserdata
