@@ -6,19 +6,20 @@ dotglob='dot-*'
 #full path to this file's directory; i.e. /Users/isao/Repos/1st/dotfiles
 dotpath=`(cd $(dirname $0) && pwd)`
 
-#get filenames to symlink (without path parts)
+#get list of dotfiles
 filelist=`(cd $dotpath && ls $dotglob)`
 
-#replace home dir path with .; i.e. ./Repos/1st/dotfiles
+#get relative path from ~ to this file's directory to make short symlinks
 relpath=${dotpath/$HOME/.}
 
-#the cd and relpath stuff is to get nice short symlink references
 cd $HOME
 for i in $filelist
 do
-  ln -svi $relpath/$i ${i/dot-/.}
+  #replace "dot-" with "." for target of symlink; prompt before overwriting
+  #i.e. ln -svi ./Repos/dotfiles/dot-gitignore .gitignore
+  ln -svfi $relpath/$i ${i/dot-/.}
 done
 
 #one-offs
-[[ -d .ssh ]] && ln -svi $relpath/dotssh-config .ssh/config
-[[ -d .subversion ]] && ln -svi $relpath/dotsvn-config .subversion/config
+[[ -d .ssh ]] && ln -svfi $relpath/dotssh-config .ssh/config
+[[ -d .subversion ]] && ln -svfi $relpath/dotsvn-config .subversion/config
