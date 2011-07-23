@@ -42,7 +42,7 @@ endif
 if(-x /Applications/Preview.app) alias man2pdf 'man -t \!* | open -f -a /Applications/Preview.app'
 
 if(-X osascript) then
-  alias fcd 'cd `osascript ~/Repos/1st/shell/osx/findercwd.applescript`'
+  alias fcd 'cd `osascript ~/Repos/shell/misc-osx/findercwd.applescript`'
 endif
 
 #
@@ -59,8 +59,4 @@ if(-X git) then
   alias gs? 'git status --short --untracked-files=normal \!* && git stash list'
   alias gu 'git gui \!*'
   if(-X bbdiff) alias gd 'git difftool \!*'
-endif
-
-if(-X cdargs && -r /opt/brew/Cellar/cdargs/1.35/contrib/cdargs-tcsh.csh) then
-  source /opt/brew/Cellar/cdargs/1.35/contrib/cdargs-tcsh.csh
 endif
