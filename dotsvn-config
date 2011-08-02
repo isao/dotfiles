@@ -161,12 +161,12 @@ Thumbs.db = svn:ignore
 .git = svn:ignore
 
 #xcode
-**/*.pbxuser
-*.mode1v3
-*.mode2v3
-*.perspective
-*.perspectivev*
-*.swp
-*~.nib
-build/
-xcuserdata
+**/*.pbxuser = svn:ignore
+*.mode1v3 = svn:ignore
+*.mode2v3 = svn:ignore
+*.perspective = svn:ignore
+*.perspectivev* = svn:ignore
+*.swp = svn:ignore
+*~.nib = svn:ignore
+build/ = svn:ignore
+xcuserdata = svn:ignore
