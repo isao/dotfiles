@@ -1,6 +1,6 @@
 if(! -d /home/y/bin) exit
 
-set path=(/home/y/bin $path)
+set path=(/home/y/bin ~/bin $path)
 
 if(-X yssh) then
   alias ssh yssh
