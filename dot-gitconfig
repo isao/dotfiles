@@ -2,6 +2,9 @@
   name = Isao Yagi
   email = isao.yagi@gmail.com
 
+[github]
+	user = isao
+
 [core]
   pager = less -S
   ;works for git, not tig:
@@ -40,7 +43,7 @@
   bbmerge = mergetool
 
 [alias]
-  pub = !"for i in origin backup; do echo push $i...; git push $i; done; echo done"
+  pub = !"for i in `/bin/ls .git/refs/remotes`; do echo $i...; git push $i; done"
   pull-rebase-no-ff = pull --rebase --no-ff
   ln = log --no-merges --name-status --decorate
 
@@ -61,18 +64,17 @@
   ;generic = > !git stash pop
   generic = ^p !git pull --rebase --no-ff
 
-  ;sends all files to stage or commit to bbdiff
+  ;bbdiff all files on stage
   generic = 2 !git bbdiff
 
   ;open in bbedit
-  ;generic = b !open -b com.barebones.bbedit %(file)
   generic = ^b !bbedit %(file)
 
   ;reveal current selection in a Finder window
   generic = ^f !open -R %(file)
 
   ;reveal current selection in a new Terminal window
-  generic = ^t !/Users/isao/Repos/shell/osx/terminal/newterm.sh %(directory)
+  generic = ^t !newterm.sh %(directory)
 
   ;open in gitx
   generic = ^x !gitx -- %(file)
