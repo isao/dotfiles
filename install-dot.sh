@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 #glob to match files to symlink from this dir to $HOME
 dotglob='dot-*'
@@ -20,6 +20,6 @@ do
   ln -svfi $relpath/$i ${i/dot-/.}
 done
 
-#one-offs
-[[ -d .ssh ]] && ln -svfi $relpath/dotssh-config .ssh/config
-[[ -d .subversion ]] && ln -svfi $relpath/dotsvn-config .subversion/config
+#one-offs; n.b. adding an extra dot to $relpath here
+[[ -d .ssh ]] && ln -svfi .$relpath/dotssh-config .ssh/config
+[[ -d .subversion ]] && ln -svfi .$relpath/dotsvn-config .subversion/config
