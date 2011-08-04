@@ -101,9 +101,11 @@ global-ignores = tags .git* *.o *.lo *.la .*.rej *.rej *~ .DS_Store ._* Thumbs.d
 
 ### Set log-encoding to the default encoding for log messages
 log-encoding = utf8
+
 ### Set use-commit-times to make checkout/update/switch/revert
 ### put last-committed timestamps on every file touched.
 use-commit-times = yes
+
 ### Set no-unlock to prevent 'svn commit' from automatically
 ### releasing locks on files.
 # no-unlock = yes
@@ -155,18 +157,3 @@ enable-auto-props = yes
 *.png = svn:mime-type=image/png
 *.jpe?g = svn:mime-type=image/jpeg
 *.gif = svn:mime-type=image/gif
-Thumbs.db = svn:ignore
-.DS_Store = svn:ignore
-._* = svn:ignore
-.git = svn:ignore
-
-#xcode
-**/*.pbxuser = svn:ignore
-*.mode1v3 = svn:ignore
-*.mode2v3 = svn:ignore
-*.perspective = svn:ignore
-*.perspectivev* = svn:ignore
-*.swp = svn:ignore
-*~.nib = svn:ignore
-build/ = svn:ignore
-xcuserdata = svn:ignore
