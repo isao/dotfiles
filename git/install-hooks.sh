@@ -6,7 +6,7 @@
 }
 
 #get full path to this dir
-hookdir=`(cd $(dirname $0) && pwd)`
+hookdir=`cd $(dirname $0) && pwd`
 
 #space delimited list of hook scripts relative to $hookdir
 hookfiles="post-commit"
