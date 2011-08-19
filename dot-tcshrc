@@ -2,6 +2,9 @@
 # env vars
 #
 set path=(/{,s}bin /usr/{,s,local/}bin)
+if(-d /opt/isao) then
+  set path=(/opt/isao $path)
+endif
 if(-d /opt/local) then
   set path=(/opt/local/{,s,apache2/}bin $path)
 endif
@@ -11,9 +14,6 @@ if(-d /opt/brew) then
     setenv GEM_HOME `ls /opt/brew/Cellar/gems | sort -n | head -1`
   endif
 endif
-if(-d /opt/isao) then
-  set path=(/opt/isao $path)
-endif
 
 setenv EDITOR `which bbedit..sh nano vim vi | grep '^/' | head -1`
 setenv CVS_RSH ssh
@@ -22,7 +22,9 @@ setenv GREP_OPTIONS '--binary-files=without-match'
 setenv LESS '--tabs=2 -iFMRX'
 setenv RSYNC_RSH $CVS_RSH
 
-if(-X node && -d /opt/brew/lib/node) setenv NODE_PATH /opt/brew/lib/node
+if(-X node && -d /opt/brew/lib/node) then
+	setenv NODE_PATH /opt/brew/lib/node:/opt/brew/lib/node_modules
+endif
 
 
 #
