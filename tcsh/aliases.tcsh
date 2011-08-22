@@ -1,13 +1,16 @@
 #
-# built-in syntax enhancements
+# built-ins
 #
 alias . pwd
 alias .. 'cd ..'
-alias cd.. 'cd ..'
 alias ls 'ls -F'
 alias ll '/bin/ls -lF \!*'
 alias lsd '/bin/ls -l \!* | grep ^d'  # ls dirs only
 alias ls. '/bin/ls -dF .?*'  # ls dot files & dirs only
+
+#freq typos
+alias cd.. 'cd ..'
+alias l ll
 
 
 #
@@ -15,22 +18,20 @@ alias ls. '/bin/ls -dF .?*'  # ls dot files & dirs only
 #
 alias = "python -c 'print \!*'"
 alias dict "curl -s 'dict://dict.org/d:\!*' | egrep -v '^[0-9]{3} .*|^\.'"
-alias e $EDITOR
 alias ip "ifconfig | grep 'inet '"
 alias man2txt 'man \!* | col -b'
 alias rmmacmeta "find \!* \( -name '.DS_Store' -or -name '._*' \) -exec rm -v \{\} \;"
 alias rot13 'perl -wne "tr/a-zA-Z/n-za-mN-ZA-M/;print;"'
 alias word 'grep \!* /usr/share/dict/words'
 
-# path
 alias showenv 'env | sort'
 alias showpath 'echo $PATH | tr : "\n"'
 alias checkpath 'ls -ld `echo $PATH | tr : "\n"`'
 
-# bf
-#alias irclog 'ssh isao@10.213.3.180 "tail \!* usx-fe.log"'
-#alias ircterm 'ssh -t isao@10.213.3.180 "screen -dr irc"'
-#alias pu '( cd /Users/isao/Repos/usx/tests && phpunit \!*)'
+#
+# app shortcuts
+#
+alias e $EDITOR
 
 if(-X icalBuddy) then
   alias icb "icalBuddy -f -b '' -df '%m %d' -tf '%H:%M' -eed -nc -npn -po datetime,title,location -eep notes,url -ps '|\t| |' eventsToday\!*"
@@ -45,9 +46,6 @@ if(-X osascript) then
   alias fcd 'cd `osascript ~/Repos/shell/misc-osx/findercwd.applescript`'
 endif
 
-#
-# other
-#
 if(-X svn) then
   alias ss 'svn status --quiet --ignore-externals \!*'
   alias ss? 'svn status \!* | grep ^\?'
