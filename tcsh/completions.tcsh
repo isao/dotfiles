@@ -65,3 +65,5 @@ endif
 if(-X nano) complete nano 'c/--/(autoindent backup help nowrap)/'
 
 if(-X svn) complete svn 'p/1/(add blame cat checkout cleanup commit copy delete diff export help import info list lock log merge mkdir move propdel propedit propget proplist propset resolved revert status switch unlock update)//' 'n/prop{del,edit,get,set}/(svn:executable svn:externals svn:ignore svn:keywords svn:mime-type)//' 'c/--/(quiet verbose username password)/'
+
+if(-X mojito) complete mojito 'p/1/(build compile create docs gv help info jslint start test version)/'
