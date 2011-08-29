@@ -23,7 +23,7 @@ setenv LESS '--tabs=2 -iFMRX'
 setenv RSYNC_RSH $CVS_RSH
 
 if(-X node && -d /opt/brew/lib/node) then
-	setenv NODE_PATH /opt/brew/lib/node:/opt/brew/lib/node_modules
+	setenv NODE_PATH /opt/brew/lib/node
 endif
 
 
