@@ -1,8 +1,9 @@
 set path=(/home/y/bin ~/bin $path)
 
 if(-X yssh) then
-  alias ssh yssh
-  alias scp yscp
+  alias ssh /usr/local/bin/yssh
+  alias scp /usr/local/bin/yscp
+  setenv GIT_SSH /usr/local/bin/yssh
 endif
 
 if(-X yinst) complete yinst 'p/1/(activate changed check check-config clean clone collect create crontab cvsunzip deactivate diff env fetch help history install lock ls man packages platform range reload remove repair restart restore save self-install self-update set ssh start stop tag unlock unset version which-dist)/' 'n/ls/(-all -build -Buildtime -comment -config -custodian -dependencies -description -files -dirs -Flags -install_info -leaf -link -nocollection -noname -noversion -prefix -sys -time -yicf)/' 'n/install/(-branch -collection -downgrade -dryrun -force -live -noactivate -nocheck_data -noexecute -nonewer_build -noprerequisites -norepair_data -nostart -noupgrade -refresh -refresh_branch -refresh_collection -refresh_same_branch -replace -same -set -use_restart)/' 'n/-branch/(current stable test)/' 'p/*/f:*.tgz/'
