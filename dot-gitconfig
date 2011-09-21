@@ -6,7 +6,7 @@
 	user = isao
 
 [core]
-  pager = less -S
+  pager = less
   ;works for git, not tig:
   ;  editor = bbedit --wait --resume
   excludesfile = ~/.gitignore
