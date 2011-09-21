@@ -1,2 +1,2 @@
-#remap ctrl-a to ctrl-s
+#remap ctrl-a to ctrl-g
 escape ^Gg
