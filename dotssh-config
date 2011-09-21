@@ -6,8 +6,11 @@ ServerAliveCountMax 3
 Host *.corp *.yahoo.com
   Protocol 2
 
+Host alloutside-lm.corp alloutside-lm.corp.yahoo.com
+	Port 20202
+	IdentityFile ~/.ssh/id_rsa_lm
+
 #persistent connections
 #Host *,!corp,!yahoo.com,!etherjar.com
 #	ControlPath ~/.ssh/master-%r@%h:%p
 #	ControlMaster auto
-
