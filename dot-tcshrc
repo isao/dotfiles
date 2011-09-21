@@ -2,14 +2,21 @@
 # env vars
 #
 set path=(/{,s}bin /usr/{,s,local/}bin)
+
 if(-d /opt/isao) then
   set path=(/opt/isao $path)
 endif
+
 if(-d /opt/local) then
   set path=(/opt/local/{,s,apache2/}bin $path)
 endif
+
 if(-d /opt/brew) then
   set path=(/opt/brew/{,s}bin $path)
+
+  if(-x /opt/brew/bin/node) then
+    setenv NODE_PATH /opt/brew/lib/node
+  endif
   if(-d /opt/brew/Cellar/gems) then
     setenv GEM_HOME `ls /opt/brew/Cellar/gems | sort -n | head -1`
   endif
@@ -21,10 +28,6 @@ setenv CVSIGNORE '.DS_Store,._?*,.FBC*,.#?*'
 setenv GREP_OPTIONS '--binary-files=without-match'
 setenv LESS '--tabs=2 -iFMRX'
 setenv RSYNC_RSH $CVS_RSH
-
-if(-X node && -d /opt/brew/lib/node) then
-	setenv NODE_PATH /opt/brew/lib/node
-endif
 
 
 #
