@@ -1,0 +1,2 @@
+#remap ctrl-a to ctrl-s
+escape ^Ss
