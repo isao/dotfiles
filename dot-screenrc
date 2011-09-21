@@ -1,2 +1,23 @@
 #remap ctrl-a to ctrl-g
 escape ^Gg
+
+#hostname, load, centered (ONLY # and name) tabs, date, and time.
+#Uses caption instead of hardstatus so tab-bar appears on every (split screen) region.
+#  alloutside-lm | 0.10 0.17 0.26 |            (0 tcsh)             | 18:49:16
+#caption always '%{= dg} %H %{G}| %{B}%l %{G}|%=%?%{d}%-w%?%{r}(%{d}%n %t%? {%u} %?%{r})%{d}%?%+w%?%=%{G}| %{B}%c:%s'
+
+#black bg colored text
+# [ alloutside-lm ][                 (0*tcsh)                  ][ 20/09 18:45 ]
+#hardstatus alwayslastline 
+#hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d/%m %{W}%c %{g}]'
+
+#black bg
+# 0* tcsh                                                              18:45:08
+#hardstatus alwayslastline 
+#hardstatus string '%{= kG}%-Lw%{= kW}%50> %n%f* %t%{= kG}%+Lw%< %{= kG}%-=%c:%s%{-}'
+caption always '%{= kG}%-Lw%{= kW}%50> %n%f* %t%{= kG}%+Lw%< %{= kG}%-=%c:%s%{-}'
+
+#blank & pink bg
+# 0* tcsh                                              Tue 20 Sep 2011 18:42:33
+#hardstatus alwayslastline 
+#hardstatus string '%{= mK}%-Lw%{= KW}%50>%n%f* %t%{= mK}%+Lw%< %{= kG}%-=%D %d %M %Y %c:%s%{-}'
