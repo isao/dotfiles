@@ -53,8 +53,9 @@ if(-X svn) then
 endif
 
 if(-X git) then
-  alias gs 'git status --short --untracked-files=no \!*'
-  alias gs? 'git status --short --untracked-files=normal \!* && git stash list'
+  alias gg 'git status --short --untracked-files=no \!*'
+  alias g? 'git status --short --untracked-files=normal \!* | grep ^\? && git stash list'
+  alias ggg 'git status --short \!*'
   alias gu 'git gui \!*'
   if(-X bbdiff) alias gd 'git difftool \!*'
 endif
