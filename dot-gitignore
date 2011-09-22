@@ -16,3 +16,6 @@ tags
 *~.nib
 build/
 xcuserdata
+
+#nodemon
+.monitor
