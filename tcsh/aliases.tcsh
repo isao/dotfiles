@@ -33,6 +33,8 @@ alias checkpath 'ls -ld `echo $PATH | tr : "\n"`'
 #
 alias e $EDITOR
 
+if(-X pbpaste) alias plaintext 'pbpaste -Prefer txt | pbcopy'
+
 if(-X icalBuddy) then
   alias icb "icalBuddy -f -b '' -df '%m %d' -tf '%H:%M' -eed -nc -npn -po datetime,title,location -eep notes,url -ps '|\t| |' eventsToday\!*"
   icb
