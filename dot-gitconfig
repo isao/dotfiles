@@ -3,7 +3,7 @@
   email = isao.yagi@gmail.com
 
 [github]
-	user = isao
+  user = isao
 
 [core]
   pager = less
