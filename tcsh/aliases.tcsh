@@ -31,7 +31,7 @@ alias checkpath 'ls -ld `echo $PATH | tr : "\n"`'
 #
 # app shortcuts
 #
-alias e $EDITOR
+alias e "$EDITOR \!*"
 
 if(-X pbpaste) alias plaintext 'pbpaste -Prefer txt | pbcopy'
 
