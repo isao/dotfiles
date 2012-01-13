@@ -1,3 +1,6 @@
+#make shift-pgup/pgdn work (doesn't work)
+#termcapinfo xterm ti@:te@
+
 #remap ctrl-a to ctrl-g
 escape ^Gg
 

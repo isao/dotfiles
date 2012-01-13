@@ -37,7 +37,7 @@ if(-X pbpaste) alias plaintext 'pbpaste -Prefer txt | pbcopy'
 
 if(-X icalBuddy) then
   alias icb "icalBuddy -f -b '' -df '%m %d' -tf '%H:%M' -eed -nc -npn -po datetime,title,location -eep notes,url -ps '|\t| |' eventsToday\!*"
-  icb
+  #icb
 endif
 
 # http://episteme.arstechnica.com/eve/forums/a/tpc/f/8300945231/m/284004131041
