@@ -12,17 +12,17 @@ if(-d /opt/local) set path=(/opt/local/{,s,apache2/}bin $path)
 #homebrew
 if(-d /opt/brew) then
   #node/npm
-  if(-x /opt/brew/bin/node) then
-    setenv NODE_PATH /opt/brew/lib/node
-    set path=(`/bin/ls -d /opt/brew/Cellar/node/* |sort -n |tail -1`/bin $path)
-  endif
-  set path=(/opt/brew/{,s}bin $path)
+  #if(-x /opt/brew/bin/node) then
+  #  setenv NODE_PATH /opt/brew/lib/node
+  #  set path=(`/bin/ls -d /opt/brew/Cellar/node/* |sort -n |tail -1`/bin $path)
+  #endif
+  set path=(/opt/brew/bin $path)
 endif
 
 setenv EDITOR `which bbedit..sh nano vim vi | grep '^/' | head -1`
 setenv CVS_RSH ssh
 setenv CVSIGNORE '.DS_Store,._?*,.FBC*,.#?*'
-#setenv GREP_OPTIONS '--binary-files=without-match'
+#setenv GREP_OPTIONS '--binary-files=without-match' <- brew doctor says no
 setenv LESS '--tabs=2 -iFMRX'
 setenv RSYNC_RSH $CVS_RSH
 
