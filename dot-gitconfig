@@ -10,7 +10,7 @@
   ;works for git, not tig:
   ;  editor = bbedit --wait --resume
   excludesfile = ~/.gitignore
-  quotepath = false
+	quotepath = false
 
 [color]
   ;colorize output on console
@@ -46,6 +46,7 @@
   pub = !"for i in `/bin/ls .git/refs/remotes`; do echo $i...; git push $i; done"
   pull-rebase-no-ff = pull --rebase --no-ff
   ln = log --no-merges --name-status --decorate
+  lg = !git log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative $(git stash list --format=%h)
 
 [tig]
   author-width = 3
