@@ -49,14 +49,14 @@ if(-X osascript) then
 endif
 
 if(-X svn) then
-  alias ss 'svn status --quiet --ignore-externals \!*'
-  alias ss? 'svn status \!* | grep ^\?'
-  alias ss?? "svn status --no-ignore \!* |egrep '^[?IX]'"
+  alias s 'svn status --quiet --ignore-externals \!*'
+  alias ss 'svn status \!* | grep ^\?'
+  alias sss "svn status --no-ignore \!* |egrep '^[?IX]'"
 endif
 
 if(-X git) then
-  alias gg 'git status --short --untracked-files=no \!*'
-  alias g? 'git status --short --untracked-files=normal \!* | grep ^\? && git stash list'
+  alias g 'git status --short --untracked-files=no \!*'
+  alias gg 'git status --short --untracked-files=normal \!* | grep ^\? && git stash list'
   alias ggg 'git status --short \!*'
   alias gu 'git gui \!*'
   if(-X bbdiff) alias gd 'git difftool \!*'
