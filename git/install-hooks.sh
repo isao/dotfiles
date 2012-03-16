@@ -3,8 +3,6 @@
 #git repo dirs
 destdirs=${@:-.}
 
-#echo $destdirs;exit
-
 #get full path to this dir
 hookdir=`cd $(dirname $0) && pwd`
 
