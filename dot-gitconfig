@@ -9,8 +9,8 @@
   pager = less
   ;works for git, not tig:
   ;  editor = bbedit --wait --resume
-  excludesfile = ~/.gitignore
-	quotepath = false
+  excludesfile = /Users/isao/.gitignore
+  quotepath = false
 
 [color]
   ;colorize output on console
@@ -79,3 +79,11 @@
 
   ;open in gitx
   generic = ^x !gitx -- %(file)
+
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path =
+
+[mergetool "sourcetree"]
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
