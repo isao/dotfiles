@@ -44,20 +44,23 @@ endif
 # view man page as a PDF
 if(-x /Applications/Preview.app) alias man2pdf 'man -t \!* | open -f -a /Applications/Preview.app'
 
+#cd to finder cwd
 if(-X osascript) then
   alias fcd 'cd `osascript ~/Repos/shell/misc-osx/findercwd.applescript`'
 endif
 
+#quick svn statuses
 if(-X svn) then
-  alias s 'svn status --quiet --ignore-externals \!*'
-  alias ss 'svn status \!* | grep ^\?'
+  alias ss  'svn status --quiet --ignore-externals \!*'
+  alias ss? 'svn status \!* | grep ^\?'
   alias sss "svn status --no-ignore \!* |egrep '^[?IX]'"
 endif
 
+#quick git statuses
 if(-X git) then
-  alias g 'git status --short --untracked-files=no \!*'
-  alias gg 'git status --short --untracked-files=normal \!* | grep ^\? && git stash list'
-  alias ggg 'git status --short \!*'
-  alias gu 'git gui \!*'
+  alias gu  'git gui \!*'
   if(-X bbdiff) alias gd 'git difftool \!*'
+  alias gg  'git status --short --untracked-files=no \!*'
+  alias gg? 'git status --short --untracked-files=normal \!* | grep ^\? && git stash list'
+  alias ggg 'git status --short \!*'
 endif
