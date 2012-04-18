@@ -1,2 +1,4 @@
 etherjar.com
-paintcorner.corp
+paintcorner.corp.yahoo.com
+dev4.mobile.corp.sp1.yahoo.com
+pprf1-node1-lh2.manhattan.bf1.yahoo.com
