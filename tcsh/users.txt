@@ -1,5 +1,0 @@
-apache
-isao
-root
-users
-wheel
