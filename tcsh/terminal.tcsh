@@ -59,7 +59,10 @@ switch ($TERM)
 		# %#          promptchars shell var; '#', '>', or '%', etc.
 		# %L          clear to eol or eop
 		# !#          history substution of current event
-		set prompt = '%{\033]0;%n@%m:%c03\007%}%T%n%# %L'
+		#set prompt = '%{\033]0;%n@%m:%c03\007%}%T%n%# %L'
+		setenv VCS 'sh -c "(test -d .svn && echo ..svn || git branch --no-color 2> /dev/null) | cut -c3-33"'
+		sched +0:00 alias precmd 'set prompt="%{\033]0;%n@%m:%c03\007%}%T%n%B`$VCS`%b%# "'
+
 		# currently running command(s)
 		sched +0:00 alias postcmd 'printf "\033]0;%s %s\007" `hostname -s` "\!#"'
     breaksw
