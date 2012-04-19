@@ -62,7 +62,7 @@ switch ($TERM)
     #set prompt = '%{\033]0;%n@%m:%c03\007%}%T%n%# %L'
 
     # if cwd is is git, $VCS is the branch name, if svn it's "svn"
-    setenv VCS 'sh -c "(test -d .svn && echo ..svn || git branch --no-color 2> /dev/null) | cut -c3-33"'
+    setenv VCS 'sh -c "test -d .svn && echo svn || git branch 2>/dev/null |grep ^\* |cut -c3-33"'
 
     # set window title to host:path; set prompt to time+user+$VCS
     sched +0:00 alias precmd 'set prompt="%{\033]0;%n@%m:%c03\007%}%T%n%B`$VCS`%b%# "'
