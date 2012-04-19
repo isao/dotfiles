@@ -50,21 +50,25 @@ set ellipsis
 switch ($TERM)
   case "xterm*":
 
-		# %{string%}  includes string as a literal escape sequence
-		# %n          user name
-		# %m          short hostname
-		# %c3         last 3 dirs of cwd w/ ~ substitution
-		# %~          cwd w/ ~ substition
-		# %T          24-hour time
-		# %#          promptchars shell var; '#', '>', or '%', etc.
-		# %L          clear to eol or eop
-		# !#          history substution of current event
-		#set prompt = '%{\033]0;%n@%m:%c03\007%}%T%n%# %L'
-		setenv VCS 'sh -c "(test -d .svn && echo ..svn || git branch --no-color 2> /dev/null) | cut -c3-33"'
-		sched +0:00 alias precmd 'set prompt="%{\033]0;%n@%m:%c03\007%}%T%n%B`$VCS`%b%# "'
+    # %{string%}  includes string as a literal escape sequence
+    # %n          user name
+    # %m          short hostname
+    # %c3         last 3 dirs of cwd w/ ~ substitution
+    # %~          cwd w/ ~ substition
+    # %T          24-hour time
+    # %#          promptchars shell var; '#', '>', or '%', etc.
+    # %L          clear to eol or eop
+    # !#          history substution of current event
+    #set prompt = '%{\033]0;%n@%m:%c03\007%}%T%n%# %L'
 
-		# currently running command(s)
-		sched +0:00 alias postcmd 'printf "\033]0;%s %s\007" `hostname -s` "\!#"'
+    # if cwd is is git, $VCS is the branch name, if svn it's "svn"
+    setenv VCS 'sh -c "(test -d .svn && echo ..svn || git branch --no-color 2> /dev/null) | cut -c3-33"'
+
+    # set window title to host:path; set prompt to time+user+$VCS
+    sched +0:00 alias precmd 'set prompt="%{\033]0;%n@%m:%c03\007%}%T%n%B`$VCS`%b%# "'
+
+    # display currently running command(s) in window title
+    sched +0:00 alias postcmd 'printf "\033]0;%s %s\007" `hostname -s` "\!#"'
     breaksw
 
   default:
