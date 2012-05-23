@@ -33,12 +33,13 @@ alias checkpath 'ls -ld `echo $PATH | tr : "\n"`'
 #
 alias e "$EDITOR \!*"
 
+#remove style from any text on the clipboard
 if(-X pbpaste) alias plaintext 'pbpaste -Prefer txt | pbcopy'
 
-if(-X icalBuddy) then
-  alias icb "icalBuddy -f -b '' -df '%m %d' -tf '%H:%M' -eed -nc -npn -po datetime,title,location -eep notes,url -ps '|\t| |' eventsToday\!*"
-  #icb
-endif
+# if(-X icalBuddy) then
+#   alias icb "icalBuddy -f -b '' -df '%m %d' -tf '%H:%M' -eed -nc -npn -po datetime,title,location -eep notes,url -ps '|\t| |' eventsToday\!*"
+#   #icb
+# endif
 
 # http://episteme.arstechnica.com/eve/forums/a/tpc/f/8300945231/m/284004131041
 # view man page as a PDF
@@ -53,7 +54,7 @@ endif
 if(-X svn) then
   alias ss  'svn status --quiet --ignore-externals \!*'
   alias ss? 'svn status \!* | grep ^\?'
-  alias sss "svn status --no-ignore \!* |egrep '^[?IX]'"
+  alias sss "svn status --no-ignore \!*"
 endif
 
 #quick git statuses
@@ -62,5 +63,5 @@ if(-X git) then
   if(-X bbdiff) alias gd 'git difftool \!*'
   alias gg  'git status --short --untracked-files=no \!*'
   alias gg? 'git status --short --untracked-files=normal \!* | grep ^\? && git stash list'
-  alias ggg 'git status --short \!*'
+  alias ggg 'git status --short --ignored \!* && git stash list'
 endif
