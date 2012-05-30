@@ -9,8 +9,6 @@ bindkey -k up   history-search-backward
 bindkey "^w"    delete-word
 bindkey "^[[3~" delete-char
 
-# flags #
-
 # completions, corrections
 # correct options are all | cmd | complete
 set implicitcd
@@ -46,32 +44,23 @@ set notify
 set noding
 set ellipsis
 
-# prompt, xterm title
-switch ($TERM)
-  case "xterm*":
+# if cwd is is git, $VCS is the branch name, if svn it's "svn"
+setenv PROMPT_VCS 'sh -c "test -d .svn && echo svn || git branch 2>/dev/null |grep ^\* |cut -c3-33"'
 
-    # %{string%}  includes string as a literal escape sequence
-    # %n          user name
-    # %m          short hostname
-    # %c3         last 3 dirs of cwd w/ ~ substitution
-    # %~          cwd w/ ~ substition
-    # %T          24-hour time
-    # %#          promptchars shell var; '#', '>', or '%', etc.
-    # %L          clear to eol or eop
-    # !#          history substution of current event
-    #set prompt = '%{\033]0;%n@%m:%c03\007%}%T%n%# %L'
+# set window title to host:path; set prompt to time+user+$VCS
+sched +0:00 alias precmd 'set prompt="%{\033]0;%n@%m:%c03\007%}%T%n%B`$PROMPT_VCS`%b%# "'
 
-    # if cwd is is git, $VCS is the branch name, if svn it's "svn"
-    setenv VCS 'sh -c "test -d .svn && echo svn || git branch 2>/dev/null |grep ^\* |cut -c3-33"'
+# display currently running command(s) in window title
+sched +0:00 alias postcmd 'printf "\033]0;%s %s\007" `hostname -s` "\!#"'
 
-    # set window title to host:path; set prompt to time+user+$VCS
-    sched +0:00 alias precmd 'set prompt="%{\033]0;%n@%m:%c03\007%}%T%n%B`$VCS`%b%# "'
-
-    # display currently running command(s) in window title
-    sched +0:00 alias postcmd 'printf "\033]0;%s %s\007" `hostname -s` "\!#"'
-    breaksw
-
-  default:
-    set prompt = '%T%n@%m:%c2%# '
-    breaksw
-endsw
+# %{string%}  includes string as a literal escape sequence
+# %n          user name
+# %m          short hostname
+# %c3         last 3 dirs of cwd w/ ~ substitution
+# %~          cwd w/ ~ substition
+# %T          24-hour time
+# %#          promptchars shell var; '#', '>', or '%', etc.
+# %L          clear to eol or eop
+# !#          history substution of current event
+#set prompt = '%{\033]0;%n@%m:%c03\007%}%T%n%# %L'
+#set prompt = '%T%n@%m:%c2%# '
