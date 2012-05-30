@@ -44,11 +44,11 @@ set notify
 set noding
 set ellipsis
 
-# if cwd is is git, $VCS is the branch name, if svn it's "svn"
+# if cwd is git, $VCS is the branch name, if svn it's "svn", else empty
 setenv PROMPT_VCS 'sh -c "test -d .svn && echo svn || git branch 2>/dev/null |grep ^\* |cut -c3-33"'
 
 # set window title to host:path; set prompt to time+user+$VCS
-sched +0:00 alias precmd 'set prompt="%{\033]0;%n@%m:%c03\007%}%T%n%B`$PROMPT_VCS`%b%# "'
+sched +0:00 alias precmd 'set prompt="%{\033]0;%n@%m:%c03\007%}%T%n%{\033[34m%}`$PROMPT_VCS`%{\033[0m%}%# "'
 
 # display currently running command(s) in window title
 sched +0:00 alias postcmd 'printf "\033]0;%s %s\007" `hostname -s` "\!#"'
@@ -64,3 +64,15 @@ sched +0:00 alias postcmd 'printf "\033]0;%s %s\007" `hostname -s` "\!#"'
 # !#          history substution of current event
 #set prompt = '%{\033]0;%n@%m:%c03\007%}%T%n%# %L'
 #set prompt = '%T%n@%m:%c2%# '
+
+# http://www.nparikh.org/unix/prompt.php
+# %{\033[31m%} color start 31 is color code
+# %{\033[0m%}  color end
+# 30 - black
+# 31 - red
+# 32 - green
+# 33 - yellow
+# 34 - blue
+# 35 - magenta
+# 36 - cyan
+# 37 - white
