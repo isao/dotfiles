@@ -22,7 +22,4 @@ if(-d /home/y/bin) then
     set histfile = ~/.history-$HOST-$YROOT_NAME
   endif
 
-else
-  setenv YROOT_NAME ''
-  set histfile = ~/.history-$HOST
 endif
