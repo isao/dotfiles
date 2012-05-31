@@ -12,7 +12,7 @@ bindkey "^[[3~" delete-char
 # completions, corrections
 # correct options are all | cmd | complete
 set implicitcd
-set correct = cmd
+set correct = all
 set complete = enhance
 set autolist
 
@@ -25,7 +25,6 @@ set colorcat
 set history = 10000
 set savehist = (10000 merge)
 set histdup = 'prev'
-set histfile = ~/.history-$HOST
 
 # ls
 set listflags = 'hx'
@@ -45,10 +44,10 @@ set noding
 set ellipsis
 
 # if cwd is git, $VCS is the branch name, if svn it's "svn", else empty
-setenv PROMPT_VCS 'sh -c "test -d .svn && echo svn || git branch 2>/dev/null |grep ^\* |cut -c3-33"'
+set _promptvcs = 'sh -c "test -d .svn && echo svn || git branch 2>/dev/null |grep ^\* |cut -c3-33"'
 
 # set window title to host:path; set prompt to time+user+$VCS
-sched +0:00 alias precmd 'set prompt="%{\033]0;%n@%m:%c03\007%}%T%n%{\033[34m%}`$PROMPT_VCS`%{\033[0m%}%# "'
+sched +0:00 alias precmd 'set prompt="%{\033]0;%n@%m:%c03\007%}%T%n%{\033[34m%}`$_promptvcs`%{\033[0m%}%B${YROOT_NAME}%b%# "'
 
 # display currently running command(s) in window title
 sched +0:00 alias postcmd 'printf "\033]0;%s %s\007" `hostname -s` "\!#"'

@@ -31,13 +31,13 @@ if($?USER && $?prompt && -l $HOME/.tcshrc) then
   #source <somedir>/tcsh/*.tcsh
   set _mysrcs = `readlink $HOME/.tcshrc`
   set _mysrcs = $_mysrcs:h/tcsh
-  source $_mysrcs/terminal.tcsh
-
-  #do this after terminal to override prompt; before completions/aliases for $path
-  if(-d /home/y/bin) source $_mysrcs/y.tcsh
 
   source $_mysrcs/aliases.tcsh
   source $_mysrcs/completions.tcsh
+
+  source $_mysrcs/y.tcsh
+  source $_mysrcs/terminal.tcsh
+
   unset $_mysrcs
 endif
 
