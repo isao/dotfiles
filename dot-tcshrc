@@ -20,7 +20,6 @@ endif
 setenv EDITOR `which bbedit..sh nano vim vi | grep '^/' | head -1`
 setenv CVS_RSH ssh
 setenv CVSIGNORE '.DS_Store,._?*,.FBC*,.#?*'
-#setenv GREP_OPTIONS '--binary-files=without-match' <- brew doctor says no
 setenv LESS '--tabs=2 -iFMRX'
 setenv RSYNC_RSH $CVS_RSH
 
