@@ -16,7 +16,7 @@ if(-d /home/y/bin) then
   #set yroot name if applicable
   if(-l /.yroot) then
     setenv YROOT_NAME `readlink /.yroot`
-    setenv YROOT_NAME $YROOT_NAME:h
+    setenv YROOT_NAME $YROOT_NAME:t
     #keep separate histories for my *nix boxes & yroots
     #because they share a single home dir nfs mounted
     set histfile = ~/.history-$HOST-$YROOT_NAME
