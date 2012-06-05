@@ -51,7 +51,7 @@
 [tig]
 	author-width = 3
 	horizontal-scroll = 25%
-	line-graphics = utf8
+	line-graphics = utf-8
 	show-refs = yes
 	show-rev-graph = yes
 	tab-size = 2
