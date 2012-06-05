@@ -12,7 +12,7 @@ bindkey "^[[3~" delete-char
 # completions, corrections
 # correct options are all | cmd | complete
 set implicitcd
-set correct = all
+set correct = cmd
 set complete = enhance
 set autolist
 
@@ -44,7 +44,7 @@ set notify
 set noding
 set ellipsis
 
-# if cwd is git, $VCS is the branch name, if svn it's "svn", else empty
+# cmd to get git branch name, or "svn", or nothing
 set _promptvcs = 'sh -c "test -d .svn && echo svn || git branch 2>/dev/null |grep ^\* |cut -c3-33"'
 
 # see ./y.tcsh
