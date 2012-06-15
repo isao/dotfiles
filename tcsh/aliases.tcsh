@@ -46,9 +46,8 @@ if(-X pbpaste) alias plaintext 'pbpaste -Prefer txt | pbcopy'
 if(-x /Applications/Preview.app) alias man2pdf 'man -t \!* | open -f -a /Applications/Preview.app'
 
 #cd to finder cwd
-if(-X osascript) then
-  alias fcd 'cd `osascript ~/Repos/shell/misc-osx/findercwd.applescript`'
-endif
+if(-X osascript && -f ~/Repos/1st/shell/misc-osx/findercwd.applescript) \
+  alias fcwd 'cd `osascript ~/Repos/1st/shell/misc-osx/findercwd.applescript`'
 
 #quick svn statuses
 if(-X svn) then
