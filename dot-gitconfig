@@ -2,9 +2,6 @@
 	name = Isao Yagi
 	email = isao@yahoo-inc.com
 
-[github]
-	user = isao
-
 [core]
 	pager = less
 	;works for git, not tig:
