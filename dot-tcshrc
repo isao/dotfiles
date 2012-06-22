@@ -18,11 +18,9 @@ if(-d /opt/brew) then
   endif
 endif
 
-setenv EDITOR `which bbedit..sh nano vim vi | grep '^/' | head -1`
-setenv CVS_RSH ssh
-setenv CVSIGNORE '.DS_Store,._?*,.FBC*,.#?*'
+setenv EDITOR `which bbedit..sh bbedit nano vim vi |grep ^/ |head -1`
 setenv LESS '--tabs=2 -iFMRX'
-setenv RSYNC_RSH $CVS_RSH
+setenv RSYNC_RSH ssh
 
 #
 # shell interactivity
@@ -35,11 +33,10 @@ if($?USER && $?prompt && -l $HOME/.tcshrc) then
 
   source $_mysrcs/aliases.tcsh
   source $_mysrcs/completions.tcsh
-
   source $_mysrcs/y.tcsh
   source $_mysrcs/terminal.tcsh
 
-  unset $_mysrcs
+  unset _mysrcs
 endif
 
 # see also
