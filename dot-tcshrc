@@ -12,11 +12,10 @@ if(-d /opt/isao) set path=(/opt/isao $path)
 #homebrew
 if(-d /opt/brew) then
   set path=(/opt/brew/bin $path)
-  if(-x /opt/brew/bin/node) then
-    setenv NODE_PATH /opt/brew/lib/node_modules
-    set path=(node_modules/.bin $path)
-  endif
+  if(-x /opt/brew/bin/node) setenv NODE_PATH /opt/brew/lib/node_modules
 endif
+
+if(-X node) set path=(node_modules/.bin $path)
 
 setenv EDITOR `which bbedit..sh bbedit nano vim vi |grep ^/ |head -1`
 setenv LESS '--tabs=2 -iFMRX'
