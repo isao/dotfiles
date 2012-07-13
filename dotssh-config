@@ -1,16 +1,30 @@
-#this file goes in ~/.ssh/config see `man ssh_config`
-
-ServerAliveInterval 300
+ServerAliveInterval 600
 ServerAliveCountMax 3
 
-Host *.corp *.yahoo.com
+# `man ssh_config`
+# http://twiki.corp.yahoo.com/view/Devel/WorkingRemotely
+# http://twiki.corp.yahoo.com/view/YUI/YUISSH
+
+Host *.corp*.yahoo.com *.corp.yahoo-inc.com html*.yahoo.com *.data.yahoo.com devel.yahoo.com produce.yahoo.com vault.yahoo.com
   Protocol 2
+  Compression yes
+  Cipher blowfish
+  ForwardAgent yes
 
-Host alloutside-lm.corp alloutside-lm.corp.yahoo.com
-	Port 20202
-	IdentityFile ~/.ssh/id_rsa_lm
+  #tunnel/proxy
+  ControlMaster auto
+  ControlPath /tmp/ssh-ycorp-%h-%r-%p
+  ProxyCommand proxy.sh %h %p
 
+Host work
+  HostName proxy.corp.yahoo.com
+  DynamicForward 9080
+  LocalForward 1080 socks.yahoo.com:1080
+
+#Host alloutside-lm.corp alloutside-lm.corp.yahoo.com
+# Port 20202
+# IdentityFile ~/.ssh/id_rsa_lm
 #persistent connections
 #Host *,!corp,!yahoo.com,!etherjar.com
-#	ControlPath ~/.ssh/master-%r@%h:%p
-#	ControlMaster auto
+# ControlPath ~/.ssh/master-%r@%h:%p
+# ControlMaster auto
