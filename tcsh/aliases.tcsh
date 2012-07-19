@@ -33,21 +33,19 @@ alias checkpath 'ls -ld `echo $PATH | tr : "\n"`'
 #
 alias e "$EDITOR \!*"
 
-#remove style from any text on the clipboard
-if(-X pbpaste) alias plaintext 'pbpaste -Prefer txt | pbcopy'
+#osx
+if($?OSTYPE && $OSTYPE == 'darwin') then
+    #remove style from any text on the clipboard
+    alias plaintext 'pbpaste -Prefer txt | pbcopy'
 
-# if(-X icalBuddy) then
-#   alias icb "icalBuddy -f -b '' -df '%m %d' -tf '%H:%M' -eed -nc -npn -po datetime,title,location -eep notes,url -ps '|\t| |' eventsToday\!*"
-#   #icb
-# endif
+    # http://episteme.arstechnica.com/eve/forums/a/tpc/f/8300945231/m/284004131041
+    # view man page as a PDF
+    alias man2pdf 'man -t \!* | open -f -a /Applications/Preview.app'
 
-# http://episteme.arstechnica.com/eve/forums/a/tpc/f/8300945231/m/284004131041
-# view man page as a PDF
-if(-x /Applications/Preview.app) alias man2pdf 'man -t \!* | open -f -a /Applications/Preview.app'
-
-#cd to finder cwd
-if(-X osascript && -f ~/Repos/1st/shell/misc-osx/findercwd.applescript) \
-  alias fcwd 'cd `osascript ~/Repos/1st/shell/misc-osx/findercwd.applescript`'
+    #cd to finder cwd
+    if(-f ~/Repos/1st/shell/misc-osx/findercwd.applescript) \
+        alias fcwd 'cd `osascript ~/Repos/1st/shell/misc-osx/findercwd.applescript`'
+endif
 
 #quick svn statuses
 if(-X svn) then
