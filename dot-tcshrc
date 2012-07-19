@@ -1,38 +1,33 @@
 #
-# env vars
+#   env vars
 #
 set path=(/{,s}bin /usr/{,s,local/}bin)
 
-#my scripts
+# my scripts
 if(-d /opt/isao) set path=(/opt/isao $path)
 
-#macports
-#if(-d /opt/local) set path=(/opt/local/{,s,apache2/}bin $path)
-
-#homebrew
+# homebrew
 if(-d /opt/brew) then
   set path=(/opt/brew/bin $path)
-  if(-x /opt/brew/bin/node) setenv NODE_PATH /opt/brew/lib/node_modules
 endif
-
-if(-X node) set path=(node_modules/.bin $path)
 
 setenv EDITOR `which bbedit..sh bbedit nano vim vi |grep ^/ |head -1`
 setenv LESS '--tabs=2 -iFMRX'
 setenv RSYNC_RSH ssh
 
 #
-# shell interactivity
+#   shell interactivity
 #
 if($?USER && $?prompt && -l $HOME/.tcshrc) then
   #this file is a symlink from ~/.tcshrc to <somedir>/dot-tcsrc
   #source <somedir>/tcsh/*.tcsh
-  set _dir_ = `readlink $HOME/.tcshrc`
-  source $_dir_:h/tcsh/aliases.tcsh
-  source $_dir_:h/tcsh/completions.tcsh
-  source $_dir_:h/tcsh/y.tcsh
-  source $_dir_:h/tcsh/terminal.tcsh
-  unset _dir_
+  set dotfiles = `readlink $HOME/.tcshrc`
+  set dotfiles = $dotfiles:h
+  source $dotfiles/tcsh/aliases.tcsh
+  source $dotfiles/tcsh/node.tcsh
+  source $dotfiles/tcsh/y.tcsh
+  source $dotfiles/tcsh/completions.tcsh
+  source $dotfiles/tcsh/terminal.tcsh
 endif
 
 # see also
