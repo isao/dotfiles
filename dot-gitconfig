@@ -23,8 +23,8 @@
 [alias]
 	pub = !"for i in `/bin/ls .git/refs/remotes`; do echo $i...; git push $i; done"
 	pull-rebase-no-ff = pull --rebase --no-ff
-	ln = log --no-merges --name-status --decorate
-	lg = !git log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative $(git stash list --format=%h)
+	lf = log --no-merges --name-status
+	lg = log --no-merges --graph --format='%t %s (%aN)'
 
 [github]
 	user = isao
