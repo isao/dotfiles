@@ -1,3 +1,5 @@
+alias paint 'ssh -t paintcorner.corp.yahoo.com "screen -dUR paint"'
+
 if(-d /home/y) then
 
   set path = (/home/y/bin ~/bin $path)
