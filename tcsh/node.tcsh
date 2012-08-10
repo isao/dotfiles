@@ -4,7 +4,7 @@ if(-X node) then
 
   set path=(node_modules/.bin $path)
 
-  alias npmls 'npm ls \!* | egrep ^├ | colrm 1 4'
+  alias npmls 'npm ls --loglevel error \!* | egrep ^├ | colrm 1 4'
   alias npmy 'npm --registry=http://ynpm-registry.corp.yahoo.com:4080'
   alias npmp 'npm --registry=http://localhost:4080'
 

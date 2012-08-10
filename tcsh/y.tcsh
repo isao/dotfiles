@@ -4,8 +4,7 @@ if(-d /home/y) then
 
   set path = (/home/y/bin ~/bin $path)
 
-  alias npmjsorg 'ynpm --registry=https://registry.npmjs.org'
-
+  alias npm 'ynpm --registry=https://registry.npmjs.org'
   alias ssh /usr/local/bin/yssh
   alias scp /usr/local/bin/yscp
 
