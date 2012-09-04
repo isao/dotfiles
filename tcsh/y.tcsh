@@ -9,7 +9,8 @@ if(-d /home/y) then
   alias scp /usr/local/bin/yscp
 
   setenv GIT_SSH /usr/local/bin/yssh
-  set SVNROOT = 'svn+ssh://svn.corp.yahoo.com/yahoo'
+  set SVNY = 'svn+ssh://svn.corp.yahoo.com/yahoo'
+  set SVNYMIRROR = 'svn+ssh://svn-mirror.corp.yahoo.com/yahoo'
 
   #set yroot name if applicable
   if(-l /.yroot) then
