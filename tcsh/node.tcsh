@@ -1,8 +1,6 @@
 if(-X node) then
 
-  if(-x /opt/brew/bin/node) setenv NODE_PATH /opt/brew/lib/node_modules
-
-  set path=(node_modules/.bin $path)
+  set path=($path node_modules/.bin /usr/local/share/npm/bin)
 
   alias npmls 'npm ls --loglevel error \!* | egrep ^.─ | colrm 1 4'
   alias npmy 'npm --registry=http://ynpm-registry.corp.yahoo.com:4080'
