@@ -45,6 +45,9 @@ if($?OSTYPE && $OSTYPE == 'darwin') then
     #cd to finder cwd
     if(-f ~/Repos/1st/shell/misc-osx/findercwd.applescript) \
         alias fcwd 'cd `osascript ~/Repos/1st/shell/misc-osx/findercwd.applescript`'
+
+    alias gitbox 'open -a Gitbox \!*'
+
 endif
 
 #quick svn statuses
