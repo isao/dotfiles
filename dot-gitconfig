@@ -20,6 +20,10 @@
 [web]
 	browser = elinks
 
+[credential]
+	;for https git uris w/ auth
+	helper = osxkeychain
+
 [alias]
 	pub = !"for i in `/bin/ls .git/refs/remotes`; do echo $i...; git push $i; done"
 	pull-rebase-no-ff = pull --rebase --no-ff
