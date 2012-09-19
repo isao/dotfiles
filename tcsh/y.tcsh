@@ -1,5 +1,8 @@
 alias paint 'ssh -t paintcorner.corp.yahoo.com "screen -dUR paint"'
 
+set SVNY = 'svn+ssh://svn.corp.yahoo.com/yahoo'
+set SVNYMIRROR = 'svn+ssh://svn-mirror.corp.yahoo.com/yahoo'
+
 if(-d /home/y) then
 
   set path = (/home/y/bin ~/bin $path)
@@ -9,8 +12,6 @@ if(-d /home/y) then
   alias scp /usr/local/bin/yscp
 
   setenv GIT_SSH /usr/local/bin/yssh
-  set SVNY = 'svn+ssh://svn.corp.yahoo.com/yahoo'
-  set SVNYMIRROR = 'svn+ssh://svn-mirror.corp.yahoo.com/yahoo'
 
   #set yroot name if applicable
   if(-l /.yroot) then
