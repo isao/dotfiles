@@ -25,7 +25,7 @@
 	helper = osxkeychain
 
 [alias]
-	pub = !"for i in `/bin/ls .git/refs/remotes`; do echo $i...; git push $i; done"
+	pub = !"for i in `git remote`; do echo $i...; git push $i; done"
 	pull-rebase-no-ff = pull --rebase --no-ff
 	lf = log --no-merges --name-status
 	lg = log --no-merges --graph --format='%h %s (%aN)'
