@@ -61,7 +61,6 @@ endif
 if(-X git) then
   alias gu  'git gui \!*'
   if(-X bbdiff) alias gd 'git difftool \!*'
-  alias gg  'git status --short --untracked-files=no \!*'
-  alias gg? 'git status --short --untracked-files=normal \!* | grep ^\? && git stash list'
+  alias gg  'git status --short \!*'
   alias ggg 'git status --short --ignored \!* && git stash list'
 endif

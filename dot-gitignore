@@ -5,7 +5,7 @@
 *~
 CVS
 tags
-
+artifacts
 #xcode
 **/*.pbxuser
 *.mode1v3
@@ -14,8 +14,4 @@ tags
 *.perspectivev*
 *.swp
 *~.nib
-build/
 xcuserdata
-
-#nodemon
-.monitor

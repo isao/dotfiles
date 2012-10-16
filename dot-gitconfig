@@ -6,6 +6,7 @@
 	pager = less
 	;works for git, not tig:
 	; editor = bbedit --wait --resume
+	editor = bbedit..sh
 	excludesfile = /Users/isao/.gitignore
 	quotepath = false
 
