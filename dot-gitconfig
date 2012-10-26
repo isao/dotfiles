@@ -18,6 +18,9 @@
 	;use all cpu cores
 	threads = 0
 
+[push]
+	default = current
+
 [web]
 	browser = elinks
 
