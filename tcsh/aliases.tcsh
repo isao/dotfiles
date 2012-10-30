@@ -35,18 +35,18 @@ alias e "$EDITOR \!*"
 
 #osx
 if($?OSTYPE && $OSTYPE == 'darwin') then
-    #remove style from any text on the clipboard
-    alias plaintext 'pbpaste -Prefer txt | pbcopy'
+  #remove style from any text on the clipboard
+  alias plaintext 'pbpaste -Prefer txt | pbcopy'
 
-    # http://episteme.arstechnica.com/eve/forums/a/tpc/f/8300945231/m/284004131041
-    # view man page as a PDF
-    alias man2pdf 'man -t \!* | open -f -a /Applications/Preview.app'
+  # http://episteme.arstechnica.com/eve/forums/a/tpc/f/8300945231/m/284004131041
+  # view man page as a PDF
+  alias man2pdf 'man -t \!* | open -f -a /Applications/Preview.app'
 
-    #cd to finder cwd
-    if(-f ~/Repos/1st/shell/misc-osx/findercwd.applescript) \
-        alias fcwd 'cd `osascript ~/Repos/1st/shell/misc-osx/findercwd.applescript`'
+  #cd to finder cwd
+  if(-f ~/Repos/1st/shell/misc-osx/findercwd.applescript) \
+      alias fcwd 'cd `osascript ~/Repos/1st/shell/misc-osx/findercwd.applescript`'
 
-    alias gitbox 'open -a Gitbox \!*'
+  alias gitbox 'open -a Gitbox \!*'
 
 endif
 
@@ -62,5 +62,5 @@ if(-X git) then
   alias gu  'git gui \!*'
   if(-X bbdiff) alias gd 'git difftool \!*'
   alias gg  'git status --short \!*'
-  alias ggg 'git status --short --ignored \!* && git stash list'
+  alias ggg 'git status --short --ignored --branch \!* && git stash list'
 endif
