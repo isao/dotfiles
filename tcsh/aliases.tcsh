@@ -43,11 +43,10 @@ if($?OSTYPE && $OSTYPE == 'darwin') then
   alias man2pdf 'man -t \!* | open -f -a /Applications/Preview.app'
 
   #cd to finder cwd
-  if(-f ~/Repos/1st/shell/misc-osx/findercwd.applescript) \
-      alias fcwd 'cd `osascript ~/Repos/1st/shell/misc-osx/findercwd.applescript`'
+  #if(-f ~/Repos/1st/shell/misc-osx/findercwd.applescript) \
+    alias fcwd 'cd -p "`osascript ~/Repos/1st/shell/misc-osx/findercwd.applescript`"'
 
   alias gitbox 'open -a Gitbox \!*'
-
 endif
 
 #quick svn statuses
