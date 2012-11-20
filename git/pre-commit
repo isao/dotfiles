@@ -1,0 +1,13 @@
+#!/bin/sh
+
+which jshint >/dev/null || exit 0
+
+# http://ariya.ofilabs.com/2012/10/javascript-validator-with-esprima.html
+for file in $(git diff-index --name-only HEAD | egrep '\.js|json$')
+do
+    # esvalidate $file || {
+    #     echo "Syntax error: $file"
+    #     exit 1
+    # }
+    jshint --extra-ext=.json $file >2 || exit 1
+done
