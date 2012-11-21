@@ -63,3 +63,7 @@ if(-X git) then
   alias gg  'git status --short \!*'
   alias ggg 'git status --short --ignored --branch \!* && git stash list'
 endif
+
+if(-e /usr/local/Cellar/cdargs/*/contrib/cdargs-tcsh.csh) then
+  source /usr/local/Cellar/cdargs/*/contrib/cdargs-tcsh.csh
+endif
