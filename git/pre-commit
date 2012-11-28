@@ -9,5 +9,5 @@ do
     #     echo "Syntax error: $file"
     #     exit 1
     # }
-    jshint --extra-ext=.json $file >2 || exit 1
+    jslint --extra-ext=.json $file || exit 1
 done
