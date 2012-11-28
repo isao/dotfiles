@@ -2,10 +2,6 @@
 #   env vars
 #
 set path=(/{,s}bin /usr/{local/,,s}bin)
-
-# my scripts
-if(-d /opt/isao) set path=(/opt/isao $path)
-
 setenv EDITOR `which bbedit..sh bbedit nano vim vi |grep ^/ |head -1`
 setenv LESS '--tabs=2 -iFMRX'
 setenv RSYNC_RSH ssh
