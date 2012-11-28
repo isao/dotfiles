@@ -3,12 +3,12 @@
 #
 alias . pwd
 alias .. 'cd ..'
-alias ls 'ls -F'
-alias ll '/bin/ls -lF \!*'
-alias lsd '/bin/ls -l \!* | grep ^d'  # ls dirs only
-alias ls. '/bin/ls -dF .?*'  # ls dot files & dirs only
+alias ls 'ls -FG'
+alias ll '/bin/ls -lFG \!*'
+alias lsd 'll | grep ^d'  # ll dirs only
+alias ls. '/bin/ls -dFG .?*'  # ls dot files & dirs only
 
-#freq typos
+# for typos
 alias cd.. 'cd ..'
 alias l ll
 
