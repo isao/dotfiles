@@ -26,7 +26,7 @@ alias word 'grep \!* /usr/share/dict/words'
 
 alias showenv 'env | sort'
 alias showpath 'echo $PATH | tr : "\n"'
-alias checkpath 'ls -ld `echo $PATH | tr : "\n"`'
+alias checkpath 'ls -ld `echo $PATH | tr : "\n"` > /dev/null'
 
 #
 # app shortcuts
