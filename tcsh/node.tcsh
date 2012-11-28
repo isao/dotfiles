@@ -1,6 +1,6 @@
-if(-X node) then
+if(-X npm) then
 
-  set path=($path node_modules/.bin /usr/local/share/npm/bin)
+  set path=($path node_modules/.bin `npm bin -g`)
 
   alias npmls 'npm ls --loglevel error \!* | egrep ^.─ | colrm 1 4'
   alias npmy 'npm --registry=http://ynpm-registry.corp.yahoo.com:4080'
