@@ -1,4 +1,6 @@
 alias paint 'ssh -t paintcorner.corp.yahoo.com "screen -dUR paint"'
+alias killarrow 'pkill -fl arrow_ phantomjs selenium- firefox-bin webdriver'
+alias selenium 'java -Dwebdriver.firefox.profile=default -jar `brew ls selenium-server-standalone | grep .jar`'
 
 set SVNY = 'svn+ssh://svn.corp.yahoo.com/yahoo'
 set SVNYMIRROR = 'svn+ssh://svn-mirror.corp.yahoo.com/yahoo'
