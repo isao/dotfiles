@@ -5,6 +5,7 @@ set path=(/{,s}bin /usr/{local/,,s}bin)
 setenv EDITOR `which bbedit..sh bbedit nano vim vi |grep ^/ |head -1`
 setenv LESS '--tabs=2 -iFMRX'
 setenv RSYNC_RSH ssh
+setenv GREP_COLOR '32' # ANSI/VT100: 32 is green, '1;34' is bold blue
 
 #
 #   shell interactivity

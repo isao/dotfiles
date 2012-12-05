@@ -18,6 +18,7 @@ alias l ll
 #
 alias = "python -c 'print \!*'"
 alias dict "curl -s 'dict://dict.org/d:\!*' | egrep -v '^[0-9]{3} .*|^\.'"
+alias grep 'grep --color=auto'
 alias ip "ifconfig | grep 'inet '"
 alias man2txt 'man \!* | col -b'
 alias rmmacmeta "find \!* \( -name '.DS_Store' -or -name '._*' \) -exec rm -v \{\} \;"
