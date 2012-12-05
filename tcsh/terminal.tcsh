@@ -46,7 +46,7 @@ set ellipsis
 
 # cmd to get git branch name, or "svn", or nothing
 #set _promptvcs = 'sh -c "test -d .svn && echo svn || git name-rev --name-only HEAD 2>/dev/null"'
-set _promptvcs = 'sh -c "test -d .svn && echo svn || git branch 2>/dev/null |grep ^\* |cut -c3-33"'
+set _promptvcs = 'test -d .svn && echo svn || git branch |& grep ^\* | cut -c3-33'
 
 # see ./y.tcsh
 if($?YROOT_NAME) then
