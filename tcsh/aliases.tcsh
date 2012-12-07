@@ -59,12 +59,13 @@ endif
 
 #quick git statuses
 if(-X git) then
-  alias gu  'git gui \!*'
-  if(-X bbdiff) alias gd 'git difftool \!*'
-  alias gg  'git status --short \!*'
+  alias gu 'git gui \!*'
+  alias gd 'git difftool \!*'
+  alias gg 'git status --short \!*'
   alias ggg 'git status --short --ignored --branch \!* && git stash list'
 endif
 
+#brew ls -v cdargs |grep tcsh.csh
 if(-e /usr/local/Cellar/cdargs/*/contrib/cdargs-tcsh.csh) then
   source /usr/local/Cellar/cdargs/*/contrib/cdargs-tcsh.csh
 endif
