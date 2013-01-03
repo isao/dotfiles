@@ -29,6 +29,9 @@ alias showenv 'env | sort'
 alias showpath 'echo $PATH | tr : "\n"'
 alias checkpath 'ls -ld `echo $PATH | tr : "\n"` > /dev/null'
 
+# https://github.com/blog/985-git-io-github-url-shortener
+alias gitio 'curl -i http://git.io -F "url=\!*"'
+
 #
 # app shortcuts
 #
