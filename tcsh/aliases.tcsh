@@ -66,6 +66,6 @@ if(-X git) then
 endif
 
 #brew ls -v cdargs |grep tcsh.csh
-if(-e /usr/local/Cellar/cdargs/*/contrib/cdargs-tcsh.csh) then
+if(-e /usr/local/Cellar/cdargs) then
   source /usr/local/Cellar/cdargs/*/contrib/cdargs-tcsh.csh
 endif

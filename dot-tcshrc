@@ -15,7 +15,7 @@ if($?USER && $?prompt && -l $HOME/.tcshrc) then
   #source <somedir>/tcsh/*.tcsh
   set dotfiles = `readlink $HOME/.tcshrc`
   set dotfiles = $dotfiles:h
-  source $dotfiles/tcsh/secrets.tcsh
+  if(-f $dotfiles/tcsh/secrets.tcsh) source $dotfiles/tcsh/secrets.tcsh
   source $dotfiles/tcsh/aliases.tcsh
   source $dotfiles/tcsh/node.tcsh
   source $dotfiles/tcsh/y.tcsh
