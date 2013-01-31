@@ -29,6 +29,7 @@
 	helper = osxkeychain
 
 [alias]
+    fetchcrazy = !"find . -type d -name .git -execdir git fetch --all -v \\;"
 	pub = !"for i in `git remote`; do echo $i...; git push $i; done"
 	pull-rebase-no-ff = pull --rebase --no-ff
 	lf = log --no-merges --name-status
