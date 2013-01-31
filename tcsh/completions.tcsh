@@ -50,7 +50,7 @@ if(-X bbedit) complete bbedit 'c/--/(background clean create front-window maketa
 if(-X brew) complete brew 'c/--/(verbose prefix cache config)/' 'p/1/(install list info home rm remove create edit ln link unlink prune outdated deps uses doctor cat cleanup update upgrade log fetch search switch versions)/' 'n~{list,info,home,rm,remove,edit,ln,link,unlink,prune,outdated,deps,uses,doctor,cat,cleanup,upgrade,log,fetch,search,switch,versions}~`brew ls`~' 'n/info/(--github --all)/'
 
 if(-X git) then
-  set gitaliases='bbdiff heads pub pullreq'
+  set gitaliases='bbdiff heads pub pullreq fetchcrazy'
   set gitcmd="$gitaliases add am annotate apply archive bisect blame branch bundle cat-file checkout cherry cherry-pick citool clean clone commit commit-tree config describe diff diff-files diff-index diff-tree difftool fetch filter-branch format-patch fsck gc grep gui help init log ls-files ls-remote merge merge-base merge-file merge-one-file merge-ours merge-recursive merge-resolve merge-subtree merge-tree mergetool mktag mv name-rev notes patch-id prune prune-packed pull pull-rebase-no-ff push rebase reflog relink remote repack replace repo-config request-pull rerere reset rev-list rev-parse revert rm send-email shortlog show show-branch show-index show-ref stash status stripspace submodule symbolic-ref tag tar-tree update-index update-ref update-server-info var verify-tag whatchanged write-tree"
   alias gitbranches '/bin/ls -1 `git rev-parse --git-dir`/refs/heads'
   alias gitremotes 'git remote'
