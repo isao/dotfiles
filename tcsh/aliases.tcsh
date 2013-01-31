@@ -54,6 +54,9 @@ if($?OSTYPE && $OSTYPE == 'darwin') then
   alias bbcwd 'cd -p `osascript ~/Repos/1st/shell/misc-osx/bbeditcwd.applescript`'
 
   alias gitbox 'open -a Gitbox \!*'
+
+  # quicklook https://github.com/matthewmccullough/scripts/blob/master/ql
+  alias ql 'qlmanage -p "\!*" >/dev/null'
 endif
 
 #quick svn statuses
