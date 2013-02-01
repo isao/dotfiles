@@ -2,29 +2,29 @@ ServerAliveInterval 20
 ServerAliveCountMax 5
 
 # `man ssh_config`
-# http://twiki.corp.yahoo.com/view/Devel/WorkingRemotely
-# http://twiki.corp.yahoo.com/view/YUI/YUISSH
+# http://twiki/view/Devel/WorkingRemotely
+# http://twiki/view/YUI/YUISSH
 
-Host *.corp*.yahoo.com *.corp.yahoo-inc.com html*.yahoo.com *.data.yahoo.com devel.yahoo.com produce.yahoo.com vault.yahoo.com
-  Protocol 2
-  Compression yes
-  Cipher blowfish
-  ForwardAgent yes
-  EscapeChar none
-  StrictHostKeyChecking no
-
-  #tunnel/proxy
-  ControlMaster auto
-  ControlPath /tmp/ssh-ycorp-%h-%r-%p
-  ProxyCommand proxy.sh %h %p
-  #ProxyCommand  /usr/bin/nc -x 127.0.0.1:9080 %h %p
-	#ProxyCommand proxytunnel -p 127.0.0.1:9080 -d %h:%p
-
-Host proxy
-  HostName proxy.corp.yahoo.com
-  DynamicForward 9080
-  LocalForward 1080 socks.yahoo.com:1080
-  LocalForward 4080 ynpm-registry.corp.yahoo.com:4080
+# Host *.corp*.yahoo.com *.corp.yahoo-inc.com html*.yahoo.com *.data.yahoo.com devel.yahoo.com produce.yahoo.com vault.yahoo.com
+#   #EscapeChar none
+#   #StrictHostKeyChecking no
+#
+#   #tunnel/proxy
+#   ControlMaster auto
+#   ControlPath /tmp/ssh-ycorp-%h-%r-%p
+#   ForwardAgent yes
+#   #ProxyCommand proxy.sh %h %p
+#   #ProxyCommand  /usr/bin/nc -x 127.0.0.1:9080 %h %p
+#   ProxyCommand proxytunnel -p 127.0.0.1:9080 -d %h:%p
+#
+# Host proxy
+#   HostName proxy.corp.yahoo.com
+#   Protocol 2
+#   Compression yes
+#   Cipher blowfish
+#   DynamicForward 9080
+#   LocalForward 1080 socks.yahoo.com:1080
+#   LocalForward 4080 ynpm-registry.corp.yahoo.com:4080
 
 
 #Host alloutside-lm.corp alloutside-lm.corp.yahoo.com
