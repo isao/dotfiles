@@ -45,7 +45,12 @@ complete ssh 'c/*@/$_myhosts//' 'p/*/u/@'
 #
 # app completions
 #
-if(-X bbedit) complete bbedit 'c/--/(background clean create front-window maketags new-window print pipe-title scratchpad worksheet view-top resume wait)/'
+if(-X bbedit) then
+    complete bbedit 'c/--/(background clean create front-window maketags new-window print pipe-title scratchpad worksheet view-top resume wait)/'
+    # alias mainly used for project files completion
+    alias bbproj open
+    complete bbproj 'p@*@D:/Users/isao/Dropbox/Documents/bbproj/@@'
+endif
 
 if(-X brew) complete brew 'c/--/(verbose prefix cache config)/' 'p/1/(install list info home rm remove create edit ln link unlink prune outdated deps uses doctor cat cleanup update upgrade log fetch search switch versions)/' 'n~{list,info,home,rm,remove,edit,ln,link,unlink,prune,outdated,deps,uses,doctor,cat,cleanup,upgrade,log,fetch,search,switch,versions}~`brew ls`~' 'n/info/(--github --all)/'
 
