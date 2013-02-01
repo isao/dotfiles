@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#glob to match files to symlink from this dir to $HOME
-dotglob='dot-*'
+# this script symlinks all dot files here to $HOME
+# renaming them with a leading dot instead of "dot-"
 
 #full path to this file's directory; i.e. /Users/isao/Repos/dotfiles
 abspath=$(cd $(dirname $0) && pwd)
 
 #get list of dotfiles
-filelist=$(cd $abspath && ls $dotglob)
+filelist=$(cd $abspath && ls 'dot-*')
 
 cd $HOME
 for i in $filelist

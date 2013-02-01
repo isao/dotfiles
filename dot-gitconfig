@@ -33,6 +33,7 @@
     fetchcrazy = !"find . -type d -name .git -execdir git fetch --all -v \\;"
 
     ; in every repo reachable from cwd, do status and summarize results
+    ; https://github.com/isao/shell/blob/master/git-statuscrazy.sh
     statuscrazy = !"find . -type d -name .git -execdir git-statuscrazy.sh \\;"
 
     ; push to all remotes
