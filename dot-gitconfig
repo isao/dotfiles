@@ -29,11 +29,18 @@
 	helper = osxkeychain
 
 [alias]
+    ; in every repo reachable from cwd, do fetch-all
     fetchcrazy = !"find . -type d -name .git -execdir git fetch --all -v \\;"
-	pub = !"for i in `git remote`; do echo $i...; git push $i; done"
-	pull-rebase-no-ff = pull --rebase --no-ff
-	lf = log --no-merges --name-status
-	lg = log --no-merges --graph --format='%h %s (%aN)'
+
+    ; in every repo reachable from cwd, do status and summarize results
+    statuscrazy = !"find . -type d -name .git -execdir git-statuscrazy.sh \\;"
+
+    ; push to all remotes
+    pub = !"for i in `git remote`; do echo $i...; git push $i; done"
+
+    pull-rebase-no-ff = pull --rebase --no-ff
+    lf = log --no-merges --name-status
+    lg = log --no-merges --graph --format='%h %s (%aN)'
 
 [github]
 	user = isao
