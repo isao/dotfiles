@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# todo - breaks on file renames
+
 #which jshint >/dev/null || exit 0
 which esvalidate >/dev/null || exit 0
 
