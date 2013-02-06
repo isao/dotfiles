@@ -4,7 +4,13 @@
 gitdirs=${@:-.}
 
 #get full path to this script's dir
-hookdir=`cd $(dirname $0) && pwd`
+if [[ -L $0 ]]
+then
+    thisscript=$(readlink $0)
+else
+    thisscript=$0
+fi
+hookdir=$(cd $(dirname $thisscript) && pwd)
 
 #space delimited list of hook scripts relative to $hookdir
 hookfiles='pre-commit post-commit'
