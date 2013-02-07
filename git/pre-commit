@@ -7,14 +7,11 @@
 
 which esvalidate >/dev/null || exit 0
 
-git diff-index --name-status HEAD | egrep '\.js$' | while read status file
+for file in $(git diff-index --name-only --diff-filter=ACM HEAD | egrep '\.js$')
 do
-    if [[ ! $status =~ ^D ]]
-    then
-        esvalidate $file || {
-            echo "Syntax error: $file"
-            exit 1
-        }
-        echo "$status $file -> esvalidate ok"
-    fi
+    esvalidate $file || {
+        echo "Syntax error: $file"
+        exit 1
+    }
+    echo "$status $file -> esvalidate ok"
 done
