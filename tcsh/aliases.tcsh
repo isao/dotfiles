@@ -7,6 +7,7 @@ alias ls 'ls -FG'
 alias ll '/bin/ls -lFG \!*'
 alias lsd 'll | grep ^d'  # ll dirs only
 alias ls. '/bin/ls -dFG .?*'  # ls dot files & dirs only
+alias la 'll -A'
 
 # for typos
 alias cd.. 'cd ..'
