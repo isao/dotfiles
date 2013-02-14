@@ -21,9 +21,6 @@
 [push]
     default = current
 
-[web]
-    browser = elinks
-
 [credential]
     ;for https git uris w/ auth
     helper = osxkeychain
@@ -49,9 +46,6 @@
 [github]
     user = isao
     password = !security find-generic-password -gs github.password -w | tr -d '\n'
-
-[hub]
-    protocol = git
 
 ; bbedit
 [diff]
@@ -88,7 +82,7 @@
 
     ;generic = < !git stash
     ;generic = > !git stash pop
-    generic = ^p !git pull --rebase --no-ff
+    ;generic = ^p !git pull --rebase --no-ff
 
     ;bbdiff all files on stage
     generic = 2 !git bbdiff
