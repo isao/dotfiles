@@ -29,6 +29,9 @@
     helper = osxkeychain
 
 [alias]
+    ; open all unique remote urls in a browser
+    open = !open `git remote -v|perl -ne'm~([\\w.-]+\\.com)[:/](\\S+)\\.git~,print qq(http://$1/$2\n)'|uniq`
+
     ; in every repo reachable from cwd, do fetch-all
     fetchcrazy = !"find . -type d -name .git -execdir git fetch --all -v \\;"
 
