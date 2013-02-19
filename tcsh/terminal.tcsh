@@ -22,10 +22,10 @@ set colorcat
 
 # ~/.history contains line: history -S
 # histdup 'prev' no immediate dupes; 'all' no dupes in history
-set history = 10000
-set savehist = (10000 merge)
+set history = 3000
+set savehist = (3000 merge)
 set histdup = 'prev'
-set histfile = ~/.history-$HOST
+#set histfile = ~/.history-$HOST
 
 # ls
 set listflags = 'hx'
