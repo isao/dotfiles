@@ -9,7 +9,7 @@ which esvalidate >/dev/null || exit 0
 
 for file in $(git diff-index --name-only --diff-filter=ACM HEAD | egrep '\.js$')
 do
-    esvalidate $file || {
+    esvalidate "$file" || {
         echo "Syntax error: $file"
         exit 1
     }

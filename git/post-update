@@ -18,7 +18,7 @@ gitupweb()
 		then
 			echo "*update $docroot"
 			set -x
-			cd $docroot
+			cd "$docroot"
 			unset GIT_DIR
 			git pull --quiet
 			git update-server-info
@@ -30,7 +30,7 @@ gitupweb()
 }
 
 #main
-for refname in $@
+for refname in "$@"
 do
 	logger "*$0 -> $refname"
 	gitupweb $refname

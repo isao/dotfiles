@@ -1,5 +1,5 @@
 #!/bin/sh
 #install by symlinking <repo>/.git/hooks/post-commit to this file
-self=`readlink $0`
-dir=$(cd `dirname $0` && cd `dirname $self` && pwd)
-afplay $dir/yaaayyy.wav > /dev/null 2>&1 &
+self=$(readlink "$0")
+dir=$(cd $(dirname "$0") && cd $(dirname "$self") && pwd)
+afplay "$dir/yaaayyy.wav" > /dev/null 2>&1 &
