@@ -36,6 +36,9 @@
     ; https://github.com/isao/shell/blob/master/git-statuscrazy.sh
     statuscrazy = !"find . -type d -name .git -execdir git-statuscrazy.sh \\;"
 
+    ; remote update & show heads
+    reup = !git remote update && git heads
+
     ; push to all remotes
     pub = !"for i in `git remote`; do echo $i...; git push -v $i; done"
 
