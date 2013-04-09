@@ -49,10 +49,10 @@ if($?OSTYPE && $OSTYPE == 'darwin') then
 
   #cd to finder cwd
   #if(-f ~/Repos/1st/shell/misc-osx/findercwd.applescript) \
-  alias fcwd 'cd -p `osascript ~/Repos/1st/shell/misc-osx/findercwd.applescript`'
+  alias cwdfinder 'cd -p `osascript ~/Repos/1st/shell/misc-osx/findercwd.applescript`'
 
   #cd to dir of front bbedit text document
-  alias bbcwd 'cd -p `osascript ~/Repos/1st/shell/misc-osx/bbeditcwd.applescript`'
+  alias cwdbbedit 'cd -p `osascript ~/Repos/1st/shell/misc-osx/bbeditcwd.applescript`'
 
   alias gitbox 'open -a Gitbox \!*'
 
