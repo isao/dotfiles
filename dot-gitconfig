@@ -36,7 +36,7 @@
     ; https://github.com/isao/shell/blob/master/git-statuscrazy.sh
     statuscrazy = !"find . -type d -name .git -execdir git-statuscrazy.sh \\;"
 
-    ; remote update & show heads
+    ; remote update & show heads (https://github.com/isao/git-heads)
     reup = !git remote update && git heads
 
     ; push to all remotes
@@ -53,6 +53,7 @@
 ; bbedit
 [diff]
     tool = bbdiff
+	algorithm = patience
 [difftool]
     prompt = no
 [difftool "bbdiff"]
