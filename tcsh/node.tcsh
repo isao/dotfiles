@@ -1,6 +1,10 @@
 if(-X npm) then
 
-  set path=($path node_modules/.bin `npm bin -g |& head -1`)
+  #so require'ing node packages/modules installed globally works
+  setenv NODE_PATH `npm root -g`
+
+  #set path=($path node_modules/.bin `npm bin -g |& head -1`)
+  set path=($path `npm bin -g |& head -1` node_modules/.bin)
 
   alias npmls 'npm ls --loglevel error \!* | egrep ^.─ | colrm 1 4'
   alias npmy 'npm --registry=http://ynpm-registry.corp.yahoo.com:4080'
