@@ -43,8 +43,8 @@
     pub = !"for i in `git remote`; do echo $i...; git push -v $i; done"
 
     pull-rebase-no-ff = pull --rebase --no-ff
-    lf = log --no-merges --name-status
-    lg = log --no-merges --graph --format='%h %s (%aN)'
+    lf = log --graph --stat
+    lg = log --oneline --decorate
 
 [github]
     user = isao
