@@ -3,7 +3,7 @@
     email = isao@yahoo-inc.com
 
 [core]
-    pager = less
+    pager = less -R
     ;works for git, not tig:
     ; editor = bbedit --wait --resume
     editor = bbedit..sh
