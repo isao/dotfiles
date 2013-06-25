@@ -1,11 +1,12 @@
+tags
+artifacts
+npm-debug.log
 ._*
 .#*
 .DS_Store
 .svn
 *~
 CVS
-tags
-artifacts
 #xcode
 **/*.pbxuser
 *.mode1v3
