@@ -7,7 +7,7 @@
 abspath=$(cd "$(dirname $0)" && pwd)
 
 #get list of dotfiles
-filelist=$(cd "$abspath" && ls 'dot-*')
+filelist=$(cd "$abspath" && ls dot-*)
 
 cd $HOME
 for i in $filelist
