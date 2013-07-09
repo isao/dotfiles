@@ -9,6 +9,8 @@ set mojlib = "$HOME/Repos/mojito/myfork"
 set SVNY = 'svn+ssh://svn.corp.yahoo.com/yahoo'
 set SVNYMIRROR = 'svn+ssh://svn-mirror.corp.yahoo.com/yahoo'
 
+setenv DEBUG '*'
+
 if(-d /home/y) then
 
   set path = (/home/y/bin ~/bin $path)
