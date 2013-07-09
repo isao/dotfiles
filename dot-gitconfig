@@ -60,7 +60,7 @@
 ; bbedit
 [diff]
     tool = bbdiff
-	algorithm = patience
+    algorithm = patience
 [difftool]
     prompt = no
 [difftool "bbdiff"]
