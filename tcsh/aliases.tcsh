@@ -38,6 +38,9 @@ alias gitio 'curl -i http://git.io -F "url=\!*"'
 #
 alias e "$EDITOR \!*"
 
+# fetch boilerplate from http://gitignore.io; i.e. gitignore node > .gitignore
+alias gitignore 'curl -q http://gitignore.io/api/\!:1'
+
 #osx
 if($?OSTYPE && $OSTYPE == 'darwin') then
   #remove style from any text on the clipboard
