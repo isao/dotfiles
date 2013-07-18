@@ -18,7 +18,7 @@ alias l ll
 # one-liners
 #
 alias = "python -c 'print \!*'"
-alias dict "curl -s 'dict://dict.org/d:\!*' | egrep -v '^[0-9]{3} .*|^\.'"
+alias dict "curl -s 'dict://dict.org/d:\!:1' | egrep -v '^[0-9]{3} .*|^\.'"
 alias grep 'grep --color=auto'
 alias ip "ifconfig | grep 'inet '"
 alias man2txt 'man \!* | col -b'
@@ -32,7 +32,7 @@ alias showpath 'echo $PATH | tr : "\n"'
 alias checkpath 'ls -ld `echo $PATH | tr : "\n"` > /dev/null'
 
 # https://github.com/blog/985-git-io-github-url-shortener
-alias gitio 'curl -i http://git.io -F "url=\!*"'
+alias gitio 'curl -i http://git.io -F "url=\!:1"'
 
 #
 # app shortcuts
