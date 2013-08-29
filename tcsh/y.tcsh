@@ -1,4 +1,4 @@
-alias paint 'ssh -t paintcorner.corp.yahoo.com "screen -dUR paint"'
+alias gray 'ssh -t raisegray-dl.corp.yahoo.com "screen -dUR gray"'
 
 alias killarrow 'pkill -fl arrow_ phantomjs selenium- firefox-bin webdriver'
 alias selenium 'java -Dwebdriver.firefox.profile=default -jar `brew ls selenium-server-standalone | grep .jar`'
