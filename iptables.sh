@@ -36,6 +36,10 @@ iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
 # We added the two ports (http port 80, and https port 443) to the ACCEPT
 # chain - allowing traffic in on those ports.
 
+# To forward port 80 to 8080 for a webserver listening on 8080
+#   iptables -A PREROUTING -t nat -i eth1 -p tcp --dport 80 -j REDIRECT --to-port 8080
+
+
 # Allow users use our SMTP servers:
 #   iptables -A INPUT -p tcp -m tcp --dport 25 -j ACCEPT
 #   iptables -A INPUT -p tcp -m tcp --dport 465 -j ACCEPT
@@ -67,12 +71,9 @@ iptables -A INPUT -p tcp -m tcp --dport $SSHD_PORT -j ACCEPT
 # our office has a permanent IP address, we could only allow connections
 # to SSH from this source. This would allow only people from our location
 # to connect. First, find out your outside IP address. Make sure it is not
-# an address from your LAN, or it will not work. You could do that simply
-# by visiting the whatismyip.com site. Another way to find it out is to
-# type: w
-# in the terminal, we should see us logged in (if we're the only one
-# logged in' and our IP address written down. The output looks something
-# like this:
+# an address from your LAN, or it will not work. Type w in the terminal,
+# we should see us logged in (if we're the only one logged in' and our IP
+# address written down. The output looks something like this:
 #   root@iptables# w
 #   11:42:59 up 60 days, 11:21,  1 user,  load average: 0.00, 0.00, 0.00
 #   USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT
@@ -109,11 +110,14 @@ iptables -P INPUT DROP
 # We don't need that, just the address itself. Now we can finally save our
 # firewall configuration:
 #
-#   iptables-save | sudo tee /etc/sysconfig/iptables
+#   service iptables save
 #
 # The iptables configuration file on CentOS is located at
 # /etc/sysconfig/iptables. The above command saved the rules we created
-# into that file. Just to make sure everything works, we can restart the
-# firewall: service iptables restart
+# into that file.
+#
+## Restart the firewall:
+#
+#   service iptables restart
 #
 # The saved rules will persist even when the server is rebooted.
