@@ -25,7 +25,7 @@ set colorcat
 set history = 3000
 set savehist = (3000 merge)
 set histdup = 'prev'
-#set histfile = ~/.history-$HOST
+set histfile = ~/.history
 
 # ls
 set listflags = 'hx'
