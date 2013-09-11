@@ -26,7 +26,7 @@ complete uncomplete 'p/*/X/'
 
 # completion sets using personal lists
 #set _myhosts=(`cat -s $_mysrcs/hosts.txt| grep -v '^#'`)
-set _myhosts=(etherjar.com etherwerks raisegray-dl.corp.yahoo.com)
+set _myhosts=(etherjar.com etherwerks raisegray-dl.corp.yahoo.com questaddressed.corp.gq1.yahoo.com)
 
 complete {host,nslookup,ping,route} 'p/*/$_myhosts/'
 
