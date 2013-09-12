@@ -1,4 +1,4 @@
-if(-X npm) then
+if(-X npm || -X ynpm) then
 
   #so require'ing node packages/modules installed globally works
   setenv NODE_PATH `npm root -g`
