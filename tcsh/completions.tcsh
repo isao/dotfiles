@@ -25,8 +25,8 @@ complete wget 'c/--/(background debug verbose non-verbose output-document timest
 complete uncomplete 'p/*/X/'
 
 # completion sets using personal lists
-#set _myhosts=(`cat -s $_mysrcs/hosts.txt| grep -v '^#'`)
-set _myhosts=(etherjar.com etherwerks raisegray-dl.corp.yahoo.com questaddressed.corp.gq1.yahoo.com)
+set _myhosts=(`cat -s $dotfiles/tcsh/hosts.txt| grep -v '^#'`)
+#set _myhosts=(etherjar.com etherwerks raisegray-dl.corp.yahoo.com questaddressed.corp.gq1.yahoo.com neatsheet.corp.gq1.yahoo.com)
 
 complete {host,nslookup,ping,route} 'p/*/$_myhosts/'
 
