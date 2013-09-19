@@ -1,7 +1,12 @@
-#!/bin/sh -e
+#!/bin/sh -ex
 # https://www.digitalocean.com/community/articles/how-to-setup-a-basic-ip-tables-configuration-on-centos-6
 
-SSHD_PORT=#########PORT NUMBER HERE##########
+######### SSHD PORT NUMBER HERE ##########
+SSHD_PORT=
+[[ -z $SSHD_PORT ]] && {
+    echo "set SSHD_PORT before proceeeding. exiting."
+    exit 1
+}
 
 # flush the firewall rules - erase them all
 iptables -F
