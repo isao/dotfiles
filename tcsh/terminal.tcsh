@@ -26,9 +26,9 @@ set history = 3000
 set savehist = (3000 merge)
 set histdup = 'prev'
 if ($?YROOT_NAME) then
-    set histfile = ~/.history
-else
     set histfile = ~/.history-$YROOT_NAME
+else
+    set histfile = ~/.history
 endif
 
 # ls
