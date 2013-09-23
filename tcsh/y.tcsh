@@ -1,3 +1,4 @@
+alias rgvm 'ssh -t raisegray-vm0.corp.yahoo.com "screen -DUR rgvm"'
 alias killarrow 'pkill -fl arrow_ phantomjs selenium- firefox-bin webdriver'
 alias selenium 'java -Dwebdriver.firefox.profile=default -jar `brew ls selenium-server-standalone | grep .jar`'
 set arrow = "$HOME/Repos/mojito/myfork/node_modules/.bin/arrow --report"
