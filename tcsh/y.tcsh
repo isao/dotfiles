@@ -1,4 +1,4 @@
-alias rgvm 'ssh -t raisegray-vm0.corp.yahoo.com "screen -DUR rgvm"'
+alias rgvm 'ssh -t raisegray-vm0.corp.yahoo.com "screen -dUR rgvm"'
 alias killarrow 'pkill -fl arrow_ phantomjs selenium- firefox-bin webdriver'
 alias selenium 'java -Dwebdriver.firefox.profile=default -jar `brew ls selenium-server-standalone | grep .jar`'
 set arrow = "$HOME/Repos/mojito/myfork/node_modules/.bin/arrow --report"
@@ -12,9 +12,9 @@ if(-d /home/y) then
 
   set path = (/home/y/bin $path)
 
-  alias npm 'ynpm --registry=https://registry.npmjs.org'
+  if(-X ynpm) alias npm 'ynpm --registry=https://registry.npmjs.org'
 
-  if (-X yssh) then
+  if(-X yssh) then
       alias ssh yssh
       alias scp yscp
       setenv GIT_SSH yssh
