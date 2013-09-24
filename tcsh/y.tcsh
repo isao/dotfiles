@@ -13,10 +13,12 @@ if(-d /home/y) then
   set path = (/home/y/bin $path)
 
   alias npm 'ynpm --registry=https://registry.npmjs.org'
-  alias ssh /usr/local/bin/yssh
-  alias scp /usr/local/bin/yscp
 
-  setenv GIT_SSH /usr/local/bin/yssh
+  if (-X yssh) then
+      alias ssh yssh
+      alias scp yscp
+      setenv GIT_SSH yssh
+  endif
 
   #set yroot name if applicable
   if(-l /.yroot) then
