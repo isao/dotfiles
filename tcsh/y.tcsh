@@ -1,4 +1,4 @@
-alias rgvm 'ssh -t raisegray-vm0.corp.yahoo.com "screen -dUR rgvm"'
+alias rg 'ssh -t raisegray-vm0.corp.yahoo.com "screen -dUR rg"'
 alias killarrow 'pkill -fl arrow_ phantomjs selenium- firefox-bin webdriver'
 alias selenium 'java -Dwebdriver.firefox.profile=default -jar `brew ls selenium-server-standalone | grep .jar`'
 set arrow = "$HOME/Repos/mojito/myfork/node_modules/.bin/arrow --report"
@@ -17,6 +17,7 @@ if(-d /home/y) then
   if(-X yssh) then
       alias ssh yssh
       alias scp yscp
+      setenv RSYNC_RSH yssh
       setenv GIT_SSH yssh
   endif
 
