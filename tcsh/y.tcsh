@@ -10,7 +10,7 @@ set SVNYMIRROR = 'svn+ssh://svn-mirror.corp.yahoo.com/yahoo'
 
 if(-d /home/y) then
 
-  set path = (/home/y/bin $path)
+  set path = (/home/y/bin{64,} $path)
 
   if(-X ynpm) alias npm 'ynpm --registry=https://registry.npmjs.org'
 
