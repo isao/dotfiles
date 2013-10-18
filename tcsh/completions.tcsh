@@ -1,3 +1,7 @@
+# depends:
+#   ~/.tcshrc (../dot-tcshrc) $dotfiles
+#   ./hosts.txt
+
 #
 # built-in completions
 #

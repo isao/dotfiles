@@ -1,3 +1,7 @@
+# depends:
+#   y.tcsh - $YROOT_NAME
+#
+
 # keys
 bindkey "^[[5C" forward-word
 bindkey "^[[C"  forward-word
