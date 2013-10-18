@@ -31,16 +31,10 @@ alias showenv 'env | sort'
 alias showpath 'echo $PATH | tr : "\n"'
 alias checkpath 'ls -ld `echo $PATH | tr : "\n"` > /dev/null'
 
-# https://github.com/blog/985-git-io-github-url-shortener
-alias gitio 'curl -i http://git.io -F "url=\!:1"'
-
 #
 # app shortcuts
 #
 alias e "$EDITOR \!*"
-
-# fetch boilerplate from http://gitignore.io; i.e. gitignore node > .gitignore
-alias gitignore 'curl -q http://gitignore.io/api/\!:1'
 
 #osx
 if($?OSTYPE && $OSTYPE == 'darwin') then
@@ -58,8 +52,6 @@ if($?OSTYPE && $OSTYPE == 'darwin') then
   #cd to dir of front bbedit text document
   alias cwdbbedit 'cd -p `osascript ~/Repos/1st/shell/misc-osx/bbeditcwd.applescript`'
 
-  alias gitbox 'open -a Gitbox \!*'
-
   # quicklook https://github.com/matthewmccullough/scripts/blob/master/ql
   alias ql 'qlmanage -p "\!*" >/dev/null'
 endif
@@ -69,14 +61,6 @@ if(-X svn) then
   alias ss  'svn status --quiet --ignore-externals \!*'
   alias ss? 'svn status \!* | grep ^\?'
   alias sss "svn status --no-ignore \!*"
-endif
-
-#quick git statuses
-if(-X git) then
-  alias gu 'git gui \!*'
-  alias gd 'git difftool \!*'
-  alias gg 'git status --short \!*'
-  alias ggg 'git status --short --ignored --branch \!* && git stash list'
 endif
 
 #brew ls -v cdargs |grep tcsh.csh

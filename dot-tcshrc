@@ -20,6 +20,7 @@ if($?USER && $?prompt && -l $HOME/.tcshrc) then
   source $dotfiles/tcsh/y.tcsh
 
   source $dotfiles/tcsh/aliases.tcsh
+  source $dotfiles/tcsh/git.tcsh
   source $dotfiles/tcsh/node.tcsh
   source $dotfiles/tcsh/completions.tcsh
   source $dotfiles/tcsh/terminal.tcsh

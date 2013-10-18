@@ -1,6 +1,7 @@
 tags
 artifacts
 npm-debug.log
+
 ._*
 .#*
 .DS_Store
@@ -8,6 +9,7 @@ npm-debug.log
 *~
 *~.*
 CVS
+
 #xcode
 **/*.pbxuser
 *.mode1v3

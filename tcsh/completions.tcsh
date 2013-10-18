@@ -53,14 +53,6 @@ endif
 
 if(-X brew) complete brew 'c/--/(verbose prefix cache config)/' 'p/1/(install list info home rm remove create edit ln link unlink prune outdated deps uses doctor cat cleanup update upgrade log fetch search switch versions)/' 'n~{list,info,home,rm,remove,edit,ln,link,unlink,prune,outdated,deps,uses,doctor,cat,cleanup,upgrade,log,fetch,search,switch,versions}~`brew ls`~' 'n/info/(--github --all)/'
 
-if(-X git) then
-  set gitaliases='bbdiff heads pub pullreq fetchcrazy reup statuscrazy'
-  set gitcmd="$gitaliases add am annotate apply archive bisect blame branch bundle cat-file checkout cherry cherry-pick citool clean clone commit commit-tree config describe diff diff-files diff-index diff-tree difftool fetch filter-branch format-patch fsck gc grep gui help init log ls-files ls-remote merge merge-base merge-file merge-one-file merge-ours merge-recursive merge-resolve merge-subtree merge-tree mergetool mktag mv name-rev notes patch-id prune prune-packed pull pull-rebase-no-ff push rebase reflog relink remote repack replace repo-config request-pull rerere reset rev-list rev-parse revert rm send-email shortlog show show-branch show-index show-ref stash status stripspace submodule symbolic-ref tag tar-tree update-index update-ref update-server-info var verify-tag whatchanged write-tree"
-  alias gitbranches '/bin/ls -1 `git rev-parse --git-dir`/refs/heads'
-  alias gitremotes 'git remote'
-  complete git "p/1/($gitcmd)/" "n/help/($gitcmd)/" 'n%checkout%`gitbranches`%' 'n/remote/(show add rm prune update)/' 'n/remote/(add rename rn set-url show prune update -v)/' 'N/remote/`git remote`/' 'n/stash/(branch clear drop list show pop)/' 'n/reset/(--soft --hard)/'
-endif
-
 if(-X nano) complete nano 'c/--/(autoindent backup help nowrap)/'
 
 if(-X svn) complete svn 'p/1/(add blame cat checkout cleanup commit copy delete diff export help import info list lock log merge mkdir move propdel propedit propget proplist propset resolved revert status switch unlock update)//' 'n/prop{del,edit,get,set}/(svn:executable svn:externals svn:ignore svn:keywords svn:mime-type)//' 'c/--/(quiet verbose username password)/'
