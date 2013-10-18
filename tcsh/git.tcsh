@@ -25,7 +25,7 @@ if(-X git) then
     alias gitbranches '/bin/ls -1 `git rev-parse --git-dir`/refs/heads'
     alias gitremotes 'git remote'
 
-    complete git "p/1/($gitcmd)/" "n/help/($gitcmd)/" 'n%checkout%`gitbranches`%' 'n/remote/(show add rm prune update)/' 'n/remote/(add rename rn set-url show prune update -v)/' 'N/remote/gitremotes/' 'n/stash/(branch clear drop list show pop)/' 'n/reset/(--soft --hard)/' 'n/push/gitremotes/' 'N/push/gitbranch/'
+    complete git "p/1/($gitcmd)/" "n/help/($gitcmd)/" 'n%checkout%`gitbranches`%' 'n/remote/(show add rm prune update)/' 'n/remote/(add rename rn set-url show prune update -v)/' 'N/remote/`gitremotes`/' 'n/stash/(branch clear drop list show pop)/' 'n/reset/(--soft --hard)/' 'n/push/`gitremotes`/' 'N/push/gitbranch/'
 
 endif
 
