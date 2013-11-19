@@ -5,14 +5,6 @@ if(-X npm) then
   # `npm bin -g |& head -1` -> /usr/local/share/npm/bin
   # n.b. the |& head supresses npm warning "(not in PATH env variable)"
   set path=($path node_modules/.bin `npm bin -g |& head -1`)
-
-  alias npmy 'npm --registry=http://ynpm-registry.corp.yahoo.com:4080'
-  alias npmp 'npm --registry=http://localhost:4080'
-endif
-
-if(-x /home/y/bin/ynpm) then
-  setenv NODE_PATH /home/y/lib/node_modules
-  set path=($path node_modules/.bin)
 endif
 
 if($?NODE_PATH) then

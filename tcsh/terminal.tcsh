@@ -1,7 +1,3 @@
-# depends:
-#   y.tcsh - $YROOT_NAME
-#
-
 # keys
 bindkey "^[[5C" forward-word
 bindkey "^[[C"  forward-word
@@ -27,14 +23,9 @@ set colorcat
 # ~/.history contains line: history -S
 # histdup 'prev' no immediate dupes; 'all' no dupes in history
 set history = 3000
+set histfile = ~/.history
 set savehist = (3000 merge)
 set histdup = 'prev'
-
-if ($?YROOT_NAME) then
-    set histfile = ~/.history-$YROOT_NAME
-else
-    set histfile = ~/.history
-endif
 
 # ls
 set listflags = 'hx'
@@ -55,17 +46,11 @@ set ellipsis
 
 # cmd to get git branch name, or "svn", or nothing
 #set _promptvcs = 'sh -c "test -d .svn && echo svn || git name-rev --name-only HEAD 2>/dev/null"'
-set _promptvcs = 'test -d .svn && echo svn || git branch |& grep ^\* | cut -c3-33'
-
-# see ./y.tcsh
-if($?YROOT_NAME) then
-  set _promptroot = "%B$YROOT_NAME%b"
-else
-  set _promptroot = ''
-endif
+#set _promptvcs = 'test -d .svn && echo svn || git branch |& grep ^\* | cut -c3-33'
+set _promptvcs = 'git branch |& grep ^\* | cut -c3-33'
 
 # set window title to host:path; set prompt to time+user+$VCS
-sched +0:00 alias precmd 'set prompt="%{\033]0;%n@%m:%c03\007%}%T%n$_promptroot%{\033[34m%}`$_promptvcs`%{\033[0m%}%# "'
+sched +0:00 alias precmd 'set prompt="%{\033]0;%n@%m:%c03\007%}%T%n%{\033[34m%}`$_promptvcs`%{\033[0m%}%# "'
 
 # display currently running command(s) in window title
 sched +0:00 alias postcmd 'printf "\033]0;%s %s\007" `hostname -s` "\!#"'
