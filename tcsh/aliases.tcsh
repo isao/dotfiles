@@ -47,10 +47,10 @@ if($?OSTYPE && $OSTYPE == 'darwin') then
 
   #cd to finder cwd
   #if(-f $shellrepo/cwdfinder.applescript) \
-  alias cwdfinder 'cd -p `osascript $shellrepo/cwdfinder.applescript`'
+  alias cwdfinder 'cd -p "`osascript "$shellrepo/cwdfinder.applescript"`"'
 
   #cd to dir of front bbedit text document
-  alias cwdbbedit 'cd -p `osascript $shellrepo/cwdbbedit.applescript`'
+  alias cwdbbedit 'cd -p "`osascript "$shellrepo/cwdbbedit.applescript"`"'
 
   # quicklook https://github.com/matthewmccullough/scripts/blob/master/ql
   alias ql 'qlmanage -p "\!*" >/dev/null'
