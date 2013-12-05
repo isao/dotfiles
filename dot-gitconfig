@@ -52,7 +52,7 @@
 
 [github]
     user = isao
-    password = !security find-generic-password -gs github.password -w | tr -d '\n'
+    password = !security find-generic-password -ws github.password
 
 ; bbedit
 [diff]
