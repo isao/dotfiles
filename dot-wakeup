@@ -1,43 +1,54 @@
 #!/bin/sh -e
 
 # This script is for doing things before a laptop goes to sleep, and on
-# awakening.
-# 
-# Requires "sleepwatcher" <http://www.bernhard-baehr.de/> and "blueutil"
-# <http://www.frederikseiffert.de/blueutil/>, both available via
-# homebrew.
-# 
-# The homebrew version of sleepwatcher default LaunchAgent config is:
-# 
+# awakening. It's not useful for a workstation as-is.
+#
+# This script should be symlinked from ~/.sleep and ~/.wakeup to work
+# with the homebrew default LaunchAgent config for "sleepwatcher"
+# <http://www.bernhard-baehr.de/>:
+#
 #   /usr/local/sbin/sleepwatcher -V -s ~/.sleep -w ~/.wakeup
-# 
-# which says execute ~/.sleep before going to sleep and ~/.wakeup after
-# waking (15s timeout).
+#
+# Also required: "blueutil" <http://www.frederikseiffert.de/blueutil/>,
+# also available via homebrew.
+
+#
+# vars
+#
+
+blueutil=/usr/local/bin/blueutil
 
 #
 # checks
 #
 
-which blueutil >/dev/null || {
-    logger -s 'Required tool "blueutil" not installed in your $PATH.'
+if [[ ! -x $blueutil ]]
+then
+    logger -s 'Required tool $blueutil was not found.'
     logger -s 'Install it via homebrew, or <http://www.frederikseiffert.de/blueutil/>'
     exit 1
-}
+fi
 
 #
-#functions
+# functions
 #
+
+# log
+log()
+{
+    logger -t "$0" -s "$1"
+}
 
 # bluetooth "on" or "off"
 bluetooth_status()
 {
-	if [[ $(blueutil status) =~ (on|off)$ ]]
-	then
-	    echo ${BASH_REMATCH[1]}
-	else
-        logger 'oh geez. cannot get bluetooth status.'
+    if [[ $($blueutil status) =~ (on|off)$ ]]
+    then
+        echo ${BASH_REMATCH[1]}
+    else
+        log 'oh geez. cannot get bluetooth status.'
         exit 3
-	fi
+    fi
 }
 
 # check for external monitor(s)
@@ -55,26 +66,29 @@ bluetooth_OFF_if_roaming()
 {
     if [[ $(bluetooth_status) == 'on' && ! have_external_monitor ]]
     then
-        logger 'turning bluetooth OFF'
-        blueutil off &
+        log 'turning bluetooth OFF'
+        $blueutil off &
     fi
 }
 
 # Turn bluetooth ON if it is currently off
 bluetooth_ON()
 {
-    [[ $(bluetooth_status) == 'off' ]] && blueutil on
+    if [[ $(bluetooth_status) == 'off' ]]
+    then
+        log 'turning bluetooth ON'
+        $blueutil on
+    fi
 }
 
-# unmount all volumes
-unmount_all()
+# unmount all usb drives
+unmount_usb_drives()
 {
-    for i in /Volumes/*
+    system_profiler SPUSBDataType | grep 'Mount Point:' |\
+    while read ignore1 ignore2 mountpoint
     do
-        if [[ -d "$i" && ! -h "$i" ]]
-        then
-            diskutil unmount "$i"
-        fi
+        log "unmounting $mountpoint"
+        diskutil unmount "$mountpoint"
     done
 }
 
@@ -82,11 +96,9 @@ unmount_all()
 # main
 #
 
-logger -s $0
-
 if [[ $0 =~ [.]sleep$ ]]
 then
-    unmount_all
+    unmount_usb_drives
     bluetooth_ON
 fi
 
