@@ -4,7 +4,7 @@ if(-X npm) then
 
   # `npm bin -g |& head -1` -> /usr/local/share/npm/bin
   # n.b. the |& head supresses npm warning "(not in PATH env variable)"
-  set path=($path node_modules/.bin `npm bin -g |& head -1`)
+  set path=($path node_modules/.bin)
 endif
 
 if($?NODE_PATH) then
