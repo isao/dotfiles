@@ -3,14 +3,15 @@
 # This script is for doing things before a laptop goes to sleep, and on
 # awakening. It's not useful for a workstation as-is.
 #
-# This script should be symlinked from ~/.sleep and ~/.wakeup to work
-# with the homebrew default LaunchAgent config for "sleepwatcher"
-# <http://www.bernhard-baehr.de/>:
+# To use, install these tools, using source or homebrew:
+# 1. sleepwatcher <http://www.bernhard-baehr.de/>
+# 2. blueutil <http://www.frederikseiffert.de/blueutil/>
+#
+# Then symlink both ~/.sleep and ~/.wakeup to this script, so it's invoked
+# by the homebrew default LaunchAgent config for "sleepwatcher", which is:
 #
 #   /usr/local/sbin/sleepwatcher -V -s ~/.sleep -w ~/.wakeup
-#
-# Also required: "blueutil" <http://www.frederikseiffert.de/blueutil/>,
-# also available via homebrew.
+
 
 #
 # vars
