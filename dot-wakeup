@@ -1,0 +1,96 @@
+#!/bin/sh -e
+
+# This script is for doing things before a laptop goes to sleep, and on
+# awakening.
+# 
+# Requires "sleepwatcher" <http://www.bernhard-baehr.de/> and "blueutil"
+# <http://www.frederikseiffert.de/blueutil/>, both available via
+# homebrew.
+# 
+# The homebrew version of sleepwatcher default LaunchAgent config is:
+# 
+#   /usr/local/sbin/sleepwatcher -V -s ~/.sleep -w ~/.wakeup
+# 
+# which says execute ~/.sleep before going to sleep and ~/.wakeup after
+# waking (15s timeout).
+
+#
+# checks
+#
+
+which blueutil >/dev/null || {
+    logger -s 'Required tool "blueutil" not installed in your $PATH.'
+    logger -s 'Install it via homebrew, or <http://www.frederikseiffert.de/blueutil/>'
+    exit 1
+}
+
+#
+#functions
+#
+
+# bluetooth "on" or "off"
+bluetooth_status()
+{
+	if [[ $(blueutil status) =~ (on|off)$ ]]
+	then
+	    echo ${BASH_REMATCH[1]}
+	else
+        logger 'oh geez. cannot get bluetooth status.'
+        exit 3
+	fi
+}
+
+# check for external monitor(s)
+have_external_monitor()
+{
+    # FIXME: system_profiler is veerrry slow
+    system_profiler SPDisplaysDataType |\
+        grep 'Display Serial Number:' &>/dev/null
+}
+
+# Turn bluetooth OFF if there is no external monitor attached. Unless
+# there is an external monitor, I don't want my laptop attempting to
+# connect to the bluetooth keyboard and trackpad, which will drain battery
+bluetooth_OFF_if_roaming()
+{
+    if [[ $(bluetooth_status) == 'on' && ! have_external_monitor ]]
+    then
+        logger 'turning bluetooth OFF'
+        blueutil off &
+    fi
+}
+
+# Turn bluetooth ON if it is currently off
+bluetooth_ON()
+{
+    [[ $(bluetooth_status) == 'off' ]] && blueutil on
+}
+
+# unmount all volumes
+unmount_all()
+{
+    for i in /Volumes/*
+    do
+        if [[ -d "$i" && ! -h "$i" ]]
+        then
+            diskutil unmount "$i"
+        fi
+    done
+}
+
+#
+# main
+#
+
+logger -s $0
+
+if [[ $0 =~ [.]sleep$ ]]
+then
+    unmount_all
+    bluetooth_ON
+fi
+
+if [[ $0 =~ [.]wakeup$ ]]
+then
+    bluetooth_OFF_if_roaming
+fi
