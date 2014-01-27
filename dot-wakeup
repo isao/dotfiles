@@ -1,15 +1,14 @@
-#!/bin/sh -e
+#!/bin/sh -eu
 
 # This script is for doing things before a laptop goes to sleep, and on
 # awakening. It's not useful for a workstation as-is.
 #
-# To use, install these tools, using source or homebrew:
+# To use, first install these tools from download/source or homebrew:
 # 1. sleepwatcher <http://www.bernhard-baehr.de/>
 # 2. blueutil <http://www.frederikseiffert.de/blueutil/>
 #
 # Then symlink both ~/.sleep and ~/.wakeup to this script, so it's invoked
 # by the homebrew default LaunchAgent config for "sleepwatcher", which is:
-#
 #   /usr/local/sbin/sleepwatcher -V -s ~/.sleep -w ~/.wakeup
 
 
@@ -17,7 +16,12 @@
 # vars
 #
 
+# full path because launchd doesn't include /usr/local/bin in it's $PATH
 blueutil=/usr/local/bin/blueutil
+
+# prefix logged lines for grepping (logs to /var/log/system/log)
+tag="dot-wakeup:$(basename $0)"
+
 
 #
 # checks
@@ -25,19 +29,20 @@ blueutil=/usr/local/bin/blueutil
 
 if [[ ! -x $blueutil ]]
 then
-    logger -s 'Required tool $blueutil was not found.'
-    logger -s 'Install it via homebrew, or <http://www.frederikseiffert.de/blueutil/>'
+    log 'Required tool $blueutil was not found.'
+    log 'Install it via homebrew, or <http://www.frederikseiffert.de/blueutil/>'
     exit 1
 fi
+
 
 #
 # functions
 #
 
-# log
+# log to both system.log and stderr
 log()
 {
-    logger -t "$0" -s "$1"
+    logger -t $tag -s "$1"
 }
 
 # bluetooth "on" or "off"
@@ -94,17 +99,20 @@ unmount_usb_drives()
     done
 }
 
+
 #
 # main
 #
 
 if [[ $0 =~ [.]sleep$ ]]
 then
+    log 'going to sleep…'
     unmount_usb_drives
     bluetooth_ON
 fi
 
 if [[ $0 =~ [.]wakeup$ ]]
 then
+    log 'waking up…'
     bluetooth_OFF_if_roaming
 fi
