@@ -58,6 +58,7 @@ have_external_monitor()
     # FIXME: system_profiler is veerrry slow
     system_profiler SPDisplaysDataType |\
         grep 'Display Serial Number:' &>/dev/null
+    echo $?
 }
 
 # Turn bluetooth OFF if there is no external monitor attached. Unless
@@ -65,7 +66,7 @@ have_external_monitor()
 # connect to the bluetooth keyboard and trackpad, which will drain battery
 bluetooth_OFF_if_roaming()
 {
-    if [[ $(bluetooth_status) == 'on' && ! have_external_monitor ]]
+    if [[ $(bluetooth_status) == 'on' && ! $(have_external_monitor) ]]
     then
         log 'turning bluetooth OFF'
         $blueutil off &
