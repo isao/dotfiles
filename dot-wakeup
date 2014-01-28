@@ -104,15 +104,19 @@ unmount_usb_drives()
 # main
 #
 
-if [[ $0 =~ [.]sleep$ ]]
+if [[ $0 =~ \.sleep$ ]]
 then
     log 'going to sleep…'
     unmount_usb_drives
     bluetooth_ON
-fi
 
-if [[ $0 =~ [.]wakeup$ ]]
+elif [[ $0 =~ \.wakeup$ ]]
 then
     log 'waking up…'
     bluetooth_OFF_if_roaming
+
 fi
+
+# execute this script file directly, i.e. `dot-wakeup` for test or debug stuff
+#
+# launchctl list de.bernhard-baehr.sleepwatcher
