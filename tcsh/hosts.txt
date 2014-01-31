@@ -1,4 +1,3 @@
 etherjar.com
 etherwerks.com
-raisegray-vm0.corp.yahoo.com
-neatsheet.corp.gq1.yahoo.com
+pondr.us
