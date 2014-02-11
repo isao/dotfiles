@@ -55,7 +55,7 @@ if(-X bbedit) then
   complete bbproj 'p@*@D:/Users/isao/Dropbox/Documents/bbproj/@@'
 endif
 
-if(-X brew) complete brew 'c/--/(verbose prefix cache config)/' 'p/1/(install list info home rm remove create edit ln link unlink prune outdated deps uses doctor cat cleanup update upgrade log fetch search switch versions)/' 'n~{list,info,home,rm,remove,edit,ln,link,unlink,prune,outdated,deps,uses,doctor,cat,cleanup,upgrade,log,fetch,search,switch,versions}~`brew ls`~' 'n/info/(--github --all)/'
+if(-X brew) complete brew 'c/--/(verbose versions prefix cache config)/' 'p/1/(cat cleanup create deps dirty doctor edit fetch home info install link list ln log missing outdated prune remove rm search services switch unlink update upgrade uses versions which)/' 'n~{list,info,home,rm,remove,edit,ln,link,unlink,prune,outdated,deps,uses,doctor,cat,cleanup,upgrade,log,fetch,search,switch,versions}~`brew ls`~' 'n/info/(--github --all)/'
 
 if(-X nano) complete nano 'c/--/(autoindent backup help nowrap)/'
 
