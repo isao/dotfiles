@@ -95,7 +95,7 @@ unmount_usb_drives()
     while read ignore1 ignore2 mountpoint
     do
         log "unmounting $mountpoint"
-        diskutil unmount "$mountpoint"
+        diskutil unmount "$mountpoint" &
     done
 }
 
@@ -120,3 +120,4 @@ fi
 # execute this script file directly, i.e. `dot-wakeup` for test or debug stuff
 #
 # launchctl list de.bernhard-baehr.sleepwatcher
+
