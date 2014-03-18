@@ -91,7 +91,7 @@ bluetooth_ON()
 # unmount all usb drives (ignores netwrok volumes and hard drives)
 # unmount_usb_drives()
 # {
-#     system_profiler SPUSBDataType | grep 'Mount Point:' |\
+#     system_profiler -detailLevel mini SPStorageDataType | grep 'Mount Point:' |\
 #     while read ignore1 ignore2 mountpoint
 #     do
 #         log "unmounting $mountpoint"
@@ -102,7 +102,7 @@ bluetooth_ON()
 # eject all ejectable attached drives
 eject_every_disk()
 {
-    osascript -e 'tell application "Finder" to eject (every disk whose local volume is true)'
+    osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true and local volume is true)'
 }
 
 
