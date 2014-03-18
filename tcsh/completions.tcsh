@@ -61,4 +61,4 @@ if(-X nano) complete nano 'c/--/(autoindent backup help nowrap)/'
 
 if(-X svn) complete svn 'p/1/(add blame cat checkout cleanup commit copy delete diff export help import info list lock log merge mkdir move propdel propedit propget proplist propset resolved revert status switch unlock update)//' 'n/prop{del,edit,get,set}/(svn:executable svn:externals svn:ignore svn:keywords svn:mime-type)//' 'c/--/(quiet verbose username password)/'
 
-if(-X nginx) complete nginx 'c/-/(h v V t q s p c g)/' 'n/-s/(stop quit reopen reload)/'
+if(-X nginx) complete {nginx,nginx.sh} 'c/-/(h v V t q s p c g)/' 'n/-s/(stop quit reopen reload)/'
