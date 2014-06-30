@@ -103,3 +103,11 @@
 
     ;open in gitx
     generic = <Ctrl-x> !gitx -- %(file)
+
+[git-tf]
+    depth = 999
+
+[git-tf "server"]
+    username = b-isaoy
+    ;this isn't working
+    password = !security find-generic-password -ws ericsson-tfs -a b-isaoy
