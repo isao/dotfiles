@@ -37,7 +37,7 @@ alias checkpath 'ls -ld `echo $PATH | tr : "\n"` > /dev/null'
 #
 alias e "$EDITOR \!*"
 
-#osx
+# osx
 if($?OSTYPE && $OSTYPE == 'darwin') then
   #remove style from any text on the clipboard
   alias plaintext 'pbpaste -Prefer txt | pbcopy'
@@ -57,14 +57,13 @@ if($?OSTYPE && $OSTYPE == 'darwin') then
   alias ql 'qlmanage -p "\!*" >/dev/null'
 endif
 
-#quick svn statuses
+# quick svn statuses
 if(-X svn) then
   alias ss  'svn status --quiet --ignore-externals \!*'
   alias ss? 'svn status \!* | grep ^\?'
   alias sss "svn status --no-ignore \!*"
 endif
 
-#brew ls -v cdargs |grep tcsh.csh
-if(-e /usr/local/Cellar/cdargs) then
-  source /usr/local/Cellar/cdargs/*/contrib/cdargs-tcsh.csh
+if(-X cdargs) then
+  source `brew ls -v cdargs | grep contrib/cdargs-tcsh.csh`
 endif
