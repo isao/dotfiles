@@ -17,7 +17,7 @@ if($?USER && $?prompt && -l $HOME/.tcshrc) then
   set dotfiles = $dotfiles:h
 
   # helper scripts cloned from https://github.com/isao/shell
-  set shellrepo = ~/repos/1st/shell
+  set shellrepo = ~/repos/shell
 
   source "$dotfiles/tcsh/aliases.tcsh"
   source "$dotfiles/tcsh/git.tcsh"
