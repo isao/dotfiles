@@ -7,6 +7,9 @@
     excludesfile = ~/.gitignore
     quotepath = false
 
+    ; tell git that trailing cr is ok, ignore in diffs et al
+    whitespace = cr-at-eol
+
 [color]
     ;colorize output on console
     ui = auto
