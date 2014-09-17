@@ -19,3 +19,5 @@ CVS
 *.swp
 *~.nib
 xcuserdata
+
+msbuild*.log
