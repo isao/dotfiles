@@ -50,7 +50,7 @@
     pub = !"for i in `git remote`; do echo $i...; git push -v $i; done"
 
     pull-rebase-no-ff = pull --rebase --no-ff
-    lf = log --graph --stat
+    lf = log --graph --stat --decorate
     lg = log --oneline --decorate
 
 [github]
