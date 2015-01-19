@@ -69,7 +69,7 @@
     bbdiff = difftool
 
 [merge]
-    tool = bbdiff
+    tool = opendiff
 [mergetool]
     prompt = no
 [mergetool "bbdiff"]
