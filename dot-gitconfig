@@ -72,6 +72,7 @@
     tool = opendiff
 [mergetool]
     prompt = no
+	keepBackup = false
 [mergetool "bbdiff"]
     cmd = bbdiff --wait --resume "$LOCAL" "$REMOTE"
 [alias]
