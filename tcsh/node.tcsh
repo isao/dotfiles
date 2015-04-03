@@ -4,7 +4,7 @@ if(-X npm) then
 
   # `npm bin -g |& head -1` -> /usr/local/share/npm/bin
   # n.b. the |& head supresses npm warning "(not in PATH env variable)"
-  set path=($path node_modules/.bin)
+  set path=(node_modules/.bin $path)
 
   alias npmls 'npm ls --loglevel error \!* | egrep ^.─ | colrm 1 4'
   alias npmr 'npm run-script \!*'
