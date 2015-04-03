@@ -12,6 +12,7 @@ if(-X git) then
     alias gg 'git status --short \!*'
     alias ggg 'git status --short --ignored --branch \!* && git stash list'
 
+    alias gb 'git branch | grep -v old/'
     alias gd 'git difftool \!*'
     alias gu 'git gui browser \!*'
     alias gr 'git remote'
