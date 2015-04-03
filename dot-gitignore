@@ -8,16 +8,3 @@ npm-debug.log
 .svn
 *~
 *~.*
-CVS
-
-#xcode
-**/*.pbxuser
-*.mode1v3
-*.mode2v3
-*.perspective
-*.perspectivev*
-*.swp
-*~.nib
-xcuserdata
-
-msbuild*.log
