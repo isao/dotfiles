@@ -13,7 +13,7 @@ if(-X git) then
     alias ggg 'git status --short --ignored --branch \!* && git stash list'
 
     alias gd 'git difftool \!*'
-    alias gu 'git gui \!*'
+    alias gu 'git gui browser \!*'
     alias gr 'git remote'
 
     # custom aliases defined in ~/.gitconfig (../dot-gitconfig)
