@@ -9,12 +9,14 @@ if(-X git) then
     if(-x /Applications/Gitbox.app) alias gitbox 'open -a Gitbox \!*'
 
     # git statuses
-    alias gg 'git status --short \!*'
-    alias ggg 'git status --short --ignored --branch \!* && git stash list'
+    alias g 'git status --short \!*'
+    alias gg 'git status --branch --short \!* && git stash list'
+    alias ggg 'git status --branch --short --ignored \!* && git stash list'
 
     alias gb 'git branch | grep -v old/'
-    alias gd 'git difftool \!*'
-    alias gu 'git gui browser \!*'
+    alias gd 'git difftool'
+    alias gu 'git gui browser'
+    alias gs 'git stash list'
     alias gr 'git remote'
 
     # custom aliases defined in ~/.gitconfig (../dot-gitconfig)
@@ -30,4 +32,3 @@ if(-X git) then
     complete git "p/1/($gitcmd tf)/" "n/help/($gitcmd)/" 'n%checkout%`gitbranches`%' 'n/remote/(show add rm prune update)/' 'n/remote/(add rename rn set-url show prune update -v)/' 'N/remote/`gitremotes`/' 'n/stash/(branch clear drop list show pop)/' 'n/reset/(--soft --hard)/' 'n/push/`gitremotes`/' 'N/push/`gitbranch`/' 'n/tf/(clone configure checkin fetch pull shelve shelvesets)/'
 
 endif
-
