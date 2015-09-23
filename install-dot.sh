@@ -10,8 +10,8 @@ abspath=$(cd "$(dirname $0)" && pwd)
 # get list of dotfiles
 filelist=$(cd "$abspath" && ls dot-*)
 
-# -s symbolic, -v verbose, -f force, -i prompt before replacing anything
-link="ln -svfi"
+# -s symbolic, -v verbose, -i prompt before replacing anything
+link="ln -svi"
 
 cd $HOME
 for i in $filelist
