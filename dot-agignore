@@ -3,3 +3,5 @@ Certs/
 Properties/
 node_modules/
 packages/libsnapshots/
+OPEN_SOURCE_SOFTWARE/
+.js.map
