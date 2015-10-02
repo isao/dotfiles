@@ -29,6 +29,11 @@ if(-X git) then
     alias gitbranches 'git for-each-ref --format="%(refname:short)" refs/heads/'
     alias gitremotes 'git remote'
 
-    complete git "p/1/($gitcmd tf)/" "n/help/($gitcmd)/" 'n%checkout%`gitbranches`%' 'n/remote/(show add rm prune update)/' 'n/remote/(add rename rn set-url show prune update -v)/' 'N/remote/`gitremotes`/' 'n/stash/(branch clear drop list show pop)/' 'n/reset/(--soft --hard)/' 'n/push/`gitremotes`/' 'N/push/`gitbranch`/' 'n/tf/(clone configure checkin fetch pull shelve shelvesets)/'
+    # ln -s "`brew --prefix git`/share/git-core/contrib/completion/git-completion.tcsh" ~/.git-completion.tcsh
+    # ln -s "`brew --prefix`/etc/bash_completion.d/git-completion.bash" ~/.git-completion.bash
+    source ~/.git-completion.tcsh
+
+    # My hand rolled completion:
+    #complete git "p/1/($gitcmd tf)/" "n/help/($gitcmd)/" 'n%checkout%`gitbranches`%' 'n/remote/(show add rm prune update)/' 'n/remote/(add rename rn set-url show prune update -v)/' 'N/remote/`gitremotes`/' 'n/stash/(branch clear drop list show pop)/' 'n/reset/(--soft --hard)/' 'n/push/`gitremotes`/' 'N/push/`gitbranch`/' 'n/tf/(clone configure checkin fetch pull shelve shelvesets)/'
 
 endif
