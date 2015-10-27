@@ -50,6 +50,9 @@
     ; After fetching, remove any remote-tracking branches which no longer exist on the remote.
     fu = fetch --prune
 
+	; http://stackoverflow.com/questions/3065650/whats-the-simplest-way-to-git-a-list-of-conflicted-files
+	conflicts = "diff --name-only --diff-filter=U"
+
     ; fetch a github pull request: git pr <remote> <prnumber>
     ; @gnarf https://gist.github.com/piscisaureus/3342247#comment-817399
     ;pr = "!f() { git fetch $1 refs/pull/$2/head:pr/$2; } ; f"
@@ -61,7 +64,7 @@
     pub = !"for i in `git remote`; do echo $i...; git push -v $i; done"
 
     lf = log --graph --stat --decorate
-    lg = log --oneline --decorate
+    lg = log --format='%C(auto)%h %<(12,trunc)%an %s%d'
 
 [github]
     user = isao
