@@ -1,7 +1,12 @@
-Fonts2?/
+.map
 Certs/
-Properties/
+Fonts2?/
 node_modules/
-packages/libsnapshots/
 OPEN_SOURCE_SOFTWARE/
-.js.map
+packages/ajaxmin
+packages/chutzpah/
+packages/ImageMagick-6.8.8-Q16
+packages/java/
+packages/JSCover/
+packages/libsnapshots/
+Properties/
