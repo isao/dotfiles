@@ -47,6 +47,9 @@
     ; https://github.com/isao/shell/blob/master/git-statuscrazy.sh
     statuscrazy = !"find . -type d -name .git -execdir git-statuscrazy.sh \\;"
 
+	; checkout remote branch selected with fzf
+	fco = !"git checkout -t $(git branch -r | cut -c3- | fzf)"
+
     ; After fetching, remove any remote-tracking branches which no longer exist on the remote.
     fu = fetch --prune
 
