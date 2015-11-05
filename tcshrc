@@ -19,12 +19,12 @@ if($?USER && $?prompt && -l $HOME/.tcshrc) then
   # helper scripts cloned from https://github.com/isao/shell
   set shellrepo = ~/repos/shell
 
-  source "$dotfiles/tcsh/aliases.tcsh"
-  source "$dotfiles/tcsh/git.tcsh"
-  source "$dotfiles/tcsh/fzf.tcsh"
-  source "$dotfiles/tcsh/node.tcsh"
-  source "$dotfiles/tcsh/completions.tcsh"
-  source "$dotfiles/tcsh/terminal.tcsh"
+  source "$dotfiles/tcsh.d/aliases.tcsh"
+  source "$dotfiles/tcsh.d/git.tcsh"
+  source "$dotfiles/tcsh.d/fzf.tcsh"
+  source "$dotfiles/tcsh.d/node.tcsh"
+  source "$dotfiles/tcsh.d/completions.tcsh"
+  source "$dotfiles/tcsh.d/terminal.tcsh"
 endif
 
 # see also
