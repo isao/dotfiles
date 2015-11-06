@@ -1,5 +1,5 @@
 # depends:
-#   ~/.tcshrc (../dot-tcshrc) $dotfiles
+#   ~/.tcshrc (../tcshrc) $dotfiles
 #   ./hosts.txt
 
 #
@@ -29,8 +29,7 @@ complete wget 'c/--/(background debug verbose non-verbose output-document timest
 complete uncomplete 'p/*/X/'
 
 # completion sets using personal lists
-set _myhosts=(`cat -s $dotfiles/tcsh/hosts.txt| grep -v '^#'`)
-#set _myhosts=(etherjar.com etherwerks raisegray-dl.corp.yahoo.com questaddressed.corp.gq1.yahoo.com neatsheet.corp.gq1.yahoo.com)
+set _myhosts=(`cat -s $dotfiles/tcsh.d/hosts.txt| grep -v '^#'`)
 
 complete {host,nslookup,ping,route} 'p/*/$_myhosts/'
 
@@ -55,10 +54,10 @@ if(-X bbedit) then
   complete bbproj 'p@*@D:/Users/isao/Dropbox/Documents/bbproj/@@'
 endif
 
-if(-X brew) complete brew 'c/--/(verbose versions prefix cache config)/' 'p/1/(cat cleanup create deps dirty doctor edit fetch home info install link list ln log missing outdated prune remove rm search services switch unlink update upgrade uses versions which)/' 'n~{list,info,home,rm,remove,edit,ln,link,unlink,prune,outdated,deps,uses,doctor,cat,cleanup,upgrade,log,fetch,search,switch,versions}~`brew ls`~' 'n/info/(--github --all)/'
+if(-X brew) complete brew 'c/--/(verbose versions prefix cache config)/' 'p/1/(cat cleanup create deps doctor edit fetch home info install leaves link list ln log missing outdated prune remove rm search switch unlink update upgrade uses)/' 'n~{list,info,home,rm,remove,edit,ln,link,unlink,prune,outdated,deps,uses,cat,cleanup,upgrade,log,fetch,search,switch}~`brew ls`~' 'n/info/(--github --all)/'
 
 if(-X nano) complete nano 'c/--/(autoindent backup help nowrap)/'
 
-if(-X svn) complete svn 'p/1/(add blame cat checkout cleanup commit copy delete diff export help import info list lock log merge mkdir move propdel propedit propget proplist propset resolved revert status switch unlock update)//' 'n/prop{del,edit,get,set}/(svn:executable svn:externals svn:ignore svn:keywords svn:mime-type)//' 'c/--/(quiet verbose username password)/'
+#if(-X svn) complete svn 'p/1/(add blame cat checkout cleanup commit copy delete diff export help import info list lock log merge mkdir move propdel propedit propget proplist propset resolved revert status switch unlock update)//' 'n/prop{del,edit,get,set}/(svn:executable svn:externals svn:ignore svn:keywords svn:mime-type)//' 'c/--/(quiet verbose username password)/'
 
 if(-X nginx) complete {nginx,nginx.sh} 'c/-/(h v V t q s p c g)/' 'n/-s/(stop quit reopen reload)/'
