@@ -8,7 +8,7 @@ thisdir=$(dirname "$0")
 abspath=$(cd "$thisdir" && git rev-parse --show-toplevel)
 
 # -s symbolic, -v verbose, -i prompt before replacing anything
-link="ln -svi"
+link="ln -sv"
 
 # Symlink to all files in ./ from $HOME, adding a leading dot.
 cd "$HOME"
