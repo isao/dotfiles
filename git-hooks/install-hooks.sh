@@ -13,7 +13,8 @@ fi
 hookdir=$(cd $(dirname $thisscript) && pwd)
 
 #space delimited list of hook scripts relative to $hookdir
-hookfiles='pre-commit post-commit'
+#hookfiles='pre-commit post-commit'
+hookfiles='post-commit'
 
 #find hook dirs to symlink to post-commit from
 for i in `find $gitdirs -type d -path '*/.git/hooks' -maxdepth 2`
