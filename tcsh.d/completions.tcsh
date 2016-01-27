@@ -29,20 +29,22 @@ complete wget 'c/--/(background debug verbose non-verbose output-document timest
 complete uncomplete 'p/*/X/'
 
 # completion sets using personal lists
-set _myhosts=(`cat -s $dotfiles/tcsh.d/hosts.txt| grep -v '^#'`)
+#set _myhosts=(`cat -s $dotfiles/tcsh.d/hosts.txt| grep -v '^#'`)
 
-complete {host,nslookup,ping,route} 'p/*/$_myhosts/'
+#complete {host,nslookup,ping,route} 'p/*/$_myhosts/'
 
 #complete chown 'c/--/(changes silent quiet verbose reference recursive help version)/' 'p/*/f/'
 complete chown 'c/--/(changes help quiet recursive reference silent verbose version)/' 'c/*:/g//' 'p/1/u/:' 'p/*/f/'
 
 #complete rsync 'c/--/(checksum copy-links cvs-exclude delete delete-excluded dry-run exclude-from= exclude= ignore-times include-from= include= modify-window= progress quiet recursive rsh=$RSYNC_RSH safe-links size-only times update verbose)/' 'p/*/f/'
-complete rsync 'c/*@/$_myhosts//' 'c/--/(checksum copy-links cvs-exclude delete delete-excluded dry-run exclude-from= exclude= ignore-times include-from= include= modify-window= progress quiet recursive safe-links size-only times update verbose)/' 'p/*/f/'
+complete rsync 'c/--/(checksum copy-links cvs-exclude delete delete-excluded dry-run exclude-from= exclude= ignore-times include-from= include= modify-window= progress quiet recursive safe-links size-only times update verbose)/' 'p/*/f/'
 
 # From Michael Schroeder <mlschroe@immd4.informatik.uni-erlangen.de>
 # This one will ssh to fetch the list of files
-complete scp 'c%*@*:%`set q=$:-0;set q="$q:s/@/ /";set q="$q:s/:/ /";set q=($q " ");$RSYNC_RSH $q[2] -l $q[1] ls -dp $q[3]\*`%' 'c%*:%`set q=$:-0;set q="$q:s/:/ /";set q=($q " ");$RSYNC_RSH $q[1] ls -dp $q[2]\*`%' 'c%*@%$_myhosts%:' 'C@[./$~]*@f@' 'n/*/$_myhosts/:'
-complete ssh 'c/*@/$_myhosts//' 'p/*/u/@'
+#complete scp 'c%*@*:%`set q=$:-0;set q="$q:s/@/ /";set q="$q:s/:/ /";set q=($q " ");$RSYNC_RSH $q[2] -l $q[1] ls -dp $q[3]\*`%' 'c%*:%`set q=$:-0;set q="$q:s/:/ /";set q=($q " ");$RSYNC_RSH $q[1] ls -dp $q[2]\*`%' 'c%*@%$_myhosts%:' 'C@[./$~]*@f@' 'n/*/$_myhosts/:'
+complete scp 'c%*@*:%`set q=$:-0;set q="$q:s/@/ /";set q="$q:s/:/ /";set q=($q " ");$RSYNC_RSH $q[2] -l $q[1] ls -dp $q[3]\*`%' 'c%*:%`set q=$:-0;set q="$q:s/:/ /";set q=($q " ");$RSYNC_RSH $q[1] ls -dp $q[2]\*`%' 'C@[./$~]*@f@'
+#complete ssh 'c/*@/$_myhosts//' 'p/*/u/@'
+complete ssh 'p/*/u/@'
 
 
 #
