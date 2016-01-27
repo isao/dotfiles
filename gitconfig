@@ -12,10 +12,6 @@
     ; tell git that trailing cr is ok, ignore in diffs et al
     whitespace = cr-at-eol
 
-[color]
-    ;colorize output on console
-    ui = auto
-
 [pack]
     ;use all cpu cores
     threads = 0
@@ -125,5 +121,3 @@
     ;open in gitx
     generic = <Ctrl-x> !gitx -- %(file)
 
-[gui]
-    tabsize = 4
