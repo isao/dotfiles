@@ -34,7 +34,7 @@
     task = !open "http://tfsmr.mr.ericsson.se:8080/tfs/IEB/ISS%20Media%20Platform/_workitems/edit/$(git rev-parse --abbrev-ref HEAD | egrep -o [0-9]+)"
 
     ; open a tfs pull request for the current branch against master
-    pr = !open "http://tfsmr.mr.ericsson.se:8080/tfs/IEB/MRGIT/_git/ReachClient/pullrequests#targetRef=master\\&_a=createnew\\&sourceRef=$(git rev-parse --abbrev-ref HEAD)"
+    pr = !open "http://tfsmr.mr.ericsson.se:8080/tfs/IEB/MRGIT/_git/ReachClient/pullrequests#targetRef=dev/master\\&_a=createnew\\&sourceRef=$(git rev-parse --abbrev-ref HEAD)"
 
     ; in every repo reachable from cwd, do fetch-all
     fetchcrazy = !"find . -type d -name .git -execdir git fetch --all -v \\;"
