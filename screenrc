@@ -1,11 +1,11 @@
-#make shift-pgup/pgdn work (doesn't work)
-#termcapinfo xterm ti@:te@
+#make scroll & shift-pgup/pgdn work
+termcapinfo xterm ti@:te@
 
 #remap ctrl-a to ctrl-g
 escape ^Gg
 
 #default scrollback buffer keeps the last 100 lines of text
-defscrollback 3000
+defscrollback 9999
 
 # 0* mysess 1- foo                                            18:45:08 (ctrl-g)
 caption always '%{= kG}%-Lw%{= kW}%50> %n%f* %t%{= kG}%+Lw%< %{= kG}%-=%c:%s%{-} (ctrl-g)'
