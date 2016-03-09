@@ -152,5 +152,6 @@ then
     source "$dotfiles/zsh.d/aliases.zsh"
     source "$dotfiles/zsh.d/functions.zsh"
     source "$dotfiles/zsh.d/fzf.zsh"
+    source "$dotfiles/zsh.d/work.zsh"
 fi
 source "$(brew ls -v cdargs | grep contrib/cdargs-bash.sh)"
