@@ -7,22 +7,10 @@ token=$(security find-generic-password -ws 'Cloudflare API key' -a $email)
 domain=pondr.in
 subdomain=dev
 
-# funcs
-#
-get_interface()
-{
-    route get 0.0.0.0 2>/dev/null | awk '/interface: /{print $2}'
-}
-
-get_ip()
-{
-    ifconfig -r "$1" | awk '/inet /{print $2}'
-}
-
 
 # main
 #
-ip=$(get_ip "$(get_interface)")
+ip=$(get-my-ip)
 record_id=199535263
 ## To get $record_id -- rec_load_all to get DNS Record ID
 ## https://www.cloudflare.com/docs/client-api.html#s3.3
