@@ -3,7 +3,9 @@ export LESS='--tabs=2 -iFMRX'
 export GREP_COLOR=32 # ANSI/VT100: 32 is green, '1;34' is bold blue
 export RSYNC_RSH=ssh
 
-
+BAUD=38400
+# default WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>'
+WORDCHARS='*?_-.[]~&!#$%^(){}<>'
 
 #
 #       history
@@ -65,6 +67,7 @@ bindkey "^w" delete-word
 
 autoload -U compinit
 compinit
+
 # When completing from the middle of a word, move the cursor to the end of the word
 setopt always_to_end
 
@@ -79,7 +82,6 @@ colors
 
 #
 #       git/vcs
-
 
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
@@ -102,14 +104,16 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-stash
 
 # show stash existence (%m)
 +vi-git-stash() {
+    local untracked
 
-    local untracked=$(echo $(git ls-files -o --exclude-standard | wc -l))
+    untracked=$(echo $(git ls-files -o --exclude-standard | wc -l))
     if [[ $untracked -gt 0 ]]
     then
         hook_com[misc]+="%{$fg_no_bold[yellow]%}$untracked?"
     fi
 
-    # local stashes=$(echo $(git stash list | wc -l))
+    # local stashes
+    # stashes=$(echo $(git stash list | wc -l))
     # if [[ $stashes -gt 0 ]]
     # then
     #     hook_com[misc]+="%{$fg_no_bold[cyan]%}?$stashes"
@@ -124,7 +128,7 @@ precmd() {
 #       prompt
 
 # Show red "err:num" is last exit code was non-zero
-# %(?,'', %{$fg_bold[red]%}err:%?%{$reset_color%}) 
+# %(?,'', %{$fg_bold[red]%}err:%?%{$reset_color%})
 # http://www.lowlevelmanager.com/2012/03/smile-zsh-prompt-happysad-face.html
 
 setopt prompt_subst
@@ -154,4 +158,10 @@ then
     source "$dotfiles/zsh.d/fzf.zsh"
     source "$dotfiles/zsh.d/work.zsh"
 fi
+
+# Install homebrew completions
+# ln -s "$(brew --prefix)/Library/Contributions/brew_zsh_completion.zsh" /usr/local/share/zsh/site-functions/_brew
+
 source "$(brew ls -v cdargs | grep contrib/cdargs-bash.sh)"
+
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

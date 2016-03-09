@@ -24,12 +24,12 @@ ggg() {
 # alias gg='git status --branch --short \!* && git stash list'
 # alias ggg='git status --branch --short --ignored \!* && git stash list'
 
-alias gb 'git branch | grep -v old/'
-alias gd 'git difftool'
-alias gu 'git gui browser'
-alias gsl 'git stash list'
-alias gss 'git stash save'
-alias gr 'git remote'
+alias gb='git branch | grep -v old/'
+alias gd='git difftool'
+alias gu='git gui browser'
+alias gsl='git stash list'
+alias gss='git stash save'
+alias gr='git remote'
 
 # osx
 
