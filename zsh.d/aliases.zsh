@@ -13,12 +13,12 @@ alias la='ll -A'
 
 # git
 gg() {
-	git stash list
-	git status --branch --short $@
+    git stash list
+    git status --branch --short $@
 }
 
 ggg() {
-	gg --ignored $@
+    gg --ignored $@
 }
 
 # alias gg='git status --branch --short \!* && git stash list'
@@ -30,3 +30,15 @@ alias gu 'git gui browser'
 alias gsl 'git stash list'
 alias gss 'git stash save'
 alias gr 'git remote'
+
+# osx
+
+#remove style from any text on the clipboard
+alias plaintext='pbpaste -Prefer txt | pbcopy'
+
+#cd to finder cwd
+#if(-f $shellrepo/cwdfinder.applescript)
+alias cwdfinder='cd -p "$(osascript ~/repos/shell/cwdfinder.applescript)"'
+
+#cd to dir of front bbedit text document
+alias cwdbbedit='cd -p "$(osascript ~/repos/shell/cwdbbedit.applescript)"'
