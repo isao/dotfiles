@@ -61,6 +61,9 @@ bindkey "^[[B" down-line-or-beginning-search
 # forward-delete word ahead of the cursor
 bindkey "^w" delete-word
 
+# calculator
+autoload -Uz zcalc
+
 
 #
 #       completion
@@ -104,20 +107,19 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-stash
 
 # show stash existence (%m)
 +vi-git-stash() {
-    local untracked
+    local untracked stashes
 
     untracked=$(echo $(git ls-files -o --exclude-standard | wc -l))
     if [[ $untracked -gt 0 ]]
     then
-        hook_com[misc]+="%{$fg_no_bold[yellow]%}$untracked?"
+        hook_com[misc]+="%{$fg_no_bold[white]%}?$untracked?"
     fi
 
-    # local stashes
-    # stashes=$(echo $(git stash list | wc -l))
-    # if [[ $stashes -gt 0 ]]
-    # then
-    #     hook_com[misc]+="%{$fg_no_bold[cyan]%}?$stashes"
-    # fi
+    stashes=$(echo $(git stash list | wc -l))
+    if [[ $stashes -gt 0 ]]
+    then
+        hook_com[misc]+="%{$fg_no_bold[cyan]%}s$stashes"
+    fi
 }
 
 precmd() {
@@ -134,7 +136,7 @@ precmd() {
 setopt prompt_subst
 
 RPROMPT='$vcs_info_msg_0_'%(?,'', %{$fg_bold[red]%}err:%?%{$reset_color%})
-PROMPT="%{$fg[yellow]%}%T•%{$reset_color%}%2~%# "
+PROMPT="%{$fg_bold[white]%}%T•%{$reset_color%}%2~%# "
 
 # only show the rprompt on the current prompt
 #setopt transient_rprompt
