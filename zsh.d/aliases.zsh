@@ -23,18 +23,8 @@ alias checkpath='ls -ld $(echo $PATH | tr : "\n") > /dev/null'
 
 
 # git
-gg() {
-    git stash list
-    git status --branch --short $@
-}
-
-ggg() {
-    gg --ignored $@
-}
-
-# alias gg='git status --branch --short \!* && git stash list'
-# alias ggg='git status --branch --short --ignored \!* && git stash list'
-
+alias gg='git status --branch --short'
+alias ggg='gg --ignored'
 alias gb='git branch | grep -v old/'
 alias gd='git difftool'
 alias gu='git gui browser'
