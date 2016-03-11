@@ -25,25 +25,30 @@ alias fzf-recent='mdfind -onlyin ~/work -onlyin ~/Desktop -onlyin ~/Dropbox -onl
 
 
 
-
-
 # source "/usr/local/opt/fzf/shell/key-bindings.zsh"
 
 # CTRL-T - Paste the selected file path(s) into the command line
-__fsel() {
-    ag -g "" --files-with-matches --all-text | fzf -m | while read item
+__fzfiles() {
+    ag -g "" --files-with-matches --all-text | fzf -m | while read f
     do
-      [[ -n $item ]] && echo -n "${(q)item} "
+      [[ -n $f ]] && echo -n "${(q)f} "
     done
 }
 
 fzf-file-widget() {
-    LBUFFER="${LBUFFER}$(__fsel)"
+    LBUFFER="${LBUFFER}$(__fzfiles)"
     zle redisplay
 }
-
 zle     -N   fzf-file-widget
 bindkey '^T' fzf-file-widget
+
+fzf-branch-widget() {
+    LBUFFER="${LBUFFER}$(echo $(git for-each-ref --format='%(refname:short)' refs/heads/ | grep -v old/ | fzf ))"
+    zle redisplay
+}
+zle     -N   fzf-branch-widget
+bindkey '^B' fzf-branch-widget
+
 
 #
 # # ALT-C - cd into the selected directory
@@ -100,7 +105,7 @@ fco() {
 # # CTRL-R - Paste the selected command from history into the command line
 fzf-history-widget() {
   local selected num
-  selected=( $(fc -l 1 | $(__fzfcmd) +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r -q "${LBUFFER//$/\\$}") )
+  selected=( $(fc -l 1 | fzf +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r -q "${LBUFFER//$/\\$}") )
   if [ -n "$selected" ]; then
     num=$selected[1]
     if [ -n "$num" ]; then
