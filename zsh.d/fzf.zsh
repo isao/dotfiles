@@ -27,8 +27,9 @@ alias fzf-recent='mdfind -onlyin ~/work -onlyin ~/Desktop -onlyin ~/Dropbox -onl
 
 # source "/usr/local/opt/fzf/shell/key-bindings.zsh"
 
+#
 # CTRL-T - Paste the selected file path(s) into the command line
-__fzfiles() {
+__fzf_files() {
     ag -g "" --files-with-matches --all-text | fzf -m | while read f
     do
       [[ -n $f ]] && echo -n "${(q)f} "
@@ -36,81 +37,48 @@ __fzfiles() {
 }
 
 fzf-file-widget() {
-    LBUFFER="${LBUFFER}$(__fzfiles)"
+    LBUFFER="${LBUFFER}$(__fzf_files)"
     zle redisplay
 }
 zle     -N   fzf-file-widget
 bindkey '^T' fzf-file-widget
 
-fzf-branch-widget() {
-    LBUFFER="${LBUFFER}$(echo $(git for-each-ref --format='%(refname:short)' refs/heads/ | grep -v old/ | fzf ))"
+#
+# CTRL-G CTRL-B  select from my git branches
+__fzf_gitbranches() {
+    git for-each-ref --format='%(refname:short)' $1 | grep -v old/ | fzf
+}
+
+fzf-branches-widget() {
+    LBUFFER="${LBUFFER}$(echo $(__fzf_gitbranches refs/heads/))"
     zle redisplay
 }
-zle     -N   fzf-branch-widget
-bindkey '^B' fzf-branch-widget
+zle     -N   fzf-branches-widget
+bindkey '^G^B' fzf-branches-widget
+
+#
+# CTRL-G CTRL-A  select from all git branches
+fzf-allbranches-widget() {
+    LBUFFER="${LBUFFER}$(echo $(__fzf_gitbranches))"
+    zle redisplay
+}
+zle     -N   fzf-allbranches-widget
+bindkey '^G^A' fzf-allbranches-widget
 
 
 #
-# # ALT-C - cd into the selected directory
-# fzf-cd-widget() {
-#   local cmd="${FZF_ALT_C_COMMAND:-"command find -L . \\( -path '*/\\.*' -o -fstype 'dev' -o -fstype 'proc' \\) -prune \
-#     -o -type d -print 2> /dev/null | sed 1d | cut -b3-"}"
-#   cd "${$(eval "$cmd" | $(__fzfcmd) +m):-.}"
-#   zle reset-prompt
-# }
-# zle     -N    fzf-cd-widget
-# bindkey '\ec' fzf-cd-widget
-#
-# # CTRL-R - Paste the selected command from history into the command line
-# fzf-history-widget() {
-#   local selected num
-#   selected=( $(fc -l 1 | fzf +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r -q "${LBUFFER//$/\\$}") )
-#   if [ -n "$selected" ]; then
-#     num=$selected[1]
-#     if [ -n "$num" ]; then
-#       zle vi-fetch-history -n $num
-#     fi
-#   fi
-#   zle redisplay
-# }
-# zle     -N   fzf-history-widget
-# bindkey '^R' fzf-history-widget
-
-
-
-# # fbr - checkout git branch
-fbr() {
-  local branches branch
-  branches=$(git branch -vv) &&
-  branch=$(echo "$branches" | fzf +m) &&
-  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
-}
-
-# # fco - checkout git branch/tag
-fco() {
-  local tags branches target
-  tags=$(
-    git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
-  branches=$(
-    git branch --all | grep -v HEAD             |
-    sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
-    sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
-  target=$(
-    (echo "$tags"; echo "$branches") |
-    fzf-tmux -l30 -- --no-hscroll --ansi +m -d "\t" -n 2) || return
-  git checkout $(echo "$target" | awk '{print $2}')
-}
-
-
-# # CTRL-R - Paste the selected command from history into the command line
+# CTRL-R - Paste the selected command from history into the command line
 fzf-history-widget() {
-  local selected num
-  selected=( $(fc -l 1 | fzf +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r -q "${LBUFFER//$/\\$}") )
-  if [ -n "$selected" ]; then
-    num=$selected[1]
-    if [ -n "$num" ]; then
-      zle vi-fetch-history -n $num
-    fi
+    local selected num
+    selected=( $(fc -l 1 | fzf +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r -q "${LBUFFER//$/\\$}") )
+    if [ -n "$selected" ]
+    then
+        num=$selected[1]
+
+        if [ -n "$num" ]
+        then
+            zle vi-fetch-history -n $num
+        fi
   fi
   zle redisplay
 }
