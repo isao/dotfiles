@@ -134,7 +134,7 @@ precmd() {
 setopt prompt_subst
 
 RPROMPT='$vcs_info_msg_0_'%(?,'', %{$fg_bold[red]%}err:%?%{$reset_color%})
-PROMPT="%{$fg[white]%}%T%{$reset_color%}%2~%# "
+PROMPT="%{$fg[yellow]%}%T•%{$reset_color%}%2~%# "
 
 # only show the rprompt on the current prompt
 #setopt transient_rprompt
