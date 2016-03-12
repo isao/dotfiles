@@ -29,15 +29,8 @@ alias fzf-recent='mdfind -onlyin ~/work -onlyin ~/Desktop -onlyin ~/Dropbox -onl
 
 #
 # CTRL-T - Paste the selected file path(s) into the command line
-__fzf_files() {
-    ag -g "" --files-with-matches --all-text | fzf -m | while read f
-    do
-      [[ -n $f ]] && echo -n "${(q)f} "
-    done
-}
-
 fzf-file-widget() {
-    LBUFFER="${LBUFFER}$(__fzf_files)"
+    LBUFFER="${LBUFFER}$(echo $(ag -g "" --files-with-matches --all-text | fzf -m | sed 1d))"
     zle redisplay
 }
 zle     -N   fzf-file-widget
