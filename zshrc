@@ -14,16 +14,18 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=9000
 
-setopt append_history
-setopt extended_history
+#setopt hist_ignore_dups # ignore duplication command history list
 setopt hist_expire_dups_first
 setopt hist_find_no_dups
-#setopt hist_ignore_dups # ignore duplication command history list
 setopt hist_ignore_space
+setopt hist_no_functions
+setopt hist_no_store
 setopt hist_reduce_blanks
+
+setopt append_history
+setopt extended_history
 setopt inc_append_history
 setopt share_history
-setopt auto_cd
 
 
 # http://chneukirchen.org/blog/archive/2012/02/10-new-zsh-tricks-you-may-not-know.html
@@ -32,18 +34,20 @@ DIRSTACKSIZE=16
 DIRSTACKFILE=~/.zdirs
 if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]
 then
-  dirstack=(${(f)"$(< $DIRSTACKFILE)"})
-  [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
+    dirstack=(${(f)"$(< $DIRSTACKFILE)"})
+    [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
 fi
 chpwd() {
-  print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
+    print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
 }
 
+setopt auto_cd
 setopt autopushd
 setopt pushdminus
 setopt pushdsilent
 setopt pushdtohome
 setopt pushd_ignore_dups
+
 
 #
 #       bindkey
@@ -74,6 +78,11 @@ compinit
 # When completing from the middle of a word, move the cursor to the end of the word
 setopt always_to_end
 
+setopt MENU_COMPLETE
+setopt LIST_PACKED
+setopt AUTO_PARAM_SLASH
+setopt AUTO_REMOVE_SLASH
+
 # Allow lower-case characters to match upper case ones.
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
@@ -89,7 +98,6 @@ colors
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:git:*' check-for-changes true
-#zstyle ':vcs_info:git:*' use-prompt-escapes true
 
 # %a action
 # %b branch
@@ -103,10 +111,10 @@ zstyle ':vcs_info:*' actionformats "(%a)"
 zstyle ':vcs_info:*' unstagedstr "%{$fg_bold[red]%}±"   # %u
 zstyle ':vcs_info:*' stagedstr "%{$fg_bold[green]%}±"   # %c
 zstyle ':vcs_info:*' formats "%u%c%m %{$fg_no_bold[blue]%}%b%{$reset_color%}"
-zstyle ':vcs_info:git*+set-message:*' hooks git-stash
+zstyle ':vcs_info:git*+set-message:*' hooks git-misc
 
 # show stash existence (%m)
-+vi-git-stash() {
++vi-git-misc() {
     local untracked stashes
 
     untracked=$(echo $(git ls-files -o --exclude-standard | wc -l))
@@ -122,9 +130,8 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-stash
     fi
 }
 
-precmd() {
-    vcs_info
-}
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
 
 #
 #       prompt
