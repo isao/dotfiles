@@ -50,15 +50,14 @@ setopt pushd_ignore_dups
 
 
 #
-#       bindkey
+#       history ⬆︎⬇︎
 
-# ⬆︎⬇︎
-# bindkey "^[[A" history-beginning-search-backward
-# bindkey "^[[B" history-beginning-search-forward
 autoload up-line-or-beginning-search
 autoload down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
+# bindkey "^[[A" history-beginning-search-backward
+# bindkey "^[[B" history-beginning-search-forward
 bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 
@@ -101,28 +100,30 @@ zstyle ':vcs_info:git:*' check-for-changes true
 
 # %a action
 # %b branch
+#    %26<…<%b truncate the branchname to 26 characters
 # %c staged changes - string used per stagedstr
 # %m stash info
 # %r repo root dirname
 # %S path relative to root
 # %u unstaged changes - string used per unstagedstr
 
-zstyle ':vcs_info:*' actionformats "(%a)"
+zstyle ':vcs_info:*' actionformats "%{$fg_bold[blue]%}(%a)%{$reset_color%}"
 zstyle ':vcs_info:*' unstagedstr "%{$fg_bold[red]%}±"   # %u
 zstyle ':vcs_info:*' stagedstr "%{$fg_bold[green]%}±"   # %c
-zstyle ':vcs_info:*' formats "%u%c%m %{$fg_no_bold[blue]%}%b%{$reset_color%}"
-zstyle ':vcs_info:git*+set-message:*' hooks git-misc
+zstyle ':vcs_info:*' formats "%u%c%m %{$fg_no_bold[blue]%}%26<…<%b%{$reset_color%}%a"
 
-# show stash existence (%m)
+zstyle ':vcs_info:git*+set-message:*' hooks git-misc
 +vi-git-misc() {
     local untracked stashes
 
+    # show untracked file count
     untracked=$(echo $(git ls-files -o --exclude-standard | wc -l))
     if [[ $untracked -gt 0 ]]
     then
         hook_com[misc]+="%{$fg_no_bold[white]%}?$untracked?"
     fi
 
+    # show stash count
     stashes=$(echo $(git stash list | wc -l))
     if [[ $stashes -gt 0 ]]
     then
@@ -130,7 +131,9 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-misc
     fi
 }
 
-precmd_vcs_info() { vcs_info }
+precmd_vcs_info() {
+    vcs_info
+}
 precmd_functions+=( precmd_vcs_info )
 
 #
@@ -161,7 +164,6 @@ export REPORTTIME=3
 if [[ -L ~/.zshrc ]]
 then
     dotfiles=$(dirname $(readlink ~/.zshrc))
-
     source "$dotfiles/zsh.d/aliases.zsh"
     source "$dotfiles/zsh.d/functions.zsh"
     source "$dotfiles/zsh.d/fzf.zsh"
@@ -171,6 +173,13 @@ fi
 # Install homebrew completions
 # ln -s "$(brew --prefix)/Library/Contributions/brew_zsh_completion.zsh" /usr/local/share/zsh/site-functions/_brew
 
-source "$(brew ls -v cdargs | grep contrib/cdargs-bash.sh)"
+if [[ -x /usr/local/bin/cdargs ]]
+then
+    source "$(brew ls -v cdargs | grep contrib/cdargs-bash.sh)"
+fi
 
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ -r /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]
+then
+    source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+fi
