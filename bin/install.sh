@@ -10,6 +10,7 @@ abspath=$(cd "$thisdir" && git rev-parse --show-toplevel)
 # -s symbolic, -v verbose, -i prompt before replacing anything
 link="ln -svf"
 
+# Install the dotfiles.
 # Symlink to all files in ./ from $HOME, adding a leading dot.
 cd "$HOME"
 for i in $(/bin/ls -1 "$abspath")
@@ -20,6 +21,7 @@ do
   fi
 done
 
+# Install some scripts.
 # Symlink to all files in ./bin from /usr/local/bin, removing the ".sh"
 cd /usr/local/bin
 for i in $(/bin/ls -1 "$abspath"/bin/*.sh)
@@ -29,3 +31,10 @@ do
     $link "$i" $(basename "$i" .sh)
   fi
 done
+
+if [[ -x /usr/local/bin/brew ]]
+then
+  brew prune
+fi
+
+# TODO: zcompile!
