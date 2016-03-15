@@ -107,10 +107,10 @@ zstyle ':vcs_info:git:*' check-for-changes true
 # %S path relative to root
 # %u unstaged changes - string used per unstagedstr
 
-zstyle ':vcs_info:*' actionformats "%{$fg_bold[blue]%}(%a)%{$reset_color%}"
-zstyle ':vcs_info:*' unstagedstr "%{$fg_bold[red]%}±"   # %u
-zstyle ':vcs_info:*' stagedstr "%{$fg_bold[green]%}±"   # %c
-zstyle ':vcs_info:*' formats "%u%c%m %{$fg_no_bold[blue]%}%26<…<%b%{$reset_color%}%a"
+zstyle ':vcs_info:*' actionformats "%{$fg_bold[blue]%}(%a)"
+zstyle ':vcs_info:*' unstagedstr "%{$fg_bold[red]%}±"
+zstyle ':vcs_info:*' stagedstr "%{$fg_bold[green]%}±"
+zstyle ':vcs_info:*' formats "%u%c%m%{$fg_no_bold[blue]%}%22<…<%b%a%{$reset_color%}"
 
 zstyle ':vcs_info:git*+set-message:*' hooks git-misc
 +vi-git-misc() {
@@ -139,17 +139,14 @@ precmd_functions+=( precmd_vcs_info )
 #
 #       prompt
 
+setopt prompt_subst
+setopt transient_rprompt
+
 # Show red "err:num" is last exit code was non-zero
 # %(?,'', %{$fg_bold[red]%}err:%?%{$reset_color%})
 # http://www.lowlevelmanager.com/2012/03/smile-zsh-prompt-happysad-face.html
-
-setopt prompt_subst
-
 RPROMPT='$vcs_info_msg_0_'%(?,'', %{$fg_bold[red]%}err:%?%{$reset_color%})
 PROMPT="%{$fg_bold[white]%}%T•%{$reset_color%}%2~%# "
-
-# only show the rprompt on the current prompt
-#setopt transient_rprompt
 
 
 # Zsh Reporting
