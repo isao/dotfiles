@@ -19,25 +19,17 @@ fi
 # fzf recent items
 alias fzf-recent='mdfind -onlyin ~/work -onlyin ~/Desktop -onlyin ~/Dropbox -onlyin ~/repos "date:this month" | fzf'
 
-# ctrl-f invoke fzf from the shell line editor
-# zle     -N   fzf-file-widget
-# bindkey '^f' fzf-file-widget
-
-
-
-# source "/usr/local/opt/fzf/shell/key-bindings.zsh"
-
 #
-# CTRL-T - Paste the selected file path(s) into the command line
+# CTRL-F - Paste the selected file path(s) into the command line
 fzf-file-widget() {
     LBUFFER="${LBUFFER}$(echo $(ag -g "" --files-with-matches --all-text | fzf -m | sed 1d))"
     zle redisplay
 }
 zle     -N   fzf-file-widget
-bindkey '^T' fzf-file-widget
+bindkey '^F' fzf-file-widget
 
 #
-# CTRL-G CTRL-B  select from my git branches
+# CTRL-B CTRL-B  select from my git branches
 __fzf_gitbranches() {
     git for-each-ref --format='%(refname:short)' $1 | grep -v old/ | fzf
 }
@@ -47,16 +39,16 @@ fzf-branches-widget() {
     zle redisplay
 }
 zle     -N   fzf-branches-widget
-bindkey '^G^B' fzf-branches-widget
+bindkey '^B^B' fzf-branches-widget
 
 #
-# CTRL-G CTRL-A  select from all git branches
+# CTRL-B CTRL-B CTRL-B  select from all git branches
 fzf-allbranches-widget() {
     LBUFFER="${LBUFFER}$(echo $(__fzf_gitbranches))"
     zle redisplay
 }
 zle     -N   fzf-allbranches-widget
-bindkey '^G^A' fzf-allbranches-widget
+bindkey '^B^B^B' fzf-allbranches-widget
 
 
 #

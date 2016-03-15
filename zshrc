@@ -120,7 +120,7 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-misc
     untracked=$(echo $(git ls-files -o --exclude-standard | wc -l))
     if [[ $untracked -gt 0 ]]
     then
-        hook_com[misc]+="%{$fg_no_bold[white]%}?$untracked?"
+        hook_com[misc]+="%{$fg_no_bold[white]%}?$untracked"
     fi
 
     # show stash count
