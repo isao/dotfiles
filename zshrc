@@ -142,11 +142,15 @@ precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 setopt transient_rprompt
 
-# Show red "err:num" is last exit code was non-zero
+# Show red "err:num" for the last exit code if it was non-zero.
 # %(?,'', %{$fg_bold[red]%}err:%?%{$reset_color%})
 # http://www.lowlevelmanager.com/2012/03/smile-zsh-prompt-happysad-face.html
+
+# from the 256 color palette
+# print -P '%F{246}gray%f'
+
 RPROMPT='$vcs_info_msg_0_'%(?,'', %{$fg_bold[red]%}err:%?%{$reset_color%})
-PROMPT="%{$fg_bold[white]%}%T•%{$reset_color%}%2~%# "
+PROMPT="%{%F{246}%}%T•%{%f$reset_color%}%2~%# "
 
 
 # Zsh Reporting
