@@ -6,6 +6,7 @@ export RSYNC_RSH=ssh
 BAUD=38400
 # default WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>'
 WORDCHARS='*?_-.[]~&!#$%^(){}<>'
+#KEYTIMEOUT=60
 
 #
 #       history

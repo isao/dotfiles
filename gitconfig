@@ -5,7 +5,7 @@
 [core]
     ;pager = less -R
     excludesfile = ~/.gitignore
-	quotepath = false
+    quotepath = false
 
     autocrlf = input
 
@@ -13,8 +13,8 @@
     whitespace = cr-at-eol
 
 [pager]
-	diff = diff-so-fancy | less --tabs=4 -RFX
-	show = diff-so-fancy | less --tabs=4 -RFX
+    diff = diff-so-fancy | less --tabs=4 -RFX
+    show = diff-so-fancy | less --tabs=4 -RFX
 
 [pack]
     ;use all cpu cores
@@ -47,14 +47,11 @@
     ; https://github.com/isao/shell/blob/master/git-statuscrazy.sh
     statuscrazy = !"find . -type d -name .git -execdir git-statuscrazy.sh \\;"
 
-	; checkout remote branch selected with fzf
-	fco = !"git checkout -t $(git branch -r | cut -c3- | fzf)"
-
     ; After fetching, remove any remote-tracking branches which no longer exist on the remote.
     fu = fetch --prune
 
-	; http://stackoverflow.com/questions/3065650/whats-the-simplest-way-to-git-a-list-of-conflicted-files
-	conflicts = "diff --name-only --diff-filter=U"
+    ; http://stackoverflow.com/questions/3065650/whats-the-simplest-way-to-git-a-list-of-conflicted-files
+    conflicts = "diff --name-only --diff-filter=U"
 
     ; fetch a github pull request: git pr <remote> <prnumber>
     ; @gnarf https://gist.github.com/piscisaureus/3342247#comment-817399
