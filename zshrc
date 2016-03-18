@@ -78,16 +78,15 @@ compinit
 # When completing from the middle of a word, move the cursor to the end of the word
 setopt always_to_end
 
-setopt MENU_COMPLETE
-setopt LIST_PACKED
-setopt AUTO_PARAM_SLASH
-setopt AUTO_REMOVE_SLASH
+setopt menu_complete
+setopt list_packed
+setopt auto_param_slash
+setopt auto_remove_slash
 
 # Allow lower-case characters to match upper case ones.
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 
-# zman colors
 autoload -U colors
 colors
 
@@ -102,11 +101,11 @@ zstyle ':vcs_info:git:*' check-for-changes true
 # %a action
 # %b branch
 #    %26<…<%b truncate the branchname to 26 characters
-# %c staged changes - string used per stagedstr
+# %c staged changes - format with stagedstr
 # %m stash info
 # %r repo root dirname
 # %S path relative to root
-# %u unstaged changes - string used per unstagedstr
+# %u unstaged changes - format with unstagedstr
 
 zstyle ':vcs_info:*' actionformats "%{$fg_bold[blue]%}(%a)"
 zstyle ':vcs_info:*' unstagedstr "%{$fg_bold[red]%}±"
@@ -132,10 +131,13 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-misc
     fi
 }
 
-precmd_vcs_info() {
-    vcs_info
+# 1 is tab title - cwd
+# 2 is window title - user@host, then terminal will show process & args
+precmd_title_info() {
+    print -Pn "\e]1;%~\a"
+    print -Pn "\e]2;%n@%m\a"
 }
-precmd_functions+=( precmd_vcs_info )
+precmd_functions+=(vcs_info precmd_title_info)
 
 #
 #       prompt
