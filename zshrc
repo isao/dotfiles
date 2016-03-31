@@ -92,7 +92,7 @@ colors
 
 
 #
-#       git/vcs
+#       vcs_info
 
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
@@ -116,14 +116,14 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-misc
 +vi-git-misc() {
     local untracked stashes
 
-    # show untracked file count
+    # show untracked file count like ?2 where number is file count
     untracked=$(echo $(git ls-files -o --exclude-standard | wc -l))
     if [[ $untracked -gt 0 ]]
     then
         hook_com[misc]+="%{$fg_no_bold[white]%}?$untracked"
     fi
 
-    # show stash count
+    # show stash count like s3 where number is stash count
     stashes=$(echo $(git stash list | wc -l))
     if [[ $stashes -gt 0 ]]
     then
@@ -154,6 +154,14 @@ setopt transient_rprompt
 
 RPROMPT='$vcs_info_msg_0_'%(?,'', %{$fg_bold[red]%}err:%?%{$reset_color%})
 PROMPT="%{%F{246}%}%T•%{%f$reset_color%}%2~%# "
+
+# Refresh the prompt, including vcs_info, every 60 seconds.
+# http://www.zsh.org/mla/users/2007/msg00944.html
+TMOUT=60
+TRAPALRM() {
+    vcs_info
+    zle reset-prompt
+}
 
 
 # Zsh Reporting
