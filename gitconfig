@@ -92,33 +92,3 @@
     bbmerge = mergetool
 
 
-[tig]
-    horizontal-scroll = 25%
-    line-graphics = utf-8
-    tab-size = 2
-    main-view-id-display = yes
-
-[tig "bind"]
-    ;allow escape to toggle between main and status views
-    ;status = Escape view-main
-    ;main = Escape view-status
-
-    ;generic = < !git stash
-    ;generic = > !git stash pop
-    ;generic = <Ctrl-p> !git pull --rebase --no-ff
-
-    ;bbdiff
-    generic = 2 !git bbdiff
-
-    ;open in bbedit
-    generic = <Ctrl-b> !bbedit %(file)
-
-    ;reveal current selection in a Finder window
-    generic = <Ctrl-f> !open -R %(file)
-
-    ;reveal current selection in a new Terminal window
-    generic = <Ctrl-t> !newterm.sh %(directory)
-
-    ;open in gitx
-    generic = <Ctrl-x> !gitx -- %(file)
-

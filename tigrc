@@ -1,0 +1,34 @@
+set line-graphics = utf-8
+set tab-size = 2
+set main-view-id-display = yes
+
+set main-view-author = email-user
+set main-view-date = short
+
+set ignore-case = yes
+
+# [tig "bind"]
+# allow escape to toggle between main and status views
+# status = Escape view-main
+# main = Escape view-status
+# 
+# generic = < !git stash
+# generic = > !git stash pop
+# generic = <Ctrl-p> !git pull --rebase --no-ff
+
+#bind generic = 2 !git bbdiff
+
+# open in bbedit
+bind generic = <Ctrl-b> !bbedit %(file)
+
+# reveal current selection in a Finder window
+bind generic = <Ctrl-f> !open -R %(file)
+
+# reveal current selection in a new Terminal window
+bind generic = <Ctrl-t> !newterm.sh %(directory)
+
+# open in gitx
+bind generic = <Ctrl-x> !gitx -- %(file)
+
+# jump to the next diff chunk in the stage view
+bind stage <Enter> :/^@@
