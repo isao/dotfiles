@@ -179,7 +179,11 @@ then
     source "$dotfiles/zsh.d/aliases.zsh"
     source "$dotfiles/zsh.d/functions.zsh"
     source "$dotfiles/zsh.d/fzf.zsh"
-    source "$dotfiles/zsh.d/work.zsh"
+
+    if [[ -r "$dotfiles/zsh.d/work.zsh" ]]
+    then
+        source "$dotfiles/zsh.d/work.zsh"
+    fi
 fi
 
 # Install homebrew completions
