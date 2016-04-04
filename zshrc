@@ -157,12 +157,19 @@ PROMPT="%{%F{246}%}%T•%{%f$reset_color%}%2~%# "
 
 # Refresh the prompt, including vcs_info, every 60 seconds.
 # http://www.zsh.org/mla/users/2007/msg00944.html
-TMOUT=60
-TRAPALRM() {
-    vcs_info
-    zle reset-prompt
-}
+# TMOUT=60
+# TRAPALRM() {
+#     vcs_info
+#     zle reset-prompt
+# }
 
+# Refresh the prompt (not vcs_info) before command line instructions are run.
+# http://stackoverflow.com/questions/13125825
+function _reset-prompt-and-accept-line {
+  zle reset-prompt
+  zle .accept-line     # Note the . meaning the built-in accept-line.
+}
+zle -N accept-line _reset-prompt-and-accept-line
 
 # Zsh Reporting
 # If nonnegative, commands whose combined user and system execution times
