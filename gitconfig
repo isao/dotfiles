@@ -12,6 +12,9 @@
     ; tell git that trailing cr is ok, ignore in diffs et al
     whitespace = cr-at-eol
 
+	; https://news.ycombinator.com/item?id=11388479
+	untrackedCache = true
+
 [pager]
     diff = diff-so-fancy | less --tabs=4 -RFX
     show = diff-so-fancy | less --tabs=4 -RFX
