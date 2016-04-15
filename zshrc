@@ -8,6 +8,7 @@ BAUD=38400
 WORDCHARS='*?_-.[]~&!#$%^(){}<>'
 #KEYTIMEOUT=60
 
+
 #
 #       history
 
@@ -107,10 +108,11 @@ zstyle ':vcs_info:git:*' check-for-changes true
 # %S path relative to root
 # %u unstaged changes - format with unstagedstr
 
-zstyle ':vcs_info:*' actionformats "%{$fg_bold[blue]%}(%a)"
-zstyle ':vcs_info:*' unstagedstr "%{$fg_bold[red]%}±"
-zstyle ':vcs_info:*' stagedstr "%{$fg_bold[green]%}±"
-zstyle ':vcs_info:*' formats "%u%c%m%{$fg_no_bold[blue]%}%22<…<%b%a%{$reset_color%}"
+zstyle ':vcs_info:git:*' actionformats "%{$fg_bold[blue]%}(%a)"
+zstyle ':vcs_info:git:*' unstagedstr "%{$fg_bold[red]%}±"
+zstyle ':vcs_info:git:*' stagedstr "%{$fg_bold[green]%}±"
+zstyle ':vcs_info:git:*' formats "%u%c%m%{$fg_no_bold[blue]%}%22<…<%b%a%{$reset_color%}"
+#zstyle ':vcs_info:*+*:*' debug true
 
 zstyle ':vcs_info:git*+set-message:*' hooks git-misc
 +vi-git-misc() {
@@ -152,7 +154,7 @@ setopt transient_rprompt
 # from the 256 color palette
 # print -P '%F{246}gray%f'
 
-RPROMPT='$vcs_info_msg_0_'%(?,'', %{$fg_bold[red]%}err:%?%{$reset_color%})
+RPROMPT=\$vcs_info_msg_0_%(?,'', %{$fg_bold[red]%}err:%?%{$reset_color%})
 PROMPT="%{%F{246}%}%T•%{%f$reset_color%}%2~%# "
 
 # Refresh the prompt, including vcs_info, every 60 seconds.
@@ -166,8 +168,8 @@ PROMPT="%{%F{246}%}%T•%{%f$reset_color%}%2~%# "
 # Refresh the prompt (not vcs_info) before command line instructions are run.
 # http://stackoverflow.com/questions/13125825
 function _reset-prompt-and-accept-line {
-  zle reset-prompt
-  zle .accept-line     # Note the . meaning the built-in accept-line.
+    zle reset-prompt
+    zle .accept-line     # Note the . meaning the built-in accept-line.
 }
 zle -N accept-line _reset-prompt-and-accept-line
 
