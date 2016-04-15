@@ -1,6 +1,6 @@
 if ! type fzf >/dev/null
 then
-    exit 0
+    return
 fi
 
 #   mine from tcsh.d/fzf.tcsh
