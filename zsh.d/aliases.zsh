@@ -28,9 +28,10 @@ alias ggg='gg --ignored'
 alias gb='git branch | grep -v old/'
 alias gd='git difftool'
 alias gu='git gui browser'
+alias gr='git remote -v'
 alias gsl='git stash list'
-alias gss='git stash save'
-alias gr='git remote'
+alias gsv='git stash save'
+alias gss='git stash show'
 
 # osx
 
