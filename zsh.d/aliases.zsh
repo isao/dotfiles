@@ -40,7 +40,7 @@ alias plaintext='pbpaste -Prefer txt | pbcopy'
 
 #cd to finder cwd
 #if(-f $shellrepo/cwdfinder.applescript)
-alias cwdfinder='cd -p "$(osascript ~/repos/shell/cwdfinder.applescript)"'
+alias cwdfinder='cd -P "$(osascript ~/repos/shell/cwdfinder.applescript)"'
 
 #cd to dir of front bbedit text document
-alias cwdbbedit='cd -p "$(osascript ~/repos/shell/cwdbbedit.applescript)"'
+alias cwdbbedit='cd -P "$(osascript ~/repos/shell/cwdbbedit.applescript)"'
