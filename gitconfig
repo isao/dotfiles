@@ -16,8 +16,8 @@
 	untrackedCache = true
 
 [pager]
-    diff = diff-so-fancy | less --tabs=4 -RFX
-    show = diff-so-fancy | less --tabs=4 -RFX
+    ;diff = diff-so-fancy | less --tabs=4 -RFX
+    ;show = diff-so-fancy | less --tabs=4 -RFX
 
 [pack]
     ;use all cpu cores
