@@ -37,10 +37,3 @@ alias gss='git stash show'
 
 #remove style from any text on the clipboard
 alias plaintext='pbpaste -Prefer txt | pbcopy'
-
-#cd to finder cwd
-#if(-f $shellrepo/cwdfinder.applescript)
-alias cwdfinder='cd -P "$(osascript ~/repos/shell/cwdfinder.applescript)"'
-
-#cd to dir of front bbedit text document
-alias cwdbbedit='cd -P "$(osascript ~/repos/shell/cwdbbedit.applescript)"'

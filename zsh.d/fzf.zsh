@@ -1,9 +1,4 @@
-if ! type fzf >/dev/null
-then
-    return
-fi
-
-#   mine from tcsh.d/fzf.tcsh
+type fzf ag >/dev/null || return
 
 # from within fzf:
 # ctrl-c copy the selected item
