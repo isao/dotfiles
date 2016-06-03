@@ -4,10 +4,10 @@
 
 alias cd..='cd ..'
 alias ls=' ls -FG'
-alias ll=' /bin/ls -lFG'
+alias ll=' /bin/ls -lG'
 alias lsd='find . -type d -depth 1 | xargs ls -dl "{}" \;'  # ll dirs only
-alias ls.='ls -dFG .?*'  # ls dot files & dirs only
-alias ll.='ls -dFGl .?*'  # ls dot files & dirs only
+alias ls.='ls -dG .?*'  # ls dot files & dirs only
+alias ll.='ls -dGl .?*' # ls dot files & dirs only
 alias la='ll -A'
 
 #
