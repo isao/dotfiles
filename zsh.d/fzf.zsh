@@ -15,39 +15,46 @@ fi
 alias fzf-recent='mdfind -onlyin ~/work -onlyin ~/Desktop -onlyin ~/Dropbox -onlyin ~/repos "date:this month" | fzf'
 
 #
-# CTRL-F - Paste the selected file path(s) into the command line
+# CTRL-F - Insert file path(s) into the command line
 fzf-file-widget() {
     LBUFFER="${LBUFFER}$(echo $(ag -g "" --files-with-matches --all-text | fzf -m | sed 1d))"
     zle redisplay
 }
-zle     -N   fzf-file-widget
+zle -N fzf-file-widget
 bindkey '^F' fzf-file-widget
 
-#
-# CTRL-B CTRL-B  select from my git branches
+
 __fzf_gitbranches() {
-    git for-each-ref --format='%(refname:short)' $1 | grep -v old/ | fzf
+    git for-each-ref --format='%(refname:short)' $1 | grep -v old/ | fzf | sed 1d
 }
 
+# CTRL-B CTRL-B - Insert (local) git branch into the command line
+#
 fzf-branches-widget() {
     LBUFFER="${LBUFFER}$(echo $(__fzf_gitbranches refs/heads/))"
     zle redisplay
 }
-zle     -N   fzf-branches-widget
+zle -N fzf-branches-widget
 bindkey '^B^B' fzf-branches-widget
 
 #
-# CTRL-B CTRL-B CTRL-B  select from all git branches
+# CTRL-B CTRL-B CTRL-B - Insert (any) git branch into command line
 fzf-allbranches-widget() {
     LBUFFER="${LBUFFER}$(echo $(__fzf_gitbranches))"
     zle redisplay
 }
-zle     -N   fzf-allbranches-widget
+zle -N fzf-allbranches-widget
 bindkey '^B^B^B' fzf-allbranches-widget
+
+fco() {
+    branch="$(__fzf_gitbranches refs/heads/)"
+    echo $branch
+	[[ -n $branch ]] && git checkout $branch
+}
 
 
 #
-# CTRL-R - Paste the selected command from history into the command line
+# CTRL-R - Insert history item the command line
 fzf-history-widget() {
     local selected num
     selected=( $(fc -l 1 | fzf +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r -q "${LBUFFER//$/\\$}") )
@@ -62,6 +69,5 @@ fzf-history-widget() {
   fi
   zle redisplay
 }
-
-zle     -N   fzf-history-widget
+zle -N fzf-history-widget
 bindkey '^R' fzf-history-widget
