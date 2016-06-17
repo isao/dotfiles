@@ -76,7 +76,9 @@
 ; bbedit
 [diff]
     tool = bbdiff
-    algorithm = patience
+    algorithm = histogram
+    compactionHeuristic = true
+
 [difftool]
     prompt = no
 [difftool "bbdiff"]
@@ -94,4 +96,7 @@
 [alias]
     bbmerge = mergetool
 
-
+[filter "lfs"]
+    clean = git-lfs clean %f
+    smudge = git-lfs smudge %f
+    required = true
