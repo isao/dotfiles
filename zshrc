@@ -26,7 +26,7 @@ setopt hist_reduce_blanks
 
 setopt append_history
 setopt extended_history
-setopt inc_append_history
+#setopt inc_append_history
 setopt share_history
 
 
@@ -53,6 +53,8 @@ setopt pushd_ignore_dups
 
 #
 #       history ⬆︎⬇︎
+
+# TODO set-local-history widget?
 
 autoload up-line-or-beginning-search
 autoload down-line-or-beginning-search
@@ -109,9 +111,9 @@ zstyle ':vcs_info:git:*' check-for-changes true
 # %u unstaged changes - format with unstagedstr
 
 zstyle ':vcs_info:git:*' actionformats "%{$fg_bold[blue]%}(%a)"
-zstyle ':vcs_info:git:*' unstagedstr "%{$fg_bold[red]%}±"
+zstyle ':vcs_info:git:*' unstagedstr "%{$fg_no_bold[red]%}±"
 zstyle ':vcs_info:git:*' stagedstr "%{$fg_bold[green]%}±"
-zstyle ':vcs_info:git:*' formats "%u%c%m%{$fg_no_bold[blue]%}%22<…<%b%a%{$reset_color%}"
+zstyle ':vcs_info:git:*' formats "%{$fg_no_bold[blue]%}%32<…<%b%a%{$reset_color%}%u%c%m%{$reset_color%}"
 #zstyle ':vcs_info:*+*:*' debug true
 
 zstyle ':vcs_info:git*+set-message:*' hooks git-misc
@@ -129,7 +131,7 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-misc
     stashes=$(echo $(git stash list | wc -l))
     if [[ $stashes -gt 0 ]]
     then
-        hook_com[misc]+="%{$fg_no_bold[cyan]%}s$stashes"
+        hook_com[misc]+="%{$fg_no_bold[white]%}$stashes"
     fi
 }
 
