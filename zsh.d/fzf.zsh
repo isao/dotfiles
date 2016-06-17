@@ -46,9 +46,8 @@ fzf-allbranches-widget() {
 zle -N fzf-allbranches-widget
 bindkey '^B^B^B' fzf-allbranches-widget
 
-fco() {
+gco() {
     branch="$(__fzf_gitbranches refs/heads/)"
-    echo $branch
 	[[ -n $branch ]] && git checkout $branch
 }
 
