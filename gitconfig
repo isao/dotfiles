@@ -12,8 +12,8 @@
     ; tell git that trailing cr is ok, ignore in diffs et al
     whitespace = cr-at-eol
 
-	; https://news.ycombinator.com/item?id=11388479
-	untrackedCache = true
+    ; https://news.ycombinator.com/item?id=11388479
+    untrackedCache = true
 
 [pager]
     ;diff = diff-so-fancy | less --tabs=4 -RFX
@@ -41,7 +41,7 @@
     pr = !open "http://tfsmr.mr.ericsson.se:8080/tfs/IEB/MRGIT/_git/ReachClient/pullrequests#targetRef=dev/master\\&_a=createnew\\&sourceRef=$(git rev-parse --abbrev-ref HEAD)"
 
     ; open the tfs task associated with the current branch
-    task = !open "https://jira-fe-p01.mr.ericsson.se:8443/browse/MF-$(git rev-parse --abbrev-ref HEAD | egrep -o [0-9]+)"
+    task = !open "https://jira-fe-p01.mr.ericsson.se:8443/browse/MF$(git rev-parse --abbrev-ref HEAD | egrep -o -- \\-[0-9]+)"
 
     ; in every repo reachable from cwd, do fetch-all
     fetchcrazy = !"find . -type d -name .git -execdir git fetch --all -v \\;"
