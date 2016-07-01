@@ -34,7 +34,7 @@ basedir=
 # If we're in the ReachClient repo...
 if [[ $(git remote -v 2>/dev/null) =~ /MRGIT/_git/ReachClient ]]
 then
-    paths='Web/scripts Web/typescript Web/scripts/OPEN_SOURCE_SOFTWARE/typescriptDefinitions'
+    paths='Web/scripts Web/typescript Web/scripts/OPEN_SOURCE_SOFTWARE/typescriptDefinitions Web/node_modules/typescript/lib/lib.*.d.ts'
     language='--languages=typescript'
     excludes="$excludes --exclude=OPEN_SOURCE_SOFTWARE --exclude=napa"
 fi
