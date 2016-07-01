@@ -77,6 +77,11 @@
     lf = log --graph --stat --decorate
     lg = log --format='%cd %C(auto)%h %<(12,trunc)%an %s%d' --date=short
 
+    # http://bit.ly/1Yx9OQM
+    assume   = update-index --assume-unchanged
+    unassume = update-index --no-assume-unchanged
+    assumed  = '!git ls-files -v | grep ^h | cut -c 3-'
+
 [github]
     user = isao
     password = !security find-generic-password -ws github.password
