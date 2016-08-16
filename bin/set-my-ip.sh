@@ -12,6 +12,7 @@ subdomain=dev
 #
 ip=$(get-my-ip)
 record_id=199535263
+
 ## To get $record_id -- rec_load_all to get DNS Record ID
 ## https://www.cloudflare.com/docs/client-api.html#s3.3
 # curl https://www.cloudflare.com/api_json.html \
@@ -20,7 +21,10 @@ record_id=199535263
 #   -d email=$email \
 #   -d z=$domain
 
-oldip=$(host "$subdomain.$domain" | awk '{ print $4 }')
+oldip=$(host "$subdomain.$domain" \
+    | grep "$subdomain.$domain has address" \
+    | awk '{ print $4 }')
+
 [[ $oldip = "$ip" ]] && {
     echo "* ip for $subdomain.$domain unchanged: $oldip"
     exit 0
