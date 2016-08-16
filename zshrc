@@ -215,3 +215,12 @@ if [[ -e /usr/local/etc/bash_completion.d/tig-completion.bash ]]
 then
     source /usr/local/etc/bash_completion.d/tig-completion.bash
 fi
+
+#
+# insert the last modified file or directory
+last-file-widget() {
+    LBUFFER="${LBUFFER}$(/bin/ls -t | head -1)"
+    zle redisplay
+}
+zle -N last-file-widget
+bindkey '\el' last-file-widget
