@@ -3,7 +3,9 @@ set tab-size = 2
 set main-view-id-display = yes
 
 set main-view-author = email-user
-set main-view-date = short
+
+#tig warning: ~/.tigrc:6: 'short' is no longer supported for date-display, use the 'custom' display mode and set 'date-format'
+#set main-view-date = short
 
 set ignore-case = yes
 
