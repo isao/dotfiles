@@ -16,7 +16,7 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=9000
 
-#setopt hist_ignore_dups # ignore duplication command history list
+setopt hist_ignore_dups # ignore duplication command history list
 setopt hist_expire_dups_first
 setopt hist_find_no_dups
 setopt hist_ignore_space
@@ -26,22 +26,22 @@ setopt hist_reduce_blanks
 
 setopt append_history
 setopt extended_history
-#setopt inc_append_history
+setopt inc_append_history
 setopt share_history
 
 
 # http://chneukirchen.org/blog/archive/2012/02/10-new-zsh-tricks-you-may-not-know.html
 # http://zsh.sourceforge.net/Intro/intro_6.html
-DIRSTACKSIZE=16
-DIRSTACKFILE=~/.zdirs
-if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]
-then
-    dirstack=(${(f)"$(< $DIRSTACKFILE)"})
-    [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
-fi
-chpwd() {
-    print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
-}
+# DIRSTACKSIZE=16
+# DIRSTACKFILE=~/.zdirs
+# if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]
+# then
+#     dirstack=(${(f)"$(< $DIRSTACKFILE)"})
+#     [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
+# fi
+# chpwd() {
+#     print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
+# }
 
 setopt auto_cd
 setopt autopushd
