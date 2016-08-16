@@ -210,3 +210,8 @@ then
     source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 fi
+
+if [[ -e /usr/local/etc/bash_completion.d/tig-completion.bash ]]
+then
+    source /usr/local/etc/bash_completion.d/tig-completion.bash
+fi
