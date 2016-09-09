@@ -72,23 +72,6 @@ bindkey "^w" delete-word
 autoload -Uz zcalc
 
 
-#
-#       completion
-
-autoload -U compinit
-compinit
-
-# When completing from the middle of a word, move the cursor to the end of the word
-setopt always_to_end
-
-setopt menu_complete
-setopt list_packed
-setopt auto_param_slash
-setopt auto_remove_slash
-
-# Allow lower-case characters to match upper case ones.
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-
 
 autoload -U colors
 colors
@@ -190,30 +173,12 @@ then
     source "$dotfiles/zsh.d/aliases.zsh"
     source "$dotfiles/zsh.d/functions.zsh"
     source "$dotfiles/zsh.d/fzf.zsh"
+    source "$dotfiles/zsh.d/completions.zsh"
 
     if [[ -r "$dotfiles/zsh.d/work.zsh" ]]
     then
         source "$dotfiles/zsh.d/work.zsh"
     fi
-fi
-
-# Install homebrew completions
-# ln -s "$(brew --prefix)/Library/Contributions/brew_zsh_completion.zsh" /usr/local/share/zsh/site-functions/_brew
-
-if [[ -x /usr/local/bin/cdargs ]]
-then
-    source "$(brew ls -v cdargs | grep contrib/cdargs-bash.sh)"
-fi
-
-if [[ -r /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]
-then
-    source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-    ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-fi
-
-if [[ -e /usr/local/etc/bash_completion.d/tig-completion.bash ]]
-then
-    source /usr/local/etc/bash_completion.d/tig-completion.bash
 fi
 
 #
