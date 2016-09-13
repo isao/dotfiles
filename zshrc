@@ -69,11 +69,9 @@ bindkey "^[[B" down-line-or-beginning-search
 bindkey "^w" delete-word
 
 # calculator
-autoload -Uz zcalc
+autoload -Uzz zcalc
 
-
-
-autoload -U colors
+autoload -Uz colors
 colors
 
 
@@ -171,10 +169,11 @@ if [[ -L ~/.zshrc ]]
 then
     dotfiles=$(dirname $(readlink ~/.zshrc))
     source "$dotfiles/zsh.d/aliases.zsh"
-    source "$dotfiles/zsh.d/functions.zsh"
-    source "$dotfiles/zsh.d/fzf.zsh"
     source "$dotfiles/zsh.d/completions.zsh"
+    source "$dotfiles/zsh.d/functions.zsh"
 
+    source "$dotfiles/zsh.d/bbedit.zsh"
+    source "$dotfiles/zsh.d/fzf.zsh"
     if [[ -r "$dotfiles/zsh.d/work.zsh" ]]
     then
         source "$dotfiles/zsh.d/work.zsh"

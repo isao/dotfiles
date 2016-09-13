@@ -1,7 +1,7 @@
 #
 #       completion
 
-autoload -U compinit
+autoload -Uz compinit
 compinit
 
 # When completing from the middle of a word, move the cursor to the end of the word
@@ -41,3 +41,27 @@ if [[ -e /usr/local/etc/bash_completion.d/tig-completion.bash ]]
 then
     source /usr/local/etc/bash_completion.d/tig-completion.bash
 fi
+
+#
+# gulp-autocompletion-zsh
+# https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/gulp/gulp.plugin.zsh
+# Autocompletion for your gulp.js tasks
+#
+# Copyright(c) 2014 André König <andre.koenig@posteo.de>
+# MIT Licensed
+# André König
+# Github: https://github.com/akoenig
+# Twitter: https://twitter.com/caiifr
+#
+
+#
+# Grabs all available tasks from the `gulpfile.js`
+# in the current directory.
+#
+function $$gulp_completion {
+    compls=$(gulp --tasks-simple 2>/dev/null)
+    completions=(${=compls})
+    compadd -- $completions
+}
+
+compdef $$gulp_completion gulp

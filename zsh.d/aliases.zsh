@@ -33,6 +33,11 @@ alias gsl='git stash list'
 alias gsv='git stash save'
 alias gss='git stash show'
 
+#tig
+alias tgs='tig status'
+alias tgl='tig log'
+alias tgb='tig blame -C'
+
 # osx
 
 #remove style from any text on the clipboard
