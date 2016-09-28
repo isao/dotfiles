@@ -21,19 +21,17 @@ record_id=199535263
 #   -d email=$email \
 #   -d z=$domain
 
-oldip=$(host "$subdomain.$domain" \
-    | grep "$subdomain.$domain has address" \
-    | awk '{ print $4 }')
+oldip=$(host -4 -t A "$subdomain.$domain" | awk '{print $4}')
 
 [[ $oldip = "$ip" ]] && {
-    echo "* ip for $subdomain.$domain unchanged: $oldip"
+    echo "* ip for '$subdomain.$domain' unchanged: $oldip"
     exit 0
 }
 
 
 # Set the ip for A record dev for target domain $domain
 # https://www.cloudflare.com/docs/client-api.html#s5.2
-echo "* Setting DNS A record for $subdomain.$domain to $ip"
+echo "* Setting DNS A record for '$subdomain.$domain' to $ip"
 curl -v https://www.cloudflare.com/api_json.html \
   -d a=rec_edit \
   -d tkn="$token" \
