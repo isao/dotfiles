@@ -20,6 +20,9 @@ set ignore-case = yes
 
 #bind generic = 2 !git bbdiff
 
+# copy SHA to macOS clipboard
+bind generic 3 !@sh -c "echo %(commit) | pbcopy"
+
 # open in bbedit
 bind generic = <Ctrl-b> !bbedit %(file)
 
@@ -33,4 +36,4 @@ bind generic = <Ctrl-t> !newterm.sh %(directory)
 bind generic = <Ctrl-x> !gitx -- %(file)
 
 # jump to the next diff chunk in the stage view
-bind stage <Enter> :/^@@
+#bind stage <Enter> :/^@@
