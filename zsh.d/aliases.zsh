@@ -36,7 +36,7 @@ alias gss='git stash show'
 #tig
 alias tgs='tig status'
 alias tgl='tig log'
-alias tgb='tig blame -C'
+alias tgb='tig blame -w -C'
 
 # osx
 
