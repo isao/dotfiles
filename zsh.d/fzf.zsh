@@ -23,6 +23,16 @@ fzf-file-widget() {
 zle -N fzf-file-widget
 bindkey '^F' fzf-file-widget
 
+# CTRL-F CTRL-G
+# Select a modified file.
+#
+fzf-gitmodified-widget() {
+    LBUFFER="${LBUFFER}$(echo $(git status --short | awk '{ print $2 }' | fzf -m | sed 1d))"
+    zle redisplay
+}
+zle -N fzf-gitmodified-widget
+bindkey '^F^G' fzf-gitmodified-widget
+
 # CTRL-F CTRL-R
 # Select a recent file or path via Spotlight/mdfind.
 #
@@ -60,21 +70,6 @@ fzf-gitallbranches-widget() {
 }
 zle -N fzf-gitallbranches-widget
 bindkey '^B^B^B' fzf-gitallbranches-widget
-
-gco() {
-    branch="$(__fzf_gitbranches refs/heads/)"
-    [[ -n $branch ]] && git checkout $branch
-}
-
-# CTRL-G CTRL-G
-# Select a modified file.
-#
-fzf-gitmodified-widget() {
-    LBUFFER="${LBUFFER}$(echo $(git status --short | awk '{ print $2 }' | fzf -m | sed 1d))"
-    zle redisplay
-}
-zle -N fzf-gitmodified-widget
-bindkey '^G^G' fzf-gitmodified-widget
 
 # CTRL-R
 # Navigate history.
