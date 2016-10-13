@@ -42,3 +42,10 @@ alias tgb='tig blame -C'
 
 #remove style from any text on the clipboard
 alias plaintext='pbpaste -Prefer txt | pbcopy'
+
+alias -s ts=bbedit
+alias -s js=bbedit
+alias -s json=bbedit
+alias -s html=bbedit
+alias -s less=bbedit
+
