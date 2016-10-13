@@ -1,4 +1,4 @@
-compdef _gnu_generic bbedit bbdiff bbfind bbresults
+type bbedit >/dev/null && compdef _gnu_generic bbedit bbdiff bbfind bbresults
 
 
 # bbproj() {
