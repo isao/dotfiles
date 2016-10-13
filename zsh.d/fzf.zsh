@@ -1,6 +1,6 @@
 type fzf rg >/dev/null || return
-type fzf >/dev/null && compdef _gnu_generic fzf
-type rg >/dev/null && compdef _gnu_generic rg
+compdef _gnu_generic fzf
+compdef _gnu_generic rg
 
 
 # fzf configuration
@@ -10,14 +10,14 @@ export FZF_DEFAULT_OPTS='-0 --bind "ctrl-c:execute(echo {}|pbcopy),ctrl-o:execut
 # ctrl-c copy the selected item
 # ctrl-o open the selected item
 # ctrl-l open the selected item in less
-export FZF_DEFAULT_COMMAND='rg "" --files-with-matches'
+export FZF_DEFAULT_COMMAND='rg --files'
 
 
 # CTRL-F
 # Select a file.
 #
 fzf-file-widget() {
-    LBUFFER="${LBUFFER}$(echo $(rg "" --files-with-matches | fzf -m | sed 1d))"
+    LBUFFER="${LBUFFER}$(echo $(rg --files | fzf -m | sed 1d))"
     zle redisplay
 }
 zle -N fzf-file-widget
