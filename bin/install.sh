@@ -34,7 +34,7 @@ done
 
 if [[ -x /usr/local/bin/brew ]]
 then
-  brew prune
+  brew prune --verbose
 fi
 
 # TODO: zcompile!
