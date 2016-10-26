@@ -1,5 +1,9 @@
 type bbedit >/dev/null && compdef _gnu_generic bbedit bbdiff bbfind bbresults
 
+alias -s ts=bbedit
+alias -s json=bbedit
+alias -s html=bbedit
+alias -s less=bbedit
 
 # bbproj() {
 #     open "~/Dropbox/Documents/bbproj/$1"
