@@ -174,10 +174,7 @@ then
 
     source "$dotfiles/zsh.d/bbedit.zsh"
     source "$dotfiles/zsh.d/fzf.zsh"
-    if [[ -r "$dotfiles/zsh.d/work.zsh" ]]
-    then
-        source "$dotfiles/zsh.d/work.zsh"
-    fi
+    [[ -r "$dotfiles/zsh.d/work.zsh" ]] && source "$dotfiles/zsh.d/work.zsh"
 fi
 
 #

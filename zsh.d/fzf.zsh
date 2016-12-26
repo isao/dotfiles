@@ -5,19 +5,21 @@ compdef _gnu_generic rg
 
 # fzf configuration
 #
-export FZF_DEFAULT_OPTS='-0 --bind "ctrl-c:execute(echo {}|pbcopy),ctrl-o:execute(open {}),ctrl-l:execute(less {})" --color=light --expect=ctrl-c,ctrl-o,ctrl-l --extended-exact --no-sort --reverse'
+export FZF_DEFAULT_COMMAND='rg --files'
+export FZF_DEFAULT_OPTS='--bind="ctrl-o:execute(open {}),ctrl-l:execute(less {})" --expect=ctrl-o,ctrl-l --color=light --exact --no-sort --reverse'
+
+# bind is broken!!!!!
 # from within fzf:
 # ctrl-c copy the selected item
 # ctrl-o open the selected item
 # ctrl-l open the selected item in less
-export FZF_DEFAULT_COMMAND='rg --files'
 
 
 # CTRL-F
 # Select a file.
 #
 fzf-file-widget() {
-    LBUFFER="${LBUFFER}$(echo $(rg --files | fzf -m | sed 1d))"
+    LBUFFER+="$(rg --files | fzf -m | sed 1d)"
     zle redisplay
 }
 zle -N fzf-file-widget
@@ -27,7 +29,7 @@ bindkey '^F' fzf-file-widget
 # Select a modified file.
 #
 fzf-gitmodified-widget() {
-    LBUFFER="${LBUFFER}$(echo $(git status --short | awk '{ print $2 }' | fzf -m | sed 1d))"
+    LBUFFER+="$(git status --short | awk '{ print $2 }' | fzf -m | sed 1d)"
     zle redisplay
 }
 zle -N fzf-gitmodified-widget
@@ -37,8 +39,7 @@ bindkey '^F^G' fzf-gitmodified-widget
 # Select a recent file or path via Spotlight/mdfind.
 #
 fzf-recentfile-widget() {
-	filelist=$(mdfind -onlyin ~/work -onlyin ~/Desktop -onlyin ~/Dropbox -onlyin ~/repos 'date:this month' | fzf -m | sed 1d)
-    LBUFFER="${LBUFFER}$(echo $filelist)"
+    LBUFFER+="$(mdfind -onlyin ~/work -onlyin ~/Desktop -onlyin ~/Dropbox -onlyin ~/repos 'date:this month' | fzf -m | sed 1d)"
     zle redisplay
 }
 zle -N fzf-recentfile-widget
@@ -55,7 +56,7 @@ __fzf_gitbranches() {
 # Select a local git branch.
 #
 fzf-gitbranches-widget() {
-    LBUFFER="${LBUFFER}$(echo $(__fzf_gitbranches refs/heads/))"
+    LBUFFER+="$(__fzf_gitbranches refs/heads/)"
     zle redisplay
 }
 zle -N fzf-gitbranches-widget
@@ -65,7 +66,7 @@ bindkey '^B^B' fzf-gitbranches-widget
 # Select any git branch.
 #
 fzf-gitallbranches-widget() {
-    LBUFFER="${LBUFFER}$(echo $(__fzf_gitbranches))"
+    LBUFFER+="$(__fzf_gitbranches)"
     zle redisplay
 }
 zle -N fzf-gitallbranches-widget
