@@ -13,8 +13,8 @@ WORDCHARS='*?_-.[]~&!#$%^(){}<>'
 #       history
 
 HISTFILE=$HOME/.zsh_history
-HISTSIZE=10000
-SAVEHIST=9000
+HISTSIZE=1000
+SAVEHIST=900
 
 setopt hist_ignore_dups # ignore duplication command history list
 setopt hist_expire_dups_first
@@ -176,12 +176,3 @@ then
     source "$dotfiles/zsh.d/fzf.zsh"
     [[ -r "$dotfiles/zsh.d/work.zsh" ]] && source "$dotfiles/zsh.d/work.zsh"
 fi
-
-#
-# insert the last modified file or directory
-last-file-widget() {
-    LBUFFER="${LBUFFER}$(/bin/ls -t | head -1)"
-    zle redisplay
-}
-zle -N last-file-widget
-bindkey '\el' last-file-widget
