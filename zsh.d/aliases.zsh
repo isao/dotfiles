@@ -5,6 +5,7 @@
 alias cd..='cd ..'
 alias ls=' ls -FG'
 alias ll=' /bin/ls -lG'
+alias kk=ll
 alias lsd='find . -type d -depth 1 | xargs ls -dl "{}" \;'  # ll dirs only
 alias ls.='ls -dG .?*'  # ls dot files & dirs only
 alias ll.='ls -dGl .?*' # ls dot files & dirs only
@@ -25,8 +26,10 @@ alias checkpath='ls -ld $(echo $PATH | tr : "\n") > /dev/null'
 # git
 alias gg='git status --branch --short'
 alias ggg='gg --ignored'
-alias gb='git branch | grep -v old/'
+alias gb='git branch -v | egrep -v "^. old/" | cut -c 1-$(tput cols)'
 alias gd='git difftool'
+alias gf='git fetch -p'
+alias gp='git pull -p'
 alias gu='git gui browser'
 alias gr='git remote -v'
 alias gsl='git stash list'
@@ -42,4 +45,3 @@ alias tgb='tig blame -w -C'
 
 #remove style from any text on the clipboard
 alias plaintext='pbpaste -Prefer txt | pbcopy'
-
