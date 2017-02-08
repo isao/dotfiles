@@ -2,10 +2,16 @@
 
 #   FUNCTIONS
 #
+err()
+{
+    echo $2 >&2
+    exit $1
+}
+
 maketags()
 {
     cd "$basedir"
-    /usr/local/bin/ctags $language $excludes $ctagflags $args $paths
+    ctags $language $excludes $ctagflags $args $paths
 }
 
 alert()
@@ -13,6 +19,10 @@ alert()
     osascript -e "display notification \"$basedir\" with title \"$scriptname\""
 }
 
+#   CHECKS
+#
+type ctags || err 1 "Error: you need to install ctags (brew install universal-ctags)."
+[[ -f ~/.ctags ]] || err 3 "Error: you need to install ~/.ctags https://git.io/vDE8C"
 
 #   PARAMS
 #
