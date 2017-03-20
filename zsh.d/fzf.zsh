@@ -29,7 +29,7 @@ bindkey '^F' fzf-file-widget
 # Select a modified file.
 #
 fzf-gitmodified-widget() {
-    LBUFFER+="$(git status --short | awk '{ print $2 }' | fzf -m | sed 1d)"
+    LBUFFER+="$(git status --short | fzf -m | awk '{if (NR!=1) {print $2}}')"
     zle redisplay
 }
 zle -N fzf-gitmodified-widget
@@ -57,7 +57,7 @@ bindkey '^F^R' fzf-recentfile-widget
 #
 fzf-gitbranches-widget() {
     #LBUFFER+="$(__fzf_gitbranches refs/heads/)"
-    LBUFFER+="$(git branch -v | cut -c 1-$(tput cols) | fzf -q '!old/ ' | awk '{if (NR!=1) {print $1}}')"
+    LBUFFER+="$(git branch -v | fzf -q '!old/ ' | awk '{if (NR!=1) {print $1}}')"
     zle redisplay
 }
 zle -N fzf-gitbranches-widget
@@ -68,7 +68,7 @@ bindkey '^B^B' fzf-gitbranches-widget
 #
 fzf-gitallbranches-widget() {
     #LBUFFER+="$(__fzf_gitbranches)"
-    LBUFFER+="$(git branch -rv | cut -c 1-$(tput cols) | fzf -q '!origin/Dev/releases/ !/submit/request- ' | awk '{if (NR!=1) {print $1}}')"
+    LBUFFER+="$(git branch -rv | fzf -q '!origin/Dev/releases/ !/submit/request- ' | awk '{if (NR!=1) {print $1}}')"
     zle redisplay
 }
 zle -N fzf-gitallbranches-widget
