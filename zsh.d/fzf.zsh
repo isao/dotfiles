@@ -4,22 +4,18 @@ compdef _gnu_generic rg
 
 
 # fzf configuration
+# ctrl-c copy the selected item
+# ctrl-b open the selected item in BBEdit
+# ctrl-o open the selected item
 #
 export FZF_DEFAULT_COMMAND='rg --files'
-export FZF_DEFAULT_OPTS='--bind="ctrl-o:execute(open {}),ctrl-l:execute(less {})" --expect=ctrl-o,ctrl-l --color=light --exact --no-sort --reverse'
-
-# bind is broken!!!!!
-# from within fzf:
-# ctrl-c copy the selected item
-# ctrl-o open the selected item
-# ctrl-l open the selected item in less
-
+export FZF_DEFAULT_OPTS='--color=light --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {+1} | pbcopy)+abort,ctrl-o:execute(open {+1})+abort,ctrl-b:execute(bbedit {+1})+abort"'
 
 # CTRL-F
 # Select a file.
 #
 fzf-file-widget() {
-    LBUFFER+="$(rg --files | fzf -m | sed 1d)"
+    LBUFFER+="$(rg --files | fzf --multi --preview 'head -99 {}' | sed 1d)"
     zle redisplay
 }
 zle -N fzf-file-widget
@@ -29,7 +25,7 @@ bindkey '^F' fzf-file-widget
 # Select a modified file.
 #
 fzf-gitmodified-widget() {
-    LBUFFER+="$(git status --short | fzf -m | awk '{if (NR!=1) {print $2}}')"
+    LBUFFER+="$(git status --short | fzf --multi | awk '{if (NR!=1) {print $2}}')"
     zle redisplay
 }
 zle -N fzf-gitmodified-widget
