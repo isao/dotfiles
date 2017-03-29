@@ -66,7 +66,7 @@
 
     ; fetch a github pull request: git pr <remote> <prnumber>
     ; @gnarf https://gist.github.com/piscisaureus/3342247#comment-817399
-    checkout-pr = "!f() { git fetch $1 refs/pull/$2/head:pr/$2; } ; f"
+    checkout-github-pr = "!f() { git fetch $1 refs/pull/$2/head:pr/$2; } ; f"
 
     ; remote update & show heads (https://github.com/isao/git-heads)
     reup = !git remote update && git heads
