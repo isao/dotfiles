@@ -48,16 +48,16 @@ bindkey '^F^R' fzf-recentfile-widget
 # fzf recent items
 # alias fzf-recent='mdfind -onlyin ~/work -onlyin ~/Desktop -onlyin ~/Dropbox -onlyin ~/repos "date:this month" | fzf'
 
-# __fzf_gitbranches() {
-#     git for-each-ref --format='%(refname:short)' $1 | grep -v old/ | fzf | sed 1d
-# }
+__fzf_gitbranches() {
+    git for-each-ref --format='%(refname:short)' $1
+}
 
 # CTRL-B CTRL-B
 # Select a local git branch.
 #
 fzf-gitbranches-widget() {
-    #LBUFFER+="$(__fzf_gitbranches refs/heads/)"
-    LBUFFER+="$(git branch -v | fzf -q '!old/ ' | awk '{if (NR!=1) {print $1}}')"
+    LBUFFER+="$(__fzf_gitbranches refs/heads/ | fzf -q '!old/ ' --multi --preview 'git show {}' | sed 1d)"
+    #LBUFFER+="$(git branch -v | fzf -q '!old/ ' | awk '{if (NR!=1) {print $1}}')"
     zle redisplay
 }
 zle -N fzf-gitbranches-widget
@@ -67,8 +67,8 @@ bindkey '^B^B' fzf-gitbranches-widget
 # Select any git branch.
 #
 fzf-gitallbranches-widget() {
-    #LBUFFER+="$(__fzf_gitbranches)"
-    LBUFFER+="$(git branch -rv | fzf -q '!origin/Dev/releases/ !/submit/request- ' | awk '{if (NR!=1) {print $1}}')"
+    LBUFFER+="$(__fzf_gitbranches | fzf -q '!origin/Dev/releases/ !/submit/request- !old/ ' --multi --preview 'git show {}' | sed 1d)"
+    #LBUFFER+="$(git branch -rv | fzf -q '!origin/Dev/releases/ !/submit/request- ' | awk '{if (NR!=1) {print $1}}')"
     zle redisplay
 }
 zle -N fzf-gitallbranches-widget
