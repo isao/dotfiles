@@ -3,8 +3,8 @@
 #
 
 alias cd..='cd ..'
-alias ls=' ls -FG'
-alias ll=' /bin/ls -lG'
+alias ls='ls -FG'
+alias ll='/bin/ls -lG'
 alias kk=ll
 alias lsd='find . -type d -depth 1 | xargs ls -dl "{}" \;'  # ll dirs only
 alias ls.='ls -dG .?*'  # ls dot files & dirs only
