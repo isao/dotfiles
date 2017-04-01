@@ -15,7 +15,7 @@ export FZF_DEFAULT_OPTS='--color=light --cycle --exact --multi --reverse --bind=
 # Select a file.
 #
 fzf-file-widget() {
-    LBUFFER+="$(rg --files | fzf --multi --preview 'head -99 {}' | sed 1d)"
+    LBUFFER+="$(rg --files | fzf --multi --preview 'head -88 {}')"
     zle redisplay
 }
 zle -N fzf-file-widget
@@ -25,7 +25,7 @@ bindkey '^F' fzf-file-widget
 # Select a modified file.
 #
 fzf-gitmodified-widget() {
-    LBUFFER+="$(git status --short | fzf --multi | awk '{if (NR!=1) {print $2}}')"
+    LBUFFER+="$(git status --short | fzf --multi --preview 'git diff {2}'| awk '{print $2}')"
     zle redisplay
 }
 zle -N fzf-gitmodified-widget
@@ -52,7 +52,7 @@ __fzf_gitbranches() {
 # Select a local git branch.
 #
 fzf-gitbranches-widget() {
-    LBUFFER+="$(__fzf_gitbranches refs/heads/ | fzf -q '!old/ ' --multi --preview 'git show {}' | sed 1d)"
+    LBUFFER+="$(__fzf_gitbranches refs/heads/ | fzf -q '!old/ ' --multi --preview 'git show {}')"
     #LBUFFER+="$(git branch -v | fzf -q '!old/ ' | awk '{if (NR!=1) {print $1}}')"
     zle redisplay
 }
@@ -63,7 +63,7 @@ bindkey '^B^B' fzf-gitbranches-widget
 # Select any git branch.
 #
 fzf-gitallbranches-widget() {
-    LBUFFER+="$(__fzf_gitbranches | fzf -q '!origin/Dev/releases/ !/submit/request- !old/ ' --multi --preview 'git show {}' | sed 1d)"
+    LBUFFER+="$(__fzf_gitbranches | fzf -q '!origin/Dev/releases/ !/submit/request- !old/ ' --multi --preview 'git show {}')"
     #LBUFFER+="$(git branch -rv | fzf -q '!origin/Dev/releases/ !/submit/request- ' | awk '{if (NR!=1) {print $1}}')"
     zle redisplay
 }
