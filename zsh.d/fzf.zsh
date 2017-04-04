@@ -25,7 +25,7 @@ bindkey '^F' fzf-file-widget
 # Select a modified file.
 #
 fzf-gitmodified-widget() {
-    LBUFFER+="$(git status --short | fzf --exit-0 --multi --preview 'git diff {2}'| awk '{print $2}')"
+    LBUFFER+="$(git status --short | fzf --exit-0 --multi --preview 'git diff --color {2}'| awk '{print $2}')"
     zle redisplay
 }
 zle -N fzf-gitmodified-widget
