@@ -48,11 +48,19 @@ __fzf_gitbranches() {
     git for-each-ref --format='%(refname:short)' $1
 }
 
+__fzf_preview_gitshow() {
+    fzf --multi \
+        --header-lines=1 \
+        --preview='echo {}; git show --color --decorate --format=fuller --stat {}' \
+        --preview-window='right:70%' \
+        $@
+}
+
 # CTRL-B CTRL-B
 # Select a local git branch.
 #
 fzf-gitbranches-widget() {
-    LBUFFER+="$(__fzf_gitbranches refs/heads/ | fzf -q '!old/ ' --multi --preview 'git show {}')"
+    LBUFFER+="$(__fzf_gitbranches refs/heads/ | __fzf_preview_gitshow -q '!old/ ' )"
     #LBUFFER+="$(git branch -v | fzf -q '!old/ ' | awk '{if (NR!=1) {print $1}}')"
     zle redisplay
 }
@@ -63,7 +71,7 @@ bindkey '^B^B' fzf-gitbranches-widget
 # Select any git branch.
 #
 fzf-gitallbranches-widget() {
-    LBUFFER+="$(__fzf_gitbranches | fzf -q '!origin/Dev/releases/ !/submit/request- !old/ ' --multi --preview 'git show {}')"
+    LBUFFER+="$(__fzf_gitbranches | __fzf_preview_gitshow -q '!origin/Dev/releases/ !/submit/request- !old/ ')"
     #LBUFFER+="$(git branch -rv | fzf -q '!origin/Dev/releases/ !/submit/request- ' | awk '{if (NR!=1) {print $1}}')"
     zle redisplay
 }
