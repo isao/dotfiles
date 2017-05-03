@@ -1,8 +1,15 @@
 set line-graphics = utf-8
 set tab-size = 2
-set main-view-id-display = yes
+#set main-view-id-display = yes
 
 set main-view-author = email-user
+set main-view-author-width = 18
+set main-view-date = relative-compact
+
+set split-view-width = 55%
+set vertical-split = true
+
+set editor-line-number = true
 
 #tig warning: ~/.tigrc:6: 'short' is no longer supported for date-display, use the 'custom' display mode and set 'date-format'
 #set main-view-date = short

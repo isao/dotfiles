@@ -52,7 +52,7 @@ __fzf_preview_gitshow() {
     fzf --multi \
         --header-lines=1 \
         --preview='echo {}; git show --color --decorate --format=fuller --stat {}' \
-        --preview-window='right:70%' \
+        --preview-window='right:55%' \
         $@
 }
 
