@@ -17,9 +17,9 @@
 
 [pager]
     ;$(brew --prefix git) -> /usr/local/opt/git
-	log  = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
-	show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
-	diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+    log  = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+    show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+    diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
     ;diff = diff-so-fancy | less --tabs=4 -RFX
     ;show = diff-so-fancy | less --tabs=4 -RFX
 
@@ -75,7 +75,15 @@
     pub = !"for i in `git remote`; do echo $i...; git push -v $i; done"
 
     lf = log --graph --stat --decorate
-    lg = log --format='%cd %C(auto)%h %<(12,trunc)%an %s%d' --date=short
+
+    # %cd               -> 2017-06014
+    # %C(auto)%h        -> 5259c11bd5 short commit sha
+    # %<(12,trunc)%an   -> author name, truncated to 12 characters w/ elipses
+    # %<(80,trunc)%s    -> commit subject, truncated to 80 characters w/ elipses
+    # %d                -> (removed) decorate output, i.e. origin/master...
+    # e.g.:
+    # 2017-06-14 d158a92cf7 Isao Yagi    App reload changes. #MF-65977 #MF-66030
+    lg = log --format='%cd %C(auto)%h %<(12,trunc)%an %<(80,trunc)%s' --date=short
 
     # http://bit.ly/1Yx9OQM
     assume   = update-index --assume-unchanged
