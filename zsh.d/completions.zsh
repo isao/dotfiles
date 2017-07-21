@@ -42,6 +42,10 @@ then
     source /usr/local/etc/bash_completion.d/tig-completion.bash
 fi
 
+# npm
+type npm >/dev/null && source <(npm completion)
+
+
 #
 # gulp-autocompletion-zsh
 # https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/gulp/gulp.plugin.zsh
