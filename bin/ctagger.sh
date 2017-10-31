@@ -11,7 +11,7 @@ err()
 maketags()
 {
     cd "$basedir"
-    ctags $language $excludes $ctagflags $args $paths
+    ctags $excludes $args $paths
 }
 
 alert()
@@ -22,16 +22,14 @@ alert()
 #   CHECKS
 #
 type ctags >/dev/null || err 1 "Error: you need to install ctags (brew install universal-ctags)."
-[[ -f ~/.ctags ]] || err 3 "Error: you need to install ~/.ctags https://git.io/vDE8C"
+[[ -d ~/.ctags.d ]] || err 3 "Error: you need to install ~/.ctags https://git.io/vDE8C"
 
 #   PARAMS
 #
 
 scriptname=$(basename "$0" .sh)
 args=$*
-ctagflags='--excmd=number --tag-relative=no --fields=+a+m+n+S --recurse'
-excludes='--exclude=node_modules --exclude=.git'
-language=
+excludes=
 paths=
 basedir=
 
@@ -45,11 +43,7 @@ basedir=
 if [[ $(git remote -v 2>/dev/null) =~ /MRGIT/_git/ReachClient ]]
 then
     paths='Web/scripts Web/typescript Web/scripts/OPEN_SOURCE_SOFTWARE/typescriptDefinitions Web/node_modules/typescript/lib/lib.*.d.ts'
-    language='--languages=typescript'
-    excludes="$excludes --exclude=OPEN_SOURCE_SOFTWARE --exclude=napa"
-elif [[ -d 'node_modules/typescript/lib' ]]
-then
-    paths='node_modules/typescript/lib/lib.*.d.ts'
+    excludes="--exclude=OPEN_SOURCE_SOFTWARE --exclude=napa"
 fi
 
 # Use git repo's base directory if applicable.

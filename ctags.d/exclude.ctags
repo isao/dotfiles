@@ -1,0 +1,6 @@
+--exclude=.git
+--exclude=artifacts
+--exclude=build
+--exclude=dist
+--exclude=node_modules
+--exclude=tmp

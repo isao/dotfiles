@@ -21,6 +21,9 @@ do
   fi
 done
 
+# Special case: dot-directory
+$link "$abspath/ctags.d" .ctags.d
+
 # Install some scripts.
 # Symlink to all files in ./bin from /usr/local/bin, removing the ".sh"
 cd /usr/local/bin
