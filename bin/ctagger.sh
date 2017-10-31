@@ -22,11 +22,10 @@ alert()
 #   CHECKS
 #
 type ctags >/dev/null || err 1 "Error: you need to install ctags (brew install universal-ctags)."
-[[ -d ~/.ctags.d ]] || err 3 "Error: you need to install ~/.ctags https://git.io/vDE8C"
+[[ -d ~/.ctags.d ]] || err 3 "Error: you need to configure ~/.ctags.d"
 
 #   PARAMS
 #
-
 scriptname=$(basename "$0" .sh)
 args=$*
 excludes=
