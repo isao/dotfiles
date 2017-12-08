@@ -11,11 +11,15 @@ compdef _gnu_generic rg
 export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_DEFAULT_OPTS='--color=light --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {+1} | pbcopy)+abort,ctrl-o:execute(open {+1})+abort,ctrl-b:execute(bbedit {+1})+abort"'
 
+fzfp() {
+    fzf --multi --preview 'head -999 {}' | xargs
+}
+
 # CTRL-F
 # Select a file.
 #
 fzf-file-widget() {
-    LBUFFER+="$(rg --files | fzf --multi --preview 'head -88 {}')"
+    LBUFFER+="$(rg --files | fzfp)"
     zle redisplay
 }
 zle -N fzf-file-widget
