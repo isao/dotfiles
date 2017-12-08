@@ -25,7 +25,7 @@ bindkey '^F' fzf-file-widget
 # Select a modified file.
 #
 fzf-gitmodified-widget() {
-    LBUFFER+="$(git status --short | fzf --exit-0 --multi --preview 'git diff --color {2}'| awk '{print $2}')"
+    LBUFFER+="$(git status --short | fzf --exit-0 --multi --preview 'git diff --color {2}'| awk '{print $2}' | xargs)"
     zle redisplay
 }
 zle -N fzf-gitmodified-widget
@@ -35,7 +35,7 @@ bindkey '^F^G' fzf-gitmodified-widget
 # Select a recent file or path via Spotlight/mdfind.
 #
 fzf-recentfile-widget() {
-    LBUFFER+="$(mdfind -onlyin ~/work -onlyin ~/Desktop -onlyin ~/Dropbox -onlyin ~/repos 'date:this month' | fzf -m | sed 1d)"
+    LBUFFER+="$(mdfind -onlyin ~/work -onlyin ~/Desktop -onlyin ~/Dropbox -onlyin ~/repos 'date:this month' | fzf -m | sed 1d | xargs)"
     zle redisplay
 }
 zle -N fzf-recentfile-widget
