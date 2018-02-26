@@ -6,10 +6,12 @@ alias cd..='cd ..'
 alias ls='ls -FG'
 alias ll='/bin/ls -lG'
 alias kk=ll
-alias lsd='find . -type d -depth 1 | xargs ls -dl "{}" \;'  # ll dirs only
 alias ls.='ls -dG .?*'  # ls dot files & dirs only
 alias ll.='ls -dGl .?*' # ls dot files & dirs only
 alias la='ll -A'
+#alias lsd='find . -type d -depth 1 | xargs ls -dl "{}" \;'  # ll dirs only
+alias lsd='/bin/ls -d */'   # ls just directories
+alias llsd='/bin/ls -dl */' # ll just directories
 
 #
 # one-liners
