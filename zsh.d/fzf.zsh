@@ -39,7 +39,7 @@ bindkey '^F^G' fzf-gitmodified-widget
 # Select a recent file or path via Spotlight/mdfind.
 #
 fzf-recentfile-widget() {
-    LBUFFER+="$(mdfind -onlyin ~/work -onlyin ~/Desktop -onlyin ~/Dropbox -onlyin ~/repos 'date:this month' | fzf -m | sed 1d | xargs)"
+    LBUFFER+="$(mdfind -onlyin ~/work -onlyin ~/Desktop -onlyin ~/Dropbox -onlyin ~/repos 'date:this month' | fzf -m | xargs)"
     zle redisplay
 }
 zle -N fzf-recentfile-widget
