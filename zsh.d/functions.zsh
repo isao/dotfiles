@@ -29,7 +29,7 @@ ql() {
 }
 
 # Get path to the active Finder window.
-cwdfinder() {
+finderpath() {
     osascript <<-EOF
         tell application "Finder"
             if first window exists then
@@ -43,5 +43,5 @@ EOF
 }
 
 cdfinder() {
-    cd -P "$(cwdfinder)" || exit 1
+    cd -P "$(finderpath)" || exit 1
 }
