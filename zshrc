@@ -1,9 +1,12 @@
 export EDITOR=$(/usr/bin/which bbedit..sh bbedit nano vim vi 2>/dev/null | grep ^/ | head -1)
-export LESS='--tabs=2 -iFMRX'
 export GREP_COLOR=32 # ANSI/VT100: 32 is green, '1;34' is bold blue
 export RSYNC_RSH=ssh
 
-BAUD=38400
+export LESS='--tabs=4 -iFMRX'
+type highlight >/dev/null && \
+    export LESSOPEN="| highlight %s --out-format xterm256 --quiet --force --style fine_blue"
+
+# BAUD=38400
 # default WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>'
 WORDCHARS='*?_-.[]~&!#$%^(){}<>'
 #KEYTIMEOUT=60
