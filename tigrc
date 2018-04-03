@@ -38,3 +38,7 @@ bind generic = <Ctrl-x> !gitx -- %(file)
 
 # jump to the next diff chunk in the stage view
 #bind stage <Enter> :/^@@
+
+
+# https://hackernoon.com/macbook-my-command-line-utilities-f8a121c3b019
+#bind status <F4> !sh -c "git difftool -y \"$(git rev-parse — show-toplevel)/%(file)\""

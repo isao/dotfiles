@@ -11,8 +11,9 @@ compdef _gnu_generic rg
 export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_DEFAULT_OPTS='--color=light --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {+1} | pbcopy)+abort,ctrl-o:execute(open {+1})+abort,ctrl-b:execute(bbedit {+1})+abort"'
 
+# fzf file picker with text preview
 fzfp() {
-    fzf --multi --preview 'head -999 {}' | xargs
+    fzf --multi --preview 'head -99 {}' | xargs
 }
 
 # CTRL-F
@@ -65,7 +66,6 @@ __fzf_preview_gitshow() {
 #
 fzf-gitbranches-widget() {
     LBUFFER+="$(__fzf_gitbranches refs/heads/ | __fzf_preview_gitshow -q '!old/ ' )"
-    #LBUFFER+="$(git branch -v | fzf -q '!old/ ' | awk '{if (NR!=1) {print $1}}')"
     zle redisplay
 }
 zle -N fzf-gitbranches-widget
@@ -76,7 +76,6 @@ bindkey '^B^B' fzf-gitbranches-widget
 #
 fzf-gitallbranches-widget() {
     LBUFFER+="$(__fzf_gitbranches | __fzf_preview_gitshow -q '!origin/Dev/releases/ !/submit/request- !old/ ')"
-    #LBUFFER+="$(git branch -rv | fzf -q '!origin/Dev/releases/ !/submit/request- ' | awk '{if (NR!=1) {print $1}}')"
     zle redisplay
 }
 zle -N fzf-gitallbranches-widget

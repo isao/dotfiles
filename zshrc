@@ -12,6 +12,8 @@ WORDCHARS='*?_-.[]~&!#$%^(){}<>'
 #KEYTIMEOUT=60
 
 
+setopt correct
+
 #
 #       history
 
@@ -31,7 +33,7 @@ setopt append_history
 setopt extended_history
 setopt inc_append_history
 setopt share_history
-
+# setopt hist_verify 
 
 # http://chneukirchen.org/blog/archive/2012/02/10-new-zsh-tricks-you-may-not-know.html
 # http://zsh.sourceforge.net/Intro/intro_6.html
@@ -52,6 +54,9 @@ setopt pushdminus
 setopt pushdsilent
 setopt pushdtohome
 setopt pushd_ignore_dups
+
+# https://robots.thoughtbot.com/cding-to-frequently-used-directories-in-zsh
+cdpath=($HOME $HOME/repos)
 
 
 #

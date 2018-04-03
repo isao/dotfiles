@@ -22,13 +22,11 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 #     _wanted files expl 'local files' _files
 # }
 
-# Install homebrew completions
-# ln -s "$(brew --prefix)/Library/Contributions/brew_zsh_completion.zsh" /usr/local/share/zsh/site-functions/_brew
+type shellcheck >/dev/null && \
+    compdef _gnu_generic shellcheck
 
-if [[ -r /usr/local/etc/bash_completion.d/cdargs-bash.sh ]]
-then
-    source /usr/local/etc/bash_completion.d/cdargs-bash.sh
-fi
+type tsc >/dev/null && \
+    compdef _gnu_generic tsc
 
 # brew home zsh-syntax-highlighting
 if [[ -r /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]
@@ -36,15 +34,6 @@ then
     source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 fi
-
-if [[ -e /usr/local/etc/bash_completion.d/tig-completion.bash ]]
-then
-    source /usr/local/etc/bash_completion.d/tig-completion.bash
-fi
-
-# npm
-type npm >/dev/null && source <(npm completion)
-
 
 #
 # gulp-autocompletion-zsh
@@ -56,8 +45,6 @@ type npm >/dev/null && source <(npm completion)
 # André König
 # Github: https://github.com/akoenig
 # Twitter: https://twitter.com/caiifr
-#
-
 #
 # Grabs all available tasks from the `gulpfile.js`
 # in the current directory.
