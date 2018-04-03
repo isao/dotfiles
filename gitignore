@@ -1,7 +1,7 @@
 tags
 artifacts
 npm-debug.log
-
+.ctagger
 ._*
 .#*
 .DS_Store
