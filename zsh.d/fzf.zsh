@@ -1,7 +1,5 @@
 type fzf rg >/dev/null || return
 compdef _gnu_generic fzf
-compdef _gnu_generic rg
-
 
 # fzf configuration
 # ctrl-c copy the selected item
@@ -11,23 +9,18 @@ compdef _gnu_generic rg
 export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_DEFAULT_OPTS='--color=light --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {+1} | pbcopy)+abort,ctrl-o:execute(open {+1})+abort,ctrl-b:execute(bbedit {+1})+abort"'
 
-# fzf file picker with text preview
-fzfp() {
-    fzf --multi --preview 'head -99 {}' | xargs
-}
-
 # CTRL-F
-# Select a file.
+# Select file(s).
 #
 fzf-file-widget() {
-    LBUFFER+="$(rg --files | fzfp)"
+    LBUFFER+="$(fzf --multi --header-lines=1 --preview 'echo {}; head -99 {}' | xargs)"
     zle redisplay
 }
 zle -N fzf-file-widget
 bindkey '^F' fzf-file-widget
 
 # CTRL-F CTRL-G
-# Select a modified file.
+# Select git modified file(s).
 #
 fzf-gitmodified-widget() {
     LBUFFER+="$(git status --short | fzf --exit-0 --multi --preview 'git diff --color {2}'| awk '{print $2}' | xargs)"

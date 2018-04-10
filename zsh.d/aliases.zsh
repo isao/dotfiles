@@ -46,6 +46,9 @@ alias tgs='tig status'
 alias tgl='tig log'
 alias tgb='tig blame -w -C'
 
+#ripgrep
+alias rgg='rg --glob "*.{html,less,css,js,ts,tsx,md,txt,json5?}" --glob "!{node_modules,dist}"'
+
 # osx
 
 #remove style from any text on the clipboard
