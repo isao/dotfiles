@@ -93,7 +93,7 @@ bindkey '\egbb' fzf-gitallbranches-widget
 # ESC GSS
 # Select a git stash
 fzf-gitstash-widget() {
-    LBUFFER+="$(git stash list | cut -d : -f 1 | fzf --preview 'git stash show --color -p {}')"
+    LBUFFER+="$(git stash list | cut -d : -f 1 | fzf --preview 'git stash show --color -p {}' --preview-window='right:80%')"
     zle redisplay
 }
 zle -N fzf-gitstash-widget
