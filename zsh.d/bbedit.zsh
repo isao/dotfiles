@@ -21,10 +21,9 @@ bbpath() {
             beep
         end if
     end tell
-
 EOF
 }
 
 cdbbedit() {
-    cd -P "$(dirname "$(bbpath)")" || exit 1
+    cd -P "$(dirname "$(bbpath)")"
 }
