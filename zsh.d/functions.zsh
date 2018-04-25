@@ -25,7 +25,7 @@ rmmacmeta() {
 
 # Quicklook
 ql() {
-    qlmanage -p "$1" 2&>1 > /dev/null
+    qlmanage -p "$1" > /dev/null 2>&1
 }
 
 # Get path to the active Finder window.
