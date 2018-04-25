@@ -31,7 +31,13 @@ chpwd() {
     print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
 }
 fzf-dirs-widget() {
-    LBUFFER+="$({ cat ~/.zdirs; mdfind tag:wip AND kind:folders} | uniq | fzf --no-multi)"
+    LBUFFER+="$({ cat ~/.zdirs; mdfind tag:wip AND kind:folders} | awk '!x[$0]++' | fzf --no-multi)"
+    # Dedupe without changing the order (to respect recency) -> awk '!x[$0]++'
+    # https://stackoverflow.com/a/11532197/8947435
+    # $0 holds the entire contents of a line and square brackets are array
+    # access. So, for each line of the file, the node of the array x is
+    # incremented and the line printed if the content of that node was not (!)
+    # previously set.
     zle redisplay
 }
 zle     -N    fzf-dirs-widget
