@@ -27,11 +27,15 @@ bindkey '\eff' fzf-file-widget
 # Select a directory from ~/.zdirs or tag:wip.
 DIRSTACKFILE=~/.zdirs
 DIRSTACKSIZE=66
+if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]
+then
+    dirstack=(${(f)"$(< $DIRSTACKFILE)"})
+fi
 chpwd() {
     print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
 }
 fzf-dirs-widget() {
-    LBUFFER+="$({ cat ~/.zdirs; mdfind tag:wip AND kind:folders} | awk '!x[$0]++' | fzf --no-multi)"
+    LBUFFER+="$({cat ~/.zdirs; mdfind tag:wip AND kind:folders} | awk '!x[$0]++' | fzf --no-multi)"
     # Dedupe without changing the order (to respect recency) -> awk '!x[$0]++'
     # https://stackoverflow.com/a/11532197/8947435
     # $0 holds the entire contents of a line and square brackets are array
