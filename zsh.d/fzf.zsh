@@ -47,7 +47,6 @@ fzf-recentfile-widget() {
 zle -N fzf-recentfile-widget
 bindkey '\err' fzf-recentfile-widget
 
-
 # From /usr/local/opt/fzf/shell/key-bindings.zsh
 # CTRL-R - Paste the selected command from history into the command line
 # Overrides default "^R" history-incremental-search-backward
@@ -70,6 +69,10 @@ fzf-history-widget() {
 zle     -N   fzf-history-widget
 bindkey '^R' fzf-history-widget
 
+
+#
+#   GIT
+#
 
 # ESC G G
 # Select git modified file(s).

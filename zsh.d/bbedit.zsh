@@ -9,9 +9,9 @@ alias -s html=bbedit
 alias -s less=bbedit
 alias -s bbprojectd=bbedit
 
-# bbproj() {
-#     open "~/Dropbox/Documents/bbproj/$1"
-# }
+bbproj() {
+    mdfind kMDItemContentType:com.barebones.bbedit.project | fzf | xargs open
+}
 
 bbpath() {
     osascript <<-EOF
