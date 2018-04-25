@@ -2,10 +2,12 @@ type bbedit >/dev/null || return
 
 compdef _gnu_generic bbedit bbdiff bbfind bbresults
 
+# Open files with the following extension in BBEdit.
 alias -s ts=bbedit
 alias -s json=bbedit
 alias -s html=bbedit
 alias -s less=bbedit
+alias -s bbprojectd=bbedit
 
 # bbproj() {
 #     open "~/Dropbox/Documents/bbproj/$1"
