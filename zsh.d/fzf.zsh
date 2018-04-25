@@ -1,5 +1,9 @@
 type fzf rg >/dev/null || return
-compdef _gnu_generic fzf
+
+# compdef _gnu_generic fzf
+
+# FZF Completion functions
+#[[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
 
 # fzf configuration
 # ctrl-c copy the selected item
@@ -7,9 +11,9 @@ compdef _gnu_generic fzf
 # ctrl-o open the selected item
 #
 export FZF_DEFAULT_COMMAND='rg --files'
-export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {+1} | pbcopy)+abort,ctrl-o:execute(open {+1})+abort,ctrl-b:execute(bbedit {+1})+abort"'
+export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {} | pbcopy)+abort,ctrl-o:execute(open {+1})+abort,ctrl-b:execute(bbedit {})+abort"'
 
-# CTRL-F
+# ESC F F
 # Select file(s).
 #
 fzf-file-widget() {
@@ -17,42 +21,57 @@ fzf-file-widget() {
     zle redisplay
 }
 zle -N fzf-file-widget
-bindkey '^F' fzf-file-widget
+bindkey '\eff' fzf-file-widget
 
-# CTRL-F CTRL-R
+# ESC R
+# Select a directory from ~/.zdirs or tag:wip.
+DIRSTACKFILE=~/.zdirs
+DIRSTACKSIZE=66
+chpwd() {
+    print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
+}
+fzf-dirs-widget() {
+    LBUFFER+="$({ cat ~/.zdirs; mdfind tag:wip AND kind:folders} | uniq | fzf --no-multi)"
+    zle redisplay
+}
+zle     -N    fzf-dirs-widget
+bindkey '\er' fzf-dirs-widget
+
+# ESC R R
 # Select a recent file or path via Spotlight/mdfind.
 #
 fzf-recentfile-widget() {
-    LBUFFER+="$(mdfind -onlyin ~/work -onlyin ~/Desktop -onlyin ~/Dropbox -onlyin ~/repos 'date:this month' | fzf -m | xargs)"
+    LBUFFER+="$(mdfind -onlyin ~/work -onlyin ~/Desktop -onlyin ~/Dropbox -onlyin ~/repos 'kMDItemFSContentChangeDate >= $time.today(-9)' | fzf -m | xargs)"
     zle redisplay
 }
 zle -N fzf-recentfile-widget
-bindkey '^F^R' fzf-recentfile-widget
-# fzf recent items
-# alias fzf-recent='mdfind -onlyin ~/work -onlyin ~/Desktop -onlyin ~/Dropbox -onlyin ~/repos "date:this month" | fzf'
+bindkey '\err' fzf-recentfile-widget
 
-# CTRL-R
-# Navigate history.
-#
+
+# From /usr/local/opt/fzf/shell/key-bindings.zsh
+# CTRL-R - Paste the selected command from history into the command line
+# Overrides default "^R" history-incremental-search-backward
 fzf-history-widget() {
-    local selected num
-    selected=( $(fc -l 1 | fzf +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r -q "${LBUFFER//$/\\$}") )
-    if [ -n "$selected" ]
-    then
-        num=$selected[1]
-
-        if [ -n "$num" ]
-        then
-            zle vi-fetch-history -n $num
-        fi
+  local selected num
+  setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
+  selected=( $(fc -rl 1 |
+    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
+  local ret=$?
+  if [ -n "$selected" ]; then
+    num=$selected[1]
+    if [ -n "$num" ]; then
+      zle vi-fetch-history -n $num
+    fi
   fi
   zle redisplay
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  return $ret
 }
-zle -N fzf-history-widget
+zle     -N   fzf-history-widget
 bindkey '^R' fzf-history-widget
 
 
-# ESC GG
+# ESC G G
 # Select git modified file(s).
 #
 fzf-gitmodified-widget() {
@@ -70,7 +89,7 @@ __fzf_preview_gitshow() {
     fzf --multi --preview='echo "branch: {}"; git show --color --decorate --format=fuller --stat --patch {}' $@
 }
 
-# ESC GB
+# ESC G B
 # Select a local git branch.
 #
 fzf-gitbranches-widget() {
@@ -80,7 +99,7 @@ fzf-gitbranches-widget() {
 zle -N fzf-gitbranches-widget
 bindkey '\egb' fzf-gitbranches-widget
 
-# ESC GBB
+# ESC G B B
 # Select any git branch.
 #
 fzf-gitallbranches-widget() {
@@ -90,7 +109,7 @@ fzf-gitallbranches-widget() {
 zle -N fzf-gitallbranches-widget
 bindkey '\egbb' fzf-gitallbranches-widget
 
-# ESC GSS
+# ESC G S S
 # Select a git stash
 fzf-gitstash-widget() {
     LBUFFER+="$(git stash list | cut -d : -f 1 | fzf --preview 'git stash show --color -p {}' --preview-window='right:80%')"
@@ -98,4 +117,3 @@ fzf-gitstash-widget() {
 }
 zle -N fzf-gitstash-widget
 bindkey '\egss' fzf-gitstash-widget
-
