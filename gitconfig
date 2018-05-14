@@ -17,9 +17,9 @@
 
 [pager]
     ;$(brew --prefix git) -> /usr/local/opt/git
-    log  = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
-    show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
-    diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+    ;log  = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+    ;show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+    ;diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
     ;diff = diff-so-fancy | less --tabs=4 -RFX
     ;show = diff-so-fancy | less --tabs=4 -RFX
 
