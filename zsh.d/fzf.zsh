@@ -17,14 +17,13 @@ export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --rev
 # Select file(s).
 #
 fzf-file-widget() {
-    LBUFFER+="$(rg --files | fzf --preview 'echo {}; head -$LINES {}' | xargs)"
+    LBUFFER+="$(rg --files | fzf --preview 'echo {}; head -$LINES {} | highlight {} --out-format xterm256 --quiet --force --style fine_blue' | xargs)"
     zle redisplay
 }
 zle -N fzf-file-widget
 bindkey '\eff' fzf-file-widget
 
-# ESC R
-# Select a directory from ~/.zdirs or tag:wip.
+# Save and restore dirstack.
 DIRSTACKFILE=~/.zdirs
 DIRSTACKSIZE=66
 if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]
@@ -34,6 +33,9 @@ fi
 chpwd() {
     print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
 }
+
+# ESC R
+# Select a directory from dirstack ( ~/.zdirs) or things tagged "wip" w/spotlight.
 fzf-dirs-widget() {
     LBUFFER+="$({cat ~/.zdirs; mdfind tag:wip AND kind:folders} | awk '!x[$0]++' | fzf --no-multi)"
     # Dedupe without changing the order (to respect recency) -> awk '!x[$0]++'
