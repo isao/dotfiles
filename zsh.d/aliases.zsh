@@ -29,6 +29,7 @@ alias checkpath='ls -ld $(echo $PATH | tr : "\n")'
 # git
 alias gg='git status --branch --short'
 alias ggg='gg --ignored'
+alias gggg='git status --short --ignored | cut -c 4- | cut -d / -f 1-2 | sort | uniq -c'
 alias gb='git branch -v | egrep -v "^. old/" | cut -c 1-$(tput cols)'
 alias gd='git difftool'
 alias gf='git fetch -p'
