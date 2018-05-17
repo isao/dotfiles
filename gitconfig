@@ -42,14 +42,8 @@
     ; open all unique remote urls in a browser
     ;open = !open `git remote -v|perl -ne'm~([\\w.-]+\\.com)[:/](\\S+)\\.git~,print qq(http://$1/$2\n)'|uniq`
 
-    ; open tfs web interface for current branch
-    web = !open  "http://tfsmr.mr.ericsson.se:8080/tfs/IEB/MRGIT/_git/ReachClient#version=GB$(git rev-parse --abbrev-ref HEAD)&_a=history"
-
-    ; open a tfs pull request for the current branch against master
-    pr = !open "http://tfsmr.mr.ericsson.se:8080/tfs/IEB/MRGIT/_git/ReachClient/pullrequests#targetRef=dev/master\\&_a=createnew\\&sourceRef=$(git rev-parse --abbrev-ref HEAD)"
-
-    ; open the tfs task associated with the current branch
-    jira = !open "https://jira-fe-p01.mr.ericsson.se:8443/browse/MF$(git rev-parse --abbrev-ref HEAD | egrep -o -- \\-[0-9]+)"
+    ; Get the last part of a branch name containing slashes.
+    basename = !"basename $(git rev-parse --abbrev-ref HEAD)"
 
     ; in every repo reachable from cwd, do fetch-all
     fetchcrazy = !"find . -type d -name .git -execdir git fetch --all -v \\;"
