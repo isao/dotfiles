@@ -68,7 +68,7 @@
     ; push to all remotes
     pub = !"for i in `git remote`; do echo $i...; git push -v $i; done"
 
-    lf = log --graph --stat --decorate
+    lf = log --graph --stat --decorate --pretty=fuller
 
     # %cd               -> 2017-06014
     # %C(auto)%h        -> 5259c11bd5 short commit sha
