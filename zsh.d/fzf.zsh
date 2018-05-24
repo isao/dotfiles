@@ -9,9 +9,10 @@ type fzf rg >/dev/null || return
 # ctrl-c copy the selected item
 # ctrl-b open the selected item in BBEdit
 # ctrl-o open the selected item
+# ctrl-r reveal the selected item in the Finder
 #
 export FZF_DEFAULT_COMMAND='rg --files'
-export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {} | pbcopy)+abort,ctrl-o:execute(open {+1})+abort,ctrl-b:execute(bbedit {})+abort"'
+export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {} | pbcopy)+abort,ctrl-o:execute(open {+1})+abort,ctrl-r:execute(open -R {+1})+abort,ctrl-b:execute(bbedit {})+abort"'
 
 # ESC F F
 # Select file(s).
