@@ -48,5 +48,14 @@ tfs-pr() {
 git-submit() {
     local name=$(basename $(git rev-parse --abbrev-ref HEAD))
     local suffix=$(date +%H%M%S)
+    set -x
     git-request-submit -v $@ $name-$suffix
+}
+
+# Do git-submit after linting and running unit tests.
+git-submit-verified() {
+    set -ex
+    gulp tslint
+    npm test
+    git-submit $@
 }
