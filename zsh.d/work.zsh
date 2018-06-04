@@ -41,11 +41,12 @@ tfs-cwd() {
 # Open browser to the new PR web interface for the current branch.
 tfs-pr() {
     local branch=$(git rev-parse --abbrev-ref HEAD)
+    git push
     open "http://tfsmr.mr.ericsson.se:8080/tfs/IEB/MRGIT/_git/ReachClient/pullrequestcreate?sourceRef=$branch&targetRef=dev/master"
 }
 
 # Do git-request-submit with basename of branch and time for the request-name.
-git-submit() {
+tfs-submit() {
     local name=$(basename $(git rev-parse --abbrev-ref HEAD))
     local suffix=$(date +%H%M%S)
     set -x
@@ -53,9 +54,9 @@ git-submit() {
 }
 
 # Do git-submit after linting and running unit tests.
-git-submit-verified() {
+tfs-submit-verified() {
     set -ex
     gulp tslint
     npm test
-    git-submit $@
+    tfs-submit $@
 }
