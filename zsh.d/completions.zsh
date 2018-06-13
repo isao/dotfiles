@@ -42,6 +42,17 @@ zstyle ':completion:*:cd:*' ignore-parents parent pwd
 # remove slash if argument is a directory
 zstyle ':completion:*' squeeze-slashes true
 
+# http://zsh.sourceforge.net/FAQ/zshfaq04.html#l52
+# To try filename completion when other completions fail:
+zstyle ':completion:*' completer _complete _ignored _files
+
+
+# Complete from middle of a word, using just what's up to the cursor.
+# http://zsh.sourceforge.net/FAQ/zshfaq04.html#l50
+# Defualt is `bindkey '^I' expand-or-complete`
+bindkey '^I' expand-or-complete-prefix
+
+
 type shellcheck >/dev/null && \
     compdef _gnu_generic shellcheck
 
