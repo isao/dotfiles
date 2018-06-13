@@ -1,13 +1,11 @@
 #!/bin/bash -eo pipefail
 
-err()
-{
+function err() {
     echo $2 >&2
     exit $1
 }
 
-alert()
-{
+function alert() {
     osascript -e "display notification \"$basedir\" with title \"$scriptname\""
 }
 
