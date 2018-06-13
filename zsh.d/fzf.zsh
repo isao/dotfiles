@@ -9,12 +9,12 @@ type fzf rg >/dev/null || return
 
 # fzf configuration
 # ctrl-c copy the selected item
-# ctrl-b open the selected item in BBEdit
+# ctrl-e edit the selected item
 # ctrl-o open the selected item
 # ctrl-r reveal the selected item in the Finder
 #
 export FZF_DEFAULT_COMMAND='rg --files'
-export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {} | pbcopy)+abort,ctrl-o:execute(open {+1})+abort,ctrl-r:execute(open -R {+1})+abort,ctrl-b:execute(bbedit {})+abort"'
+export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {} | pbcopy)+abort,ctrl-o:execute(open {+1})+abort,ctrl-r:execute(open -R {+1})+abort,ctrl-e:execute($EDITOR {})+abort"'
 
 #
 #   FZF WIDGETS
@@ -27,7 +27,7 @@ fzf-file-widget() {
     zle redisplay
 }
 zle -N fzf-file-widget
-bindkey '\eff' fzf-file-widget              # ESC FF: find file
+bindkey '^f^f' fzf-file-widget              # Find file.
 
 # Save and restore dirstack.
 DIRSTACKFILE=~/.zdirs
@@ -75,7 +75,7 @@ fzf-dirs-widget() {
     return $ret
 }
 zle     -N    fzf-dirs-widget
-bindkey '\er' fzf-dirs-widget               # ESC R: Change to a recent (or "wip" tagged) directory.
+bindkey '^f^d' fzf-dirs-widget               # Change to a recent (or "wip" tagged) directory.
 
 # Select a recent file or path via Spotlight/mdfind.
 fzf-recentfile-widget() {
@@ -83,7 +83,7 @@ fzf-recentfile-widget() {
     zle redisplay
 }
 zle -N fzf-recentfile-widget
-bindkey '\err' fzf-recentfile-widget        # ESC RR: Pick a recent file.
+bindkey '^f^r' fzf-recentfile-widget        # Pick a recent file.
 
 # From /usr/local/opt/fzf/shell/key-bindings.zsh replace "$(__fzfcmd)" with "fzf"
 # CTRL-R - Paste the selected command from history into the command line
@@ -92,7 +92,7 @@ fzf-history-widget() {
   local selected num
   setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
   selected=( $(fc -rl 1 |
-    FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" fzf) )
+    FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" fzf) )
   local ret=$?
   if [ -n "$selected" ]; then
     num=$selected[1]
@@ -105,7 +105,7 @@ fzf-history-widget() {
   return $ret
 }
 zle     -N   fzf-history-widget
-bindkey '^R' fzf-history-widget             # CTRL-R: Replay a history entry.
+bindkey '^r' fzf-history-widget             # CTRL-R: Replay a history entry.
 
 
 #
@@ -118,7 +118,7 @@ fzf-gitmodified-widget() {
     zle redisplay
 }
 zle -N fzf-gitmodified-widget
-bindkey '\egg' fzf-gitmodified-widget       # ESC GG: Pick a new or modified file from git status.
+bindkey '^g^g' fzf-gitmodified-widget       # ESC GG: Pick a new or modified file from git status.
 
 __fzf_gitbranches() {
     git for-each-ref --format='%(refname:short)' $1
@@ -134,7 +134,7 @@ fzf-gitbranches-widget() {
     zle redisplay
 }
 zle -N fzf-gitbranches-widget
-bindkey '\egb' fzf-gitbranches-widget       # ESC GB: pick a git local branch
+bindkey '^g^b' fzf-gitbranches-widget       # ESC GB: pick a git local branch
 
 # Select any git branch.
 fzf-gitallbranches-widget() {
@@ -142,7 +142,7 @@ fzf-gitallbranches-widget() {
     zle redisplay
 }
 zle -N fzf-gitallbranches-widget
-bindkey '\egbb' fzf-gitallbranches-widget   # ESC GBB: Pick a git branch (including remote).
+bindkey '\^g^b^b' fzf-gitallbranches-widget
 
 
 # Select a git stash
@@ -151,4 +151,4 @@ fzf-gitstash-widget() {
     zle redisplay
 }
 zle -N fzf-gitstash-widget
-bindkey '\egs' fzf-gitstash-widget          # ESC GS: Pich a git stash.
+bindkey '^g^s' fzf-gitstash-widget
