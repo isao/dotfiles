@@ -21,32 +21,21 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=1000
 SAVEHIST=900
 
-setopt hist_ignore_dups # ignore duplication command history list
 setopt hist_expire_dups_first
+setopt hist_fcntl_lock
 setopt hist_find_no_dups
+setopt hist_ignore_dups # ignore duplication command history list
 setopt hist_ignore_space
 setopt hist_no_functions
 setopt hist_no_store
 setopt hist_reduce_blanks
+setopt hist_save_no_dups
+setopt hist_verify
 
 setopt append_history
 setopt extended_history
 setopt inc_append_history
 setopt share_history
-# setopt hist_verify 
-
-# http://chneukirchen.org/blog/archive/2012/02/10-new-zsh-tricks-you-may-not-know.html
-# http://zsh.sourceforge.net/Intro/intro_6.html
-# DIRSTACKSIZE=16
-# DIRSTACKFILE=~/.zdirs
-# if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]
-# then
-#     dirstack=(${(f)"$(< $DIRSTACKFILE)"})
-#     [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
-# fi
-# chpwd() {
-#     print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
-# }
 
 setopt auto_cd
 setopt autopushd
@@ -56,8 +45,20 @@ setopt pushdtohome
 setopt pushd_ignore_dups
 
 # https://robots.thoughtbot.com/cding-to-frequently-used-directories-in-zsh
-cdpath=($HOME $HOME/repos)
+cdpath=($HOME $HOME/repos $HOME/work/repos)
 
+# Save and restore dirstack.
+# http://chneukirchen.org/blog/archive/2012/02/10-new-zsh-tricks-you-may-not-know.html
+# http://zsh.sourceforge.net/Intro/intro_6.html
+DIRSTACKFILE=~/.zdirs
+DIRSTACKSIZE=66
+if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]
+then
+    dirstack=(${(f)"$(< $DIRSTACKFILE)"})
+fi
+chpwd() {
+    print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
+}
 
 #
 #       history ⬆︎⬇︎
@@ -65,13 +66,20 @@ cdpath=($HOME $HOME/repos)
 # TODO set-local-history widget?
 
 autoload up-line-or-beginning-search
-autoload down-line-or-beginning-search
 zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-# bindkey "^[[A" history-beginning-search-backward
-# bindkey "^[[B" history-beginning-search-forward
 bindkey "^[[A" up-line-or-beginning-search
+
+autoload down-line-or-beginning-search
+zle -N down-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
+
+
+# Edit the current mini-buffer in $EDITOR.
+# http://zsh.sourceforge.net/FAQ/zshfaq03.html#l45
+autoload -U edit-command-line;
+zle -N edit-command-line;
+bindkey '^xe' edit-command-line;
+
 
 # forward-delete word ahead of the cursor
 bindkey "^w" delete-word

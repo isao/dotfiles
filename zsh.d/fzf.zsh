@@ -29,17 +29,6 @@ fzf-file-widget() {
 zle -N fzf-file-widget
 bindkey '^f^f' fzf-file-widget              # Find file.
 
-# Save and restore dirstack.
-DIRSTACKFILE=~/.zdirs
-DIRSTACKSIZE=66
-if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]
-then
-    dirstack=(${(f)"$(< $DIRSTACKFILE)"})
-fi
-chpwd() {
-    print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
-}
-
 # Ensure precmds are run after cd
 # See /usr/local/Cellar/fzf/0.17.3/shell/key-bindings.zsh
 fzf-redraw-prompt() {
@@ -53,7 +42,7 @@ zle -N fzf-redraw-prompt
 
 recent-dirs() {
     {   
-        [[ -r  ~/.zdirs ]] && cat  ~/.zdirs
+        [[ -r "$DIRSTACKFILE" ]] && cat "$DIRSTACKFILE"
         mdfind tag:wip AND kind:folders
     } | awk '!x[$0]++'
     # ^ Dedupe without changing the order (to respect recency) -> awk '!x[$0]++'
@@ -139,7 +128,6 @@ fzf-git-branches-all-widget() {
 }
 zle -N fzf-git-branches-all-widget
 bindkey '^g^b^b' fzf-git-branches-all-widget # Pick any git branch.
-
 
 # Select a git stash
 fzf-git-stash-widget() {
