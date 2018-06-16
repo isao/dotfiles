@@ -6,22 +6,12 @@
 autoload -Uz compinit
 compinit
 
-# When completing from the middle of a word, move the cursor to the end of the word
-# setopt always_to_end
-
-# On an ambiguous completion, instead of listing possibilities or beeping, insert
-# the first match immediately.  Then when completion is requested again, remove
-# the first match and insert the second match, etc.  When there are no more
-# matches, go back to the first one again.  reverse-menu-complete may be used  to
-# loop through the list in the other direction. This option overrides AUTO_MENU.
-setopt menu_complete
-
-# setopt list_packed
+setopt list_packed
 
 # https://github.com/zanshin/dotfiles/blob/master/zsh/setopt.zsh
 setopt always_to_end # When completing from the middle of a word, move the cursor to the end of the word    
-# setopt auto_menu # show completion menu on successive tab press. needs unsetop menu_complete to work
-# unsetopt menu_complete # do not autoselect the first completion entry
+setopt auto_menu # show completion menu on successive tab press. needs unsetop menu_complete to work
+unsetopt menu_complete # do not autoselect the first completion entry
 setopt auto_name_dirs # any parameter that is set to the absolute name of a directory immediately becomes a name for that directory
 setopt complete_in_word # Allow completion from within a word/phrase
 
