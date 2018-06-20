@@ -23,7 +23,7 @@ alias nocolors="perl -pe 's/\e\[?.*?[\@-~]//g'"
 alias rot13='perl -wne "tr/a-zA-Z/n-za-mN-ZA-M/;print;"'
 alias showenv='env | sort'
 alias showpath='echo $PATH | tr : "\n"'
-alias showkeys='rg --no-line-number -o "^\s*bindkey .+$" $dotfiles/zsh.d/*'
+alias showkeys='rg --no-line-number -o "^\s*bindkey .+$" $dotfiles/zsh*'
 alias checkpath='ls -ld $(echo $PATH | tr : "\n")'
 
 
@@ -43,12 +43,12 @@ alias gsl='git stash list'
 alias gsv='git stash save'
 alias gss='git stash show'
 
-#tig
+# tig
 alias tgs='tig status'
 alias tgl='tig log'
 alias tgb='tig blame -w -C'
 
-#ripgrep
+# ripgrep
 alias rgg='rg --glob "*.{html,less,css,js,ts,tsx,md,txt,json5?}" --glob "!{node_modules,dist}"'
 
 # osx
