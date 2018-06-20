@@ -45,3 +45,23 @@ EOF
 cdfinder() {
     cd -P "$(finderpath)" || exit 1
 }
+
+upfind() {
+    # find a file from current directory until filesystem root
+    # https://github.com/sgeb/dotfiles/tree/master/zsh/functions
+    dir="`pwd`"
+    while [ "$dir" != "/" ]; do
+        p=`find "$dir" -maxdepth 1 -name "$1"`
+        if [ ! -z "$p" ]; then
+            echo "$p"
+            return
+        fi
+        dir="`dirname "$dir"`"
+    done
+}
+
+mkcd() {
+    # https://github.com/sgeb/dotfiles/tree/master/zsh/functions
+    mkdir -p "$1"
+    cd "$1"
+}
