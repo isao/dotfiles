@@ -46,17 +46,19 @@ tfs-pr() {
 }
 
 # Do git-request-submit with basename of branch and time for the request-name.
-tfs-submit() {
+tfs-submit-quick() {
     local name=$(basename $(git rev-parse --abbrev-ref HEAD))
     local suffix=$(date +%H%M%S)
     set -x
     git-request-submit -v $@ $name-$suffix
+    return $?
 }
 
 # Do git-submit after linting and running unit tests.
-tfs-submit-verified() {
+tfs-submit() {
     set -ex
     gulp tslint
     npm test
-    tfs-submit $@
+    tfs-submit-quick $@
+    return $?
 }
