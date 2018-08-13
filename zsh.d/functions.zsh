@@ -43,7 +43,7 @@ EOF
 }
 
 cdfinder() {
-    cd -P "$(finderpath)" || exit 1
+    cd -P "$(finderpath)"
 }
 
 upfind() {
@@ -64,4 +64,15 @@ mkcd() {
     # https://github.com/sgeb/dotfiles/tree/master/zsh/functions
     mkdir -p "$1"
     cd "$1"
+}
+
+gohome() {
+    adb disconnect &
+    echo "will sleep in 5 seconds, turn off keyboard and mouse now."
+    sleep 5
+    osascript -e 'tell application "Finder" to sleep'
+}
+
+canary() {
+    open -a 'Google Chrome Canary' --args --ignore-certificate-errors --enable-precise-memory-info $@
 }
