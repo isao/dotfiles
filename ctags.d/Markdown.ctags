@@ -1,4 +1,0 @@
---langdef=markdown
---langmap=markdown:.md
---langmap=markdown:+.text
---regex-markdown=/^#{1,6}[ \t](.*$)/\1/h,heading,headings/
