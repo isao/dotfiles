@@ -1,0 +1,7 @@
+# Config for ctagger.sh, save as `.ctagger`.
+# args are passed to ctags
+--languages=Less,HTML,JSON,TypeScript
+Web/scripts
+Web/typescript
+Web/node_modules/typescript/lib/lib.es2015.d.ts
+Web/node_modules/typescript/lib/lib.webworker.d.ts
