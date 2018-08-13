@@ -30,7 +30,6 @@ setopt hist_no_functions
 setopt hist_no_store
 setopt hist_reduce_blanks
 setopt hist_save_no_dups
-setopt hist_verify
 
 setopt append_history
 setopt extended_history
