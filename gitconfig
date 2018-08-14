@@ -115,3 +115,28 @@
     clean = git-lfs clean %f
     smudge = git-lfs smudge %f
     required = true
+
+[usage-mediafirst]
+    commit-msg-firstrun = 1492235210N
+	commit-msg-lastrun = 1534278902000000000
+	commit-msg-runcount = 773
+    pre-push-firstrun = 1492235214N
+	pre-push-lastrun = 1534282333000000000
+	pre-push-runcount = 695
+    git-request-submit-firstrun = 1492793426000000000
+	git-request-submit-lastrun = 1534282331000000000
+	git-request-submit-runcount = 314
+    git-request-whatif-firstrun = 1492822660000000000
+	git-request-whatif-lastrun = 1529694947000000000
+	git-request-whatif-runcount = 50
+    git-validate-env-firstrun = 1497397152000000000
+	git-validate-env-lastrun = 1533832119000000000
+	git-validate-env-runcount = 41
+    git-repo-firstrun = 1498665553000000000
+    git-repo-lastrun = 1498665553000000000
+    git-repo-runcount = 1
+[mediafirst-repo "1ec17ab97e4f15173bcb0ba74cf449807af410e7"]
+    path = /Users/isao/work/repos/dev
+    path = /Users/isao/work/repos/foo
+[mediafirst-repo "739fe809ffb8aaa3876ea1bf90086d6d4be2f442"]
+	path = /Users/isao/work/repos/ReachClientLanding

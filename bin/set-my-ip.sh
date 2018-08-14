@@ -2,46 +2,37 @@
 
 # config
 #
+
+cfapi=https://api.cloudflare.com/client/v4
 email=isao.yagi@gmail.com
 token=$(security find-generic-password -ws 'Cloudflare API key' -a $email)
-domain=pondr.in
-subdomain=dev
+domain=dev.pondr.in
+
+zone_id=9d21fc88791813915873f835a76e8caa
+# See https://api.cloudflare.com/#zone-list-zones
+
+record_id=57ac792dcc559d2a934ca7d02d6b028d
+# See https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
 
 
-# main
+# checks
 #
+
 ip=$(get-my-ip)
-record_id=199535263
-
-## To get $record_id -- rec_load_all to get DNS Record ID
-## https://www.cloudflare.com/docs/client-api.html#s3.3
-# curl https://www.cloudflare.com/api_json.html \
-#   -d a=rec_load_all \
-#   -d tkn=$token \
-#   -d email=$email \
-#   -d z=$domain
-
-oldip=$(host -4 -t A "$subdomain.$domain" | awk '{print $4}')
+oldip=$(host -4 -t A $domain | awk '{print $4}')
 
 [[ $oldip = "$ip" ]] && {
-    echo "* ip for '$subdomain.$domain' unchanged: $oldip"
+    echo "* ip for $domain unchanged: $oldip"
     exit 0
 }
 
+# main
+#
 
-# Set the ip for A record dev for target domain $domain
-# https://www.cloudflare.com/docs/client-api.html#s5.2
-echo "* Setting DNS A record for '$subdomain.$domain' to $ip"
-curl -v https://www.cloudflare.com/api_json.html \
-  -d a=rec_edit \
-  -d tkn="$token" \
-  -d email="$email" \
-  -d id="$record_id" \
-  -d z="$domain" \
-  -d name="$subdomain" \
-  -d type=A \
-  -d content="$ip" \
-  -d service_mode=1 \
-  -d ttl=120
-
-echo
+echo "* Setting DNS A record for $domain to $ip"
+curl -X PUT "$cfapi/zones/$zone_id/dns_records/$record_id" \
+    -H "X-Auth-Email: $email" \
+    -H "X-Auth-Key: $token" \
+    -H "Content-Type: application/json" \
+    --data '{"type":"A","name":"'$domain'","content":"'$ip'","ttl":120}'
+# See https://api.cloudflare.com/#dns-records-for-a-zone-update-dns-record
