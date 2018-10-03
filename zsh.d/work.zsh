@@ -62,3 +62,13 @@ tfs-submit() {
     tfs-submit-quick $@
     return $?
 }
+
+link-node6() {
+    brew unlink node
+    brew link --force node@6
+}
+
+link-node() {
+    brew unlink node@6
+    brew link node
+}
