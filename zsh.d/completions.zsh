@@ -68,3 +68,11 @@ function $$gulp_completion {
 }
 
 compdef $$gulp_completion gulp
+
+# Completion for `npm run` scripts
+if (type npr >/dev/null) {
+    function npr-complete {
+        npm run| rg -o '^  \S+' | xargs echo
+    }
+    compdef npr-complete npr    
+}
