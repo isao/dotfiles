@@ -12,7 +12,7 @@ function alert() {
 #
 #   Are ctags configured?
 #
-type ctags >/dev/null || err 1 "Error: you need to install ctags (brew install universal-ctags)."
+type ctags >/dev/null || err 1 "Error: you need to install ctags (brew install --HEAD universal-ctags/universal-ctags/universal-ctags)."
 [[ -d ~/.ctags.d ]] || err 3 "Error: you need to configure ~/.ctags.d"
 
 #
