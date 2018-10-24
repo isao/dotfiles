@@ -136,3 +136,7 @@ fzf-git-stash-widget() {
 }
 zle -N fzf-git-stash-widget
 bindkey '^g^t' fzf-git-stash-widget # Pick a git stash.
+
+
+[[ -r "$dotfiles/zsh.d/zsh-interactive-cd.plugin.zsh" ]] &&\
+    source "$dotfiles/zsh.d/zsh-interactive-cd.plugin.zsh"
