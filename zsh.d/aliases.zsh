@@ -44,7 +44,7 @@ alias gsl='git stash list'
 alias gsv='git stash save'
 alias gss='git stash show'
 
-alias npr='npm run'
+alias nn='npm run'
 
 # tig
 alias tgs='tig status'
