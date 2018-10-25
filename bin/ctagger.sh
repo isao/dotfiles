@@ -27,7 +27,7 @@ cd "$basedir"
 #
 #   Load arguments to ctags from a file, one per line, ignoring lines with "#".
 #
-conf=$(test -r .ctagger && grep -v \# .ctagger | xargs echo)
+conf=$(test -r .ctagger && grep -v \# .ctagger | xargs)
 
 #
 #   Invoke ctags in the background, raise notification when done.
