@@ -9,7 +9,7 @@ compinit
 setopt list_packed
 
 # https://github.com/zanshin/dotfiles/blob/master/zsh/setopt.zsh
-setopt always_to_end # When completing from the middle of a word, move the cursor to the end of the word    
+setopt always_to_end # When completing from the middle of a word, move the cursor to the end of the word
 setopt auto_menu # show completion menu on successive tab press. needs unsetop menu_complete to work
 unsetopt menu_complete # do not autoselect the first completion entry
 setopt auto_name_dirs # any parameter that is set to the absolute name of a directory immediately becomes a name for that directory
@@ -61,18 +61,20 @@ fi
 # https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/gulp/gulp.plugin.zsh
 # Autocompletion for your gulp.js tasks
 # Copyright(c) 2014 André König <andre.koenig@posteo.de> MIT Licensed André König
-function $$gulp_completion {
-    compls=$(gulp --tasks-simple 2>/dev/null)
-    completions=(${=compls})
-    compadd -- $completions
+if (hash gulp >/dev/null) {
+    function $$gulp_completion {
+        compls=$(gulp --tasks-simple 2>/dev/null)
+        completions=(${=compls})
+        compadd -- $completions
+    }
+    compdef $$gulp_completion gulp
 }
 
-compdef $$gulp_completion gulp
-
-# Completion for `npm run` scripts
-if (type npr >/dev/null) {
-    function npr-complete {
-        npm run| rg -o '^  \S+' | xargs echo
+if (hash defaultbrowser >/dev/null) {
+    function _defaultbrowser {
+        compls=$(defaultbrowser | cut -c 3- | xargs)
+        completions=(${=compls})
+        compadd -- $completions
     }
-    compdef npr-complete npr    
+    compdef _defaultbrowser defaultbrowser
 }
