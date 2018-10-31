@@ -1,4 +1,4 @@
-export EDITOR=$(/usr/bin/which bbedit..sh bbedit nano vim vi 2>/dev/null | grep ^/ | head -1)
+export EDITOR=$(where bbedit..sh bbedit code nano vim vi | grep ^/ | head -1)
 export GREP_COLOR=32 # ANSI/VT100: 32 is green, '1;34' is bold blue
 export RSYNC_RSH=ssh
 

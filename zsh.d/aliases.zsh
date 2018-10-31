@@ -26,6 +26,7 @@ alias showpath='echo $PATH | tr : "\n"'
 alias showkeys='rg --no-line-number -o "^\s*bindkey .+$" $dotfiles/zsh*'
 alias checkpath='ls -ld $(echo $PATH | tr : "\n")'
 
+alias e=$(where bbedit code nano vim vi | grep ^/ | head -1)
 
 # git
 alias gg='git status --branch --short'
