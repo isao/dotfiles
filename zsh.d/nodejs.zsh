@@ -1,13 +1,12 @@
+hash node npm >/dev/null || return
 
 alias nn='npm run'
 
 # Completion for `npm run` scripts
-if (type npr >/dev/null) {
-    function npr-complete {
-        npm run | egrep -o '^  \S+' | xargs echo
-    }
-    compdef nn-complete npr    
+function nn-complete {
+    npm run | egrep -o '^  \S+' | xargs
 }
+compdef nn-complete nn    
 
 # Functions
 
