@@ -50,7 +50,8 @@ upfind() {
     # find a file from current directory until filesystem root
     # https://github.com/sgeb/dotfiles/tree/master/zsh/functions
     dir="`pwd`"
-    while [ "$dir" != "/" ]; do
+    while [ "$dir" != "/" ]
+    do
         p=`find "$dir" -maxdepth 1 -name "$1"`
         if [ ! -z "$p" ]; then
             echo "$p"
@@ -88,7 +89,8 @@ make-typescript-ctags() {
 
 # https://stackoverflow.com/a/7222469/8947435
 eject-all() {
-    osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true)'    
+    osascript -e 'tell application "Finder" to get (every disk whose ejectable is true)'
+    osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true)'
     # To ignore network mounts and optical disks, use:
     # osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true and local volume is true and free space is not equal to 0)'
 }
