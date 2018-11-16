@@ -32,4 +32,4 @@ conf=$(test -r .ctagger && grep -v \# .ctagger | xargs)
 #
 #   Invoke ctags in the background, raise notification when done.
 #
-(ctags $conf && alert) &
+(ctags $@ $conf && alert) &
