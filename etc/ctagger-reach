@@ -1,9 +1,13 @@
 # Config for ctagger.sh
 # args are passed to ctags
 --languages=TypeScript
---exclude Web/scripts/OPEN_SOURCE_SOFTWARE
-Web/scripts
+--recurse=yes
+--sort=no
+--exclude='Web/scripts/OPEN_SOURCE_SOFTWARE/*'
+--exclude='*.less.ts'
+--exclude='*.html.ts'
 Web/typescript/landing.d.ts
+Web/typescript/reach.d.ts
 Web/typescript/landingConfig.d.ts
 Web/typescript/playback.d.ts
-Web/typescript/reach.d.ts
+Web/scripts/
