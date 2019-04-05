@@ -1,4 +1,4 @@
-hash node npm >/dev/null || return
+hash node npm >& /dev/null || return
 
 alias nn='npm run'
 

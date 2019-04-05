@@ -61,7 +61,7 @@ fi
 # https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/gulp/gulp.plugin.zsh
 # Autocompletion for your gulp.js tasks
 # Copyright(c) 2014 André König <andre.koenig@posteo.de> MIT Licensed André König
-if (hash gulp >/dev/null) {
+if (hash gulp >& /dev/null) {
     function $$gulp_completion {
         compls=$(gulp --tasks-simple 2>/dev/null)
         completions=(${=compls})
@@ -70,7 +70,7 @@ if (hash gulp >/dev/null) {
     compdef $$gulp_completion gulp
 }
 
-if (hash defaultbrowser >/dev/null) {
+if (hash defaultbrowser >& /dev/null) {
     function _defaultbrowser {
         compls=$(defaultbrowser | cut -c 3- | xargs)
         completions=(${=compls})
