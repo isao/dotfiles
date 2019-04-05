@@ -1,5 +1,7 @@
 hash node npm >& /dev/null || return
 
+path=(node_modules/.bin $path)
+
 alias nn='npm run'
 
 # Completion for `npm run` scripts
