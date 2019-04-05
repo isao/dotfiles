@@ -96,18 +96,23 @@
 
 [difftool]
     prompt = no
+
 [difftool "bbdiff"]
     cmd = bbdiff --wait --resume "$LOCAL" "$REMOTE"
+
 [alias]
     bbdiff = difftool
 
 [merge]
     tool = opendiff
+
 [mergetool]
     prompt = no
     keepBackup = false
+
 [mergetool "bbdiff"]
     cmd = bbdiff --wait --resume "$LOCAL" "$REMOTE"
+
 [alias]
     bbmerge = mergetool
 
@@ -115,3 +120,6 @@
     clean = git-lfs clean %f
     smudge = git-lfs smudge %f
     required = true
+
+[color]
+	ui = auto

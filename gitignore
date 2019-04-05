@@ -1,10 +1,16 @@
-tags
-artifacts
-npm-debug.log
-.ctagger
 ._*
 .#*
 .DS_Store
 .svn
 *~
 *~.*
+npm-debug.log
+
+# ctags
+tags
+# Config files for ~/repos/dotfiles/bin/ctagger.sh
+.ctagger
+
+# build dirs
+artifacts
+dist
