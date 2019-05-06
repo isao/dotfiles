@@ -111,5 +111,5 @@ then
     source "$dotfiles/zsh.d/bbedit.zsh"
     source "$dotfiles/zsh.d/fzf.zsh"
     source "$dotfiles/zsh.d/nodejs.zsh"
-    source "$dotfiles/zsh.d/work.zsh"
+    #source "$dotfiles/zsh.d/work.zsh"
 fi
