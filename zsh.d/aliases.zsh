@@ -12,7 +12,7 @@ alias ls.='ls -dG .?*'  # ls dot files & dirs only
 alias ll.='ls -dGl .?*' # ls dot files & dirs only
 alias la='ll -A'
 alias lsd='/bin/ls -d */'   # ls just directories
-alias llsd='/bin/ls -dl */' # ll just directories
+alias lld='/bin/ls -dl */'  # ll just directories
 
 #
 # one-liners

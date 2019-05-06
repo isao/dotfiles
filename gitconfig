@@ -3,7 +3,7 @@
     email = isao.yagi@gmail.com
 
 [core]
-    ;pager = less -R
+    pager = less -R
     excludesfile = ~/.gitignore
     quotepath = false
 
