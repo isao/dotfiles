@@ -1,4 +1,4 @@
-type fzf rg >/dev/null || return
+type fzf fd >/dev/null || return
 
 #
 #   FZF CONFIG
@@ -13,7 +13,7 @@ type fzf rg >/dev/null || return
 # ctrl-o open the selected item
 # ctrl-r reveal the selected item in the Finder
 #
-export FZF_DEFAULT_COMMAND='rg --files'
+export FZF_DEFAULT_COMMAND=fd
 export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {} | pbcopy)+abort,ctrl-o:execute(open {+1})+abort,ctrl-r:execute(open -R {+1})+abort,ctrl-e:execute($EDITOR {})+abort"'
 
 #
@@ -23,7 +23,7 @@ export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --rev
 
 # Select file(s).
 fzf-file-widget() {
-    LBUFFER+="$(rg --files | fzf --preview 'echo {}; head -$LINES {} | highlight {} --out-format xterm256 --quiet --force --style fine_blue' | xargs)"
+    LBUFFER+="$(fd | fzf --preview 'echo {}; head -$LINES {} | highlight {} --out-format xterm256 --quiet --force --style fine_blue' | xargs)"
     zle redisplay
 }
 zle -N fzf-file-widget

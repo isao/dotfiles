@@ -1,3 +1,9 @@
+## nvm
+if [[ -e "$HOME/.zsh-nvm/zsh-nvm.plugin.zsh" ]]
+then
+    source "$HOME/.zsh-nvm/zsh-nvm.plugin.zsh"
+fi
+
 hash node npm >& /dev/null || return
 
 path=(node_modules/.bin $path)
