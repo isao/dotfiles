@@ -73,13 +73,18 @@ autoload down-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 
-
 # Edit the current mini-buffer in $EDITOR.
 # http://zsh.sourceforge.net/FAQ/zshfaq03.html#l45
 autoload -U edit-command-line;
 zle -N edit-command-line;
 bindkey '^xe' edit-command-line;
 
+# ctrl right/left
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
+
+# delete to beginning of line
+bindkey '^u' backward-kill-line
 
 # forward-delete word ahead of the cursor
 bindkey "^w" delete-word
