@@ -1,10 +1,14 @@
 set line-graphics = utf-8
-set tab-size = 2
+set tab-size = 4
 
-set main-view-author = email-user
-set main-view-author-width = 18
+set main-view-date-display = custom
+set main-view-date-format = "%m/%d %I:%M"
 
-set split-view-width = 55%
+# email-user, abbreviated
+set main-view-author = full
+#set main-view-author-width = 10
+
+set split-view-width = 60%
 set vertical-split = true
 
 set editor-line-number = true
