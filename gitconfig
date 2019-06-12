@@ -3,10 +3,7 @@
     email = isao.yagi@gmail.com
 
 [core]
-    pager = less -R
     excludesfile = ~/.gitignore
-    quotepath = false
-
     autocrlf = input
 
     ; tell git that trailing cr is ok, ignore in diffs et al
@@ -77,7 +74,7 @@
     # %d                -> (removed) decorate output, i.e. origin/master...
     # e.g.:
     # 2017-06-14 d158a92cf7 Isao Yagi    App reload changes. #MF-65977 #MF-66030
-    lg = log --format='%cd %C(auto)%h %<(12,trunc)%an %<(72,trunc)%s' --date=short
+    lg = log --format='%cd %C(auto)%h %<(12,trunc)%an %<(55,trunc)%s' --date=short
 
     # http://bit.ly/1Yx9OQM
     assume   = update-index --assume-unchanged
