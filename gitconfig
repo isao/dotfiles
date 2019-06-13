@@ -37,7 +37,7 @@
 
 [alias]
     ; open all unique remote urls in a browser
-    ;open = !open `git remote -v|perl -ne'm~([\\w.-]+\\.com)[:/](\\S+)\\.git~,print qq(http://$1/$2\n)'|uniq`
+    open = !open `git remote -v|perl -ne'm~([\\w.-]+\\.com)[:/](\\S+)\\.git~,print qq(https://$1/$2\n)'|uniq`
 
     ; Get the last part of a branch name containing slashes.
     basename = !"basename $(git rev-parse --abbrev-ref HEAD)"
