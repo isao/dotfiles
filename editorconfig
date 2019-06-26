@@ -6,8 +6,13 @@ end_of_line = lf
 indent_style = space
 indent_size = 4
 insert_final_newline = true
-x-soft-wrap-text = false
+x-balance-while-typing = true
 x-soft-wrap-mode = WindowWidth
+x-soft-wrap-text = true
+x-typographers-quotes =  false
+
+[*.{hbs,html,js,json,css,scss,sh,svg,ts,tsx}]
+x-soft-wrap-text = false
 
 [{package.json,.travis.yml}]
 indent_style = space
