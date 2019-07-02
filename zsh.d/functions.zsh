@@ -94,3 +94,8 @@ eject-all() {
     # To ignore network mounts and optical disks, use:
     # osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true and local volume is true and free space is not equal to 0)'
 }
+
+weeknum() {
+    date +"%yw%U"
+    # Outputs "19w26"
+}
