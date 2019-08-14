@@ -12,7 +12,9 @@ alias -s scss=bbedit
 alias -s ts=bbedit
 
 bbproj() {
-    mdfind kMDItemContentType:com.barebones.bbedit.project | fzf | xargs open
+    mdfind kMDItemContentType:com.barebones.bbedit.project \
+    | fzf --print0 \
+    | xargs -0 open
 }
 
 bbpath() {
