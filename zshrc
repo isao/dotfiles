@@ -113,6 +113,7 @@ then
     source "$dotfiles/zsh.d/functions.zsh"
 
     source "$dotfiles/zsh.d/bbedit.zsh"
+    source "$dotfiles/zsh.d/git.zsh"
     source "$dotfiles/zsh.d/fzf.zsh"
     source "$dotfiles/zsh.d/nodejs.zsh"
 

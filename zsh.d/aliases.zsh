@@ -28,30 +28,6 @@ alias checkpath='ls -ld $(echo $PATH | tr : "\n")'
 
 alias e=$(where bbedit code nano vim vi | grep ^/ | head -1)
 
-# git
-alias gg='git status --branch --short'
-alias ggg='gg --ignored'
-alias gggg='git status --short --ignored | cut -c 4- | cut -d / -f 1-2 | sort | uniq -c'
-alias gb='git branch --color -v | egrep -v "^. old/" | cut -c 1-$(tput cols)'
-alias gbb='git branch --color -v | cut -c 1-$(tput cols)'
-alias gd='git diff'
-alias gdt='git difftool'
-alias gf='git fetch -p'
-alias gp='git pull -p --ff-only'
-alias gu='git gui browser'
-alias gr='git remote -v'
-alias gsa='git stash apply'
-alias gsd='git stash drop'
-alias gsl='git stash list'
-alias gsp='git stash pop'
-alias gss='git stash show'
-alias gsv='git stash save'
-
-# tig
-alias tgs='tig status'
-alias tgl='tig log'
-alias tgb='tig blame -w -C'
-
 # ripgrep
 alias rgg='rg --glob "*.{html,less,css,js,ts,tsx,md,txt,json5?}" --glob "!{node_modules,dist}"'
 
