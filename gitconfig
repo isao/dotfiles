@@ -14,9 +14,9 @@
 
 [pager]
     ;$(brew --prefix git) -> /usr/local/opt/git
-    ;log  = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
-    ;show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
-    ;diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+    log  = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+    show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+    diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
     ;diff = diff-so-fancy | less --tabs=4 -RFX
     ;show = diff-so-fancy | less --tabs=4 -RFX
 
@@ -36,11 +36,10 @@
     helper = osxkeychain
 
 [alias]
-    ; open all unique remote urls in a browser
-    open = !open `git remote -v|perl -ne'm~([\\w.-]+\\.com)[:/](\\S+)\\.git~,print qq(https://$1/$2\n)'|uniq`
+    co = checkout
 
-    ; Get the last part of a branch name containing slashes.
-    basename = !"basename $(git rev-parse --abbrev-ref HEAD)"
+    ; open unique remote urls in a browser
+    open = !open `git remote -v|perl -ne'm~([\\w.-]+\\.com)[:/](\\S+)\\.git~,print qq(https://$1/$2\n)'|uniq`
 
     ; in every repo reachable from cwd, do fetch-all
     fetchcrazy = !"find . -type d -name .git -execdir git fetch --all -v \\;"
