@@ -54,7 +54,7 @@ gb() {
 
 # Select git modified file(s).
 fzf-git-modified-widget() {
-    LBUFFER+="$(git status --short | fzf --exit-0 --preview 'git diff --color {2}'| awk '{print $2}' | xargs)"
+    LBUFFER+="$(git status --short | fzf -n2 --preview 'git diff --color {2}' --exit-0 | awk '{print $2}' | xargs)"
     zle redisplay
 }
 zle -N fzf-git-modified-widget
@@ -65,7 +65,7 @@ __git-branches() {
 }
 
 __fzf_preview_gitshow() {
-    fzf --multi --preview='echo "branch: {}"; git show --color --decorate --format=fuller --stat --patch {}' $@
+    fzf --multi --preview='echo "branch: {}"; git log -9 --color --decorate --format=fuller --stat {}' $@
 }
 
 # Select a local git branch.
@@ -86,7 +86,13 @@ bindkey '^g^b^b' fzf-git-branches-all-widget # Pick any git branch.
 
 # Select a git stash
 fzf-git-stash-widget() {
-    LBUFFER+="$(git stash list | cut -d : -f 1 | fzf --preview 'git stash show --color -p {}' --preview-window='right:80%')"
+    # % git stash list
+    # stash@{0}: On some-branch-name: some-stash-name
+    # % git stash list  | cut -d : -f 1,3
+    # stash@{0}: some-stash-name
+    # % git stash list  | cut -d : -f 1
+    # stash@{0}
+    LBUFFER+="$(git stash list | cut -d : -f 1,3 | fzf --preview 'git stash show --color -p $(echo {} | cut -d : -f 1)' --preview-window=right:60% | cut -d : -f 1)"
     zle redisplay
 }
 zle -N fzf-git-stash-widget
