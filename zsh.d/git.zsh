@@ -64,13 +64,13 @@ __git-branches() {
     git for-each-ref --format='%(refname:short)' $1
 }
 
-__fzf_preview_gitshow() {
+__fzf_preview_gitlog_branch() {
     fzf --multi --preview='echo "branch: {}"; git log -9 --color --decorate --format=fuller --stat {}' $@
 }
 
 # Select a local git branch.
 fzf-gitbranches-widget() {
-    LBUFFER+="$(__git-branches refs/heads/ | __fzf_preview_gitshow -q '!old/ ' )"
+    LBUFFER+="$(__git-branches refs/heads/ | __fzf_preview_gitlog_branch -q '!old/ ' )"
     zle redisplay
 }
 zle -N fzf-gitbranches-widget
@@ -78,7 +78,7 @@ bindkey '^g^b' fzf-gitbranches-widget # Pick a git local branch.
 
 # Select any git branch.
 fzf-git-branches-all-widget() {
-    LBUFFER+="$(__git-branches | __fzf_preview_gitshow -q '!origin/Dev/releases/ !/submit/request- !old/ ')"
+    LBUFFER+="$(__git-branches | __fzf_preview_gitlog_branch -q '!origin/Dev/releases/ !/submit/request- !old/ ')"
     zle redisplay
 }
 zle -N fzf-git-branches-all-widget
