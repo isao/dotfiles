@@ -23,7 +23,7 @@ export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --rev
 
 # Select file(s).
 fzf-file-widget() {
-    LBUFFER+="$(fd | fzf --preview 'echo {}; head -$LINES {} | highlight {} --out-format xterm256 --quiet --force --style fine_blue' | xargs)"
+    LBUFFER+="$(fd -t f | fzf --preview 'echo {}; highlight {} --out-format xterm256 --quiet --force --style fine_blue' | xargs)"
     zle redisplay
 }
 zle -N fzf-file-widget
