@@ -36,11 +36,6 @@
     helper = osxkeychain
 
 [alias]
-    co = checkout
-
-    ; open unique remote urls in a browser
-    open = !open `git remote -v|perl -ne'm~([\\w.-]+\\.com)[:/](\\S+)\\.git~,print qq(https://$1/$2\n)'|uniq`
-
     ; in every repo reachable from cwd, do fetch-all
     fetchcrazy = !"find . -type d -name .git -execdir git fetch --all -v \\;"
 
@@ -48,21 +43,8 @@
     ; https://github.com/isao/shell/blob/master/git-statuscrazy.sh
     statuscrazy = !"find . -type d -name .git -execdir git-statuscrazy.sh \\;"
 
-    ; After fetching, remove any remote-tracking branches which no longer exist on the remote.
-    fu = fetch --prune
-
     ; http://stackoverflow.com/questions/3065650/whats-the-simplest-way-to-git-a-list-of-conflicted-files
     conflicts = "diff --name-only --diff-filter=U"
-
-    ; fetch a github pull request: git pr <remote> <prnumber>
-    ; @gnarf https://gist.github.com/piscisaureus/3342247#comment-817399
-    ;checkout-github-pr = "!f() { git fetch $1 refs/pull/$2/head:pr/$2; } ; f"
-
-    ; remote update & show heads (https://github.com/isao/git-heads)
-    ;reup = !git remote update && git heads
-
-    ; push to all remotes
-    pub = !"for i in `git remote`; do echo $i...; git push -v $i; done"
 
     lf = log --graph --stat --decorate --pretty=fuller
 
