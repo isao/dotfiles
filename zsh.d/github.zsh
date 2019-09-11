@@ -1,4 +1,4 @@
-git-repo-url() {
+gh-repo() {
     # Get the GitHub repo url from the git remote url, assuming `origin`.
     git remote get-url origin --push \
         | perl -pne 's%^git@%https://%g and s%\.com:%.com/% and s%\.git%%'
@@ -6,25 +6,26 @@ git-repo-url() {
 
 ghb() {
     # GitHub: commits for the $CWD branch
-    open "$(git-repo-url)/commits/$(git branch --show-current)"
+    open "$(gh-repo)/commits/${1:-$(git branch --show-current)}"
 }
 
 ghpr() {
     # GitHub: open a new pull request
-    open "$(git-repo-url)/pull/new/$(git branch --show-current)"
+    open "$(gh-repo)/pull/new/${1:-$(git branch --show-current)}"
 }
 
 ghprs() {
     # GitHub: see the open pull requests
-    open "$(git-repo-url)/pulls"
+    open "$(gh-repo)/pulls"
 }
 
 ghcmp() {
     # GitHub: compare current branch
-    open "$(git-repo-url)/compare/$(git branch --show-current)"
+    open "$(gh-repo)/compare/${1:-$(git branch --show-current)}"
 }
 
 ghc() {
     # GitHub: show commit for sha
-    open "$(git-repo-url)/commit/${1:-HEAD}"
+    open "$(gh-repo)/commit/${1:-HEAD}"
 }
+
