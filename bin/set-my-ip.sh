@@ -5,7 +5,7 @@
 
 cfapi=https://api.cloudflare.com/client/v4
 email=isao.yagi@gmail.com
-token=$(security find-generic-password -ws 'Cloudflare API key' -a $email)
+token=$(security find-generic-password -w -s 'Cloudflare API key' -a $email)
 domain=dev.pondr.in
 
 zone_id=9d21fc88791813915873f835a76e8caa
