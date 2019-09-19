@@ -36,26 +36,37 @@
     helper = osxkeychain
 
 [alias]
-    ; in every repo reachable from cwd, do fetch-all
-    fetchcrazy = !"find . -type d -name .git -execdir git fetch --all -v \\;"
+    ; list these git aliases
+    aliases = config --get-regexp alias
 
-    ; in every repo reachable from cwd, do status and summarize results
-    ; https://github.com/isao/shell/blob/master/git-statuscrazy.sh
-    statuscrazy = !"find . -type d -name .git -execdir git-statuscrazy.sh \\;"
+    ; list changed files on this branch compared to argument $1 or master. Tip:
+    ; use like `git changed | fzf` to access files modified on the branch, or
+    ; `git changed | lint`.
+    changed = !"git diff --name-only $(git merge-base ${1:-master} head)"
 
     ; http://stackoverflow.com/questions/3065650/whats-the-simplest-way-to-git-a-list-of-conflicted-files
     conflicts = "diff --name-only --diff-filter=U"
 
+    ; in every repo reachable from cwd, do fetch-all
+    fetchcrazy = !"find . -type d -name .git -execdir git fetch --all -v \\;"
+
+    ; log fuller
     lf = log --graph --stat --decorate --pretty=fuller
 
-    # %cd               -> 2017-06014
-    # %C(auto)%h        -> 5259c11bd5 short commit sha
-    # %<(12,trunc)%an   -> author name, truncated to 12 characters w/ elipses
-    # %<(80,trunc)%s    -> commit subject, truncated to 80 characters w/ elipses
-    # %d                -> (removed) decorate output, i.e. origin/master...
-    # e.g.:
-    # 2017-06-14 d158a92cf7 Isao Yagi    App reload changes. #MF-65977 #MF-66030
+    ; log compact oneline
+    ; %cd               -> 2017-06014
+    ; %C(auto)%h        -> 5259c11bd5 short commit sha
+    ; %<(12,trunc)%an   -> author name, truncated to 12 characters w/ elipses
+    ; %<(80,trunc)%s    -> commit subject, truncated to 80 characters w/ elipses
+    ; %d                -> (removed) decorate output, i.e. origin/master...
     lg = log --format='%cd %C(auto)%h %<(12,trunc)%an %<(55,trunc)%s' --date=short
+
+    ; delete branches that are merged but not checked out
+    rmmerged = !"git branch --merged | egrep -v '^[^ ]' | xargs -n 1 git branch -d"
+
+    ; in every repo reachable from cwd, do status and summarize results
+    ; https://github.com/isao/shell/blob/master/git-statuscrazy.sh
+    statuscrazy = !"find . -type d -name .git -execdir git-statuscrazy.sh \\;"
 
     # http://bit.ly/1Yx9OQM
     ;assume   = update-index --assume-unchanged
