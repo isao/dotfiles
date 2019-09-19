@@ -3,19 +3,19 @@
 help() {
     clear
     cat <<HELP
-Usage: git hub <command> [arg]
+Usage: git hub [command] [arg1, arg2]
 
-Some shortcuts to open a GitHub page based on your current working directory, and the current repo's remote url.
+Open a GitHub page based on your current working directory, and the current repo's remote url. Must run from a git working directory.
 
 Commands:
-
-    blob        Show a file.
-    compare     Compare branch
-    log         Branch commits
-    pr          Pull request
-    prs         Open pull requests
-    sha         Diff for a commit sha, or HEAD by default.
-    tree        File or directory tree view
+    (no args)                   GitHub page for current branch and directory.
+    <pathname>                  GitHub page for current branch and pathname.
+    blame <file> [sha]          GitHub blame for file.
+    compare [file] [branchname] GitHub compare branch page for branch.
+    log [pathname]              GitHub commits page for current branch and pathname.
+    pr                          GitHub pull request page for the current branch.
+    prs                         GitHub pull requests page.
+    sha [sha]                   GitHub commit view for sha or HEAD.
 
 HELP
 }
@@ -26,28 +26,45 @@ url() {
         | perl -pne 's%^git@%https://%g and s%\.com:%.com/% and s%\.git%%'
 }
 
+pathname() {
+    if [[ -f "$1" ]]
+    then
+        git ls-tree --full-name --name-only HEAD "$1"
+    else
+        (cd "$1" && git rev-parse --show-prefix)
+    fi
+}
+
+branchname() {
+    git branch --show-current
+}
+
 log() {
-    open "$(url)/commits/${1:-$(git branch --show-current)}"
+    open "$(url)/commits/$(branchname)/$(pathname $1)"
 }
 
-dir() {
-    open "$(url)/tree/$(git branch --show-current)/$(git rev-parse --show-prefix)"
+file_or_dir_view() {
+    # GitHub.com will re-direct from /tree/ to /blob/ if needed.
+    open "$(url)/tree/$(branchname)/$(pathname $1)"
 }
 
-blob() {
-    open "$(url)/blob/$(git branch --show-current)/$(git ls-tree --full-name --name-only HEAD $1 | head -1)"
+blame() {
+    # TODO convert tree-ish to sha.
+    open "$(url)/blame/${2:-HEAD}/$(pathname $1)"
+}
+
+compare() {
+    set -x
+    open "$(url)/compare/${2:-$(branchname)}/$(pathname $1)"
 }
 
 pull_request() {
-    open "$(url)/pull/new/${1:-$(git branch --show-current)}"
+    git push -u
+    open "$(url)/pull/new/$(branchname)"
 }
 
 pull_requests() {
     open "$(url)/pulls"
-}
-
-compare() {
-    open "$(url)/compare/${1:-$(git branch --show-current)}"
 }
 
 sha() {
@@ -55,11 +72,11 @@ sha() {
 }
 
 case $1 in
-    'blob' )
-        blob "$2"
+    'blame' )
+        blame "$2" "$3"
         ;;
     'compare' )
-        compare "$2"
+        compare "$2" "$3"
         ;;
     'log' )
         log "$2"
@@ -73,16 +90,18 @@ case $1 in
     'sha' )
         sha "$2"
         ;;
-    'tree' )
-        dir "$2"
-        ;;
     'help' )
         help
         ;;
     '' )
-        dir "$2"
+        file_or_dir_view
         ;;
     * )
-        echo "Unrecognized command ”$1”, try ”git-hub help”."
+        if [[ -e "$1" ]]
+        then
+            file_or_dir_view "$1"
+        else
+            echo "Unrecognized command '$1'. Try 'git-hub help'."
+        fi
         ;;
 esac
