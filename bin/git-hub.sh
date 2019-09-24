@@ -20,10 +20,15 @@ Commands:
 HELP
 }
 
-url() {
+repoUrl() {
     # Get the GitHub repo url from the git remote url, assuming `origin`.
     git remote get-url origin --push \
         | perl -pne 's%^git@%https://%g and s%\.com:%.com/% and s%\.git%%'
+}
+
+branchname() {
+    # If resolving conflicts, or on a detached HEAD, use master.
+    echo ${$(git branch --show-current):-master}
 }
 
 pathname() {
@@ -35,40 +40,36 @@ pathname() {
     fi
 }
 
-branchname() {
-    git branch --show-current
-}
-
 log() {
-    open "$(url)/commits/$(branchname)/$(pathname $1)"
+    open "$repoUrl/commits/$(branchname)/$(pathname $1)"
 }
 
 file_or_dir_view() {
     # GitHub.com will re-direct from /tree/ to /blob/ if needed.
-    open "$(url)/tree/$(branchname)/$(pathname $1)"
+    open "$repoUrl/tree/$(branchname)/$(pathname $1)"
 }
 
 blame() {
     # TODO convert tree-ish to sha.
-    open "$(url)/blame/${2:-HEAD}/$(pathname $1)"
+    open "$repoUrl/blame/${2:-HEAD}/$(pathname $1)"
 }
 
 compare() {
     set -x
-    open "$(url)/compare/${2:-$(branchname)}/$(pathname $1)"
+    open "$repoUrl/compare/${2:-$(branchname)}/$(pathname $1)"
 }
 
 pull_request() {
     git push -u
-    open "$(url)/pull/new/$(branchname)"
+    open "$repoUrl/pull/new/$(branchname)"
 }
 
 pull_requests() {
-    open "$(url)/pulls"
+    open "$repoUrl/pulls"
 }
 
 sha() {
-    open "$(url)/commit/${1:-HEAD}"
+    open "$repoUrl/commit/${1:-HEAD}"
 }
 
 case $1 in
