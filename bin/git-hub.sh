@@ -41,35 +41,36 @@ pathname() {
 }
 
 log() {
-    open "$repoUrl/commits/$(branchname)/$(pathname $1)"
+    open "$(repoUrl)/commits/$(branchname)/$(pathname $1)"
 }
 
 file_or_dir_view() {
     # GitHub.com will re-direct from /tree/ to /blob/ if needed.
-    open "$repoUrl/tree/$(branchname)/$(pathname $1)"
+    open "$(repoUrl)/tree/$(branchname)/$(pathname $1)"
 }
 
 blame() {
     # TODO convert tree-ish to sha.
-    open "$repoUrl/blame/${2:-HEAD}/$(pathname $1)"
+    open "$(repoUrl)/blame/${2:-HEAD}/$(pathname $1)"
 }
 
 compare() {
     set -x
-    open "$repoUrl/compare/${2:-$(branchname)}/$(pathname $1)"
+    open "$(repoUrl)/compare/${2:-$(branchname)}/$(pathname $1)"
 }
 
 pull_request() {
     git push -u
-    open "$repoUrl/pull/new/$(branchname)"
+    open "$(repoUrl)/pull/new/$(branchname)"
 }
 
 pull_requests() {
-    open "$repoUrl/pulls"
+    set -x
+    open "$(repoUrl)/pulls/$1"
 }
 
 sha() {
-    open "$repoUrl/commit/${1:-HEAD}"
+    open "$(repoUrl)/commit/${1:-HEAD}"
 }
 
 case $1 in
@@ -86,7 +87,7 @@ case $1 in
         pull_request "$2"
         ;;
     'prs' )
-        pull_requests
+        pull_requests "$2"
         ;;
     'sha' )
         sha "$2"
