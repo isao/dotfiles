@@ -1,11 +1,12 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 help() {
-    clear
-    cat <<HELP
+    cat <<HELP >&2
 Usage: git hub [command] [arg1, arg2]
 
-Open a GitHub page based on your current working directory, and the current repo's remote url. Must run from a git working directory.
+Open a GitHub page based on your current working directory, and git remote url. 
+
+Must run from the working directory of a GitHub repo.
 
 Commands:
     (no args)                   GitHub page for current branch and directory.
@@ -28,7 +29,9 @@ repoUrl() {
 
 branchname() {
     # If resolving conflicts, or on a detached HEAD, use master.
-    echo ${$(git branch --show-current):-master}
+    local branch
+    branch=$(git branch --show-current)
+    echo "${branch:-master}"
 }
 
 pathname() {
@@ -41,22 +44,21 @@ pathname() {
 }
 
 log() {
-    open "$(repoUrl)/commits/$(branchname)/$(pathname $1)"
+    open "$(repoUrl)/commits/$(branchname)/$(pathname "$1")"
 }
 
 file_or_dir_view() {
     # GitHub.com will re-direct from /tree/ to /blob/ if needed.
-    open "$(repoUrl)/tree/$(branchname)/$(pathname $1)"
+    open "$(repoUrl)/tree/$(branchname)/$(pathname "$1")"
 }
 
 blame() {
     # TODO convert tree-ish to sha.
-    open "$(repoUrl)/blame/${2:-HEAD}/$(pathname $1)"
+    open "$(repoUrl)/blame/${2:-HEAD}/$(pathname "$1")"
 }
 
 compare() {
-    set -x
-    open "$(repoUrl)/compare/${2:-$(branchname)}/$(pathname $1)"
+    open "$(repoUrl)/compare/${2:-$(branchname)}/$(pathname "$1")"
 }
 
 pull_request() {
@@ -65,7 +67,6 @@ pull_request() {
 }
 
 pull_requests() {
-    set -x
     open "$(repoUrl)/pulls/$1"
 }
 
