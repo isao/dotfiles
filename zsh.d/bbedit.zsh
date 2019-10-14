@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 type bbedit >/dev/null || return
 
 compdef _gnu_generic bbedit bbdiff bbfind bbresults
@@ -31,9 +33,15 @@ EOF
 }
 
 cdbbedit() {
-    cd -P "$(dirname "$(bbpath)")"
+    cd -P "$(dirname "$(bbpath)")" || exit 1
 }
 
 rgbb() {
+    # shellcheck disable=SC2068
     rg -n $@ | bbresults
+}
+
+shellcheckbb() {
+    # shellcheck disable=SC2068
+    shellcheck -f gcc $@ | bbresults
 }
