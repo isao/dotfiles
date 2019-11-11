@@ -61,8 +61,9 @@
     ; %d                -> (removed) decorate output, i.e. origin/master...
     lg = log --format='%cd %C(auto)%h %<(12,trunc)%an %<(55,trunc)%s' --date=short
 
-    ; delete branches that are merged but not checked out
-    rmmerged = !"git branch --merged | egrep -v '^[^ ]' | xargs -n 1 git branch -d"
+    ; delete branches that are merged with the current branch, not checked out
+    ; in another worktree, whose names don't contain "master" or "release".
+    rmmerged = !"git branch --merged | egrep -v '^[^ ]|release/|master' | xargs -n 1 git branch -d"
 
     ; in every repo reachable from cwd, do status and summarize results
     ; https://github.com/isao/shell/blob/master/git-statuscrazy.sh
