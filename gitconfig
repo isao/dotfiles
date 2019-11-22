@@ -69,6 +69,22 @@
     ; https://github.com/isao/shell/blob/master/git-statuscrazy.sh
     statuscrazy = !"find . -type d -name .git -execdir git-statuscrazy.sh \\;"
 
+    ; Stash only the staged changes.
+    ; From Hsieh Chin Fan https://github.com/typebrook/settings/blob/dev/gitconfig
+    ; How it works:
+    ; 1. Stash everything, but leave a copy of staged changes alone.
+    ;       git stash --keep-index
+    ; 2. Stash just the staged changes.
+    ;       git stash
+    ; 3. Restore the originally everything stash.
+    ;       git stash pop stash@{1}
+    ; 4. Remove the previously staged changes from the working area.
+    ;       git stash show --patch | git apply --reverse
+    stash-staged = !git stash --keep-index && \
+       git stash && \
+       git stash pop stash@{1} && \
+       git stash show --patch | git apply --reverse
+
     # http://bit.ly/1Yx9OQM
     ;assume   = update-index --assume-unchanged
     ;unassume = update-index --no-assume-unchanged
