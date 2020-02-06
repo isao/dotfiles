@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
-github_remote=${GITHUB_REMOTE:-'origin'}
-default_branch=${DEFAULT_BRANCH:-'master'}
+github_remote=${GIT_HUB_REMOTE:-'origin'}
+default_branch=${GIT_HUB_DEFAULT_BRANCH:-'master'}
 
 help() {
     cat <<HELP >&2
@@ -9,19 +9,34 @@ Usage: git hub [command] [arg1, arg2]
 
 Open a GitHub page based on your current working directory, and git remote url.
 
-Must run from the working directory of a GitHub repo.
-
 Commands:
-    (no args)                   GitHub page for current branch and directory.
-    <pathname>                  GitHub page for current branch and pathname.
-    blame <file> [sha]          GitHub blame for file.
-    compare [file] [branchname] GitHub compare branch page for branch.
-    log [pathname]              GitHub commits page for current branch and pathname.
-    pr                          GitHub pull request page for the current branch.
-    prs                         GitHub pull requests page.
-    sha [sha]                   GitHub commit view for sha or HEAD.
+    (no args)                   Open the GitHub page for current branch and
+                                current directory.
+
+    <pathname>                  Open the GitHub page for current branch and
+                                optional pathname.
+
+    blame <file> [sha]          Open the GitHub blame for file and optional git
+                                revision.
+
+    compare [file] [branchname] Open the GitHub compare page for branch.
+
+    log [pathname]              Open the GitHub commits page for current branch
+                                and optional pathname.
+
+    pr                          Open the GitHub pull request page for the
+                                current branch.
+
+    prs                         Open the GitHub pull requests page.
+
+    sha <sha>                   Open the GitHub commit view for sha or HEAD.
 
 HELP
+}
+
+err() {
+    echo "$1" >&2
+    exit "$2"
 }
 
 repo_url() {
@@ -66,7 +81,7 @@ file_or_dir_view() {
 
 blame() {
     # TODO convert tree-ish to sha.
-    open "$(repo_url)/blame/${2:-HEAD}/$(pathname "$1")"
+    open "$(repo_url)/blame/${2:-$(branchname)}/$(pathname "$1")"
 }
 
 compare() {
@@ -74,8 +89,14 @@ compare() {
 }
 
 pull_request() {
+    local branch
+    branch=$(branchname)
+
+    [[ $branch =~ ^master$|^release/.+$ ]] && \
+        err "Exiting, branch '$branch' is special." 3
+
     git push -u
-    open "$(repo_url)/pull/new/$(branchname)"
+    open "$(repo_url)/pull/new/$branch"
 }
 
 pull_requests() {
@@ -85,6 +106,8 @@ pull_requests() {
 sha() {
     open "$(repo_url)/commit/${1:-HEAD}"
 }
+
+git rev-parse 2>/dev/null || err "Exiting, there is no git repo here." 1
 
 case $1 in
     'blame' )
@@ -116,7 +139,7 @@ case $1 in
         then
             file_or_dir_view "$1"
         else
-            echo "Unrecognized command '$1'. Try 'git-hub help'."
+            err "Unrecognized command '$1'. Try 'git-hub help'." 1
         fi
         ;;
 esac
