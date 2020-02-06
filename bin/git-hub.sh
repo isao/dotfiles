@@ -1,10 +1,13 @@
 #!/bin/bash -e
 
+github_remote=${GITHUB_REMOTE:-'origin'}
+default_branch=${DEFAULT_BRANCH:-'master'}
+
 help() {
     cat <<HELP >&2
 Usage: git hub [command] [arg1, arg2]
 
-Open a GitHub page based on your current working directory, and git remote url. 
+Open a GitHub page based on your current working directory, and git remote url.
 
 Must run from the working directory of a GitHub repo.
 
@@ -21,17 +24,26 @@ Commands:
 HELP
 }
 
-    # Get the GitHub repo url from the git remote url, assuming `origin`.
-    git remote get-url origin --push \
 repo_url() {
+    # Get the GitHub repo url from the git remote url.
+    git remote get-url "$github_remote" --push \
         | perl -pne 's%^git@%https://%g and s%\.com:%.com/% and s%\.git%%'
 }
 
+branch_was_pushed() {
+    git ls-remote --heads --exit-code "$github_remote" "$1"
+}
+
 branchname() {
-    # If resolving conflicts, or on a detached HEAD, use master.
     local branch
     branch=$(git branch --show-current)
-    echo "${branch:-master}"
+
+    if [[ -n $branch && $(branch_was_pushed "$branch") ]]
+    then
+        echo "$branch"
+    else
+        echo "$default_branch"
+    fi
 }
 
 pathname() {
