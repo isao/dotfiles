@@ -21,9 +21,9 @@ Commands:
 HELP
 }
 
-repoUrl() {
     # Get the GitHub repo url from the git remote url, assuming `origin`.
     git remote get-url origin --push \
+repo_url() {
         | perl -pne 's%^git@%https://%g and s%\.com:%.com/% and s%\.git%%'
 }
 
@@ -44,34 +44,34 @@ pathname() {
 }
 
 log() {
-    open "$(repoUrl)/commits/$(branchname)/$(pathname "$1")"
+    open "$(repo_url)/commits/$(branchname)/$(pathname "$1")"
 }
 
 file_or_dir_view() {
     # GitHub.com will re-direct from /tree/ to /blob/ if needed.
-    open "$(repoUrl)/tree/$(branchname)/$(pathname "$1")"
+    open "$(repo_url)/tree/$(branchname)/$(pathname "$1")"
 }
 
 blame() {
     # TODO convert tree-ish to sha.
-    open "$(repoUrl)/blame/${2:-HEAD}/$(pathname "$1")"
+    open "$(repo_url)/blame/${2:-HEAD}/$(pathname "$1")"
 }
 
 compare() {
-    open "$(repoUrl)/compare/${2:-$(branchname)}/$(pathname "$1")"
+    open "$(repo_url)/compare/${2:-$(branchname)}/$(pathname "$1")"
 }
 
 pull_request() {
     git push -u
-    open "$(repoUrl)/pull/new/$(branchname)"
+    open "$(repo_url)/pull/new/$(branchname)"
 }
 
 pull_requests() {
-    open "$(repoUrl)/pulls/$1"
+    open "$(repo_url)/pulls/$1"
 }
 
 sha() {
-    open "$(repoUrl)/commit/${1:-HEAD}"
+    open "$(repo_url)/commit/${1:-HEAD}"
 }
 
 case $1 in
