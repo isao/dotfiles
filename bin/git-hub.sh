@@ -49,7 +49,7 @@ branch_was_pushed() {
     git ls-remote --heads --exit-code "$github_remote" "$1"
 }
 
-branchname() {
+remote_branch() {
     local branch
     branch=$(git branch --show-current)
 
@@ -71,26 +71,26 @@ pathname() {
 }
 
 log() {
-    open "$(repo_url)/commits/$(branchname)/$(pathname "$1")"
+    open "$(repo_url)/commits/$(remote_branch)/$(pathname "$1")"
 }
 
 file_or_dir_view() {
-    # GitHub.com will re-direct from /tree/ to /blob/ if needed.
-    open "$(repo_url)/tree/$(branchname)/$(pathname "$1")"
+    # GitHub will re-direct from /tree/ to /blob/ as needed.
+    open "$(repo_url)/tree/$(remote_branch)/$(pathname "$1")"
 }
 
 blame() {
     # TODO convert tree-ish to sha.
-    open "$(repo_url)/blame/${2:-$(branchname)}/$(pathname "$1")"
+    open "$(repo_url)/blame/${2:-$(remote_branch)}/$(pathname "$1")"
 }
 
 compare() {
-    open "$(repo_url)/compare/${2:-$(branchname)}/$(pathname "$1")"
+    open "$(repo_url)/compare/${2:-$(remote_branch)}/$(pathname "$1")"
 }
 
 pull_request() {
     local branch
-    branch=$(branchname)
+    branch=$(git branch --show-current)
 
     [[ $branch =~ ^master$|^release/.+$ ]] && \
         err "Exiting, branch '$branch' is special." 3
