@@ -8,6 +8,7 @@ compdef _gnu_generic bbedit bbdiff bbfind bbresults
 alias -s bbprojectd=bbedit
 alias -s hbs=bbedit
 alias -s html=bbedit
+alias -s js=bbedit
 alias -s json=bbedit
 alias -s less=bbedit
 alias -s scss=bbedit
