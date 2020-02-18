@@ -46,3 +46,7 @@ shellcheckbb() {
     # shellcheck disable=SC2068
     shellcheck -f gcc $@ | bbresults
 }
+
+fzfbb() {
+    fzf | xargs bbedit
+}
