@@ -85,6 +85,10 @@ bindkey "^[[1;5C" forward-word
 # delete to beginning of line
 bindkey '^u' backward-kill-line
 
+# two `kill-line` or `backward-kill-line` equals one `kill-buffer`.
+bindkey '^k^k' kill-buffer
+bindkey '^u^u' kill-buffer
+
 # forward-delete word ahead of the cursor
 bindkey "^w" delete-word
 
