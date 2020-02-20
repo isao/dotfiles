@@ -28,9 +28,6 @@ alias checkpath='ls -ld $(echo $PATH | tr : "\n")'
 
 alias e=$(where bbedit code nano vim vi | grep ^/ | head -1)
 
-# ripgrep
-alias rgg='rg --glob "*.{html,less,css,js,ts,tsx,md,txt,json5?}" --glob "!{node_modules,dist}"'
-
 # osx
 
 #remove style from any text on the clipboard
