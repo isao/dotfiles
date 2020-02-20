@@ -44,7 +44,7 @@ setopt pushdtohome
 setopt pushd_ignore_dups
 
 # https://robots.thoughtbot.com/cding-to-frequently-used-directories-in-zsh
-cdpath=($HOME $HOME/repos $HOME/work/repos)
+cdpath=($HOME $HOME/repos)
 
 # Save and restore dirstack.
 # http://chneukirchen.org/blog/archive/2012/02/10-new-zsh-tricks-you-may-not-know.html
@@ -122,5 +122,4 @@ then
     source "$dotfiles/zsh.d/nodejs.zsh"
 
     source "$dotfiles/zsh.d/prompt.zsh"
-    #source "$dotfiles/zsh.d/work.zsh"
 fi
