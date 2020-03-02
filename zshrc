@@ -6,6 +6,8 @@ export LESS='--tabs=4 --ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS --no-init 
 type highlight >/dev/null && \
     export LESSOPEN="| highlight %s --out-format xterm256 --quiet --force --style fine_blue"
 
+export HOMEBREW_PREFIX="${$(brew --prefix 2>/dev/null):-/usr/local}"
+
 # BAUD=38400
 # default WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>'
 WORDCHARS='*?_-.[]~&!#$%^(){}<>'

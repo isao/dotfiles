@@ -50,9 +50,9 @@ type tsc >/dev/null && \
     compdef _gnu_generic tsc
 
 # brew home zsh-syntax-highlighting
-if [[ -r /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]
+if [[ -r "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]
 then
-    source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 fi
 

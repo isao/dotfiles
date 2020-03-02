@@ -16,15 +16,14 @@
     ui = auto
 
 [pager]
-    ;$(brew --prefix git) -> /usr/local/opt/git
-    log  = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
-    show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
-    diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+    log  = "${HOMEBREW_PREFIX:='/usr/local'}/share/git-core/contrib/diff-highlight/diff-highlight" | less
+    show = "${HOMEBREW_PREFIX:='/usr/local'}/share/git-core/contrib/diff-highlight/diff-highlight" | less
+    diff = "${HOMEBREW_PREFIX:='/usr/local'}/share/git-core/contrib/diff-highlight/diff-highlight" | less
     ;diff = diff-so-fancy | less --tabs=4 -RFX
     ;show = diff-so-fancy | less --tabs=4 -RFX
 
 [interactive]
-    diffFilter = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight
+    diffFilter = ${HOMEBREW_PREFIX:='/usr/local'}/share/git-core/contrib/diff-highlight/diff-highlight
     singleKey = true
 
 [pack]
