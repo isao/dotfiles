@@ -39,12 +39,12 @@ cdbbedit() {
 
 rgbb() {
     # shellcheck disable=SC2068
-    rg -n $@ | bbresults
+    rg -n $@ | bbresults -0
 }
 
 shellcheckbb() {
     # shellcheck disable=SC2068
-    shellcheck -f gcc $@ | bbresults
+    shellcheck -f gcc $@ | bbresults -0
 }
 
 fzfbb() {
