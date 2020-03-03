@@ -78,15 +78,6 @@ canary() {
     open -a 'Google Chrome Canary' --args --ignore-certificate-errors --enable-precise-memory-info $@
 }
 
-make-typescript-ctags() {
-    local tagfile=~/typescript.tags
-    ctags -f "$tagfile" /usr/local/lib/node_modules/typescript/lib/lib.{dom,es[256],webworker}*.d.ts
-    # if (hash chflags >/dev/null) {
-    #     # Hide the file in the macOS Finder.
-    #     chflags hidden "$tagfile"
-    # }
-}
-
 # https://stackoverflow.com/a/7222469/8947435
 eject-all() {
     osascript -e 'tell application "Finder" to get (every disk whose ejectable is true)'
