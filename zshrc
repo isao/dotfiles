@@ -1,5 +1,5 @@
 # Set path with `echo "/opt/brew/bin" | sudo tee /etc/paths.d/10-brew`, or:
-#   path+=(/opt/brew/bin)
+path=(/opt/brew/bin $path)
 
 export EDITOR=$(where bbedit..sh bbedit code nano vim vi | grep ^/ | head -1)
 export GREP_COLOR=32 # ANSI/VT100: 32 is green, '1;34' is bold blue
