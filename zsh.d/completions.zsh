@@ -49,14 +49,6 @@ type shellcheck >/dev/null && \
 type tsc >/dev/null && \
     compdef _gnu_generic tsc
 
-# brew home zsh-syntax-highlighting
-if [[ -r "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]
-then
-    source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-    ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-fi
-
-
 # gulp-autocompletion-zsh
 # https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/gulp/gulp.plugin.zsh
 # Autocompletion for your gulp.js tasks
