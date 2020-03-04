@@ -21,3 +21,5 @@ link-node() {
     brew unlink node@10
     brew link node
 }
+
+source <(npm completion)
