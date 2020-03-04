@@ -36,18 +36,24 @@ zstyle ':completion:*' squeeze-slashes true
 # To try filename completion when other completions fail:
 zstyle ':completion:*' completer _complete _ignored _files
 
-
 # Complete from middle of a word, using just what's up to the cursor.
 # http://zsh.sourceforge.net/FAQ/zshfaq04.html#l50
 # Defualt is `bindkey '^I' expand-or-complete`
 bindkey '^I' expand-or-complete-prefix
 
+#
+#   Set fpath for Homebrew completions (rg, fd, git, brew)
+#
+[[ -d "$HOMEBREW_PREFIX/share/zsh/site-functions" ]] && \
+    fpath=("$HOMEBREW_PREFIX/share/zsh/site-functions" $fpath)
 
-type shellcheck >/dev/null && \
-    compdef _gnu_generic shellcheck
+#
+#   Other completions
+#
 
-type tsc >/dev/null && \
-    compdef _gnu_generic tsc
+hash shellcheck >& /dev/null && compdef _gnu_generic shellcheck
+
+hash tsc >& /dev/null && compdef _gnu_generic tsc
 
 # gulp-autocompletion-zsh
 # https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/gulp/gulp.plugin.zsh
