@@ -22,6 +22,11 @@ alias tgl='tig log'
 alias tgb='tig blame -w -C'
 
 #
+#   completions
+#
+fpath=("$HOMEBREW_PREFIX/share/zsh/site-functions" $fpath)
+
+#
 #   git status
 #
 gg() {
