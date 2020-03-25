@@ -18,6 +18,16 @@ manx() {
     open "x-man-page://$1"
 }
 
+never_index_node_modules_here() {
+    set -x
+    find . \
+        -type d \
+        -name node_modules \
+        -prune \
+        -maxdepth 5 \
+        -execdir touch {}/.metadata_never_index \;
+}
+
 # Mac OSX
 rmmacmeta() {
     find ${@:-.} \( -name '.DS_Store' -or -name '._*' \) -exec rm -v '{}' \;
