@@ -1,6 +1,6 @@
 hash node npm >& /dev/null || return
 
-path=(node_modules/.bin $path)
+path=($path node_modules/.bin)
 
 alias nn='npm run'
 
