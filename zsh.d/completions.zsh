@@ -1,5 +1,10 @@
 # man zshcompsys
 
+# Note: fpath must be set before compinit.
+# Homebrew completions (rg, fd, git, brew)
+[[ -d "$HOMEBREW_PREFIX/share/zsh/site-functions" ]] && \
+    fpath=($fpath "$HOMEBREW_PREFIX/share/zsh/site-functions")
+
 #
 #       completion
 
@@ -40,12 +45,6 @@ zstyle ':completion:*' completer _complete _ignored _files
 # http://zsh.sourceforge.net/FAQ/zshfaq04.html#l50
 # Defualt is `bindkey '^I' expand-or-complete`
 bindkey '^I' expand-or-complete-prefix
-
-#
-#   Set fpath for Homebrew completions (rg, fd, git, brew)
-#
-[[ -d "$HOMEBREW_PREFIX/share/zsh/site-functions" ]] && \
-    fpath=("$HOMEBREW_PREFIX/share/zsh/site-functions" $fpath)
 
 #
 #   Other completions
