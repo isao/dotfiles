@@ -20,6 +20,32 @@ export FZF_DEFAULT_COMMAND=fd
 export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {} | pbcopy)+abort,ctrl-o:execute(open {})+abort,ctrl-r:execute(open -R {})+abort,ctrl-e:execute($EDITOR {})+abort"'
 
 #
+#   FZF functions
+#
+
+# Find in file
+# Based on: https://github.com/junegunn/fzf/wiki/Examples#searching-file-contents
+fif() {
+    if [[ -z $1 ]]
+    then
+        echo "Missing search string"
+        return 1
+    fi
+
+    local rgflags preview
+    rgflags='--colors "match:bg:green" --ignore-case --pretty --context 5'
+    preview="highlight -O ansi {} 2> /dev/null | rg $rgflags '$1' || rg $rgflags '$1' {}"
+
+    rg --files-with-matches --no-messages "$1" . | fzf --preview $preview
+}
+
+# Find in notes
+fin() {
+    cd ~/notes
+    fif "$1"
+}
+
+#
 #   FZF WIDGETS
 #
 #   Tip: Show all the custom `bindkey` assignments with alias `showkeys`.
