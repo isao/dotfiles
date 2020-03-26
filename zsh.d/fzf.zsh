@@ -4,12 +4,15 @@ type fzf fd >/dev/null || return
 #   FZF CONFIG
 #
 
-# FZF Completion functions
-#[[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
+# Note: not using the functions that ship with fzf
+# https://github.com/junegunn/fzf#key-bindings-for-command-line
+#   source "/opt/brew/Cellar/fzf/0.21.0-1/shell/key-bindings.zsh"
+# https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh
+#   source "/opt/brew/Cellar/fzf/0.21.0-1/shell/completion.zsh"
 
 # fzf configuration
 # ctrl-c copy the selected item
-# ctrl-e edit the selected item
+# ctrl-e edit the selected item with $EDITOR
 # ctrl-o open the selected item
 # ctrl-r reveal the selected item in the Finder
 #
