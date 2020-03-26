@@ -58,19 +58,8 @@ fzf-file-widget() {
 zle -N fzf-file-widget
 bindkey '^f^f' fzf-file-widget              # Find file.
 
-# Ensure precmds are run after cd
-# See /usr/local/Cellar/fzf/0.17.3/shell/key-bindings.zsh
-fzf-redraw-prompt() {
-  local precmd
-  for precmd in $precmd_functions; do
-    $precmd
-  done
-  zle reset-prompt
-}
-zle -N fzf-redraw-prompt
-
 recent-dirs() {
-    {   
+    {
         [[ -r "$DIRSTACKFILE" ]] && cat "$DIRSTACKFILE"
         mdfind tag:wip AND kind:folders
     } | awk '!x[$0]++'
