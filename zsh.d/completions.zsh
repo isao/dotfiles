@@ -1,9 +1,9 @@
 # man zshcompsys
 
-# Note: fpath must be set before compinit.
-# Homebrew completions (rg, fd, git, brew)
+# Enable Homebrew completions (brew, fd, git, rg, tig). Note! fpath must be set
+# before compinit, and homebrew's path must be first.
 [[ -d "$HOMEBREW_PREFIX/share/zsh/site-functions" ]] && \
-    fpath=($fpath "$HOMEBREW_PREFIX/share/zsh/site-functions")
+    fpath=("$HOMEBREW_PREFIX/share/zsh/site-functions" $fpath)
 
 #
 #       completion
