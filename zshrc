@@ -1,4 +1,4 @@
-# Set path with `echo "/opt/brew/bin" | sudo tee /etc/paths.d/10-brew`, or:
+# Add Homebrew to beginning of path (so we can use latest git, etc).
 path=(/opt/brew/bin $path)
 
 export EDITOR=$(where bbedit..sh bbedit code nano vim vi | grep ^/ | head -1)
