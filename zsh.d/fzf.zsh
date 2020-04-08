@@ -1,4 +1,4 @@
-type fzf fd >/dev/null || return
+whence fzf fd >/dev/null || return
 
 #
 #   FZF CONFIG

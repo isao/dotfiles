@@ -1,6 +1,6 @@
 # shellcheck shell=bash
 
-type bbedit >/dev/null || return
+whence bbedit >/dev/null || return
 
 compdef _gnu_generic bbedit bbdiff bbfind bbresults
 

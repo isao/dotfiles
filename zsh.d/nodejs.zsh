@@ -1,4 +1,4 @@
-hash node npm >& /dev/null || return
+whence node npm >/dev/null || return
 
 path=($path node_modules/.bin)
 
