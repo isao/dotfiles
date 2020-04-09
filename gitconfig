@@ -1,6 +1,6 @@
 [user]
     name = Isao Yagi
-    email = isao.yagi@gmail.com
+	useConfigOnly = true
 
 [core]
     excludesfile = ~/.gitignore
