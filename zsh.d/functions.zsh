@@ -18,13 +18,14 @@ manx() {
     open "x-man-page://$1"
 }
 
-never_index_node_modules_here() {
+never_index_artifacts() {
     set -x
     find . \
         -type d \
-        -name node_modules \
+        \( -name node_modules -o -name dist -o -name coverage -o -name artifacts \) \
+        -maxdepth 3 \
         -prune \
-        -maxdepth 5 \
+        -print \
         -execdir touch {}/.metadata_never_index \;
 }
 
