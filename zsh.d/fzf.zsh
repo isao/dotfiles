@@ -17,7 +17,15 @@ whence fzf fd >/dev/null || return
 # ctrl-r reveal the selected item in the Finder
 #
 export FZF_DEFAULT_COMMAND=fd
-export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {} | pbcopy)+abort,ctrl-o:execute(open {})+abort,ctrl-r:execute(open -R {})+abort,ctrl-e:execute($EDITOR {})+abort"'
+export FZF_DEFAULT_OPTS=(
+    --color=light
+    --tabstop=4
+    --cycle
+    --exact
+    --multi
+    --reverse
+    --bind="ctrl-c:execute(echo -n {} | pbcopy)+abort,ctrl-o:execute(open {})+abort,ctrl-r:execute(open -R {})+abort,ctrl-e:execute($EDITOR {})+abort"
+)
 
 #
 #   FZF functions
@@ -32,15 +40,14 @@ fif() {
         echo "Missing search string"
         return 1
     fi
-    rgflags='--colors "match:bg:green" --ignore-case --pretty --context 5'
+    rgflags=(--colors "match:bg:green" --ignore-case --pretty --context 5)
     preview="highlight -O ansi {} 2> /dev/null | rg $rgflags '$1' || rg $rgflags '$1' {}"
     rg --files-with-matches --no-messages "$1" . | fzf --preview $preview
 }
 
 # Find in notes
 fin() {
-    cd ~/notes
-    fif "$1"
+    (cd ~/notes && fif "$1")
 }
 
 #
@@ -53,14 +60,14 @@ fzf-filenames-widget() {
     zle redisplay
 }
 zle -N fzf-filenames-widget
-bindkey '^f^f' fzf-filenames-widget             # Find file.
+bindkey '^f^f' fzf-filenames-widget # Find file.
 
 fzf-dirnames-widget() {
     LBUFFER+="$(fd -t d | fzf --preview 'echo {}; tree {}' | xargs)"
     zle redisplay
 }
 zle -N fzf-dirnames-widget
-bindkey '^f^f^f' fzf-dirnames-widget            # Find dir.
+bindkey '\ed' fzf-dirnames-widget # Find dir.
 
 recent-dirs() {
     {
