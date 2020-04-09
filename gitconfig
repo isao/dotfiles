@@ -4,7 +4,6 @@
 
 [core]
     excludesfile = ~/.gitignore
-    autocrlf = input
 
     ; tell git that trailing cr is ok, ignore in diffs et al
     whitespace = cr-at-eol
