@@ -19,7 +19,6 @@ manx() {
 }
 
 never_index_artifacts() {
-    set -x
     find . \
         -type d \
         \( -name node_modules -o -name dist -o -name coverage -o -name artifacts \) \
