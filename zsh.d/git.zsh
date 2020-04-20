@@ -21,9 +21,6 @@ alias tgs='tig status'
 alias tgl='tig log'
 alias tgb='tig blame -w -C'
 
-[[ -f "$HOMEBREW_PREFIX/share/zsh/site-functions/tig-completion.bash" ]] && \
-    source "$HOMEBREW_PREFIX/share/zsh/site-functions/tig-completion.bash"
-
 #
 #   git status
 #
