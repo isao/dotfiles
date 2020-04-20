@@ -4,6 +4,13 @@ path=($path node_modules/.bin)
 
 alias nn='npm run'
 
+alias nnci='npm ci && never_index_artifacts'
+
+function nni() {
+    npm install $@
+    never_index_artifacts
+}
+
 # Completion for `npm run` scripts
 function nn-complete {
     npm run | egrep -o '^  \S+' | xargs
