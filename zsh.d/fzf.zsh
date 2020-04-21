@@ -17,15 +17,7 @@ whence fzf fd >/dev/null || return
 # ctrl-r reveal the selected item in the Finder
 #
 export FZF_DEFAULT_COMMAND=fd
-export FZF_DEFAULT_OPTS=(
-    --color=light
-    --tabstop=4
-    --cycle
-    --exact
-    --multi
-    --reverse
-    --bind="ctrl-c:execute(echo -n {} | pbcopy)+abort,ctrl-o:execute(open {})+abort,ctrl-r:execute(open -R {})+abort,ctrl-e:execute($EDITOR {})+abort"
-)
+export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {} | pbcopy)+abort,ctrl-o:execute(open {})+abort,ctrl-r:execute(open -R {})+abort,ctrl-e:execute($EDITOR {})+abort"'
 
 #
 #   FZF functions
@@ -40,7 +32,7 @@ fif() {
         echo "Missing search string"
         return 1
     fi
-    rgflags=(--colors "match:bg:green" --ignore-case --pretty --context 5)
+    rgflags='--colors "match:bg:green" --ignore-case --pretty --context 5'
     preview="highlight -O ansi {} 2> /dev/null | rg $rgflags '$1' || rg $rgflags '$1' {}"
     rg --files-with-matches --no-messages "$1" . | fzf --preview $preview
 }

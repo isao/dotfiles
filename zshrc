@@ -6,14 +6,7 @@ export EDITOR=$(where bbedit..sh bbedit code nano vim vi | grep ^/ | head -1)
 export GREP_COLOR=32 # ANSI/VT100: 32 is green, '1;34' is bold blue
 export RSYNC_RSH=ssh
 
-export LESS=(
-    --tabs=4 
-    --ignore-case 
-    --LONG-PROMPT 
-    --RAW-CONTROL-CHARS 
-    --no-init 
-    --quit-if-one-screen
-)
+export LESS='--tabs=4 --ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS --no-init --quit-if-one-screen'
 
 whence highlight >/dev/null && \
     export LESSOPEN="| highlight %s --out-format xterm256 --quiet --force --style fine_blue"
