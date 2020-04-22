@@ -1,3 +1,4 @@
+# yay! no longer needed with universal-ctags 
 --langdef=TypeScript
 --langmap=typescript:.ts
 --langmap=typescript:+.tsx
