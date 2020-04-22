@@ -1,0 +1,7 @@
+# Overrides for Universal-ctags Javascript indexing annoyances, as of 2020-04-22
+
+# Don't index constants "C": too many "Warning: ignoring null tag"
+--javascript-kinds=-C
+
+# Don't index properties "p": includes local variables 
+--javascript-kinds=-p
