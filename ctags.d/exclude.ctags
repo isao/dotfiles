@@ -1,6 +1,6 @@
 --exclude=.git
 --exclude=artifacts
+--exclude=coverage
 --exclude=builds
 --exclude=dist
 --exclude=node_modules
-
