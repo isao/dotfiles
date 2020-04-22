@@ -9,6 +9,7 @@ insert_final_newline = true
 x-balance-while-typing = true
 x-soft-wrap-mode = WindowWidth
 x-soft-wrap-text = true
+trim_trailing_whitespace = true
 x-typographers-quotes =  false
 
 [*.{hbs,html,js,json,css,scss,sh,svg,ts,tsx}]
