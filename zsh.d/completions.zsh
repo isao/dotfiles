@@ -50,9 +50,10 @@ bindkey '^I' expand-or-complete-prefix
 #   Other completions
 #
 
-whence shellcheck >/dev/null && compdef _gnu_generic shellcheck
-
-whence tsc >/dev/null && compdef _gnu_generic tsc
+for i in shellcheck tsc ctags
+do
+    whence "$i" >/dev/null && compdef _gnu_generic "$i"
+done
 
 # gulp-autocompletion-zsh
 # https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/gulp/gulp.plugin.zsh
