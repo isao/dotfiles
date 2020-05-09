@@ -1,18 +1,19 @@
+# https://editorconfig.org/
 root = true
 
 [*]
 charset = utf-8
 end_of_line = lf
-indent_style = space
 indent_size = 4
+indent_style = space
 insert_final_newline = true
+trim_trailing_whitespace = true
 x-balance-while-typing = true
 x-soft-wrap-mode = WindowWidth
 x-soft-wrap-text = true
-trim_trailing_whitespace = true
 x-typographers-quotes =  false
 
-[*.{hbs,html,js,json,css,scss,sh,svg,ts,tsx}]
+[*.{hbs,html,js,json,css,scss,sh,svg,ts,tsx,zsh}]
 x-soft-wrap-text = false
 
 [{package.json,.travis.yml}]
@@ -29,3 +30,7 @@ indent_size = 4
 [Makefile]
 indent_style = tab
 indent_size = 2
+
+[{tags,*.ctags}]
+indent_style = tab
+indent_size = 4
