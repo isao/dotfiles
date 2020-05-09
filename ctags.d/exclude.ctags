@@ -1,4 +1,4 @@
---exclude=.git
+--exclude=.hbs
 --exclude=artifacts
 --exclude=coverage
 --exclude=builds
