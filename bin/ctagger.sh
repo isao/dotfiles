@@ -46,4 +46,4 @@ conf=$(test -r .ctagger && grep -v \# .ctagger | xargs || echo '-R')
 #
 ctags $@ $conf && alert
 
-type ctags-index-hbs.zsh >/dev/null && ctags-index-hbs.zsh
+type ctags-index-hbs >/dev/null && ctags-index-hbs

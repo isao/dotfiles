@@ -7,7 +7,10 @@
 npm-debug.log
 
 # ctags
+ctags
+*.ctags
 tags
+*.tags
 # Config files for ~/repos/dotfiles/bin/ctagger.sh
 .ctagger
 
