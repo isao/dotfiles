@@ -44,6 +44,5 @@ conf=$(test -r .ctagger && grep -v \# .ctagger | xargs || echo '-R')
 #
 #   Invoke ctags in the background, raise notification when done.
 #
-ctags $@ $conf && alert
-
-type ctags-index-hbs >/dev/null && ctags-index-hbs
+(ctags $@ $conf && alert) &
+type ctags-index-hbs >/dev/null && ctags-index-hbs &

@@ -4,7 +4,7 @@
 # and Ember project repo.
 
 hbs_files=(app/components/**/*.hbs)
-hbs_ctags=./hbs.tags
+hbs_ctags=./wta.hbs.tags
 
 whence ctags >/dev/null || {
 	echo 'ctags must be installed.'
