@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 github_remote=${GIT_HUB_REMOTE:-'origin'}
-default_branch=${GIT_HUB_DEFAULT_BRANCH:-'master'}
+default_branch=${GIT_HUB_DEFAULT_BRANCH:-'main'}
 
 help() {
     cat <<HELP >&2
@@ -92,7 +92,7 @@ pull_request() {
     local branch
     branch=$(git branch --show-current)
 
-    [[ $branch =~ ^master$|^release/.+$ ]] && \
+    [[ $branch =~ ^(main|master|release/.+)$ ]] && \
         err "Exiting, branch '$branch' is special." 3
 
     git push -u
