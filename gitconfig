@@ -1,5 +1,5 @@
 [user]
-    name = Isao Yagi
+	name = Isao Yagi
     useConfigOnly = true
 
 [core]
@@ -40,10 +40,10 @@
     ; list these git aliases
     aliases = config --get-regexp alias
 
-    ; list changed files on this branch compared to argument $1 or master. Tip:
+    ; list changed files on this branch compared to argument $1 or main. Tip:
     ; use like `git changed | fzf` to access files modified on the branch, or
     ; `git changed | lint`.
-    changed = !"git diff --name-only $(git merge-base ${1:-master} head)"
+    changed = !"git diff --name-only $(git merge-base ${1:-main} head)"
 
     ; http://stackoverflow.com/questions/3065650
     conflicts = diff --name-only --diff-filter=U
@@ -59,14 +59,14 @@
     ; %C(auto)%h        -> 5259c11bd5 short commit sha
     ; %<(12,trunc)%an   -> author name, truncated to 12 characters w/ elipses
     ; %<(80,trunc)%s    -> commit subject, truncated to 80 characters w/ elipses
-    ; %d                -> (removed) decorate output, i.e. origin/master...
+    ; %d                -> (removed) decorate output, i.e. origin/main...
     lg = log --format='%cd %C(auto)%h %<(12,trunc)%an %<(55,trunc)%s' --date=short
 
     ; Preview the `git rmmerged` alias below.
-    showmerged = !git branch --merged | egrep -v '^[^ ]|release/|master'
+    showmerged = !git branch --merged | egrep -v '^[^ ]|release/|master|main'
 
     ; Remove branches that are 1. merged with the current branch, 2. not checked
-    ; out in another worktree, and 3. names don't contain "master" or "release/".
+    ; out in another worktree, and 3. names don't contain "main" or "release/".
     rmmerged = !git showmerged | xargs -n 1 git branch -d
 
     ; In every repo reachable from cwd, do status and summarize results
