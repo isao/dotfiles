@@ -12,7 +12,7 @@ alias gsd='git stash drop'
 alias gsl='git stash list'
 alias gsp='git stash pop'
 alias gss='git stash show'
-alias gsv='git stash save'
+alias gsv='git stash save --include-untracked'
 
 #
 #   tig
