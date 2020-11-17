@@ -16,10 +16,6 @@ x-typographers-quotes =  false
 [*.{hbs,html,js,json,css,scss,sh,svg,ts,tsx,zsh}]
 x-soft-wrap-text = false
 
-[{package.json,.travis.yml}]
-indent_style = space
-indent_size = 2
-
 [*.md]
 trim_trailing_whitespace = false
 
@@ -27,10 +23,14 @@ trim_trailing_whitespace = false
 indent_style = space
 indent_size = 4
 
-[Makefile]
-indent_style = tab
-indent_size = 2
-
 [{tags,*.ctags}]
 indent_style = tab
 indent_size = 4
+
+[{package.json,.travis.yml}]
+indent_style = space
+indent_size = 2
+
+[Makefile]
+indent_style = tab
+indent_size = 2
