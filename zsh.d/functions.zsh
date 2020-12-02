@@ -22,7 +22,7 @@ never_index_artifacts() {
     find . \
         -type d \
         \( -name node_modules -o -name dist -o -name coverage -o -name artifacts \) \
-        -maxdepth 3 \
+        -maxdepth 2 \
         -prune \
         -print \
         -execdir touch {}/.metadata_never_index \;
