@@ -49,7 +49,7 @@
     conflicts = diff --name-only --diff-filter=U
 
     ; in every repo reachable from cwd, do fetch-all
-    fetchcrazy = !"find . -type d -name .git -execdir git fetch --all \\;"
+    fetchcrazy = !"find . -type d -name .git -depth 3 -execdir git fetch --all \\;"
 
     ; log fuller
     lf = log --graph --stat --decorate --pretty=fuller
