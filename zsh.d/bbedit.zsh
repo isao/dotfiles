@@ -38,8 +38,10 @@ cdbbedit() {
 }
 
 rgbb() {
+    # Note: --pattern specifies "\s*", instead of the default "\s+"
     # shellcheck disable=SC2068
-    rg -n $@ | bbresults
+    rg --column --line-number $@ \
+        | bbresults --pattern '(?P<file>.+?):(?P<line>\d+):((?P<col>\d+):)\s*(?P<msg>.*)$'
 }
 
 shellcheckbb() {
