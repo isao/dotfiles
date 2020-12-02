@@ -1,6 +1,7 @@
 [user]
 	name = Isao Yagi
     useConfigOnly = true
+	email = isao@apple.com
 
 [core]
     excludesfile = ~/.gitignore
@@ -50,6 +51,9 @@
 
     ; in every repo reachable from cwd, do fetch-all
     fetchcrazy = !"find . -type d -name .git -depth 3 -execdir git fetch --all \\;"
+
+    ; TODO git lg | fzf | fixup
+    fixup = !"git commit --fixup"
 
     ; log fuller
     lf = log --graph --stat --decorate --pretty=fuller
@@ -110,9 +114,6 @@
 [difftool "bbdiff"]
     cmd = bbdiff --wait --resume "$LOCAL" "$REMOTE"
 
-[alias]
-    bbdiff = difftool
-
 [merge]
     tool = opendiff
 
@@ -122,9 +123,6 @@
 
 [mergetool "bbdiff"]
     cmd = bbdiff --wait --resume "$LOCAL" "$REMOTE"
-
-[alias]
-    bbmerge = mergetool
 
 [filter "lfs"]
     clean = git-lfs clean %f
