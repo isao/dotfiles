@@ -30,6 +30,9 @@
 [push]
     default = current
 
+[pull]
+	ff = only
+
 [credential]
     ;for https git uris w/ auth
     helper = osxkeychain
@@ -50,7 +53,7 @@
     fetchcrazy = !"find . -type d -name .git -depth 3 -execdir git fetch --all \\;"
 
     ; TODO git lg | fzf | fixup
-    fixup = !"git commit --fixup"
+    fixup = commit --fixup
 
     ; log fuller
     lf = log --graph --stat --decorate --pretty=fuller
@@ -63,6 +66,8 @@
     ; %d                -> (removed) decorate output, i.e. origin/main...
     lg = log --format='%cd %C(auto)%h %<(12,trunc)%an %<(55,trunc)%s' --date=short
 
+    rbi = rebase -i --autostash --autosquash
+
     ; Preview the `git rmmerged` alias below.
     showmerged = !git branch --merged | egrep -v '^[^ ]|release/|master|main'
 
@@ -73,6 +78,9 @@
     ; In every repo reachable from cwd, do status and summarize results
     ; https://github.com/isao/shell/blob/master/git-statuscrazy.sh
     statuscrazy = !"find . -type d -name .git -execdir git-statuscrazy.sh \\;"
+
+    ; Stash files that are not staged.
+    stash-unstaged = !git stash --keep-index
 
     ; Stash only the staged changes, from Hsieh Chin Fan.
     ;   https://github.com/typebrook/settings/blob/dev/gitconfig
