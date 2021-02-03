@@ -121,6 +121,7 @@
 
 [merge]
     tool = opendiff
+    ;tool = bbdiff
 
 [mergetool]
     prompt = no
