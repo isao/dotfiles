@@ -97,3 +97,11 @@ fzf-git-stash-widget() {
 }
 zle -N fzf-git-stash-widget
 bindkey '^g^t' fzf-git-stash-widget # Pick a git stash.
+
+# Select a commit
+fzf-git-pick-commit() {
+    LBUFFER+="$(git log --oneline --no-merges | fzf --preview='git show --color -p {1}' | awk '{ print $1 }' | xargs echo)"
+    zle redisplay
+}
+zle -N fzf-git-pick-commit
+bindkey '^g^p' fzf-git-pick-commit # Pick a git commit.
