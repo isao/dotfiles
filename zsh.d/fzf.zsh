@@ -17,7 +17,7 @@ whence fzf fd >/dev/null || return
 # ctrl-r reveal the selected item in the Finder
 #
 export FZF_DEFAULT_COMMAND=fd
-export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {} | pbcopy)+abort,ctrl-o:execute(open {})+abort,ctrl-r:execute(open -R {})+abort,ctrl-e:execute($EDITOR {})+abort"'
+export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {-1} | pbcopy)+abort" --bind="ctrl-o:execute(open {-1})+abort" --bind="ctrl-r:execute(open -R {-1})+abort" --bind="ctrl-e:execute($EDITOR {-1})+abort"'
 
 #
 #   FZF functions
