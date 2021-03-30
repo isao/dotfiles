@@ -3,16 +3,16 @@
 #
 
 alias cd..='cd ..'
-alias ls='ls -FG'
-alias l=ls
-alias ll='/bin/ls -lG'
+alias ls=' ls -FG'
+alias l=' ls'
+alias ll=' /bin/ls -lG'
 alias kk=ll
 alias lll=ll
-alias ls.='ls -dG .?*'  # ls dot files & dirs only
-alias ll.='ls -dGl .?*' # ls dot files & dirs only
-alias la='ll -A'
-alias lsd='/bin/ls -d */'   # ls just directories
-alias lld='/bin/ls -dl */'  # ll just directories
+alias ls.=' ls -dG .?*'  # ls dot files & dirs only
+alias ll.=' ls -dGl .?*' # ls dot files & dirs only
+alias la=' ll -A'
+alias lsd=' /bin/ls -d */'   # ls just directories
+alias lld=' /bin/ls -dl */'  # ll just directories
 
 #
 # one-liners
