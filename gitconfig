@@ -1,7 +1,6 @@
 [user]
 	name = Isao Yagi
     useConfigOnly = true
-	email = isao@apple.com
 
 [core]
     excludesfile = ~/.gitignore
