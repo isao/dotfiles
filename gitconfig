@@ -37,6 +37,10 @@
     ;for https git uris w/ auth
     helper = osxkeychain
 
+[github]
+    user = isao
+    password = !security find-generic-password -w -s github.password
+
 [alias]
     ; list these git aliases
     aliases = config --get-regexp alias
@@ -50,7 +54,7 @@
     conflicts = diff --name-only --diff-filter=U
 
     ; in every repo reachable from cwd, do fetch-all
-    fetchcrazy = !"find . -type d -name .git -depth 3 -execdir git fetch --all \\;"
+    fetchcrazy = !"find . -type d -name .git -depth 3 -execdir pwd \\; -execdir git fetch --all \\;"
 
     ; TODO git lg | fzf | fixup
     fixup = commit --fixup
@@ -103,9 +107,6 @@
     ;unassume = update-index --no-assume-unchanged
     ;assumed  = '!git ls-files -v | grep ^h | cut -c 3-'
 
-[github]
-    user = isao
-    password = !security find-generic-password -w -s github.password
 
 ; bbedit
 [diff]
