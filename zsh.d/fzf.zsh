@@ -48,14 +48,14 @@ fin() {
 #   Tip: Show all the custom `bindkey` assignments with alias `showkeys`.
 
 fzf-filenames-widget() {
-    LBUFFER+="$(fd -t f | fzf --preview 'echo {}; highlight {} --out-format xterm256 --quiet --force --style fine_blue' | xargs)"
+    LBUFFER+="$(fd -t f | fzf --preview 'echo {}; highlight {} --out-format xterm256 --quiet --force --style fine_blue' --preview-window '~1' | xargs)"
     zle redisplay
 }
 zle -N fzf-filenames-widget
 bindkey '^f^f' fzf-filenames-widget # Find file.
 
 fzf-dirnames-widget() {
-    LBUFFER+="$(fd -t d | fzf --preview 'echo {}; tree {}' | xargs)"
+    LBUFFER+="$(fd -t d | fzf --preview 'echo {}; tree {}' --preview-window '~1' | xargs)"
     zle redisplay
 }
 zle -N fzf-dirnames-widget
