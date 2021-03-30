@@ -41,7 +41,7 @@ gggg() {
 #   git branch
 #
 gbb() {
-    git branch --color -v $@ | cut -c 1-$(tput cols)
+    git branch --sort -authordate --color -v $@ | cut -c 1-$(tput cols)
 }
 
 gb() {
@@ -61,7 +61,7 @@ zle -N fzf-git-modified-widget
 bindkey '^g^g' fzf-git-modified-widget # Pick changed file in git.
 
 __git-branches() {
-    git for-each-ref --format='%(refname:short)' $1
+    git for-each-ref --format='%(refname:short)' --sort -authordate $1
 }
 
 __fzf_preview_gitlog_branch() {
