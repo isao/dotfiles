@@ -1,5 +1,4 @@
 # shellcheck shell=bash
-
 whence bbedit >/dev/null || return
 
 compdef _gnu_generic bbedit bbdiff bbfind bbresults
@@ -37,6 +36,11 @@ cdbbedit() {
     cd -P "$(dirname "$(bbpath)")" || exit 1
 }
 
+fzfbb() {
+    fzf | xargs bbedit
+}
+
+# Display `ripgrep` search results in a BBEdit results window.
 rgbb() {
     # Note: --pattern specifies "\s*", instead of the default "\s+"
     # shellcheck disable=SC2068
@@ -44,11 +48,15 @@ rgbb() {
         | bbresults --pattern '^(?P<file>.+?):(?P<line>\d+):(?P<col>\d+):\s*(?P<msg>.*)$'
 }
 
-shellcheckbb() {
-    # shellcheck disable=SC2068
-    shellcheck -f gcc $@ | bbresults
+# Display `ripgrep` search results in `fzf`, with preview, open selected in BBEdit.
+rgfzf() {
+    rg --files-with-matches $@ \
+        | fzf --preview "echo \"$1\" found in {}:; rg --color=always -C6 \"$1\" {}" --preview-window '~1' \
+        | xargs bbedit
 }
 
-fzfbb() {
-    fzf | xargs bbedit
+# Display `shellcheck` feedback in a BBEdit results window.
+shellcheckbb() {
+    # shellcheck disable=SC2068
+    shellcheck -f gcc $@ | bbresults --pattern gcc
 }
