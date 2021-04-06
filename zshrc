@@ -12,10 +12,12 @@ whence highlight >/dev/null && \
     export LESSOPEN="| highlight %s --out-format xterm256 --quiet --force --style fine_blue"
 
 # BAUD=38400
+
 # default WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>'
 WORDCHARS='*?_-.[]~&!#$%^(){}<>'
-#KEYTIMEOUT=60
+# ^removes =/;
 
+#KEYTIMEOUT=60
 
 setopt correct
 
@@ -23,8 +25,9 @@ setopt correct
 #       history
 
 HISTFILE=$HOME/.zsh_history
-HISTSIZE=1000
-SAVEHIST=900
+HISTSIZE=3000
+SAVEHIST=2800
+# ^Set SAVEHIST less than HISTSIZE, as a buffer for history deduplication.
 
 setopt hist_expire_dups_first
 setopt hist_fcntl_lock
@@ -112,7 +115,6 @@ colors
 # cause the summary to be printed in this case.
 export REPORTTIME=3
 
-
 if [[ -L ~/.zshrc ]]
 then
     local dotfiles=$(dirname $(readlink ~/.zshrc))
@@ -127,6 +129,8 @@ then
     source "$dotfiles/zsh.d/nodejs.zsh"
 
     source "$dotfiles/zsh.d/prompt.zsh"
+
+    [[ -r "$dotfiles/zsh.d/work.zsh" ]] && source "$dotfiles/zsh.d/work.zsh"
 fi
 
 # Must be last in .zshrc <https://github.com/zsh-users/zsh-syntax-highlighting>

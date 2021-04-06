@@ -73,8 +73,7 @@ upfind() {
 
 mkcd() {
     # https://github.com/sgeb/dotfiles/tree/master/zsh/functions
-    mkdir -p "$1"
-    cd "$1"
+    mkdir -p "$1" && cd "$1"
 }
 
 gohome() {
