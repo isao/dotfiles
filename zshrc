@@ -8,8 +8,10 @@ export RSYNC_RSH=ssh
 
 export LESS='--tabs=4 --ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS --no-init --quit-if-one-screen'
 
-whence highlight >/dev/null && \
-    export LESSOPEN="| highlight %s --out-format xterm256 --quiet --force --style fine_blue"
+whence highlight >/dev/null && {
+    export HIGHLIGHT_OPTIONS='--quiet --out-format ansi --style github'
+    export LESSOPEN="| highlight %s"
+}
 
 # BAUD=38400
 
