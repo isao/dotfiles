@@ -12,19 +12,14 @@
     ui = auto
 
 [pager]
+    ; https://github.com/dandavison/delta
     diff = delta
     log = delta
     reflog = delta
     show = delta
-    ;log  = "${HOMEBREW_PREFIX:='/usr/local'}/share/git-core/contrib/diff-highlight/diff-highlight" | less
-    ;show = "${HOMEBREW_PREFIX:='/usr/local'}/share/git-core/contrib/diff-highlight/diff-highlight" | less
-    ;diff = "${HOMEBREW_PREFIX:='/usr/local'}/share/git-core/contrib/diff-highlight/diff-highlight" | less
-    ;diff = diff-so-fancy | less --tabs=4 -RFX
-    ;show = diff-so-fancy | less --tabs=4 -RFX
 
 [interactive]
     diffFilter = delta --color-only
-    ;diffFilter = "${HOMEBREW_PREFIX:='/usr/local'}/share/git-core/contrib/diff-highlight/diff-highlight"
     singleKey = true
 
 [pack]
@@ -47,7 +42,7 @@
 
 [alias]
     ; list these git aliases
-    aliases = config --get-regexp alias
+    aliases = config --get-regexp ^alias[.]
 
     ; list changed files on this branch compared to argument $1 or main. Tip:
     ; use like `git changed | fzf` to access files modified on the branch, or
@@ -142,6 +137,7 @@
     required = true
 
 [delta]
+    ; https://github.com/dandavison/delta
     hyperlinks = true
     light = true
     line-numbers-left-format = ""
