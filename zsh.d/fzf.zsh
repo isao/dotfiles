@@ -33,7 +33,7 @@ fif() {
         return 1
     fi
     rgflags='--colors "match:bg:green" --ignore-case --pretty --context 5'
-    preview="highlight $HIGHLIGHT_OPTIONS | rg $rgflags '$1' || rg $rgflags '$1' {}"
+    preview="bat --color=always | rg $rgflags '$1' || rg $rgflags '$1' {}"
     rg --files-with-matches --no-messages "$1" . | fzf --preview $preview
 }
 
@@ -48,7 +48,7 @@ fin() {
 #   Tip: Show all the custom `bindkey` assignments with alias `showkeys`.
 
 fzf-filenames-widget() {
-    LBUFFER+="$(fd -t f | fzf --preview 'echo {}; highlight $HIGHLIGHT_OPTIONS {}' --preview-window '~1' | xargs)"
+    LBUFFER+="$(fd -t f | fzf --preview 'bat --color=always {}' --preview-window '~1' | xargs)"
     zle redisplay
 }
 zle -N fzf-filenames-widget

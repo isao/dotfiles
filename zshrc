@@ -8,9 +8,9 @@ export RSYNC_RSH=ssh
 
 export LESS='--tabs=4 --ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS --no-init --quit-if-one-screen'
 
-whence highlight >/dev/null && {
-    export HIGHLIGHT_OPTIONS='--quiet --out-format ansi --style github'
-    export LESSOPEN="| highlight %s"
+whence bat >/dev/null && {
+    export BAT_STYLE=changes,header,rule,snip
+    export BAT_THEME=gruvbox-light
 }
 
 # BAUD=38400
