@@ -12,14 +12,19 @@
     ui = auto
 
 [pager]
-    log  = "${HOMEBREW_PREFIX:='/usr/local'}/share/git-core/contrib/diff-highlight/diff-highlight" | less
-    show = "${HOMEBREW_PREFIX:='/usr/local'}/share/git-core/contrib/diff-highlight/diff-highlight" | less
-    diff = "${HOMEBREW_PREFIX:='/usr/local'}/share/git-core/contrib/diff-highlight/diff-highlight" | less
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+    ;log  = "${HOMEBREW_PREFIX:='/usr/local'}/share/git-core/contrib/diff-highlight/diff-highlight" | less
+    ;show = "${HOMEBREW_PREFIX:='/usr/local'}/share/git-core/contrib/diff-highlight/diff-highlight" | less
+    ;diff = "${HOMEBREW_PREFIX:='/usr/local'}/share/git-core/contrib/diff-highlight/diff-highlight" | less
     ;diff = diff-so-fancy | less --tabs=4 -RFX
     ;show = diff-so-fancy | less --tabs=4 -RFX
 
 [interactive]
-    diffFilter = "${HOMEBREW_PREFIX:='/usr/local'}/share/git-core/contrib/diff-highlight/diff-highlight"
+    diffFilter = delta --color-only
+    ;diffFilter = "${HOMEBREW_PREFIX:='/usr/local'}/share/git-core/contrib/diff-highlight/diff-highlight"
     singleKey = true
 
 [pack]
@@ -111,6 +116,7 @@
 [diff]
     tool = bbdiff
     algorithm = histogram
+    colorMoved = default
     compactionHeuristic = true
 
 [difftool]
@@ -134,3 +140,11 @@
     clean = git-lfs clean %f
     smudge = git-lfs smudge %f
     required = true
+
+[delta]
+    hyperlinks = true
+    light = true
+    line-numbers-left-format = ""
+    line-numbers-right-format = "│ "
+    navigate = true
+    side-by-side = true
