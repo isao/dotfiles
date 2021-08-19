@@ -18,6 +18,9 @@
     reflog = delta
     show = delta
 
+[diff]
+    colorMoved = default
+
 [interactive]
     diffFilter = delta --color-only
     singleKey = true
@@ -138,7 +141,6 @@
 
 [delta]
     ; https://github.com/dandavison/delta
-    hyperlinks = true
     light = true
     line-numbers-left-format = ""
     line-numbers-right-format = "│ "
