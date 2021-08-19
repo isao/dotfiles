@@ -83,7 +83,7 @@
     statuscrazy = !"find . -type d -name .git -execdir git-statuscrazy.sh \\;"
 
     ; Stash files that are not staged.
-    stash-unstaged = !git stash --keep-index
+    stash-unstaged = stash --keep-index
 
     ; Stash only the staged changes, from Hsieh Chin Fan.
     ;   https://github.com/typebrook/settings/blob/dev/gitconfig
