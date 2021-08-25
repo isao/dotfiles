@@ -8,18 +8,19 @@ export RSYNC_RSH=ssh
 
 export LESS='--tabs=4 --ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS --no-init --quit-if-one-screen'
 
+# https://github.com/sharkdp/bat
 whence bat >/dev/null && {
     export BAT_STYLE=changes,header,rule,snip
     export BAT_THEME=gruvbox-light
 }
 
 # BAUD=38400
+# KEYTIMEOUT=60
 
 # default WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>'
 WORDCHARS='*?_-.[]~&!#$%^(){}<>'
 # ^removes =/;
 
-#KEYTIMEOUT=60
 
 setopt correct
 

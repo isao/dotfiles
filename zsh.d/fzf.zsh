@@ -81,7 +81,7 @@ fzf-recent-dirs-widget() {
     zle redisplay
 }
 zle     -N    fzf-recent-dirs-widget
-bindkey '\er' fzf-recent-dirs-widget
+bindkey '\er' fzf-recent-dirs-widget # Pick a recent directory.
 
 # Select a recent file or path via Spotlight/mdfind.
 fzf-recent-files-widget() {
