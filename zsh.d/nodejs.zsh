@@ -1,6 +1,6 @@
 whence node npm >/dev/null || return
 
-path=($path node_modules/.bin)
+path=(node_modules/.bin $path)
 
 alias nn='npm run'
 
@@ -15,7 +15,7 @@ function nni() {
 function nn-complete {
     npm run | egrep -o '^  \S+' | xargs
 }
-compdef nn-complete nn    
+compdef nn-complete nn
 
 # Functions
 
