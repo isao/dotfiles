@@ -32,3 +32,6 @@ alias e=$(where bbedit code nano vim vi | grep ^/ | head -1)
 
 #remove style from any text on the clipboard
 alias plaintext='pbpaste -Prefer txt | pbcopy'
+
+# https://furbo.org/2021/08/25/jsc-my-new-best-friend/
+alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers/jsc'
