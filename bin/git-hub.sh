@@ -76,12 +76,12 @@ log() {
 
 file_or_dir_view() {
     # GitHub will re-direct from /tree/ to /blob/ as needed.
-    open "$(repo_url)/tree/$(remote_branch)/$(pathname "$1")"
+    open "$(repo_url)/tree/$(remote_branch)/$(pathname "$1")$2"
 }
 
 blame() {
     # TODO convert tree-ish to sha.
-    open "$(repo_url)/blame/${2:-$(remote_branch)}/$(pathname "$1")"
+    open "$(repo_url)/blame/${2:-$(remote_branch)}/$(pathname "$1")$3"
 }
 
 compare() {
@@ -111,7 +111,7 @@ git rev-parse 2>/dev/null || err "Exiting, there is no git repo here." 1
 
 case $1 in
     'blame' )
-        blame "$2" "$3"
+        blame "$2" "$3" "$4"
         ;;
     'compare' )
         compare "$2" "$3"
@@ -132,12 +132,12 @@ case $1 in
         help
         ;;
     '' )
-        file_or_dir_view
+        file_or_dir_view "$1" "$2"
         ;;
     * )
         if [[ -e "$1" ]]
         then
-            file_or_dir_view "$1"
+            file_or_dir_view "$1" "$2"
         else
             err "Unrecognized command '$1'. Try 'git-hub help'." 1
         fi
