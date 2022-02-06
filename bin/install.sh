@@ -1,7 +1,9 @@
 #!/bin/bash -e
 
-# Usage: ~/repos/dotfile/bin/install.sh
+# Usage: ./install.sh
 # (run from anywhere, $CWD is not important).
+
+bin_dir="${HOMEBREW_PREFIX:-/usr/local}/bin"
 
 # full path to this file's directory; i.e. /Users/isao/repos/dotfiles
 thisdir=$(dirname "$0")
@@ -25,9 +27,9 @@ done
 $link "$abspath/ctags.d" .ctags.d
 
 # Install some scripts.
-# Symlink to all files in ./bin from /usr/local/bin, removing the ".sh"
-cd /usr/local/bin
-for i in $(/bin/ls -1 "$abspath"/bin/*.sh)
+# Symlink to all files in ./bin from $bin_dir, removing the ".sh"
+cd $bin_dir
+for i in "$abspath"/bin/*.sh
 do
   if [[ $(basename "$0") != $(basename "$i") ]]
   then
@@ -35,9 +37,4 @@ do
   fi
 done
 
-if [[ -x /usr/local/bin/brew ]]
-then
-  brew cleanup --prune-prefix
-fi
-
-# TODO: zcompile!
+type brew >& /dev/null && brew cleanup --prune-prefix
