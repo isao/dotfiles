@@ -7,8 +7,10 @@ IP=${IP:-"192.168.7.157"}
 
 # On the Nanoleaf controller, hold the on-off button for 5-7 seconds until the
 # LED starts flashing in a pattern. Then:
+#
 #    curl -X POST http:/$IP:16021/api/v1/new
-TOKEN=${TOKEN:-"in8SPOGUk3Zj3iFfUCrFkKfK4wH6O3lz"}
+#
+TOKEN=${TOKEN:-$(security find-generic-password -w -s 'nanoleaf-api-token' -a 'shapes-2021')}
 
 state-on() {
     curl --silent --location \
