@@ -43,6 +43,9 @@
     user = isao
     password = !security find-generic-password -w -s github.password
 
+[init]
+	defaultBranch = main
+
 [alias]
     ; list these git aliases
     aliases = config --get-regexp ^alias[.]
@@ -149,5 +152,3 @@
     line-numbers-right-format = "│ "
     navigate = true
     side-by-side = true
-[init]
-	defaultBranch = main
