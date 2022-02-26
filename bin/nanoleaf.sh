@@ -22,13 +22,22 @@ state-on() {
 brightness() {
     if [[ -z $1 ]]
     then
-        curl --silent --location \
-            --request GET "http://$IP:16021/api/v1/$TOKEN/state/brightness"
+        curl --silent --location "http://$IP:16021/api/v1/$TOKEN/state/brightness"
     else
         curl --silent --location \
             --request PUT "http://$IP:16021/api/v1/$TOKEN/state" \
             --data-raw "{\"brightness\": {\"value\":$1}}"
     fi
+}
+
+list-effect() {
+    curl --silent --location "http://$IP:16021/api/v1/$TOKEN/effects/effectsList"
+}
+
+select-effect() {
+    curl --silent --location \
+        --request PUT "http://$IP:16021/api/v1/$TOKEN/effects" \
+        --data-raw "{\"select\": \"$1\"}"
 }
 
 
@@ -47,6 +56,14 @@ case $1 in
 
     'info' )
         curl --silent --location --request GET "http://$IP:16021/api/v1/$TOKEN/"
+        ;;
+
+    'list' )
+        list-effect "$2"
+        ;;
+
+    'select' )
+        select-effect "$2"
         ;;
 
     * )
