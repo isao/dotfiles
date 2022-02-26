@@ -30,11 +30,11 @@ brightness() {
     fi
 }
 
-list-effect() {
+effect-list() {
     curl --silent --location "http://$IP:16021/api/v1/$TOKEN/effects/effectsList"
 }
 
-select-effect() {
+effect-select() {
     curl --silent --location \
         --request PUT "http://$IP:16021/api/v1/$TOKEN/effects" \
         --data-raw "{\"select\": \"$1\"}"
@@ -58,15 +58,17 @@ case $1 in
         curl --silent --location --request GET "http://$IP:16021/api/v1/$TOKEN/"
         ;;
 
-    'list' )
-        list-effect "$2"
+    'effect-list' | 'list' )
+        effect-list "$2"
         ;;
 
-    'select' )
-        select-effect "$2"
+    'effect-select' | 'select' )
+        effect-select "$2"
         ;;
 
     * )
-        echo "Usage: $(basename "$0") on|off|info|brightness [0-100]" >&2
+        echo "Usage: $(basename "$0") on|off|info|list" >&2
+        echo "Usage: $(basename "$0") brightness [0-100]"
+        echo "Usage: $(basename "$0") select \"<effect name from list>\""
         ;;
 esac
