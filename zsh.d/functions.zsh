@@ -11,10 +11,10 @@ word() {
 }
 
 man2txt() {
-    man $* | col -b
+    man $1 | col -bx
 }
 
-manx() {
+xman() {
     open "x-man-page://$1"
 }
 
