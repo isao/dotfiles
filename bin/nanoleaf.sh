@@ -34,7 +34,8 @@ brightness() {
 }
 
 effect-list() {
-    curl --silent --location "$baseUrl/effects/effectsList"
+    curl --silent --location "$baseUrl/effects/effectsList" \
+        | fx '.reduce((o,x) => o.concat(`\n${x}`))'
 }
 
 effect-select() {
@@ -44,7 +45,7 @@ effect-select() {
 }
 
 effect-pick() {
-    effect-select "$(effect-list | fx '.reduce((o,x) => o.concat(`\n${x}`))' | fzf)"
+    effect-select "$(effect-list | fzf)"
 }
 
 
@@ -81,6 +82,7 @@ case $1 in
         echo "Usage: $(basename "$0") on|off|info|list" >&2
         echo "Usage: $(basename "$0") brightness [0-100]" >&2
         echo "Usage: $(basename "$0") select '<effect name from list>'" >&2
+        echo "Usage: $(basename "$0") list    # requires fx" >&2
         echo "Usage: $(basename "$0") pick    # requires fx and fzf" >&2
         ;;
 esac
