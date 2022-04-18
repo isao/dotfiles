@@ -99,3 +99,7 @@ weeknum() {
     date +"%yw%U"
     # Outputs "19w26"
 }
+
+darkmode() {
+    osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to not dark mode'
+}
