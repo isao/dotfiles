@@ -2,17 +2,17 @@
 # built-ins
 #
 
-alias cd..='cd ..'
+alias cd..='cd ..' # frequent typo
 alias ls=' ls -FG'
 alias l=' ls'
-alias ll=' /bin/ls -lG'
-alias kk=ll
+alias ll='ls -lG'
+alias kk=ll # frequent typo
 alias lll=ll
 alias ls.=' ls -dG .?*'  # ls dot files & dirs only
 alias ll.=' ls -dGl .?*' # ls dot files & dirs only
 alias la=' ll -A'
-alias lsd=' /bin/ls -d */'   # ls just directories
-alias lld=' /bin/ls -dl */'  # ll just directories
+alias lsd=' ls -d */'  # ls just directories
+alias lld=' ls -dl */' # ll just directories
 
 #
 # one-liners
