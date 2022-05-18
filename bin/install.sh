@@ -10,7 +10,8 @@ thisdir=$(dirname "$0")
 abspath=$(cd "$thisdir" && git rev-parse --show-toplevel)
 
 # -s symbolic, -v verbose, -i prompt before replacing anything
-link="ln -svf"
+# -f force, -h treat directories like files
+link="ln -fhsv"
 
 # Install the dotfiles.
 # Symlink to all files in ./ from $HOME, adding a leading dot.
@@ -23,11 +24,10 @@ do
   fi
 done
 
-# Special case: dot-directory
-$link "$abspath/ctags.d" .ctags.d
+# Special case: hammerspoon directory
+$link "$abspath/hammerspoon" .hammerspoon
 
-# Install some scripts.
-# Symlink to all files in ./bin from $bin_dir, removing the ".sh"
+# Symlink ./bin/*.sh files to $bin_dir, removing the ".sh" extension.
 cd $bin_dir
 for i in "$abspath"/bin/*.sh
 do
