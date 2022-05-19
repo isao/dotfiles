@@ -13,7 +13,7 @@ x-soft-wrap-mode = WindowWidth
 x-soft-wrap-text = true
 x-typographers-quotes =  false
 
-[*.{hbs,html,js,json,css,scss,sh,svg,ts,tsx,zsh}]
+[*.{hbs,html,js,css,scss,sh,svg,ts,tsx,zsh}]
 x-soft-wrap-text = false
 
 [*.md]
