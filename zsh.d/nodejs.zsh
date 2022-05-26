@@ -1,32 +1,18 @@
 whence node npm >/dev/null || return
 
+source <(npm completion)
+
 path=(node_modules/.bin $path)
 
 alias nn='npm run'
 
 alias nnci='npm ci && never_index_artifacts'
 
-function nni() {
-    npm install $@
-    never_index_artifacts
-}
-
-# Completion for `npm run` scripts
-function nn-complete {
-    npm run | egrep -o '^  \S+' | xargs
-}
-compdef nn-complete nn
-
-# Functions
-
-link-node10() {
-    brew unlink node
-    brew link --force node@10
-}
-
-link-node() {
-    brew unlink node@10
-    brew link node
-}
-
-source <(npm completion)
+# https://volta.sh
+if [[ -d "$HOME/.volta" ]]
+then
+    export VOLTA_HOME="$HOME/.volta"
+    path=("$VOLTA_HOME/bin" $path)
+    # source <(volta completions 'zsh')
+    # ^- errors -> _arguments:comparguments:325: can only be called from completion function
+fi
