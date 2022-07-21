@@ -3,8 +3,8 @@
 #
 alias gd='git diff'
 alias gdt='git difftool'
-alias gf='git fetch -p --tags'
-alias gp='git pull -p --tags --ff-only'
+alias gf='git fetch --prune --tags'
+alias gp='git pull --prune --tags --ff-only'
 alias gu='git gui browser'
 alias gr='git remote -v'
 alias gsa='git stash apply'
