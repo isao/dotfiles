@@ -110,6 +110,10 @@
        git stash pop stash@{1} && \
        git stash show --patch | git apply --reverse
 
+    ; Usage: git stash-rename <stash> <message>
+    ; https://stackoverflow.com/a/35549615/515973
+    stash-rename = !'_() { rev=$(git rev-parse $1) && git stash drop $1 || exit 1 ; git stash store -m "$2" $rev; }; _'
+
     # http://bit.ly/1Yx9OQM
     ;assume   = update-index --assume-unchanged
     ;unassume = update-index --no-assume-unchanged
