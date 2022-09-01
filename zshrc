@@ -1,5 +1,13 @@
-# Add Homebrew to beginning of path (so we can use latest git, etc).
-grep -q /opt/brew /etc/paths || path=(/opt/brew/bin $path)
+# Note `/opt/brew/bin` is added to `/etc/paths` to ensure it comes before the
+# defaults. Paths that can come last can be added to `~/.zshenv`.
+# <https://unix.stackexchange.com/a/250456> If `/etc/paths` isn't modified, add
+# Homebrew to beginning of path (so we can use latest git, etc).
+#grep -q /opt/brew/bin /etc/paths || path=(/opt/brew/bin $path)
+# Added to `/etc/paths`:
+# /opt/brew/bin <- top
+# ./node_modules/.bin <- bottom
+# /Users/isao/.volta/bin <- bottom
+
 whence brew >/dev/null && export HOMEBREW_PREFIX="${$(brew --prefix):-/usr/local}"
 
 export EDITOR=$(where bbedit..sh bbedit code nano vim vi | grep ^/ | head -1)
