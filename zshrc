@@ -4,9 +4,14 @@
 # Homebrew to beginning of path (so we can use latest git, etc).
 #grep -q /opt/brew/bin /etc/paths || path=(/opt/brew/bin $path)
 # Added to `/etc/paths`:
-# /opt/brew/bin <- top
-# ./node_modules/.bin <- bottom
-# /Users/isao/.volta/bin <- bottom
+#   /Users/isao/.volta/bin    <- added
+#   /opt/brew/bin             <- added
+#   /usr/local/bin
+#   /usr/bin
+#   /bin
+#   /usr/sbin
+#   /sbin
+#   ./node_modules/.bin       <- added
 
 whence brew >/dev/null && export HOMEBREW_PREFIX="${$(brew --prefix):-/usr/local}"
 
