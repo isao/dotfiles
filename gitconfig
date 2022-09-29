@@ -13,7 +13,7 @@
 
 [pager]
     ; https://github.com/dandavison/delta
-    diff = delta
+    ;diff = delta
     log = delta
     reflog = delta
     show = delta
@@ -134,8 +134,9 @@
     cmd = bbdiff --wait --resume "$LOCAL" "$REMOTE"
 
 [merge]
-    tool = opendiff
+	tool = bc
     ;tool = bbdiff
+    ;conflictstyle = diff3
 
 [mergetool]
     prompt = no
@@ -143,6 +144,9 @@
 
 [mergetool "bbdiff"]
     cmd = bbdiff --wait --resume "$LOCAL" "$REMOTE"
+
+[mergetool "bc"]
+	trustExitCode = true
 
 [filter "lfs"]
     clean = git-lfs clean %f
@@ -156,3 +160,9 @@
     line-numbers-right-format = "│ "
     navigate = true
     side-by-side = true
+[commit]
+	; gpgsign = true
+[gpg]
+	format = x509
+[gpg "x509"]
+	program = /usr/local/bin/ac-sign
