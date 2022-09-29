@@ -27,16 +27,17 @@ function caffeinateWatcher(eventType)
     local screen = hs.screen.primaryScreen()
     local myScreenId = 458658833
 
+    print ('caffeinateWatcher event received: ' .. hs.caffeinate.watcher[eventType])
+
     -- Check if we're connected to the monitor, next to the lights.
     if (screen:id() == myScreenId) then
 
-        if (eventType == hs.caffeinate.watcher.systemWillSleep or
-            eventType == hs.caffeinate.watcher.systemWillPowerOff) then
+        if (eventType == hs.caffeinate.watcher.screensDidSleep) then
             hs.execute('nanoleaf off', true)
 
-        elseif (eventType == hs.caffeinate.watcher.systemDidWake) then
+        elseif (eventType == hs.caffeinate.watcher.screensDidWake) then
             local screenBrightness = screen:getBrightness()
-            local lightsBrightness = math.floor(screenBrightness * 90)
+            local lightsBrightness = math.min(math.floor(screenBrightness * 110), 100)
             hs.execute('nanoleaf brightness ' .. lightsBrightness, true)
             print ('Brightness set to ' .. lightsBrightness)
         end
