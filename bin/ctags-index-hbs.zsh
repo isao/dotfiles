@@ -20,10 +20,9 @@ cat <<EOF > $hbs_ctags
 !_TAG_OUTPUT_FILESEP    slash   /slash or backslash/
 !_TAG_OUTPUT_MODE   u-ctags /u-ctags or e-ctags/
 !_TAG_PATTERN_LENGTH_LIMIT  96  /0 for no limit/
-!_TAG_PROGRAM_AUTHOR    Universal Ctags Team    //
-!_TAG_PROGRAM_NAME  Universal Ctags /Derived from Exuberant Ctags/
-!_TAG_PROGRAM_URL   https://ctags.io/   /official site/
-!_TAG_PROGRAM_VERSION   0.0.0   /3671ad7/
+!_TAG_PROGRAM_AUTHOR    Isao Yagi //
+!_TAG_PROGRAM_NAME  ctags-index-hbs //
+!_TAG_PROGRAM_VERSION   0.0.0   //
 EOF
 
 for pathname in $hbs_files
