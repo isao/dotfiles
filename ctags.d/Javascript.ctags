@@ -1,4 +1,18 @@
 # Overrides for Universal-ctags Javascript indexing annoyances, as of 2020-04-22
+#
+# % ctags --list-kinds-full=JavaScript
+# #LETTER NAME      ENABLED REFONLY NROLES MASTER DESCRIPTION
+# C       constant  yes     no      0      NONE   constants
+# G       getter    yes     no      0      NONE   getters
+# M       field     yes     no      0      NONE   fields
+# S       setter    yes     no      0      NONE   setters
+# c       class     yes     no      1      NONE   classes
+# f       function  yes     no      0      NONE   functions
+# g       generator yes     no      0      NONE   generators
+# m       method    yes     no      0      NONE   methods
+# p       property  yes     no      0      NONE   properties
+# v       variable  yes     no      1      NONE   global variables
+
 
 # Don't index constants "C": too many "Warning: ignoring null tag"
 --javascript-kinds=-C

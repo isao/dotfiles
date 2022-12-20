@@ -1,6 +1,5 @@
---exclude=.hbs
 --exclude=artifacts
---exclude=coverage
 --exclude=builds
+--exclude=coverage
 --exclude=dist
 --exclude=node_modules
