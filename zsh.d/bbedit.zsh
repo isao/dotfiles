@@ -19,6 +19,10 @@ bbproj() {
     | xargs -0 open
 }
 
+bbf() {
+    bbfind --grep --gui $@
+}
+
 bbpath() {
     osascript <<-EOF
     tell application "BBEdit"
@@ -51,8 +55,8 @@ rgbb() {
 # Display `ripgrep` search results in `fzf`, with preview, open selected in BBEdit.
 rgfzf() {
     rg --files-with-matches $@ \
-        | fzf --preview "echo \"$1\" found in {}:; rg --color=always -C6 \"$1\" {}" --preview-window '~1' \
-        | xargs bbedit
+        | fzf --preview "echo \"$1\" found in {}:; rg --color=always -C6 \"$1\" {}" --preview-window '~1' --print0 \
+        | xargs -0 bbedit
 }
 
 # Display `shellcheck` feedback in a BBEdit results window.
