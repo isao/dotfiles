@@ -16,8 +16,8 @@ Commands:
     <pathname>                  Open the GitHub page for current branch and
                                 optional pathname.
 
-    blame <file> [sha]          Open the GitHub blame for file and optional git
-                                revision.
+    blame <file> [sha] [query]  Open the GitHub blame for file, optional git
+                                branch/revision, and url suffix (i.e. "#L9").
 
     compare [file] [branchname] Open the GitHub compare page for branch.
 
@@ -27,7 +27,7 @@ Commands:
     pr                          Open the GitHub pull request page for the
                                 current branch.
 
-    prs                         Open the GitHub pull requests page.
+    prs [github-username]       Open the GitHub pull requests page.
 
     sha <sha>                   Open the GitHub commit view for sha or HEAD.
 
@@ -120,7 +120,7 @@ case $1 in
         log "$2"
         ;;
     'pr' )
-        pull_request "$2"
+        pull_request
         ;;
     'prs' )
         pull_requests "$2"
