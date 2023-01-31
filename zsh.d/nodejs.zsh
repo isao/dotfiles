@@ -22,3 +22,8 @@ source <(npm completion)
 alias nn='npm run'
 
 alias nnci='npm ci && never_index_artifacts'
+
+npm-home() {
+    # Emulate `npm home` for packages that only list a `git://` url.
+    open "$(npm info "$1" repository.url | perl -pne 's%^git@%https://%g and s%\.com:%.com/% and s%\.git%%')"
+}
