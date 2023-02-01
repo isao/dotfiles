@@ -14,12 +14,12 @@ Commands:
                                 current directory.
 
     <pathname>                  Open the GitHub page for current branch and
-                                optional pathname.
+                                specified pathname.
 
-    blame <file> [sha] [query]  Open the GitHub blame for file, optional git
-                                branch/revision, and url suffix (i.e. "#L9").
+    blame <file> [sha] [suffix] Open the GitHub blame for file. Optional git
+                                sha/tag/branch, and url suffix (i.e. "#L8-L9").
 
-    compare [file] [branchname] Open the GitHub compare page for branch.
+    compare [branchname]        Open the GitHub compare page for branch.
 
     log [pathname]              Open the GitHub commits page for current branch
                                 and optional pathname.
@@ -29,7 +29,7 @@ Commands:
 
     prs [github-username]       Open the GitHub pull requests page.
 
-    sha <sha>                   Open the GitHub commit view for sha or HEAD.
+    sha [sha]                   Open the GitHub commit view for sha or HEAD.
 
 HELP
 }
@@ -85,7 +85,7 @@ blame() {
 }
 
 compare() {
-    open "$(repo_url)/compare/${2:-$(remote_branch)}/$(pathname "$1")"
+    open "$(repo_url)/compare/${2:-$(remote_branch)}"
 }
 
 pull_request() {
