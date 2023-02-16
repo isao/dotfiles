@@ -21,7 +21,7 @@ xman() {
 never_index_artifacts() {
     find . \
         -type d \
-        \( -name node_modules -o -name dist -o -name coverage -o -name artifacts \) \
+        \( -name node_modules -o -name dist -o -name "dist-*" -o -name coverage -o -name artifacts \) \
         -maxdepth 2 \
         -prune \
         -print \
