@@ -50,10 +50,14 @@
     ; list these git aliases
     aliases = config --get-regexp ^alias[.]
 
-    ; list changed files on this branch compared to argument $1 or main. Tip:
-    ; use like `git changed | fzf` to access files modified on the branch, or
-    ; `git changed | lint`.
-    changed = !"git diff --name-only $(git merge-base head ${1:-main})"
+    ; list the changed files on the current branch, with diff stats.
+    changed = !"git diff --stat $(git merge-base HEAD ${1:-main})"
+
+    ; list the changed files on the current branch.
+    changed-files = !"git diff --name-only $(git merge-base HEAD ${1:-main})"
+
+    ; list commits on the current branch.
+    changed-log = !"git lg HEAD...$(git merge-base HEAD ${1:-main})"
 
     ; http://stackoverflow.com/questions/3065650
     conflicts = diff --name-only --diff-filter=U
@@ -74,9 +78,6 @@
     ; %<(80,trunc)%s    -> commit subject, truncated to 80 characters w/ elipses
     ; %d                -> (removed) decorate output, i.e. origin/main...
     lg = log --format='%cd %C(auto)%h %<(12,trunc)%an %<(55,trunc)%s' --date=short
-
-    ; log commits added to this branch. Alternatively `git lf head ^some-branch`
-    log-changed = !"git lf head ^$(git merge-base head ${1:-main})"
 
     rbi = rebase -i --autostash --autosquash
 
