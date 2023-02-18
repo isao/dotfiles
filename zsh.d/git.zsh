@@ -98,9 +98,9 @@ fzf-git-stash-widget() {
 zle -N fzf-git-stash-widget
 bindkey '^g^t' fzf-git-stash-widget # Pick a git stash.
 
-# Select a commit from any branch with fzf, allowing fuzzy matching on the
-# author email local-part.
-gitfzf() {
+# git log -> fzf with preview. Allows fuzzy finding by email, sha, or commit
+# subject. returns selected sha(s)
+git-log-fzf() {
     # git log format info:
     # %C(___)   color
     # %h        short commit sha
@@ -112,9 +112,19 @@ gitfzf() {
         | xargs
 }
 
+# Select a commit from any branch with fzf, allowing fuzzy matching on the
+# author email local-part.
 fzf-git-pick-commit() {
-    LBUFFER+="$(gitfzf --all --no-merges -9999)"
+    LBUFFER+="$(git-log-fzf --all --no-merges -9999)"
     zle redisplay
 }
 zle -N fzf-git-pick-commit
-bindkey '^g^p' fzf-git-pick-commit # Pick a git commit from any branch.
+bindkey '^g^p' fzf-git-pick-commit # Pick a git commit from any branch to cherry-pick
+
+# Select a commit since the last merge to --fixup or --squash.
+fzf-git-fixup-commit() {
+    LBUFFER+="$(git-log-fzf $(git log --merges --format=%h -1)..HEAD)"
+    zle redisplay
+}
+zle -N fzf-git-fixup-commit
+bindkey '^g^f' fzf-git-fixup-commit # Pick a git commit made since the last merge to --fixup or --squash.
