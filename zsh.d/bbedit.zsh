@@ -84,6 +84,11 @@ rgfzf() {
         --bind 'enter:become(bbedit {1} +{2})'
 }
 
+# Find in notes
+fin() {
+    (cd ~/notes && rgfzf "$1")
+}
+
 # Display `shellcheck` feedback in a BBEdit results window.
 shellcheckbb() {
     shellcheck -f gcc "$@" | bbresults --pattern gcc

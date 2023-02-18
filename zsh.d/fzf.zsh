@@ -37,11 +37,6 @@ fif() {
     rg --files-with-matches --no-messages "$1" . | fzf --preview $preview
 }
 
-# Find in notes
-fin() {
-    (cd ~/notes && fif "$1")
-}
-
 #
 #   FZF WIDGETS
 #
