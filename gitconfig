@@ -59,25 +59,19 @@
     ; list commits on the current branch.
     changed-log = !"git lg HEAD...$(git merge-base HEAD ${1:-main})"
 
-    ; http://stackoverflow.com/questions/3065650
+    ; <http://stackoverflow.com/questions/3065650>
     conflicts = diff --name-only --diff-filter=U
 
     ; in every repo reachable from cwd, do fetch-all
     fetchcrazy = !"find . -type d -name .git -depth 3 -execdir pwd \\; -execdir git fetch --all \\;"
 
-    ; TODO git lg | fzf | fixup
     fixup = commit --fixup
 
     ; log fuller
     lf = log --graph --stat --decorate --pretty=fuller
 
     ; log shorter
-    ; %cd               -> 2017-06014
-    ; %C(auto)%h        -> 5259c11bd5 short commit sha
-    ; %<(12,trunc)%an   -> author name, truncated to 12 characters w/ elipses
-    ; %<(80,trunc)%s    -> commit subject, truncated to 80 characters w/ elipses
-    ; %d                -> (removed) decorate output, i.e. origin/main...
-    lg = log --format='%cd %C(auto)%h %<(12,trunc)%an %<(55,trunc)%s' --date=short
+    lg = log --oneline --decorate
 
     rbi = rebase -i --autostash --autosquash
 
