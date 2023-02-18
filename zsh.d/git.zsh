@@ -98,10 +98,23 @@ fzf-git-stash-widget() {
 zle -N fzf-git-stash-widget
 bindkey '^g^t' fzf-git-stash-widget # Pick a git stash.
 
-# Select a commit
+# Select a commit from any branch with fzf, allowing fuzzy matching on the
+# author email local-part.
+gitfzf() {
+    # git log format info:
+    # %C(___)   color
+    # %h        short commit sha
+    # %s        commit subject
+    # %al       author email local-part (the part before the @ sign)
+    git log --format='%C(auto)%h %s %C(blue)@%al' --color=always $@ \
+        | fzf --ansi --no-sort --preview='git show --color --stat --decorate --pretty=fuller -p {1}' \
+        | awk '{ print $1 }' \
+        | xargs
+}
+
 fzf-git-pick-commit() {
-    LBUFFER+="$(git log --oneline --no-merges | fzf --preview='git show --color -p {1}' | awk '{ print $1 }' | xargs echo)"
+    LBUFFER+="$(gitfzf --all --no-merges -9999)"
     zle redisplay
 }
 zle -N fzf-git-pick-commit
-bindkey '^g^p' fzf-git-pick-commit # Pick a git commit.
+bindkey '^g^p' fzf-git-pick-commit # Pick a git commit from any branch.
