@@ -13,8 +13,9 @@ Commands:
     (no args)                   Open the GitHub page for current branch and
                                 current directory.
 
-    <pathname>                  Open the GitHub page for current branch and
-                                specified pathname.
+    <pathname> [suffix]         Open the GitHub page for current branch and
+                                specified pathname. Optional url suffix (i.e.
+                                "#L8-L9" will highlight lines 8-9).
 
     blame <file> [sha] [suffix] Open the GitHub blame for file. Optional git
                                 sha/tag/branch, and url suffix (i.e. "#L8-L9").
@@ -24,13 +25,15 @@ Commands:
     log [pathname]              Open the GitHub commits page for current branch
                                 and optional pathname.
 
-    pr                          Open the GitHub pull request page for the
-                                current branch.
+    pr [pr-number]              Open a new GitHub pull request page for the
+                                current branch. If a PR number is provided, open
+                                its web page instead.
 
     pr-for <sha>                Open the GitHub pull request page for the
                                 specified sha.
 
-    prs [github-username]       Open the GitHub pull requests page.
+    prs [github-username]       Open the GitHub pull requests page, optionally
+                                filtered by author.
 
     sha [sha]                   Open the GitHub commit view for sha or HEAD.
 
