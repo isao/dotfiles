@@ -91,7 +91,7 @@ compare() {
     open "$(repo_url)/compare/${2:-$(remote_branch)}"
 }
 
-pull_request() {
+pull_request_create() {
     local branch
     branch=$(git branch --show-current)
 
@@ -109,13 +109,17 @@ pull_request_for_sha() {
     [[ -n $1 ]] || err "Please specify a commit sha." 1
     local prnum
     # Find the first preceding merge commit for a pull request (based on the log
-    # message), and extract the PR number.
+    # message), and extract the PR number. Doesn't work for all merged PRs.
     prnum=$(git log \
 		--merges --reverse --ancestry-path \
 		--oneline --perl-regexp --grep='Merge pull request #\d+' "$1"..origin \
 	    | rg --max-count=1 --only-matching --replace '$1' '#(\d+)')
 
-	open "$(repo_url)/pull/$prnum"
+	pull_request_view "$prnum"
+}
+
+pull_request_view() {
+    open "$(repo_url)/pull/$1"
 }
 
 pull_requests() {
@@ -139,7 +143,12 @@ case $1 in
         log "$2"
         ;;
     'pr' )
-        pull_request
+        if [[ -n "$2" ]]
+        then
+            pull_request_view "$2"
+        else
+            pull_request_create
+        fi
         ;;
     'prs' )
         pull_requests "$2"
