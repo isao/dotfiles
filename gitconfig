@@ -73,7 +73,7 @@
     ; log shorter
     lg = log --oneline --decorate
 
-    rbi = rebase -i --autostash --autosquash
+    rbi = rebase --autostash --autosquash --interactive --no-verify
 
     ; Preview the `git rmmerged` alias below.
     showmerged = !git branch --merged | egrep -v '^[^ ]|release/|master|main'
@@ -83,7 +83,7 @@
     rmmerged = !git showmerged | xargs -n 1 git branch -d
 
     ; In every repo reachable from cwd, do status and summarize results
-    ; https://github.com/isao/shell/blob/master/git-statuscrazy.sh
+    ; <https://github.com/isao/shell/blob/master/git-statuscrazy.sh>
     statuscrazy = !"find . -type d -name .git -execdir git-statuscrazy.sh \\;"
 
     ; Stash files that are not staged.
@@ -106,7 +106,7 @@
        git stash show --patch | git apply --reverse
 
     ; Usage: git stash-rename <stash> <message>
-    ; https://stackoverflow.com/a/35549615/515973
+    ; <https://stackoverflow.com/a/35549615/515973>
     stash-rename = !'_() { rev=$(git rev-parse $1) && git stash drop $1 || exit 1 ; git stash store -m "$2" $rev; }; _'
 
     # http://bit.ly/1Yx9OQM
