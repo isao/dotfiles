@@ -103,3 +103,8 @@ weeknum() {
 darkmode() {
     osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to not dark mode'
 }
+
+brew-outdated() {
+    # Only show outdated leaves that aren't pinned.
+    join <(brew outdated) <(comm -13 <(brew ls --pinned) <(brew leaves))
+}
