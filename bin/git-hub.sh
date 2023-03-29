@@ -27,6 +27,9 @@ Commands:
     pr                          Open the GitHub pull request page for the
                                 current branch.
 
+    pr-for <sha>                Open the GitHub pull request page for the
+                                specified sha.
+
     prs [github-username]       Open the GitHub pull requests page.
 
     sha [sha]                   Open the GitHub commit view for sha or HEAD.
@@ -99,6 +102,22 @@ pull_request() {
     open "$(repo_url)/pull/new/$branch"
 }
 
+# Sources:
+# <https://stackoverflow.com/q/17818167/8947435>
+# <https://tekin.co.uk/2020/06/jump-from-a-git-commit-to-the-pr-in-one-command>
+pull_request_for_sha() {
+    [[ -n $1 ]] || err "Please specify a commit sha." 1
+    local prnum
+    # Find the first preceding merge commit for a pull request (based on the log
+    # message), and extract the PR number.
+    prnum=$(git log \
+		--merges --reverse --ancestry-path \
+		--oneline --perl-regexp --grep='Merge pull request #\d+' "$1"..origin \
+	    | rg --max-count=1 --only-matching --replace '$1' '#(\d+)')
+
+	open "$(repo_url)/pull/$prnum"
+}
+
 pull_requests() {
     open "$(repo_url)/pulls/$1"
 }
@@ -124,6 +143,9 @@ case $1 in
         ;;
     'prs' )
         pull_requests "$2"
+        ;;
+    'pr-for' )
+        pull_request_for_sha "$2"
         ;;
     'sha' )
         sha "$2"
