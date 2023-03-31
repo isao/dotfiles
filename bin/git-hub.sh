@@ -17,25 +17,26 @@ Commands:
                                 specified pathname. Optional url suffix (i.e.
                                 "#L8-L9" will highlight lines 8-9).
 
-    blame <file> [sha] [suffix] Open the GitHub blame for file. Optional git
+    blame <file> [ref] [suffix] Open the GitHub blame for file. Optional git
                                 sha/tag/branch, and url suffix (i.e. "#L8-L9").
 
     compare [branchname]        Open the GitHub compare page for branch.
 
-    log [pathname]              Open the GitHub commits page for current branch
-                                and optional pathname.
+    log [pathname]              Open the GitHub commits for current branch and
+                                optional pathname.
 
-    pr [pr-number]              Open a new GitHub pull request page for the
-                                current branch. If a PR number is provided, open
-                                its web page instead.
+    pr                          Open the GitHub pull request for the
+                                current branch, if it exists. Otherwise, open a
+                                pull request creation page.
 
-    pr-for <sha>                Open the GitHub pull request page for the
-                                specified sha.
+    pr <pr-number>              Open the specified GitHub pull request.
 
-    prs [github-username]       Open the GitHub pull requests page, optionally
-                                filtered by author.
+    prs                         Open the GitHub pull request listings.
 
-    sha [sha]                   Open the GitHub commit view for sha or HEAD.
+    prs <github-username>       Open the GitHub pull request listings filtered
+                                by author.
+
+    sha [sha]                   Open the GitHub commit view for sha, or HEAD.
 
 HELP
 }
@@ -94,6 +95,15 @@ compare() {
     open "$(repo_url)/compare/${2:-$(remote_branch)}"
 }
 
+pr_action() {
+    if [[ -z "$1" ]]
+    then
+        pull_request_view_for_branch || pull_request_create
+    else
+        pull_request_view "$1"
+    fi
+}
+
 pull_request_create() {
     local branch
     branch=$(git branch --show-current)
@@ -105,27 +115,33 @@ pull_request_create() {
     open "$(repo_url)/pull/new/$branch"
 }
 
-# Sources:
-# <https://stackoverflow.com/q/17818167/8947435>
-# <https://tekin.co.uk/2020/06/jump-from-a-git-commit-to-the-pr-in-one-command>
-pull_request_for_sha() {
-    [[ -n $1 ]] || err "Please specify a commit sha." 1
+# Show the existing PR page for the current branch, if it exists. Only reliable
+# or usable for recent or unmerged PRs.
+#
+# Prerequisite:
+#   git config --add remote.origin.fetch +refs/pull/*/head:refs/remotes/origin/pull/*
+#
+# Based on <https://stackoverflow.com/a/17819027/8947435>, modified as follows:
+# - parameterize `origin` & sort.
+# - use remote branch for `--contains` check, so it can still work if outdated.
+# - parsing and opening the PR number.
+pull_request_view_for_branch() {
     local prnum
-    # Find the first preceding merge commit for a pull request (based on the log
-    # message), and extract the PR number. Doesn't work for all merged PRs.
-    prnum=$(git log \
-		--merges --reverse --ancestry-path \
-		--oneline --perl-regexp --grep='Merge pull request #\d+' "$1"..origin \
-	    | rg --max-count=1 --only-matching --replace '$1' '#(\d+)')
+    prnum=$(git branch \
+        --remotes \
+        --list "$github_remote/pull/*" \
+        --sort '-authordate' \
+        --contains "$github_remote/$(git branch --show-current)" \
+        | rg --max-count=1 --only-matching --replace='$1' "$github_remote/pull/(\d+)")
 
-	pull_request_view "$prnum"
+    pull_request_view "$prnum"
 }
 
 pull_request_view() {
     open "$(repo_url)/pull/$1"
 }
 
-pull_requests() {
+pull_request_list() {
     open "$(repo_url)/pulls/$1"
 }
 
@@ -146,18 +162,10 @@ case $1 in
         log "$2"
         ;;
     'pr' )
-        if [[ -n "$2" ]]
-        then
-            pull_request_view "$2"
-        else
-            pull_request_create
-        fi
+        pr_action "$2"
         ;;
     'prs' )
-        pull_requests "$2"
-        ;;
-    'pr-for' )
-        pull_request_for_sha "$2"
+        pull_request_list "$2"
         ;;
     'sha' )
         sha "$2"
