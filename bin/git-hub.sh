@@ -4,7 +4,7 @@ github_remote=${GIT_HUB_REMOTE:-'origin'}
 default_branch=${GIT_HUB_DEFAULT_BRANCH:-'main'}
 
 help() {
-    cat <<HELP >&2
+    cat <<HELP
 Usage: git hub [command] [arg1, arg2]
 
 Open a GitHub page based on your current working directory, and git remote url.
@@ -132,7 +132,7 @@ pull_request_view_for_branch() {
         --list "$github_remote/pull/*" \
         --sort '-authordate' \
         --contains "$github_remote/$(git branch --show-current)" \
-        | rg --max-count=1 --only-matching --replace='$1' "$github_remote/pull/(\d+)")
+        | rg --max-count 1 --only-matching --replace '$1' "$github_remote/pull/(\d+)")
 
     pull_request_view "$prnum"
 }
@@ -171,7 +171,7 @@ case $1 in
         sha "$2"
         ;;
     'help' )
-        help
+        help | ${PAGER:-'less'}
         ;;
     '' )
         file_or_dir_view "$1" "$2"
