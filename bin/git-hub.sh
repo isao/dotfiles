@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/bin/bash
+set -eo pipefail
 
 github_remote=${GIT_HUB_REMOTE:-'origin'}
 default_branch=${GIT_HUB_DEFAULT_BRANCH:-'main'}
@@ -25,9 +26,9 @@ Commands:
     log [pathname]              Open the GitHub commits for current branch and
                                 optional pathname.
 
-    pr                          Open the GitHub pull request for the
-                                current branch, if it exists. Otherwise, open a
-                                pull request creation page.
+    pr                          Open the GitHub pull request for the current
+                                branch, if it exists on the default remote.
+                                Otherwise, open the pull request creation page.
 
     pr <pr-number>              Open the specified GitHub pull request.
 
@@ -96,45 +97,38 @@ compare() {
 }
 
 pr_action() {
-    if [[ -z "$1" ]]
+    if [[ -n "$1" ]]
     then
-        pull_request_view_for_branch || pull_request_create
-    else
         pull_request_view "$1"
+    else
+        local branch
+        branch=$(git branch --show-current)
+        pull_request_view_for_branch "$branch" || pull_request_create "$branch"
     fi
 }
 
 pull_request_create() {
-    local branch
-    branch=$(git branch --show-current)
-
-    [[ $branch =~ ^(main|master|release/.+)$ ]] && \
-        err "Exiting, branch '$branch' is special." 3
+    [[ $1 =~ /(main|master|release/.+)$ ]] && \
+        err "Error: branch '$1' is special." 3
 
     git push -u
-    open "$(repo_url)/pull/new/$branch"
+    open "$(repo_url)/pull/new/$1"
 }
 
-# Show the existing PR page for the current branch, if it exists. Only reliable
-# or usable for recent or unmerged PRs.
-#
-# Prerequisite:
+# Show the existing PR page for the current branch, if it exists on the default
+# remote. Only reliable or usable for recent or unmerged PRs. Prerequisite:
 #   git config --add remote.origin.fetch +refs/pull/*/head:refs/remotes/origin/pull/*
-#
-# Based on <https://stackoverflow.com/a/17819027/8947435>, modified as follows:
-# - parameterize `origin` & sort.
-# - use remote branch for `--contains` check, so it can still work if outdated.
-# - parsing and opening the PR number.
+# Based on <https://stackoverflow.com/a/17819027/8947435>.
 pull_request_view_for_branch() {
     local prnum
     prnum=$(git branch \
         --remotes \
         --list "$github_remote/pull/*" \
         --sort '-authordate' \
-        --contains "$github_remote/$(git branch --show-current)" \
+        --contains "$github_remote/$1" \
         | rg --max-count 1 --only-matching --replace '$1' "$github_remote/pull/(\d+)")
 
-    pull_request_view "$prnum"
+    [[ -n "$prnum" ]] && pull_request_view "$prnum"
 }
 
 pull_request_view() {
@@ -149,7 +143,7 @@ sha() {
     open "$(repo_url)/commit/${1:-HEAD}"
 }
 
-git rev-parse 2>/dev/null || err "Exiting, there is no git repo here." 1
+git rev-parse 2>/dev/null || err "Error: there is no git repo here." 1
 
 case $1 in
     'blame' )
