@@ -15,7 +15,10 @@ fi
 
 whence node npm >/dev/null || return
 
-source <(npm completion)
+# If run with cwd in a monorepo, we get "This command does not support
+# workspaces." error. Appears fixed in `npm 9.2.0`
+# https://github.com/npm/cli/commit/dfd5d461e0ee2163e210cc136d2bb7873dfeb363
+(cd && source <(npm completion))
 
 # grep -q ./node_modules/.bin /etc/paths || path=(./node_modules/.bin $path)
 
