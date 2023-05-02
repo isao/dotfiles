@@ -46,6 +46,11 @@ zstyle ':completion:*' completer _complete _ignored _files
 # Defualt is `bindkey '^I' expand-or-complete`
 bindkey '^I' expand-or-complete-prefix
 
+# Automatically escape shell characters when pasting URLs.
+autoload -U url-quote-magic
+zle -N self-insert url-quote-magic
+
+
 #
 #   Other completions
 #
