@@ -126,7 +126,7 @@ pull_request_view_for_branch() {
         --list "$github_remote/pull/*" \
         --sort '-authordate' \
         --contains "$github_remote/$1" \
-        | rg --max-count 1 --only-matching --replace '$1' "$github_remote/pull/(\d+)")
+        | rg --max-count 1 --only-matching --replace '$1' "$github_remote/pull/(\d+)") 2> /dev/null
 
     [[ -n "$prnum" ]] && pull_request_view "$prnum"
 }
