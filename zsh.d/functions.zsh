@@ -56,6 +56,16 @@ cdfinder() {
     cd -P "$(finderpath)"
 }
 
+cdup() {
+    # cd up to next package or git repo root directory.
+    local lastPwd
+    while [[ ( ! -f package.json || -d .git) && "$lastPwd" != "$PWD" ]]
+    do
+        lastPwd="$PWD"
+        cd ..
+    done
+}
+
 upfind() {
     # find a file from current directory until filesystem root
     # https://github.com/sgeb/dotfiles/tree/master/zsh/functions
