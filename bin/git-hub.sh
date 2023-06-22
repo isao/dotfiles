@@ -3,6 +3,7 @@ set -eo pipefail
 
 github_remote=${GIT_HUB_REMOTE:-'origin'}
 default_branch=${GIT_HUB_DEFAULT_BRANCH:-'main'}
+action=${GIT_HUB_ACTION:-'open'}
 
 help() {
     cat <<HELP
@@ -79,21 +80,21 @@ pathname() {
 }
 
 log() {
-    open "$(repo_url)/commits/$(remote_branch)/$(pathname "$1")"
+    $action "$(repo_url)/commits/$(remote_branch)/$(pathname "$1")"
 }
 
 file_or_dir_view() {
     # GitHub will re-direct from /tree/ to /blob/ as needed.
-    open "$(repo_url)/tree/$(remote_branch)/$(pathname "$1")$2"
+    $action "$(repo_url)/tree/$(remote_branch)/$(pathname "$1")$2"
 }
 
 blame() {
     # TODO convert tree-ish to sha.
-    open "$(repo_url)/blame/${2:-$(remote_branch)}/$(pathname "$1")$3"
+    $action "$(repo_url)/blame/${2:-$(remote_branch)}/$(pathname "$1")$3"
 }
 
 compare() {
-    open "$(repo_url)/compare/${2:-$(remote_branch)}"
+    $action "$(repo_url)/compare/${2:-$(remote_branch)}"
 }
 
 pr_action() {
@@ -112,7 +113,7 @@ pull_request_create() {
         err "Error: branch '$1' is special." 3
 
     git push -u
-    open "$(repo_url)/pull/new/$1"
+    $action "$(repo_url)/pull/new/$1"
 }
 
 # Show the existing PR page for the current branch, if it exists on the default
@@ -132,15 +133,15 @@ pull_request_view_for_branch() {
 }
 
 pull_request_view() {
-    open "$(repo_url)/pull/$1"
+    $action "$(repo_url)/pull/$1"
 }
 
 pull_request_list() {
-    open "$(repo_url)/pulls/$1"
+    $action "$(repo_url)/pulls/$1"
 }
 
 sha() {
-    open "$(repo_url)/commit/${1:-HEAD}"
+    $action "$(repo_url)/commit/${1:-HEAD}"
 }
 
 git rev-parse 2>/dev/null || err "Error: there is no git repo here." 1
