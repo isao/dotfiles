@@ -3,18 +3,20 @@
 # Generate a ctags file for Ember Handlebars components, if run from the root of
 # and Ember project repo.
 
+hbs_dir='app/components'
+dest_file='hbs.tags'
 
 whence ctags >/dev/null || {
 	echo 'ctags must be installed.'
-	exit
+	exit 1
 }
 
-[[ -d app/components ]] || exit
+[[ -d $hbs_dir ]] || {
+	echo "could not find '$hbs_dir', exiting."
+	exit 2
+}
 
-hbs_files=(app/components/**/*.hbs)
-hbs_ctags=./wta.hbs.tags
-
-cat <<EOF > $hbs_ctags
+cat <<EOF > $dest_file
 !_TAG_FILE_FORMAT   2   /extended format; --format=1 will not append ;" to lines/
 !_TAG_FILE_SORTED   0   /0=unsorted, 1=sorted, 2=foldcase/
 !_TAG_OUTPUT_FILESEP    slash   /slash or backslash/
@@ -25,17 +27,20 @@ cat <<EOF > $hbs_ctags
 !_TAG_PROGRAM_VERSION   0.0.0   //
 EOF
 
-for pathname in $hbs_files
-do
-    # The file name is the template "class name".
-    filename=$(basename $pathname .hbs)
+{
+    for pathname in "$hbs_dir"/**/*.hbs
+    do
+        # The file name is the template "class name".
+        filename="$(basename "$pathname" .hbs)"
 
-    # Split on "-".
-    nameparts=(${(s:-:)filename})
+        # Split on "-".
+        nameparts=(${(s:-:)filename})
 
-    # Uppercase initial letters of each part, and join.
-    classname=${(j::)${(C)nameparts}}
+        # Uppercase initial letters of each part, and join.
+        classname=${(j::)${(C)nameparts}}
 
-    # Create a "class" entry for the file, use line 1.
-    printf "%s\t$pathname\t1;\"c\tline:1\n" $classname >> $hbs_ctags
-done
+        # Create a "class" entry for the file, use line 1.
+        printf "%s\t$pathname\t1;\"c\tline:1\n" "$classname"
+    done
+} | sort >> "$dest_file"
+

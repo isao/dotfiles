@@ -1,4 +1,5 @@
-#!/bin/bash -eo pipefail
+#!/bin/bash
+set -eo pipefail
 
 # Helper script to run `ctags` [Universal ctags](https://github.com/universal-ctags/ctags)
 # - run from the git repo base dir.
@@ -9,7 +10,9 @@
 # - run in the background and raise a notification when done
 
 function err() {
+    # shellcheck disable=SC2086
     echo $2 >&2
+    # shellcheck disable=SC2086
     exit $1
 }
 
@@ -31,7 +34,7 @@ type ctags >/dev/null \
 scriptname=$(basename "$0" .sh)
 
 # If invoked from BBEdit Script Menu...
-[[ -f $BB_DOC_PATH ]] && cd "$(dirname "$BB_DOC_PATH")"
+[[ -f $BB_DOC_PATH ]] && cd "$(realpath "$(dirname "$BB_DOC_PATH")")"
 
 basedir="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 cd "$basedir"
@@ -44,5 +47,8 @@ conf=$(test -r .ctagger && grep -v \# .ctagger | xargs || echo '-R')
 #
 #   Invoke ctags in the background, raise notification when done.
 #
-(ctags $@ $conf && alert) &
-type ctags-index-hbs >/dev/null && ctags-index-hbs &
+#(ctags $@ $conf && alert) &
+#type ctags-index-hbs >/dev/null && ctags-index-hbs &
+
+# shellcheck disable=SC2068,SC2086
+ctags $@ $conf

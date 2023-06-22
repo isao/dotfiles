@@ -1,5 +1,7 @@
+# vcs dirs are automatically excluded by default, see `ctags --list-excludes`
 --exclude=artifacts
 --exclude=builds
 --exclude=coverage
 --exclude=dist
 --exclude=node_modules
+--exclude=tmp
