@@ -23,6 +23,7 @@ whence node npm >/dev/null || return
 # grep -q ./node_modules/.bin /etc/paths || path=(./node_modules/.bin $path)
 
 alias nn='npm run'
+alias yy='yarn run'
 
 alias nnci='npm ci && never_index_artifacts'
 
