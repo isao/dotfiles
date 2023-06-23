@@ -1,8 +1,8 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
-git_repo_root_dir() {
-    git rev-parse --show-toplevel 2>/dev/null
-}
+# git_repo_root_dir() {
+#     git rev-parse --show-toplevel 2>/dev/null
+# }
 
 is_package_root() {
     [ -f package.json ] || [ -d .git ]
@@ -20,6 +20,7 @@ package_root_dir() {(
 )}
 
 # Use arg as starting point, if applicable.
-[[ -d "$1" ]] && cd "$1"
+[[ -f "$1" ]] && cd "$(dirname $(realpath "$1"))"
+[[ -d "$1" ]] && cd "$(realpath "$1")"
 
 package_root_dir
