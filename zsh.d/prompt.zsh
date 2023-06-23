@@ -15,27 +15,54 @@ zstyle ':vcs_info:git:*' check-for-changes true
 # %u unstaged changes - format with unstagedstr
 
 zstyle ':vcs_info:git:*' actionformats "%{$fg_bold[blue]%}(%a)"
-zstyle ':vcs_info:git:*' unstagedstr "%{$fg_no_bold[red]%}±"
+
+zstyle ':vcs_info:git:*' unstagedstr "%{$fg_no_bold[red]%}+"
+
 zstyle ':vcs_info:git:*' stagedstr "%{$fg_bold[green]%}±"
-zstyle ':vcs_info:git:*' formats "%{$fg_no_bold[blue]%}%32<…<%b%a%{$reset_color%}%u%c%m%{$reset_color%}"
+
+zstyle ':vcs_info:git:*' formats "%{$fg_no_bold[blue]%}%32<…<%b%a%{$reset_color%} %c%u%m%{$reset_color%}"
+
 #zstyle ':vcs_info:*+*:*' debug true
 
-zstyle ':vcs_info:git*+set-message:*' hooks git-misc
-+vi-git-misc() {
-    local untracked stashes
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-remotebranch git-stashes
+
++vi-git-untracked() {
+    local untracked
 
     # show untracked file count like ?2 where number is file count
-    untracked=$(echo $(git ls-files -o --exclude-standard | wc -l))
+    untracked=$(echo $(git ls-files --others --exclude-standard | wc -l))
     if [[ $untracked -gt 0 ]]
     then
-        hook_com[misc]+="%{$fg_no_bold[white]%}?$untracked"
+        hook_com[misc]+="%{$fg_no_bold[red]%}?"
+        # include $untracked to show the number of untracked files.
     fi
+}
 
-    # show stash count like s3 where number is stash count
-    stashes=$(echo $(git stash list | wc -l))
-    if [[ $stashes -gt 0 ]]
-    then
-        hook_com[misc]+="%{$fg_no_bold[white]%}$stashes"
++vi-git-stashes() {
+    local stashes
+     # show stash count like s3 where number is stash count
+     stashes=$(echo $(git stash list | wc -l))
+     if [[ $stashes -gt 0 ]]
+     then
+         hook_com[misc]+="%{$fg_no_bold[white]%}$stashes"
+     fi
+}
+
+# <https://opensource.apple.com/source/zsh/zsh-61/zsh/Misc/vcs_info-examples.auto.html>
++vi-git-remotebranch() {
+    local remote
+
+    # Are we on a remote-tracking branch?
+    remote=${$(git rev-parse --verify ${hook_com[branch]}@{upstream} \
+        --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
+
+    # The first test will show a tracking branch whenever there is one. The
+    # second test, however, will only show the remote branch's name if it
+    # differs from the local one.
+    if [[ -n ${remote} ]] ; then
+    #if [[ -n ${remote} && ${remote#*/} != ${hook_com[branch]} ]] ; then
+        #hook_com[branch]="${hook_com[branch]} [${remote}]"
+        hook_com[branch]="${remote}"
     fi
 }
 
@@ -45,6 +72,7 @@ precmd_title_info() {
     print -Pn "\e]1;%~\a"
     print -Pn "\e]2;%n@%m\a"
 }
+
 precmd_functions+=(vcs_info precmd_title_info)
 
 #
