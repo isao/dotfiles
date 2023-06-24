@@ -24,7 +24,8 @@ zstyle ':vcs_info:git:*' formats "%{$fg_no_bold[blue]%}%32<…<%b%a%{$reset_colo
 
 #zstyle ':vcs_info:*+*:*' debug true
 
-zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-remotebranch git-stashes
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-stashes
+# enable by adding to line above: git-remote-branch
 
 +vi-git-untracked() {
     local untracked
@@ -49,7 +50,7 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-remotebranch git-s
 }
 
 # <https://opensource.apple.com/source/zsh/zsh-61/zsh/Misc/vcs_info-examples.auto.html>
-+vi-git-remotebranch() {
++vi-git-remote-branch() {
     local remote
 
     # Are we on a remote-tracking branch?
