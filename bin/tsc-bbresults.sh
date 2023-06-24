@@ -1,12 +1,5 @@
-#!/bin/bash -eux
+#!/bin/bash -eu
 
-cd "$(git rev-parse --show-toplevel)/Web" || {
-    echo "Run this in the mediafirst ReachClient repo."
-    exit 1
-}
+pattern='^(?P<file>\w.+)\((?P<line>\d+),(?P<col>\d+)\): (?P<type>\w+) (?P<msg>.+(\n\s+.+)*)'
 
-args=${@:-''}
-pattern='(?P<file>.+?)[(](?P<line>\d+),((?P<col>\d+))[)]: (?P<type>error \w+): (?P<msg>.*)$'
-
-node node_modules/typescript/bin/tsc $args | \
-    bbresults -p $pattern
+tsc --noEmit $* | bbresults -p "$pattern"
