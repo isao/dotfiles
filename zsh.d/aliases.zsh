@@ -3,9 +3,9 @@
 #
 
 alias cd..='cd ..'
-alias ls='ls -FG'
+alias ls='ls -FGH'
 alias l='ls'
-alias ll='/bin/ls -lG'
+alias ll='/bin/ls -lGH'
 alias kk=ll
 alias lll=ll
 alias ls.='ls -dG .?*'  # ls dot files & dirs only
