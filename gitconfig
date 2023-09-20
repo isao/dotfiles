@@ -64,7 +64,7 @@
     conflicts = diff --name-only --diff-filter=U
 
     ; in every repo reachable from cwd, do fetch-all
-    fetchcrazy = !"find . -type d -name .git -depth 3 -execdir pwd \\; -execdir git fetch --all \\;"
+    fetchcrazy = !"find . -type d -name .git -maxdepth 3 -execdir pwd \\; -execdir git fetch --all \\;"
 
     fixup = commit --fixup
 
