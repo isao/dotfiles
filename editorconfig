@@ -11,9 +11,9 @@ trim_trailing_whitespace = true
 x-balance-while-typing = true
 x-soft-wrap-mode = WindowWidth
 x-soft-wrap-text = true
-x-typographers-quotes =  false
+x-typographers-quotes = false
 
-[*.{hbs,html,js,css,scss,sh,svg,ts,tsx,zsh}]
+[*.{css,hbs,html,js,jsx,json,scss,sh,svelte,svg,ts,tsx,zsh}]
 x-soft-wrap-text = false
 
 [*.md]
