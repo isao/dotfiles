@@ -5,15 +5,16 @@ compdef _gnu_generic bbedit bbdiff bbfind bbresults
 
 # Open files with the following extension in BBEdit.
 alias -s bbprojectd=bbedit
+alias -s cjs=bbedit
+alias -s hbs=bbedit
 alias -s html=bbedit
 alias -s js=bbedit
 alias -s json=bbedit
 alias -s less=bbedit
+alias -s mjs=bbedit
 alias -s scss=bbedit
-alias -s ts=bbedit
-
-alias -s hbs=bbedit
 alias -s svelte=bbedit
+alias -s ts=bbedit
 alias -s vue=bbedit
 
 bbproj() {
