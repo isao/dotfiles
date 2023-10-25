@@ -32,3 +32,9 @@ npm-home() {
     # repository urls.
     open "$(npm info "$1" repository.url | perl -pne 's%^git@%https://%g and s%\.com:%.com/% and s%\.git%%')"
 }
+
+list-volta-packages() {
+    rg --no-filename --max-count 2 --no-line-number \
+        -o '"(name|version)": ".+?"' \
+        ~/.volta/tools/image/packages/*/lib/node_modules/*/package.json
+}
