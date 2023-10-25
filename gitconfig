@@ -18,9 +18,6 @@
     reflog = delta
     show = delta
 
-[diff]
-    colorMoved = default
-
 [interactive]
     diffFilter = delta --color-only
     singleKey = true
@@ -29,12 +26,18 @@
     ;use all cpu cores
     threads = 0
 
+[init]
+	defaultBranch = main
+
 [push]
     default = current
 
 [pull]
 	ff = only
 	rebase = true
+
+[remote]
+	pushdefault = origin
 
 [credential]
     ;for https git uris w/ auth
@@ -43,9 +46,6 @@
 [github]
     user = isao
     password = !security find-generic-password -w -s github.password
-
-[init]
-	defaultBranch = main
 
 [alias]
     ; list these git aliases
@@ -110,13 +110,10 @@
     ; <https://stackoverflow.com/a/35549615/515973>
     stash-rename = !'_() { rev=$(git rev-parse $1) && git stash drop $1 || exit 1 ; git stash store -m "$2" $rev; }; _'
 
-    # http://bit.ly/1Yx9OQM
     ;assume   = update-index --assume-unchanged
     ;unassume = update-index --no-assume-unchanged
     ;assumed  = '!git ls-files -v | grep ^h | cut -c 3-'
 
-
-; bbedit
 [diff]
     tool = bbdiff
     algorithm = histogram
@@ -130,7 +127,8 @@
     cmd = bbdiff --wait --resume "$LOCAL" "$REMOTE"
 
 [merge]
-	tool = bc
+    tool = opendiff
+	;tool = bc
     ;tool = bbdiff
     ;conflictstyle = diff3
 
@@ -156,9 +154,12 @@
     line-numbers-right-format = "│ "
     navigate = true
     side-by-side = true
+
 [commit]
 	; gpgsign = true
+
 [gpg]
 	format = x509
+
 [gpg "x509"]
 	program = /usr/local/bin/ac-sign
