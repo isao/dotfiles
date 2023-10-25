@@ -44,8 +44,14 @@ gbb() {
     git branch --sort -authordate --color -v $@ | cut -c 1-$(tput cols)
 }
 
+# git branches, except old ones
 gb() {
     gbb $@ | egrep -v "^. old/"
+}
+
+# git branches with remote tracking info
+gbv() {
+    gb -v $@
 }
 
 #
