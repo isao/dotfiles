@@ -1,4 +1,4 @@
-# https://editorconfig.org/
+# <https://editorconfig.org/>
 root = true
 
 [*]
@@ -13,19 +13,30 @@ x-soft-wrap-mode = WindowWidth
 x-soft-wrap-text = true
 x-typographers-quotes = false
 
-[*.{css,hbs,html,js,jsx,json,scss,sh,svelte,svg,ts,tsx,ya?ml,zsh}]
+[*.{cjs,js,jsx,json,json5,svelte,ts,tsx}]
 x-soft-wrap-text = false
 
-[*.md]
+[*.{json,json5,pcl,yml,yaml}]
+x-soft-wrap-text = false
+
+[*.{css,hbs,html,scss,svg}]
+x-soft-wrap-text = false
+
+[*.{bash,sh,zsh}]
+x-soft-wrap-text = false
+
+[*.{md,text}]
 trim_trailing_whitespace = false
 
 [*.py]
 indent_style = space
 indent_size = 4
+x-soft-wrap-text = false
 
 [{tags,*.ctags}]
 indent_style = tab
 indent_size = 4
+x-soft-wrap-text = false
 
 [{package.json,.travis.yml}]
 indent_style = space
