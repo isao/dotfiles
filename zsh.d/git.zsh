@@ -41,7 +41,7 @@ gggg() {
 #   git branch
 #
 gbb() {
-    git branch --sort -authordate --color -v $@ | cut -c 1-$(tput cols)
+    git branch --sort -authordate --color -v $@ | cut -c 1-$COLUMNS
 }
 
 # git branches, except old ones
