@@ -1,6 +1,6 @@
 #!/bin/bash
 set -eo pipefail
-
+set -x
 # Helper script to run `ctags` [Universal ctags](https://github.com/universal-ctags/ctags)
 # - run from the git repo base dir.
 # - works from BBEdit script menu.
@@ -41,6 +41,13 @@ cd "$basedir"
 
 #
 #   Load arguments to ctags from a file, one per line, ignoring lines with "#".
+#
+#   Example `.ctagger` file:
+#
+#       # This is a comment.
+#       -R
+#       apps/*/src
+#       shared/*/src
 #
 conf=$(test -r .ctagger && grep -v \# .ctagger | xargs || echo '-R')
 

@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
-# https://documenter.getpostman.com/view/1559645/RW1gEcCH#cbbfadae-fa4a-4cdf-933e-1e9d8fbf40d0
+# <https://documenter.getpostman.com/view/1559645/RW1gEcCH#cbbfadae-fa4a-4cdf-933e-1e9d8fbf40d0>
+# <https://forum.nanoleaf.me/docs>
 
 # Get IP from router.
 IP=${IP:-"192.168.7.157"}
