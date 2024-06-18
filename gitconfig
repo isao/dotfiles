@@ -117,7 +117,7 @@
     ;assumed  = '!git ls-files -v | grep ^h | cut -c 3-'
 
 [diff]
-    tool = bbdiff
+	tool = juxta
     algorithm = histogram
     colorMoved = default
     compactionHeuristic = true
@@ -165,3 +165,11 @@
 
 [gpg "x509"]
 	program = /usr/local/bin/ac-sign
+[gitbutler]
+	utmostDiscretion = 1
+[mergetool "juxta"]
+	cmd = juxta _mergetool --base \"$BASE\" --local \"$LOCAL\" --remote \"$REMOTE\" --merged \"$MERGED\"
+	trustExitCode = true
+[difftool "juxta"]
+	cmd = juxta _difftool --base \"$BASE\" --local \"$LOCAL\" --remote \"$REMOTE\" --merged \"$MERGED\"
+	trustExitCode = true
