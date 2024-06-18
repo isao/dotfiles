@@ -40,6 +40,24 @@ bbpath() {
 EOF
 }
 
+# Find a ctag symbol, and open it w/ bbedit.
+# % readtags Page
+# Page	src/environment/view-model/page/Page.ts	12
+#
+# % readtags Page | awk '{ print $2 ":" $3 }'
+# src/environment/view-model/page/Page.ts:12
+#
+bbtag() {
+    local f
+    f=$(readtags $1 | head -1 | awk '{ print $2 ":" $3 }')
+    if [[ -n "$f" ]]
+    then
+        bbedit "$f"
+    else
+        echo "Symbol \"$1\" not found. Re-index?" >&2
+    fi
+}
+
 cdbbedit() {
     cd -P "$(dirname "$(bbpath)")" || exit 1
 }
@@ -80,7 +98,7 @@ rgfzf() {
         --prompt '1. ripgrep> ' \
         --delimiter : \
         --header '╱ CTRL-R (ripgrep mode) ╱ CTRL-F (fzf mode) ╱' \
-        --preview 'bat --color=always {1} --highlight-line {2}' \
+        --preview 'moar {1}' \
         --preview-window 'up,40%,border-bottom,+{2}+3/3,~3' \
         --bind 'enter:become(bbedit {1} +{2})'
 }
