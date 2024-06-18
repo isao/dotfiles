@@ -25,7 +25,7 @@ zstyle ':vcs_info:git:*' formats "%{$fg_no_bold[blue]%}%32<…<%b%a%{$reset_colo
 #zstyle ':vcs_info:*+*:*' debug true
 
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-stashes
-# enable by adding to line above: git-remote-branch
+# enable by adding to line above: git-remote-branch git-ahead-behind
 
 +vi-git-untracked() {
     local untracked
@@ -47,6 +47,20 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-stashes
      then
          hook_com[misc]+="%{$fg_no_bold[white]%}$stashes"
      fi
+}
+
+# <https://opensource.apple.com/source/zsh/zsh-61/zsh/Misc/vcs_info-examples.auto.html>
++vi-git-ahead-behind() {
+    local ahead behind
+    local -a gitstatus
+
+    ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
+    (( $ahead )) && gitstatus+=( "+${ahead}" )
+
+    behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
+    (( $behind )) && gitstatus+=( "-${behind}" )
+
+    hook_com[misc]+=${(j:/:)gitstatus}
 }
 
 # <https://opensource.apple.com/source/zsh/zsh-61/zsh/Misc/vcs_info-examples.auto.html>
