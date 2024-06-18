@@ -56,13 +56,14 @@ cdfinder() {
     cd -P "$(finderpath)"
 }
 
+# cd up to next package or git repo root directory.
 cdup() {
-    # cd up to next package or git repo root directory.
     local lastPwd
-    while [[ ! ( -f package.json || -d .git) && "$lastPwd" != "$PWD" ]]
-    do
+    while
         lastPwd="$PWD"
         cd ..
+        [[ ! ( -f package.json || -d .git) && "$lastPwd" != "$PWD" ]]
+    do true
     done
 }
 
