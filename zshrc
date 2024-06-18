@@ -41,8 +41,8 @@ setopt correct
 #       history
 
 HISTFILE=$HOME/.zsh_history
-HISTSIZE=3000
-SAVEHIST=2800
+HISTSIZE=100100
+SAVEHIST=100000
 # ^Set SAVEHIST less than HISTSIZE, as a buffer for history deduplication.
 
 setopt hist_expire_dups_first
