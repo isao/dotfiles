@@ -1,6 +1,6 @@
 #!/bin/bash
 set -eo pipefail
-set -x
+
 # Helper script to run `ctags` [Universal ctags](https://github.com/universal-ctags/ctags)
 # - run from the git repo base dir.
 # - works from BBEdit script menu.
