@@ -107,7 +107,7 @@ eject-all() {
 }
 
 weeknum() {
-    date +"%yw%U"
+    date +"%yw%V"
     # Outputs "19w26"
 }
 
