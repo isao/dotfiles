@@ -24,6 +24,8 @@ Commands:
 
     compare [branchname]        Open the GitHub compare page for branch.
 
+    fetch-pr <number>
+
     log [pathname]              Open the GitHub commits for current branch and
                                 optional pathname.
 
@@ -140,6 +142,10 @@ pull_request_list() {
     $action "$(repo_url)/pulls/$1"
 }
 
+fetch-pr() {
+    git fetch up "pull/$1/head:pr$1" && git switch "pr$1"
+}
+
 sha() {
     $action "$(repo_url)/commit/${1:-HEAD}"
 }
@@ -149,6 +155,9 @@ git rev-parse 2>/dev/null || err "Error: there is no git repo here." 1
 case $1 in
     'blame' )
         blame "$2" "$3" "$4"
+        ;;
+    'fetch-pr' )
+        fetch-pr "$2"
         ;;
     'compare' )
         compare "$2" "$3"
