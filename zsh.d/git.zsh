@@ -28,13 +28,13 @@ gg() {
     git status --branch --short $@
 }
 
-ggg() {
+ggi() {
     gg --ignored $@
 }
 
-gggg() {
-    # summarize & count ignored pathnames by their first two path segments
-    ggg $@ | cut -c 4- | cut -d / -f 1-2 | sort | uniq -c
+# summarize & count ignored pathnames by their first two path segments
+ggii() {
+    ggi $@ | cut -c 4- | cut -d / -f 1-2 | sort | uniq -c
 }
 
 #
@@ -53,6 +53,12 @@ gb() {
 gbv() {
     gb -v $@
 }
+
+# fetch and switch to an upstream GitHub pull request branch.
+git-fetch-pr() {
+    git fetch up "pull/$1/head:pr$1" && git switch "pr$1"
+}
+
 
 #
 #   FZF GIT WIDGETS
