@@ -25,21 +25,25 @@ hs.alert.show('Hammerspoon config loaded.')
 --
 function caffeinateWatcher(eventType)
     local screen = hs.screen.primaryScreen()
-    local myScreenId = 458658833
+    local myScreen1 = 'EDC6BEEE-ECAD-44F5-B745-C3F7479874C9'
 
     print ('caffeinateWatcher event received: ' .. hs.caffeinate.watcher[eventType])
 
     -- Check if we're connected to the monitor, next to the lights.
-    if (screen:id() == myScreenId) then
+    if (screen:getUUID() == myScreen1) then
 
-        if (eventType == hs.caffeinate.watcher.screensDidSleep) then
-            hs.execute('nanoleaf off', true)
+        if (eventType == hs.caffeinate.watcher.systemWillSleep) then
+            hs.execute('shortcuts run "office lights off"')
+            print 'Lights off'
+            -- hs.execute('nanoleaf off', true)
 
-        elseif (eventType == hs.caffeinate.watcher.screensDidWake) then
-            local screenBrightness = screen:getBrightness()
-            local lightsBrightness = math.min(math.floor(screenBrightness * 110), 100)
-            hs.execute('nanoleaf brightness ' .. lightsBrightness, true)
-            print ('Brightness set to ' .. lightsBrightness)
+        elseif (eventType == hs.caffeinate.watcher.screensDidUnlock or eventType == hs.caffeinate.watcher.systemDidWake) then
+            -- local screenBrightness = screen:getBrightness()
+            -- local lightsBrightness = math.min(math.floor(screenBrightness * 70), 100)
+            hs.execute('shortcuts run "office lights on low"')
+            print 'Lights on'
+            -- hs.execute('nanoleaf brightness ' .. lightsBrightness, true)
+            -- print ('Brightness set to ' .. lightsBrightness)
         end
 
     end
