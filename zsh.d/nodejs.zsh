@@ -4,14 +4,23 @@
 #   volta setup
 #
 # export VOLTA_HOME="$HOME/.volta";path=("$VOLTA_HOME/bin" $path)
-if [[ -d "$HOME/.volta" ]]
-then
-    export VOLTA_HOME="$HOME/.volta"
-    # path=("$VOLTA_HOME/bin" $path)
-    # ^- Already added to `/etc/paths`
-    # source <(volta completions 'zsh')
-    # ^- errors -> _arguments:comparguments:325: can only be called from completion function
-fi
+if (whence volta >/dev/null) {
+    if [[ -d "$HOME/.volta" ]]
+    then
+        export VOLTA_HOME="$HOME/.volta"
+        # path=("$VOLTA_HOME/bin" $path)
+        # ^- Already added to `/etc/paths`
+    fi
+
+    source "$dotfiles/zsh.d/vendor/volta-completions.zsh"
+}
+
+# Just use `volta list all`
+# list-volta-packages() {
+#     rg --no-filename --max-count 2 --no-line-number \
+#         -o '"(name|version)": ".+?"' \
+#         ~/.volta/tools/image/packages/*/lib/node_modules/*/package.json
+# }
 
 whence node npm >/dev/null || return
 
@@ -31,10 +40,4 @@ npm-home() {
     # Emulate `npm home` for packages that only list GitHub (and similar)
     # repository urls.
     open "$(npm info "$1" repository.url | perl -pne 's%^git@%https://%g and s%\.com:%.com/% and s%\.git%%')"
-}
-
-list-volta-packages() {
-    rg --no-filename --max-count 2 --no-line-number \
-        -o '"(name|version)": ".+?"' \
-        ~/.volta/tools/image/packages/*/lib/node_modules/*/package.json
 }
