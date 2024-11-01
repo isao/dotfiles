@@ -122,6 +122,7 @@ autoload -Uz zcalc
 autoload -Uz colors
 colors
 
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 # Zsh Reporting
 # If nonnegative, commands whose combined user and system execution times
