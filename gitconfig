@@ -68,6 +68,7 @@
     fetchcrazy = !"find . -type d -name .git -maxdepth 3 -execdir pwd \\; -execdir git fetch --all \\;"
 
     fixup = commit --fixup
+    squash = commit --squash
 
     ; log fuller
     lf = log --graph --stat --decorate --pretty=fuller
@@ -90,7 +91,7 @@
     statuscrazy = !"find . -type d -name .git -execdir git-statuscrazy.sh \\;"
 
     ; Stash files that are not staged.
-    stash-unstaged = stash --keep-index
+    stash-unstaged = stash save --keep-index
 
     ; Stash only the staged changes, from Hsieh Chin Fan.
     ;   https://github.com/typebrook/settings/blob/dev/gitconfig
@@ -157,19 +158,13 @@
     navigate = true
     side-by-side = true
 
-[commit]
-	; gpgsign = true
-
-[gpg]
-	format = x509
-
-[gpg "x509"]
-	program = /usr/local/bin/ac-sign
 [gitbutler]
 	utmostDiscretion = 1
+
 [mergetool "juxta"]
 	cmd = juxta _mergetool --base \"$BASE\" --local \"$LOCAL\" --remote \"$REMOTE\" --merged \"$MERGED\"
 	trustExitCode = true
+
 [difftool "juxta"]
 	cmd = juxta _difftool --base \"$BASE\" --local \"$LOCAL\" --remote \"$REMOTE\" --merged \"$MERGED\"
 	trustExitCode = true
