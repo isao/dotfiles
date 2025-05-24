@@ -52,11 +52,12 @@ finderpath() {
 EOF
 }
 
+# `cd` to the frontmost Finder window.
 cdfinder() {
     cd -P "$(finderpath)"
 }
 
-# cd up to next package or git repo root directory.
+# `cd` up to next package or git repo root directory.
 cdup() {
     local lastPwd
     while
@@ -67,9 +68,9 @@ cdup() {
     done
 }
 
+# find a file from current directory until filesystem root
+# https://github.com/sgeb/dotfiles/tree/master/zsh/functions
 upfind() {
-    # find a file from current directory until filesystem root
-    # https://github.com/sgeb/dotfiles/tree/master/zsh/functions
     dir="`pwd`"
     while [ "$dir" != "/" ]
     do
@@ -82,8 +83,8 @@ upfind() {
     done
 }
 
+# https://github.com/sgeb/dotfiles/tree/master/zsh/functions
 mkcd() {
-    # https://github.com/sgeb/dotfiles/tree/master/zsh/functions
     mkdir -p "$1" && cd "$1"
 }
 
@@ -99,11 +100,11 @@ canary() {
 }
 
 # https://stackoverflow.com/a/7222469/8947435
+# To ignore network mounts and optical disks, use:
+# osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true and local volume is true and free space is not equal to 0)'
 eject-all() {
     osascript -e 'tell application "Finder" to get (every disk whose ejectable is true)'
     osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true)'
-    # To ignore network mounts and optical disks, use:
-    # osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true and local volume is true and free space is not equal to 0)'
 }
 
 weeknum() {
@@ -115,7 +116,7 @@ darkmode() {
     osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to not dark mode'
 }
 
+# Only show outdated leaves that aren't pinned.
 brew-outdated() {
-    # Only show outdated leaves that aren't pinned.
     join <(brew outdated) <(comm -13 <(brew ls --pinned) <(brew leaves))
 }
