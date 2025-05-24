@@ -5,19 +5,15 @@
 [core]
     excludesfile = ~/.gitignore
 
+    ; https://github.com/dandavison/delta
+    pager = delta
+
     ; https://news.ycombinator.com/item?id=11388479
     untrackedCache = true
 
 [color]
     ui = auto
 
-[pager]
-    ; https://github.com/dandavison/delta
-    ;diff = delta
-    ;blame = delta
-    log = delta
-    reflog = delta
-    show = delta
 
 [interactive]
     diffFilter = delta --color-only
@@ -118,7 +114,6 @@
     ;assumed  = '!git ls-files -v | grep ^h | cut -c 3-'
 
 [diff]
-	tool = juxta
     algorithm = histogram
     colorMoved = default
     compactionHeuristic = true
@@ -153,18 +148,18 @@
 [delta]
     ; https://github.com/dandavison/delta
     light = true
-    line-numbers-left-format = ""
-    line-numbers-right-format = "│ "
+
+    ; n/N to jumpt to the next/prev file/commit/chunk...
     navigate = true
+
+    ; https://dandavison.github.io/delta/hyperlinks.html
+    hyperlinks = true
+    hyperlinks-file-link-format = "x-bbedit://open?url=file:///{path}&{line}"
+
+    ; To disable the line numbers in side-by-side view, but keep a vertical
+    ; delimiter line between the left and right panels, use the line-numbers
+    ; format options.
+    ;line-numbers-left-format = ""
+    ;line-numbers-right-format = "│ "
+    line-numbers = true
     side-by-side = true
-
-[gitbutler]
-	utmostDiscretion = 1
-
-[mergetool "juxta"]
-	cmd = juxta _mergetool --base \"$BASE\" --local \"$LOCAL\" --remote \"$REMOTE\" --merged \"$MERGED\"
-	trustExitCode = true
-
-[difftool "juxta"]
-	cmd = juxta _difftool --base \"$BASE\" --local \"$LOCAL\" --remote \"$REMOTE\" --merged \"$MERGED\"
-	trustExitCode = true
