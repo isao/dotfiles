@@ -24,8 +24,8 @@ zstyle ':vcs_info:git:*' formats "%{$fg_no_bold[blue]%}%32<…<%b%a%{$reset_colo
 
 #zstyle ':vcs_info:*+*:*' debug true
 
-zstyle ':vcs_info:git*+set-message:*' hooks git-untracked git-stashes
-# enable by adding to line above: git-remote-branch git-ahead-behind
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+# enable by adding to line above: git-remote-branch git-ahead-behind git-stashes
 
 +vi-git-untracked() {
     local untracked
