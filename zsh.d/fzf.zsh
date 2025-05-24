@@ -19,8 +19,14 @@ whence fzf fd >/dev/null || return
 export FZF_DEFAULT_COMMAND=fd
 export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {-1} | pbcopy)+abort" --bind="ctrl-o:execute(open {-1})+abort" --bind="ctrl-r:execute(open -R {-1})+abort" --bind="ctrl-e:execute($EDITOR {-1})+abort"'
 
+
 #
-#   FZF functions
+# Set up official fzf key bindings and fuzzy completion
+# eval "$(fzf --zsh)"
+#
+
+#
+#   My FZF functions
 #
 
 # Find in file
@@ -43,14 +49,14 @@ fif() {
 #   Tip: Show all the custom `bindkey` assignments with alias `showkeys`.
 
 fzf-filenames-widget() {
-    LBUFFER+="$(fd -t f | fzf --preview 'bat --color=always {}' --preview-window '~1' | xargs)"
+    LBUFFER+="$(fd -t f | fzf --style full --preview 'fzf-preview.sh {}' --bind 'focus:transform-header:file --brief {}' | xargs)"
     zle redisplay
 }
 zle -N fzf-filenames-widget
 bindkey '^f^f' fzf-filenames-widget # Find file.
 
 fzf-dirnames-widget() {
-    LBUFFER+="$(fd -t d | fzf --preview 'echo {}; tree {}' --preview-window '~1' | xargs)"
+    LBUFFER+="$(fd -t d | fzf --preview 'echo {}; ls -1 {}' --preview-window '~1' | xargs)"
     zle redisplay
 }
 zle -N fzf-dirnames-widget
@@ -80,7 +86,7 @@ bindkey '\er' fzf-recent-dirs-widget # Pick a recent directory.
 
 # Select a recent file or path via Spotlight/mdfind.
 fzf-recent-files-widget() {
-    LBUFFER+="$(mdfind -onlyin ~/work -onlyin ~/Desktop -onlyin ~/notes -onlyin ~/work 'kMDItemFSContentChangeDate >= $time.today(-14)' | fzf -m | xargs)"
+    LBUFFER+="$(mdfind -onlyin ~/Documents -onlyin ~/Desktop -onlyin ~/notes -onlyin ~/work 'kMDItemFSContentChangeDate >= $time.today(-14)' | fzf -m | xargs)"
     zle redisplay
 }
 zle -N fzf-recent-files-widget
