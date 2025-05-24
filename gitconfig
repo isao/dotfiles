@@ -121,23 +121,18 @@
 [difftool]
     prompt = no
 
-[difftool "bbdiff"]
-    cmd = bbdiff --wait --resume "$LOCAL" "$REMOTE"
-
 [merge]
-    tool = opendiff
-	;tool = bc
-    ;tool = bbdiff
-    ;conflictstyle = diff3
+    conflictstyle = zdiff3
+
+    ; list (known) installed options with `git mergetool --tool-help`
+    ; Beyond Compare 5
+    tool = bcomp
 
 [mergetool]
     prompt = no
     keepBackup = false
 
-[mergetool "bbdiff"]
-    cmd = bbdiff --wait --resume "$LOCAL" "$REMOTE"
-
-[mergetool "bc"]
+[mergetool "bcomp"]
 	trustExitCode = true
 
 [filter "lfs"]
