@@ -125,14 +125,16 @@
     conflictstyle = zdiff3
 
     ; list (known) installed options with `git mergetool --tool-help`
-    ; Beyond Compare 5
-    tool = bcomp
+    ; Beyond Compare 5 "bcomp" isn't listed !? but bc/bc3/bc4 are, and b4 works
+    ; if symlinking bcomp -> bc4
+    tool = bc4
 
 [mergetool]
     prompt = no
     keepBackup = false
+    tool = bc4
 
-[mergetool "bcomp"]
+[mergetool "bc4"]
 	trustExitCode = true
 
 [filter "lfs"]
@@ -144,7 +146,7 @@
     ; https://github.com/dandavison/delta
     light = true
 
-    ; n/N to jumpt to the next/prev file/commit/chunk...
+    ; Enables n/N keys jumpt to the next/prev file/commit/chunk
     navigate = true
 
     ; https://dandavison.github.io/delta/hyperlinks.html
