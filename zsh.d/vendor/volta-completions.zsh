@@ -38,7 +38,7 @@ _arguments "${_arguments_options[@]}" : \
 '(--verbose)--quiet[Prevents unnecessary output]' \
 '-h[Print help]' \
 '--help[Print help]' \
-'*::tools -- Tools to fetch, like `node`, `yarn@latest` or `your-package@^14.4.3`:' \
+'*::tools -- Tools to fetch, like `node`, `yarn@latest` or `your-package@^14.4.3`:_default' \
 && ret=0
 ;;
 (install)
@@ -48,7 +48,7 @@ _arguments "${_arguments_options[@]}" : \
 '(--verbose)--quiet[Prevents unnecessary output]' \
 '-h[Print help]' \
 '--help[Print help]' \
-'*::tools -- Tools to install, like `node`, `yarn@latest` or `your-package@^14.4.3`:' \
+'*::tools -- Tools to install, like `node`, `yarn@latest` or `your-package@^14.4.3`:_default' \
 && ret=0
 ;;
 (uninstall)
@@ -58,7 +58,7 @@ _arguments "${_arguments_options[@]}" : \
 '(--verbose)--quiet[Prevents unnecessary output]' \
 '-h[Print help]' \
 '--help[Print help]' \
-':tool -- The tool to uninstall, like `ember-cli-update`, `typescript`, or <package>:' \
+':tool -- The tool to uninstall, like `ember-cli-update`, `typescript`, or <package>:_default' \
 && ret=0
 ;;
 (pin)
@@ -68,7 +68,7 @@ _arguments "${_arguments_options[@]}" : \
 '(--verbose)--quiet[Prevents unnecessary output]' \
 '-h[Print help]' \
 '--help[Print help]' \
-'*::tools -- Tools to pin, like `node@lts` or `yarn@^1.14`:' \
+'*::tools -- Tools to pin, like `node@lts` or `yarn@^1.14`:_default' \
 && ret=0
 ;;
 (list)
@@ -83,7 +83,7 @@ _arguments "${_arguments_options[@]}" : \
 '(--verbose)--quiet[Prevents unnecessary output]' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
-'::subcommand -- The tool to lookup - `all`, `node`, `npm`, `yarn`, `pnpm`, or the name of a package or binary:' \
+'::subcommand -- The tool to lookup - `all`, `node`, `npm`, `yarn`, `pnpm`, or the name of a package or binary:_default' \
 && ret=0
 ;;
 (completions)
@@ -107,7 +107,7 @@ _arguments "${_arguments_options[@]}" : \
 '(--verbose)--quiet[Prevents unnecessary output]' \
 '-h[Print help]' \
 '--help[Print help]' \
-':binary -- The binary to find, e.g. `node` or `npm`:' \
+':binary -- The binary to find, e.g. `node` or `npm`:_default' \
 && ret=0
 ;;
 (use)
@@ -117,7 +117,7 @@ _arguments "${_arguments_options[@]}" : \
 '(--verbose)--quiet[Prevents unnecessary output]' \
 '-h[Print help (see more with '\''--help'\'')]' \
 '--help[Print help (see more with '\''--help'\'')]' \
-'*::anything:' \
+'*::anything:_default' \
 && ret=0
 ;;
 (setup)
@@ -131,11 +131,11 @@ _arguments "${_arguments_options[@]}" : \
 ;;
 (run)
 _arguments "${_arguments_options[@]}" : \
-'--node=[Set the custom Node version]:version: ' \
-'(--bundled-npm)--npm=[Set the custom npm version]:version: ' \
-'(--no-pnpm)--pnpm=[Set the custon pnpm version]:version: ' \
-'(--no-yarn)--yarn=[Set the custom Yarn version]:version: ' \
-'*--env=[Set an environment variable (can be used multiple times)]:NAME=value: ' \
+'--node=[Set the custom Node version]:version:_default' \
+'(--bundled-npm)--npm=[Set the custom npm version]:version:_default' \
+'(--no-pnpm)--pnpm=[Set the custon pnpm version]:version:_default' \
+'(--no-yarn)--yarn=[Set the custom Yarn version]:version:_default' \
+'*--env=[Set an environment variable (can be used multiple times)]:NAME=value:_default' \
 '(--npm)--bundled-npm[Forces npm to be the version bundled with Node]' \
 '(--pnpm)--no-pnpm[Disables pnpm]' \
 '(--yarn)--no-yarn[Disables Yarn]' \
@@ -144,7 +144,7 @@ _arguments "${_arguments_options[@]}" : \
 '(--verbose)--quiet[Prevents unnecessary output]' \
 '-h[Print help]' \
 '--help[Print help]' \
-'*::command_and_args -- The command to run, along with any arguments:' \
+'*::command_and_args -- The command to run, along with any arguments:_default' \
 && ret=0
 ;;
 (help)
