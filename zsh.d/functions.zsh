@@ -120,3 +120,25 @@ darkmode() {
 brew-outdated() {
     join <(brew outdated) <(comm -13 <(brew ls --pinned) <(brew leaves))
 }
+
+wordle() {
+   rg "$@" ~/Documents/wordle-words.txt
+}
+
+containing() {
+    rg --pcre2 "$(printf '(?=.*%s)' "$@")"
+}
+#   - printf formats and prints text
+#   - '(?=.*%s)' is the format string where %s gets replaced by each argument
+#   - "$@" expands to all function arguments as separate words
+#
+#   Example:
+#   containing a d g
+#
+#   Which outputs:
+#   rg --pcre2 "(?=.*a)(?=.*d)(?=.*g)"
+#
+#   The regex breakdown:
+#   - (?=.*a) - positive lookahead: line must contain "a" somewhere
+#   - (?=.*d) - positive lookahead: line must contain "d" somewhere
+#   - (?=.*g) - positive lookahead: line must contain "g" somewhere
