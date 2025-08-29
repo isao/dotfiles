@@ -13,10 +13,10 @@
 #   ./node_modules/.bin       <- added
 #   /Users/isao/.volta/bin    <- added
 
-whence brew >/dev/null && export HOMEBREW_PREFIX="$(brew --prefix)"
+whence brew >/dev/null && eval "$(brew shellenv)"
 
 export EDITOR=$(where bbedit..sh bbedit code nano vim vi | grep ^/ | head -1)
-export VISUAL=$(where bbedit code | grep ^/ | head -1)
+# export VISUAL=$(where bbedit code | grep ^/ | head -1)
 export GREP_COLOR=32 # ANSI/VT100: 32 is green, '1;34' is bold blue
 export RSYNC_RSH=ssh
 
@@ -150,7 +150,8 @@ then
 
     [[ -r "$dotfiles/zsh.d/work.zsh" ]] && source "$dotfiles/zsh.d/work.zsh"
 
-    #[[ -r ~/repos/vendor/zsh-claude/zsh-claude ]] && source ~/repos/vendor/zsh-claude/zsh-claude
+    [[ -r ~/repos/vendor/zsh-claude/zsh-claude ]] \
+        && source ~/repos/vendor/zsh-claude/zsh-claude
 fi
 
 # Must be last in .zshrc <https://github.com/zsh-users/zsh-syntax-highlighting>
