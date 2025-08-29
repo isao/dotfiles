@@ -3,7 +3,8 @@
     useConfigOnly = true
 
 [core]
-    excludesfile = ~/.gitignore
+    ; Now at ~/.config/git/ignore
+    ; excludesfile = ~/.gitignore
 
     ; https://github.com/dandavison/delta
     pager = delta
