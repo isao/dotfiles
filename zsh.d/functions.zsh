@@ -121,10 +121,12 @@ brew-outdated() {
     join <(brew outdated) <(comm -13 <(brew ls --pinned) <(brew leaves))
 }
 
+# Find wordle words that match a regex
 wordle() {
-   rg "$@" ~/Documents/wordle-words.txt
+   rg --pcre2 "$@" ~/Documents/wordle-words.txt
 }
 
+# Filter stdin for lines containing all of the passed-in arguments
 containing() {
     rg --pcre2 "$(printf '(?=.*%s)' "$@")"
 }
