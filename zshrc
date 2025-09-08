@@ -123,8 +123,6 @@ autoload -Uz zcalc
 autoload -Uz colors
 colors
 
-export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-
 # Zsh Reporting
 # If nonnegative, commands whose combined user and system execution times
 # (measured in seconds) are greater than this value have timing statistics printed
@@ -144,23 +142,18 @@ then
     source "$dotfiles/zsh.d/bbedit.zsh"
     source "$dotfiles/zsh.d/git.zsh"
     source "$dotfiles/zsh.d/fzf.zsh"
+    source "$dotfiles/zsh.d/ripgrep.zsh"
     source "$dotfiles/zsh.d/nodejs.zsh"
 
     source "$dotfiles/zsh.d/prompt.zsh"
 
     [[ -r "$dotfiles/zsh.d/work.zsh" ]] && source "$dotfiles/zsh.d/work.zsh"
 
-    [[ -r ~/repos/vendor/zsh-claude/zsh-claude ]] \
-        && source ~/repos/vendor/zsh-claude/zsh-claude
-fi
-
-# Must be last in .zshrc <https://github.com/zsh-users/zsh-syntax-highlighting>
-# "zsh-syntax-highlighting.zsh wraps ZLE widgets. It must be sourced after all
-# custom widgets have been created (i.e., after all zle -N calls and after
-# running compinit). Widgets created later will work, but will not update the
-# syntax highlighting."
-if [[ -r "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]
-then
-    source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-    ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+    # Must be last. <https://github.com/zsh-users/zsh-syntax-highlighting>
+    # "zsh-syntax-highlighting.zsh wraps ZLE widgets. It must be sourced after all
+    # custom widgets have been created (i.e., after all zle -N calls and after
+    # running compinit). Widgets created later will work, but will not update the
+    # syntax highlighting."
+    [[ -r "$dotfiles/zsh.d/vendor/zsh-syntax-highlighting.zsh" ]] \
+        && source "$dotfiles/zsh.d/vendor/zsh-syntax-highlighting.zsh"
 fi

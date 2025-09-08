@@ -1,3 +1,5 @@
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgreprc"
+
 # https://dandavison.github.io/delta/grep.html
 rgdelta() {
     rg --json -C 2 $@ | delta
