@@ -114,6 +114,6 @@ fzf-history-widget() {
 zle -N fzf-history-widget
 bindkey '^r' fzf-history-widget # Replay a history entry.
 
-
-# [[ -r "$dotfiles/zsh.d/zsh-interactive-cd.plugin.zsh" ]] &&\
-#     source "$dotfiles/zsh.d/zsh-interactive-cd.plugin.zsh"
+# https://github.com/changyuheng/zsh-interactive-cd
+[[ -r "$dotfiles/zsh.d/vendor/zsh-interactive-cd.plugin.zsh" ]] && \
+    source "$dotfiles/zsh.d/vendor/zsh-interactive-cd.plugin.zsh"
