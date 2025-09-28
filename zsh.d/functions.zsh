@@ -126,16 +126,18 @@ wordle() {
    rg --pcre2 "$@" ~/Documents/wordle-words.txt
 }
 
-# Filter stdin for lines containing all of the passed-in arguments
-containing() {
-    rg --pcre2 "$(printf '(?=.*%s)' "$@")"
+# Filter stdin for lines containing all letters of any of the passed-in arguments
+with() {
+  rg --pcre2 "$(printf '(?=.*%s)' ${(s::)${(j::)@}})"
 }
 #   - printf formats and prints text
-#   - '(?=.*%s)' is the format string where %s gets replaced by each argument
-#   - "$@" expands to all function arguments as separate words
+#   - '(?=.*%s)' is the format string where `%s` gets replaced by each argument
+#   - ${(s::)@} splits the argument into characters
+#   - ${(j::)@} joins each argument into a string without spaces
 #
-#   Example:
-#   containing a d g
+#   Examples (spaces are not significant):
+#   with a d g
+#   with adg
 #
 #   Which outputs:
 #   rg --pcre2 "(?=.*a)(?=.*d)(?=.*g)"
@@ -144,3 +146,9 @@ containing() {
 #   - (?=.*a) - positive lookahead: line must contain "a" somewhere
 #   - (?=.*d) - positive lookahead: line must contain "d" somewhere
 #   - (?=.*g) - positive lookahead: line must contain "g" somewhere
+
+# Filter stdin for lines NOT containing any letters of any of the passed-in arguments
+without() {
+    local joined="${(j::)@}"  # join arguments with nothing
+    rg -v "[$joined]"
+}
