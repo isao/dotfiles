@@ -131,7 +131,7 @@ with() {
     rg --pcre2 "$(printf '(?=.*%s)' ${(s::)${(j::)@}})"
 }
 #   - printf formats and prints text
-#   - '(?=.*%s)' is the format string where `%s` gets replaced by each argument
+#   - '(?=.*%s)' is the format string where `%s` gets replaced by each letter
 #   - ${(s::)@} splits the argument into characters
 #   - ${(j::)@} joins each argument into a string without spaces
 #
