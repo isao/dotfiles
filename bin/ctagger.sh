@@ -1,61 +1,33 @@
 #!/bin/bash
 set -eo pipefail
 
-# Helper script to run `ctags` [Universal ctags](https://github.com/universal-ctags/ctags)
-# - run from the git repo base dir.
-# - works from BBEdit script menu.
-# - reads options from `.ctagger` config files in that directory (default `-R`).
-#   - can specify sub-directories, globs etc.
-#       for example: `-R app tests/*helper* *.md *.js package.json`
-# - run in the background and raise a notification when done
+# Run `ctags` recursively from the project root directory.
+#
+# If the project's directory name matches a sub-directory in ~/config/ctags/
+# then ctags config files there will be pre-loaded.
 
 function err() {
-    # shellcheck disable=SC2086
-    echo $2 >&2
-    # shellcheck disable=SC2086
-    exit $1
+    echo "$2" >&2
+    exit "$1"
 }
 
 function alert() {
-    osascript -e "display notification \"$basedir indexed.\" with title \"$scriptname\""
+    osascript -e "display notification \"$1 indexed.\" with title \"$2\""
 }
 
-#
-#   Are ctags configured?
-#
-type ctags >/dev/null \
-    || err 1 "Error: you need to install ctags (brew install --HEAD universal-ctags/universal-ctags/universal-ctags)."
+# Set path to find the project directory to index with ctags.
+# Use $1, $BB_DOC_PATH (if launched from BBEdit), or $PWD in that order.
+path="${1:-${BB_DOC_PATH:-$PWD}}"
 
-[[ -d ~/.ctags.d ]] || err 3 "Error: you need to configure ~/.ctags.d"
+# This script, which is next to `show-package-toplevel.sh`.
+self_dir="$(dirname "$(realpath "$0")")"
+self_name="$(basename "$0" .sh)"
 
-#
-#   Environment.
-#
-scriptname=$(basename "$0" .sh)
+# Get the path and basename of the nearest package (directory with a
+# "package.json" or is a git root) from the current working directory.
+package_path="$("$self_dir/show-package-toplevel.sh" "$path")"
+package_name="$(basename "$package_path")"
 
-# If invoked from BBEdit Script Menu...
-[[ -f $BB_DOC_PATH ]] && cd "$(realpath "$(dirname "$BB_DOC_PATH")")"
-
-basedir="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
-cd "$basedir"
-
-#
-#   Load arguments to ctags from a file, one per line, ignoring lines with "#".
-#
-#   Example `.ctagger` file:
-#
-#       # This is a comment.
-#       -R
-#       apps/*/src
-#       shared/*/src
-#
-conf=$(test -r .ctagger && grep -v \# .ctagger | xargs || echo '-R')
-
-#
-#   Invoke ctags in the background, raise notification when done.
-#
-#(ctags $@ $conf && alert) &
-#type ctags-index-hbs >/dev/null && ctags-index-hbs &
-
-# shellcheck disable=SC2068,SC2086
-ctags $@ $conf
+# Generate ctags from the package's top-level directory.
+ctags -R "$package_path" --options-maybe="$package_name" "$@"
+alert "$package_name" "$self_name"
