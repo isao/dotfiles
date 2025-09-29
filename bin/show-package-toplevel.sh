@@ -32,6 +32,7 @@ while [ "$path" != "$HOME" ]
 do
     if [[ -f "$path/package.json" || "$path" = "$git_root" ]]
     then
+        # Found the nearest top-level package or git repo directory.
         echo "$path"
         exit 0
     fi
