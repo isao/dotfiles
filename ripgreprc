@@ -5,3 +5,19 @@
 # Make a custom `type`, use like `-t web`.
 --type-add
 web:include:css,html,js,json,svelte,typescript
+
+#   Hyperlinking
+#
+
+# https://github.com/enochchau/ripgrep/blob/master/crates/printer/src/hyperlink/aliases.rs
+# "default" format is `file://{host}{path}`, but must be opted into per below.
+#--hyperlink-format=default
+
+# Enable cmd-clicking to open a file in BBEdit
+--hyperlink-format
+x-bbedit://open?url=file:///{path}&line={line}&column={column}
+
+# Uncomment to add (non-default) column numbers in addition to the default line
+# numbers. Required to hyperlink to a line and column (by clicking on the column
+# number).
+#--column
