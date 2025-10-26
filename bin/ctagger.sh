@@ -36,5 +36,5 @@ package_path="$("$self_dir/show-package-toplevel.sh" "$path")"
 package_name="$(basename "$package_path")"
 
 # Generate ctags from the package's top-level directory.
-ctags --options-maybe="$package_name" --recurse "$package_path"
+ctags --options-maybe="$package_name" --recurse "$package_path" &
 alert "$package_name" "$self_name"
