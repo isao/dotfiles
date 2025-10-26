@@ -28,30 +28,34 @@ gg() {
     git status --branch --short $@
 }
 
+# git ignored files
 ggi() {
     gg --ignored $@
 }
 
-# summarize & count ignored pathnames by their first two path segments
+# git ignored files (summarized by their first two path segments, with counts)
 ggii() {
     ggi $@ | cut -c 4- | cut -d / -f 1-2 | sort | uniq -c
 }
 
-#
-#   git branch
-#
+# git branch (sorted by date, truncated to terminal width)
 gbb() {
     git branch --sort -authordate --color -v $@ | cut -c 1-$COLUMNS
 }
 
-# git branches, except old ones
+# git branch (filtering out ones whose names begin with "old/")
 gb() {
     gbb $@ | egrep -v "^. old/"
 }
 
-# git branches with remote tracking info
+# git branch (with -v for remote tracking info)
 gbv() {
     gb -v $@
+}
+
+# git branch (sorted by branch name)
+gbs() {
+    gb --sort=refname $@
 }
 
 # fetch and switch to an upstream GitHub pull request branch.
