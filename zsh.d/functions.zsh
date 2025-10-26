@@ -152,3 +152,7 @@ without() {
     local joined="${(j::)@}"  # join arguments with nothing
     rg -v "[$joined]"
 }
+
+letter_frequency() {
+    fold -w1 | sort | uniq -c | sort -rn
+}
