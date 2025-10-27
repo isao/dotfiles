@@ -15,7 +15,7 @@
 
 
 # Don't index constants "C": too many "Warning: ignoring null tag"
---javascript-kinds=-C
+#--javascript-kinds=-C
 
 # Don't index properties "p": includes local variables
 --javascript-kinds=-p
