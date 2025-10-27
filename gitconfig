@@ -61,6 +61,9 @@
     ; <http://stackoverflow.com/questions/3065650>
     conflicts = diff --name-only --diff-filter=U
 
+    ; Get the SHA of a ref (default is HEAD) without a trailing newline.
+    sha = "!f() { git rev-parse ${1:-HEAD} | tr -d '\n'; }; f"
+
     ; in every repo reachable from cwd, do fetch-all
     fetchcrazy = !"find . -type d -name .git -maxdepth 3 -execdir pwd \\; -execdir git fetch --all \\;"
 
