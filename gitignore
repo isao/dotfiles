@@ -18,3 +18,5 @@ tags
 artifacts
 dist
 tmp
+
+**/.claude/settings.local.json
