@@ -15,12 +15,13 @@
 
 whence brew >/dev/null && eval "$(brew shellenv)"
 
-export EDITOR=$(where bbedit..sh bbedit code nano vim vi | grep ^/ | head -1)
+export EDITOR="bbedit -w"
+#export EDITOR=$(where bbedit..sh bbedit code nano vim vi | grep ^/ | head -1)
 # export VISUAL=$(where bbedit code | grep ^/ | head -1)
 export GREP_COLOR=32 # ANSI/VT100: 32 is green, '1;34' is bold blue
 export RSYNC_RSH=ssh
 
-export LESS='--tabs=4 --ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS --no-init --quit-if-one-screen'
+export LESS='--tabs=4 --ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS --no-init --quit-if-one-screen --mouse'
 
 # https://github.com/sharkdp/bat
 whence bat >/dev/null && {
