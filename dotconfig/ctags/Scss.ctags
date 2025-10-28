@@ -1,0 +1,12 @@
+# % ctags --list-kinds-full=scss
+# #LETTER NAME        ENABLED REFONLY NROLES MASTER DESCRIPTION
+# P       placeholder yes     no      0      NONE   placeholder classes
+# c       class       yes     no      0      NONE   classes
+# f       function    yes     no      0      NONE   functions
+# i       id          yes     no      0      NONE   identities
+# m       mixin       yes     no      0      NONE   mixins
+# v       variable    yes     no      0      NONE   variables
+# z       parameter   yes     no      0      NONE   function parameters
+
+# --scss-kinds=-i
+# --scss-kinds=-z

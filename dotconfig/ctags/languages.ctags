@@ -1,0 +1,5 @@
+#--languages=-ctags
+--languages=-diff
+--languages=-json
+--languages=-svg
+--languages=-xml
