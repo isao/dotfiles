@@ -1,5 +1,0 @@
-# Config for ctagger.sh
-# args are passed to ctags
---languages=TypeScript
---sort=no
---recurse
