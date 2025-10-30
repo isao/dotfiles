@@ -134,19 +134,19 @@ export REPORTTIME=3
 
 if [[ -L ~/.zshrc ]]
 then
-    local dotfiles="$(dirname "$(readlink ~/.zshrc)")"
+    myzshd="$HOME/repos/dotfiles/zsh.d"
 
-    source "$dotfiles/zsh.d/aliases.zsh"
-    source "$dotfiles/zsh.d/completions.zsh"
-    source "$dotfiles/zsh.d/functions.zsh"
+    source "$myzshd/aliases.zsh"
+    source "$myzshd/completions.zsh"
+    source "$myzshd/functions.zsh"
 
-    source "$dotfiles/zsh.d/bbedit.zsh"
-    source "$dotfiles/zsh.d/git.zsh"
-    source "$dotfiles/zsh.d/fzf.zsh"
-    source "$dotfiles/zsh.d/ripgrep.zsh"
-    source "$dotfiles/zsh.d/nodejs.zsh"
+    source "$myzshd/bbedit.zsh"
+    source "$myzshd/git.zsh"
+    source "$myzshd/fzf.zsh"
+    source "$myzshd/ripgrep.zsh"
+    source "$myzshd/nodejs.zsh"
 
-    source "$dotfiles/zsh.d/prompt.zsh"
+    source "$myzshd/prompt.zsh"
 
     [[ -r "$HOME/repos/dotwork/work.zsh" ]] && \
         source "$HOME/repos/dotwork/work.zsh"
@@ -156,6 +156,6 @@ then
     # custom widgets have been created (i.e., after all zle -N calls and after
     # running compinit). Widgets created later will work, but will not update the
     # syntax highlighting."
-    [[ -r "$dotfiles/zsh.d/vendor/zsh-syntax-highlighting.zsh" ]] \
-        && source "$dotfiles/zsh.d/vendor/zsh-syntax-highlighting.zsh"
+    [[ -r "$myzshd/vendor/zsh-syntax-highlighting.zsh" ]] \
+        && source "$myzshd/vendor/zsh-syntax-highlighting.zsh"
 fi

@@ -12,7 +12,7 @@ if (whence volta >/dev/null) {
         # ^- Already added to `/etc/paths`
     fi
 
-    source "$dotfiles/zsh.d/vendor/volta-completions.zsh"
+    source "$myzshd/vendor/volta-completions.zsh"
 }
 
 # Just use `volta list all`
