@@ -12,11 +12,19 @@ my_bin_files="$repo_abspath/bin"
 # -v: verbose
 symlink='ln -hisv'
 
-# For all files in `./home/*` (excluding hidden, git-ignored, files whose names
-# end with "-disabled".):
-# - create matching parent directory(ies) in `$HOME/`, if the exist in `./home`.
+# Set DRY_RUN to echo instead of execute commands.
+run() {
+  if [[ -n "${DRY_RUN:-}" ]]; then
+    echo "DRY RUN:" "$@"
+  else
+    "$@"
+  fi
+}
+
+# Symlink files from `./home/*` to `$HOME/`:
 # - add a "." to the symlinked file, so the git-tracked ones don't need to be
 #   hidden from default filesystem commands.
+# - create matching parent directory(ies) in `$HOME/`, if the exist in `./home`.
 #
 # Example:
 #   ./home/zshrc          -> $HOME/.zshrc
@@ -30,7 +38,6 @@ echo "* Symlinking dotfiles."
 
 # Change the working directory for `fd` to output the relative path.
 cd "$my_dot_files"
-
 while read -r source_file
 do
   # Add a "." dot prefix to source pathnames.
@@ -43,20 +50,20 @@ do
   # structure in `$HOME`, if needed.
   if [[ "$(dirname "$source_file")" != '.' && ! -e "$HOME/$link_dir" ]]
   then
-    mkdir -pv "$HOME/$link_dir"
+    run mkdir -pv "$HOME/$link_dir"
   fi
 
   # shellcheck disable=SC2217
-  $symlink "$my_dot_files/$source_file" "$HOME/$link_file" </dev/tty || true
+  run $symlink "$my_dot_files/$source_file" "$HOME/$link_file" </dev/tty || true
   # Note: `</dev/tty || true` enables -i prompts inside the while/read loop.
 
 done < <(fd --type f --exclude '*-disabled')
 
-# Since `git` operations will apply the default `umask`, we need to fix the
-# permissions for `~/.ssh/config -> ./home/ssh/config`.
+# Fix permissions. `git` operations will apply the default `umask`, but these
+# should be more restrictive. `chmod` follows symlinks.
 echo "* Setting permissions."
-chmod -vv 700 "$HOME/.ssh"
-chmod -vv 600 "$HOME/.ssh/config" "$HOME/.ssh/config-"* 2>/dev/null || true
+run chmod -vv 700 "$HOME/.ssh"
+run chmod -vv 600 "$HOME/.ssh/config" "$HOME/.ssh/config-"* 2>/dev/null || true
 
 # Symlink to files from `./bin/*.sh` in `$HOMEBREW_PREFIX/bin/`.
 # - Remove the ".sh" extension from the symlink filename.
@@ -68,10 +75,10 @@ if [[ -d "$BIN_PATH" ]] && command -v brew >/dev/null 2>&1
 then
     for my_bin_file in "$my_bin_files/"*.sh
     do
-      $symlink "$my_bin_file" "$BIN_PATH/$(basename "$my_bin_file" .sh)"
+      run $symlink "$my_bin_file" "$BIN_PATH/$(basename "$my_bin_file" .sh)"
     done
     echo "* Cleanup."
-    brew cleanup --prune-prefix --verbose
+    run brew cleanup --prune-prefix --verbose
 fi
 
 echo "* Done."
