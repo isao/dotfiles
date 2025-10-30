@@ -1,42 +1,70 @@
-#!/bin/bash
+#!/bin/bash -eu
+set -o pipefail
+
+repo_abspath="$(cd "$(dirname "$0")" && git rev-parse --show-toplevel)"
+my_dot_files="$repo_abspath/home"
+my_bin_files="$repo_abspath/bin"
+
+# ln flags:
+# -h: don't follow symlinks (replace the symlink itself)
+# -i: prompt before overwriting
+# -s: symbolic link
+# -v: verbose
+symlink='ln -hisv'
+
+# For all files in `./home/*` (excluding hidden, git-ignored, files whose names
+# end with "-disabled".):
+# - create matching parent directory(ies) in `$HOME/`, if the exist in `./home`.
+# - add a "." to the symlinked file, so the git-tracked ones don't need to be
+#   hidden from default filesystem commands.
 #
-# Inspired by <https://github.com/gibfahn/dot/blob/main/link>
+# Example:
+#   ./home/zshrc          -> $HOME/.zshrc
+#   ./home/config/foo/bar -> $HOME/.config/foo/bar
 #
-# shellcheck shell=bash disable=SC2059
+# Safety:
+# - Only symlinks file (creates directories as needed, never removes them).
+# - Prompts before overwriting existing files (`ln -i` flag).
+# - Skips hidden files (like `.DS_Store`) and *-disabled files in the repo.
+echo "* Symlinking dotfiles."
 
-set -eu
+# Change the working directory for `fd` to output the relative path.
+cd "$my_dot_files"
 
-cd "$(dirname "$(readlink "$0")")/home"
-
-source_basedir="$PWD"
-
-echo "source_basedir: $source_basedir"
-
-run_cmd='echo'
-
-
-while read -r file
+while read -r source_file
 do
-  # Remove leading "./"
-  source_file="${file#./}"
-
-  # Prefix with a dot.
+  # Add a "." dot prefix to source pathnames.
   link_file=".${source_file}"
+
+  # The source file's parent directory name, relative to `./home`.
   link_dir="$(dirname "$link_file")"
 
   # If the source file is in a subdirectory, make the corresponding directory
-  # if needed.
+  # structure in `$HOME`, if needed.
   if [[ "$(dirname "$source_file")" != '.' && ! -e "$HOME/$link_dir" ]]
   then
-    $run_cmd mkdir -pv "$HOME/$link_dir"
+    mkdir -pv "$HOME/$link_dir"
   fi
 
-  # `ln` flags:
-  # -f force
-  # -h treat directories like files       ????????
-  # -i prompt before replacing anything
-  # -s symbolic
-  # -v verbose
-  $run_cmd ln -fhisv "$source_basedir/$source_file" "$HOME/$link_file"
+  # Note: `</dev/tty || true` enables -i prompts inside the while/read loop.
+  # shellcheck disable=SC2217
+  $symlink "$my_dot_files/$source_file" "$HOME/$link_file" </dev/tty || true
 
-done < <(find . -type f -not \( -name '.*' -o -name '*-disabled' \))
+done < <(fd --type f --exclude '*-disabled')
+
+
+# Symlink to files from `./bin/*.sh` in `$HOMEBREW_PREFIX/bin/`.
+# - Remove the ".sh" extension from the symlink filename.
+# - Cleanup any/all broken symlinks.
+echo "* Symlinking binfiles."
+BIN_PATH="$HOMEBREW_PREFIX/bin"
+
+if [[ -d "$BIN_PATH" ]] && command -v brew >/dev/null 2>&1
+then
+    for my_bin_file in "$my_bin_files/"*.sh
+    do
+      $symlink "$my_bin_file" "$BIN_PATH/$(basename "$my_bin_file" .sh)"
+    done
+    echo "* Cleanup."
+    brew cleanup --prune-prefix --verbose
+fi
