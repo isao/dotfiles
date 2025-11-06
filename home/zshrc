@@ -153,10 +153,10 @@ then
         source "$HOME/repos/dotwork/work.zsh"
 
     # Must be last. <https://github.com/zsh-users/zsh-syntax-highlighting>
-    # "zsh-syntax-highlighting.zsh wraps ZLE widgets. It must be sourced after all
-    # custom widgets have been created (i.e., after all zle -N calls and after
-    # running compinit). Widgets created later will work, but will not update the
-    # syntax highlighting."
+    # "zsh-syntax-highlighting.zsh wraps ZLE widgets. It must be sourced after
+    # all custom widgets have been created (i.e., after all zle -N calls and
+    # after running compinit). Widgets created later will work, but will not
+    # update the syntax highlighting."
     [[ -r "$myzshd/vendor/zsh-syntax-highlighting.zsh" ]] \
         && source "$myzshd/vendor/zsh-syntax-highlighting.zsh"
 fi
