@@ -7,8 +7,6 @@
 npm-debug.log
 
 # ctags
-ctags
-*.ctags
 tags
 *.tags
 
