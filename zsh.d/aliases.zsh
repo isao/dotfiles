@@ -3,6 +3,7 @@
 #
 
 alias cd..='cd ..'
+alias cdreal='cd -P .'  # change to the `realpath` of the cwd.
 alias ls='ls -FGH'
 alias l='ls'
 alias ll='/bin/ls -lhGH'
