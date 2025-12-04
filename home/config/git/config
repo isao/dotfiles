@@ -78,6 +78,9 @@
     ; rebase interactively, with my common options.
     rbi = rebase --autostash --autosquash --interactive --no-verify
 
+    ; Resume commit. Use the saved message from before a git commit error.
+    recommit = commit -t .git/COMMIT_EDITMSG
+
     ; Preview the `git rmmerged` alias below.
     showmerged = !git branch --merged | egrep -v '^[^ ]|release/|master|main'
 
