@@ -11,8 +11,6 @@ ctags
 *.ctags
 tags
 *.tags
-# Config files for ~/repos/dotfiles/bin/ctagger.sh
-.ctagger
 
 # build dirs
 artifacts
