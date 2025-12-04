@@ -1,11 +1,8 @@
 [user]
-	name = Isao Yagi
+    name = Isao Yagi
     useConfigOnly = true
 
 [core]
-    ; Now at ~/.config/git/ignore
-    ; excludesfile = ~/.gitignore
-
     ; https://github.com/dandavison/delta
     pager = delta
 
@@ -14,7 +11,6 @@
 
 [color]
     ui = auto
-
 
 [interactive]
     diffFilter = delta --color-only
@@ -155,7 +151,7 @@
 
     ; https://dandavison.github.io/delta/hyperlinks.html
     hyperlinks = true
-    hyperlinks-file-link-format = "x-bbedit://open?url=file:///{path}&{line}"
+    ;hyperlinks-file-link-format = "x-bbedit://open?url=file:///{path}&line={line}"
 
     ; To disable the line numbers in side-by-side view, but keep a vertical
     ; delimiter line between the left and right panels, use the line-numbers
@@ -164,3 +160,6 @@
     ;line-numbers-right-format = "│ "
     line-numbers = true
     side-by-side = true
+
+[include]
+    path = 	~/.config/git/work.config
