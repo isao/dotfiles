@@ -46,12 +46,17 @@ do
     mkdir -pv "$HOME/$link_dir"
   fi
 
-  # Note: `</dev/tty || true` enables -i prompts inside the while/read loop.
   # shellcheck disable=SC2217
   $symlink "$my_dot_files/$source_file" "$HOME/$link_file" </dev/tty || true
+  # Note: `</dev/tty || true` enables -i prompts inside the while/read loop.
 
 done < <(fd --type f --exclude '*-disabled')
 
+# Since `git` operations will apply the default `umask`, we need to fix the
+# permissions for `~/.ssh/config -> ./home/ssh/config`.
+echo "* Setting permissions."
+chmod -vv 700 "$HOME/.ssh"
+chmod -vv 600 "$HOME/.ssh/config" "$HOME/.ssh/config-"* 2>/dev/null || true
 
 # Symlink to files from `./bin/*.sh` in `$HOMEBREW_PREFIX/bin/`.
 # - Remove the ".sh" extension from the symlink filename.
@@ -68,3 +73,5 @@ then
     echo "* Cleanup."
     brew cleanup --prune-prefix --verbose
 fi
+
+echo "* Done."
