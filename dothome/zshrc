@@ -148,7 +148,8 @@ then
 
     source "$dotfiles/zsh.d/prompt.zsh"
 
-    [[ -r "$dotfiles/zsh.d/work.zsh" ]] && source "$dotfiles/zsh.d/work.zsh"
+    [[ -r "$HOME/repos/dotwork/work.zsh" ]] && \
+        source "$HOME/repos/dotwork/work.zsh"
 
     # Must be last. <https://github.com/zsh-users/zsh-syntax-highlighting>
     # "zsh-syntax-highlighting.zsh wraps ZLE widgets. It must be sourced after all
