@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Given a path (defaulting to the the current working directory), find the
-# nearest parent directory that has a `package.json` file, or is the top level
-# of a git repo.
+# Given a path (defaulting to the current working directory), find the nearest
+# parent directory that has a `package.json` file, or is the top level of a git
+# repo.
 #
 
 error() {
