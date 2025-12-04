@@ -72,6 +72,9 @@
     ; log shorter
     lg = log --oneline --decorate
 
+    ; log shorter, ignoring commits brought in by a merge.
+    lgg = log --oneline --decorate --first-parent
+
     ; rebase interactively, with my common options.
     rbi = rebase --autostash --autosquash --interactive --no-verify
 
