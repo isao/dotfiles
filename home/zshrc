@@ -145,6 +145,7 @@ then
     source "$myzshd/fzf.zsh"
     source "$myzshd/ripgrep.zsh"
     source "$myzshd/nodejs.zsh"
+    source "$myzshd/mcat.zsh"
 
     source "$myzshd/prompt.zsh"
 
