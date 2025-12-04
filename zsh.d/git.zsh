@@ -144,3 +144,12 @@ fzf-git-fixup-commit() {
 }
 zle -N fzf-git-fixup-commit
 bindkey '^g^f' fzf-git-fixup-commit # Pick a git commit made since the last merge to --fixup or --squash.
+
+
+# Select a git worktree path.
+fzf-git-worktree-path() {
+    LBUFFER+="$(git worktree list | awk '{print $1}' | fzf)"
+    zle redisplay
+}
+zle -N fzf-git-worktree-path
+bindkey '^g^w' fzf-git-worktree-path # Pick git worktree path
