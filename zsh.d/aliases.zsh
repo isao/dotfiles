@@ -2,13 +2,13 @@
 # built-ins
 #
 
-alias cd..='cd ..'
-alias cdreal='cd -P .'  # change to the `realpath` of the cwd.
-alias ls='ls -FGH'
+alias cd..='cd ..'  # typo
+alias cdreal='cd -P'  # change to the `realpath` of the cwd.
+alias ls='ls -FGH'  # -F display symbol after pathnames; -G colorize; -H follow symlink
 alias l='ls'
 alias ll='/bin/ls -lhGH'
-alias kk=ll
-alias lll=ll
+alias kk=ll  # typo
+alias lll=ll  # typo
 alias ls.='ls -dG .?*'  # ls dot files & dirs only
 alias ll.='ls -dGl .?*' # ls dot files & dirs only
 alias la='ll -A'
