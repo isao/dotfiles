@@ -88,17 +88,6 @@ mkcd() {
     mkdir -p "$1" && cd "$1"
 }
 
-gohome() {
-    adb disconnect &
-    echo "will sleep in 5 seconds, turn off keyboard and mouse now."
-    sleep 5
-    osascript -e 'tell application "Finder" to sleep'
-}
-
-canary() {
-    open -a 'Google Chrome Canary' --args --ignore-certificate-errors --enable-precise-memory-info $@
-}
-
 # https://stackoverflow.com/a/7222469/8947435
 # To ignore network mounts and optical disks, use:
 # osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true and local volume is true and free space is not equal to 0)'
