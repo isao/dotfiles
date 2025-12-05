@@ -9,8 +9,8 @@
     ; https://news.ycombinator.com/item?id=11388479
     untrackedCache = true
 
-[color]
-    ui = auto
+    ; Use macOS FSEvents API to watch for file changes.
+    fsmonitor = true
 
 [interactive]
     diffFilter = delta --color-only
@@ -23,6 +23,10 @@
 [init]
 	defaultBranch = main
 
+[fetch]
+    prune = true
+    pruneTag = true
+
 [push]
     default = current
 
@@ -33,13 +37,13 @@
 [remote]
 	pushdefault = origin
 
+[tag]
+    ; Sorts tags by version number (e.g. 1.2.10 comes after 1.2.9).
+    sort = version:refname
+
 [credential]
     ;for https git uris w/ auth
     helper = osxkeychain
-
-[github]
-    user = isao
-    password = !security find-generic-password -w -s github.password
 
 [alias]
     ; list these git aliases
@@ -122,7 +126,7 @@
 [diff]
     algorithm = histogram
     colorMoved = default
-    compactionHeuristic = true
+    colorMovedWS = allow-indentation-change
 
 [difftool]
     prompt = no
@@ -142,11 +146,6 @@
 
 [mergetool "bc4"]
 	trustExitCode = true
-
-[filter "lfs"]
-    clean = git-lfs clean %f
-    smudge = git-lfs smudge %f
-    required = true
 
 [delta]
     ; https://github.com/dandavison/delta
