@@ -22,6 +22,12 @@ alias tgl='tig log'
 alias tgb='tig blame -w -C'
 
 #
+#   fork
+#
+alias fs='fork status'
+alias fl='fork log'
+
+#
 #   git status
 #
 gg() {

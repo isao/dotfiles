@@ -36,6 +36,3 @@ alias plaintext='pbpaste -Prefer txt | pbcopy'
 
 # https://furbo.org/2021/08/25/jsc-my-new-best-friend/
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers/jsc'
-
-alias fs='fork status'
-alias fl='fork log'
