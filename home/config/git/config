@@ -168,4 +168,5 @@
     side-by-side = true
 
 [include]
-    path = 	~/.config/git/work.config
+    ; Optional configs.
+    path = ~/.config/git/includes.config
