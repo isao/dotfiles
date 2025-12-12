@@ -52,7 +52,7 @@ zle -N self-insert url-quote-magic
 #   Other completions
 #
 
-for i in shellcheck tsc ctags
+for i in shellcheck tsc ctags claude
 do
     whence "$i" >/dev/null && compdef _gnu_generic "$i"
 done
