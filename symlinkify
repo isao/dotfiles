@@ -3,7 +3,6 @@ set -o pipefail
 
 repo_abspath="$(cd "$(dirname "$0")" && git rev-parse --show-toplevel)"
 my_dot_files="$repo_abspath/home"
-my_bin_files="$repo_abspath/bin"
 
 # ln flags:
 # -h: don't follow symlinks (replace the symlink itself)
@@ -64,21 +63,5 @@ done < <(fd --type f --exclude '*-disabled')
 echo "* Setting permissions."
 run chmod -vv 700 "$HOME/.ssh"
 run chmod -vv 600 "$HOME/.ssh/config" "$HOME/.ssh/config-"* 2>/dev/null || true
-
-# Symlink to files from `./bin/*.sh` in `$HOMEBREW_PREFIX/bin/`.
-# - Remove the ".sh" extension from the symlink filename.
-# - Cleanup any/all broken symlinks.
-echo "* Symlinking binfiles."
-BIN_PATH="$HOMEBREW_PREFIX/bin"
-
-if [[ -d "$BIN_PATH" ]] && command -v brew >/dev/null 2>&1
-then
-    for my_bin_file in "$my_bin_files/"*.sh
-    do
-      run $symlink "$my_bin_file" "$BIN_PATH/$(basename "$my_bin_file" .sh)"
-    done
-    echo "* Cleanup."
-    run brew cleanup --prune-prefix --verbose
-fi
 
 echo "* Done."
