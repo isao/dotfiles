@@ -82,3 +82,9 @@ fin() {
 shellcheckbb() {
     shellcheck -f gcc "$@" | bbresults --pattern gcc
 }
+
+# Show `tsc` errors in a BBEdit results browser.
+tscbb() {
+    tsc --noEmit --pretty false "$@" \
+        | bbresults -p '^(?P<file>.+?)\((?P<line>\d+),(?P<col>\d+)\): (?P<type>\w+) (?P<msg>.+)'
+}
