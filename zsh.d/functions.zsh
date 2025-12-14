@@ -88,6 +88,19 @@ mkcd() {
     mkdir -p "$1" && cd "$1"
 }
 
+# `mv <file(s)> <dest>` except `mkdir -p` the destination first'
+mvp() {
+    # Last argument.
+    local dest="${@: -1}"
+    if [[ -e "$dest" && ! -d "$dest" ]]
+    then
+        echo "Error: destination '$dest' exists but is not a directory" >&2
+        return 1
+    fi
+
+    mkdir -p "$dest" && mv -v "$@"
+}
+
 # https://stackoverflow.com/a/7222469/8947435
 # To ignore network mounts and optical disks, use:
 # osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true and local volume is true and free space is not equal to 0)'
