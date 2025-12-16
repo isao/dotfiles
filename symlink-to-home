@@ -31,7 +31,7 @@ do
     # Make parent sub-directories, if the source file is in a subdirectory.
     link_dirname="$(dirname "$link_pathname")"
     [[ "$link_dirname" != '.' ]] && \
-        $run mkdir -pv "$HOME/$link_dirname"
+        $run mkdir -p "$HOME/$link_dirname"
 
     # Move pre-existing files to a backup directory.
     [[ -e "$HOME/$link_pathname" || -L "$HOME/$link_pathname" ]] && {
@@ -40,9 +40,8 @@ do
     }
 
     # Symlink source dotfile to $HOME.
-    $run ln -hsvw "$repo_abspath/$source_pathname" "$HOME/$link_pathname"
-    # -h  don't follow symlinks (replace the symlink itself).
-    # -w  warn if the source of a symbolic link does not currently exist.
+    $run ln -sv "$repo_abspath/$source_pathname" "$HOME/$link_pathname"
+
 done < <(command fd --type f --ignore-file="$ignore_file")
 
 # Clean up backup directory if empty, otherwise report location.
