@@ -1,67 +1,59 @@
 #!/bin/bash -eu
-set -o pipefail
+set -eu -o pipefail
 
-repo_abspath="$(cd "$(dirname "$0")" && git rev-parse --show-toplevel)"
-my_dot_files="$repo_abspath/home"
-
-# ln flags:
-# -h: don't follow symlinks (replace the symlink itself)
-# -i: prompt before overwriting
-# -s: symbolic link
-# -v: verbose
-symlink='ln -hisv'
-
-# Set DRY_RUN to echo instead of execute commands.
-run() {
-  if [[ -n "${DRY_RUN:-}" ]]; then
-    echo "DRY RUN:" "$@"
-  else
-    "$@"
-  fi
-}
-
-# Symlink files from `./home/*` to `$HOME/`:
-# - add a "." to the symlinked file, so the git-tracked ones don't need to be
-#   hidden from default filesystem commands.
-# - create matching parent directory(ies) in `$HOME/`, if the exist in `./home`.
+# For every file in this repo, except the ones matched in `$ignore_file`:
+# - create a symlink in $HOME for the source dotfile pathname, including any
+#   intermediate directories.
+# - add a "." to the symlinked pathname (so they're not hidden in this repo).
 #
 # Example:
 #   ./home/zshrc          -> $HOME/.zshrc
 #   ./home/config/foo/bar -> $HOME/.config/foo/bar
-#
-# Safety:
-# - Only symlinks file (creates directories as needed, never removes them).
-# - Prompts before overwriting existing files (`ln -i` flag).
-# - Skips hidden files (like `.DS_Store`) and *-disabled files in the repo.
-echo "* Symlinking dotfiles."
+
+repo_abspath="$(cd "$(dirname "$0")" && git rev-parse --show-toplevel)"
+
+ignore_file="$repo_abspath/exclude.ini"
+
+backup_dir="${TMPDIR:-/tmp}/dotfiles-$(date +%Y%m%d-%H%M%S)"
+
+# Pass `--dry-run` to echo commands instead of running them.
+[[ "${1:-}" == "--dry-run" ]] && run="echo" || run=
 
 # Change the working directory for `fd` to output the relative path.
-cd "$my_dot_files"
-while read -r source_file
+cd "$repo_abspath"
+
+echo "* Symlinking dotfiles."
+while read -r source_pathname
 do
-  # Add a "." dot prefix to source pathnames.
-  link_file=".${source_file}"
+    # Prefix the symlink pathname that we're going to make with a dot.
+    link_pathname=".${source_pathname}"
 
-  # The source file's parent directory name, relative to `./home`.
-  link_dir="$(dirname "$link_file")"
+    # Make parent sub-directories, if the source file is in a subdirectory.
+    link_dirname="$(dirname "$link_pathname")"
+    [[ "$link_dirname" != '.' ]] && \
+        $run mkdir -pv "$HOME/$link_dirname"
 
-  # If the source file is in a subdirectory, make the corresponding directory
-  # structure in `$HOME`, if needed.
-  if [[ "$(dirname "$source_file")" != '.' && ! -e "$HOME/$link_dir" ]]
-  then
-    run mkdir -pv "$HOME/$link_dir"
-  fi
+    # Move pre-existing files to a backup directory.
+    [[ -e "$HOME/$link_pathname" || -L "$HOME/$link_pathname" ]] && {
+        $run mkdir -p "$backup_dir/$link_dirname"
+        $run mv "$HOME/$link_pathname" "$backup_dir/$link_pathname"
+    }
 
-  # shellcheck disable=SC2217
-  run $symlink "$my_dot_files/$source_file" "$HOME/$link_file" </dev/tty || true
-  # Note: `</dev/tty || true` enables -i prompts inside the while/read loop.
+    # Symlink source dotfile to $HOME.
+    $run ln -hsvw "$repo_abspath/$source_pathname" "$HOME/$link_pathname"
+    # -h  don't follow symlinks (replace the symlink itself).
+    # -w  warn if the source of a symbolic link does not currently exist.
+done < <(command fd --type f --ignore-file="$ignore_file")
 
-done < <(fd --type f --exclude '*-disabled')
+# Clean up backup directory if empty, otherwise report location.
+[[ -d "$backup_dir" ]] && {
+    rmdir "$backup_dir" 2>/dev/null || echo "Backups saved to: $backup_dir"
+}
 
 # Fix permissions. `git` operations will apply the default `umask`, but these
 # should be more restrictive. `chmod` follows symlinks.
 echo "* Setting permissions."
-run chmod -vv 700 "$HOME/.ssh"
-run chmod -vv 600 "$HOME/.ssh/config" "$HOME/.ssh/config-"* 2>/dev/null || true
+$run chmod -vv 700 "$HOME/.ssh"
+$run chmod -vv 600 "$HOME/.ssh/config" "$HOME/.ssh/config-"* 2>/dev/null || true
 
 echo "* Done."
