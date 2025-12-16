@@ -10,7 +10,8 @@
     untrackedCache = true
 
     ; Use macOS FSEvents API to watch for file changes.
-    fsmonitor = true
+    ; fsmonitor = true
+    ; ^Disable for now, appears to cause `brew` error "lockf: 200: already locked"
 
 [interactive]
     diffFilter = delta --color-only
