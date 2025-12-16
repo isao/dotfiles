@@ -42,7 +42,7 @@ do
     # Symlink source dotfile to $HOME.
     $run ln -sv "$repo_abspath/$source_pathname" "$HOME/$link_pathname"
 
-done < <(command fd --type f --ignore-file="$ignore_file")
+done < <(command fd --type=f --ignore-file="$ignore_file")
 
 # Clean up backup directory if empty, otherwise report location.
 [[ -d "$backup_dir" ]] && {
