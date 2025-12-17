@@ -1,26 +1,28 @@
 #!/bin/bash -eu
 set -eu -o pipefail
 
-# For every file in this repo, except the ones matched in `$ignore_file`:
-# - create a symlink in $HOME for the source dotfile pathname, including any
-#   intermediate directories.
+# For files in this repo[1]:
+# - create a symlink in $HOME, including any intermediate directories.
 # - add a "." to the symlinked pathname (so they're not hidden in this repo).
 #
 # Example:
-#   ./home/zshrc          -> $HOME/.zshrc
-#   ./home/config/foo/bar -> $HOME/.config/foo/bar
+#   ./zshrc           ->  $HOME/.zshrc
+#   ./config/foo/bar  ->  $HOME/.config/foo/bar
+#
+# [1]: the `fd` command below makes the list of pathnames to symlink, which are
+# all regular files, except hidden/vcs files and IGNORE_FILE matches.
 
-repo_abspath="$(cd "$(dirname "$0")" && git rev-parse --show-toplevel)"
+REPO_ABSPATH="$(realpath "$(dirname "$0")")"
 
-ignore_file="$repo_abspath/exclude.ini"
+IGNORE_FILE="$REPO_ABSPATH/exclude.ini"
 
-backup_dir="${TMPDIR:-/tmp}/dotfiles-$(date +%Y%m%d-%H%M%S)"
+BACKUP_DIR="${TMPDIR:-/tmp}/dotfiles-$(date +%Y%m%d-%H%M%S)"
 
 # Pass `--dry-run` to echo commands instead of running them.
 [[ "${1:-}" == "--dry-run" ]] && run="echo" || run=
 
 # Change the working directory for `fd` to output the relative path.
-cd "$repo_abspath"
+cd "$REPO_ABSPATH"
 
 echo "* Symlinking dotfiles."
 while read -r source_pathname
@@ -35,18 +37,18 @@ do
 
     # Move pre-existing files to a backup directory.
     [[ -e "$HOME/$link_pathname" || -L "$HOME/$link_pathname" ]] && {
-        $run mkdir -p "$backup_dir/$link_dirname"
-        $run mv "$HOME/$link_pathname" "$backup_dir/$link_pathname"
+        $run mkdir -p "$BACKUP_DIR/$link_dirname"
+        $run mv "$HOME/$link_pathname" "$BACKUP_DIR/$link_pathname"
     }
 
     # Symlink source dotfile to $HOME.
-    $run ln -sv "$repo_abspath/$source_pathname" "$HOME/$link_pathname"
+    $run ln -sv "$REPO_ABSPATH/$source_pathname" "$HOME/$link_pathname"
 
-done < <(command fd --type=f --ignore-file="$ignore_file")
+done < <(command fd --type=f --ignore-file="$IGNORE_FILE")
 
 # Clean up backup directory if empty, otherwise report location.
-[[ -d "$backup_dir" ]] && {
-    rmdir "$backup_dir" 2>/dev/null || echo "Backups saved to: $backup_dir"
+[[ -d "$BACKUP_DIR" ]] && {
+    rmdir "$BACKUP_DIR" 2>/dev/null || echo "Backups saved to: $BACKUP_DIR"
 }
 
 # Fix permissions. `git` operations will apply the default `umask`, but these
