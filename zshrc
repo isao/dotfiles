@@ -1,23 +1,10 @@
-# Note `/opt/brew/bin` is added to `/etc/paths` to ensure it comes before the
-# defaults. Paths that can come last can be added to `~/.zshenv`.
-# <https://unix.stackexchange.com/a/250456> If `/etc/paths` isn't modified, add
-# Homebrew to beginning of path (so we can use latest git, etc).
-#grep -q /opt/brew/bin /etc/paths || path=(/opt/brew/bin $path)
-# Added to `/etc/paths`:
-#   /opt/brew/bin             <- added
-#   /usr/local/bin
-#   /usr/bin
-#   /bin
-#   /usr/sbin
-#   /sbin
-#   ./node_modules/.bin       <- added
-#   /Users/isao/.volta/bin    <- added
+# See also `.zprofile` for global/non-interative PATH configs.
+# Add relative node_modules to PATH for interactive shells (lowest priority).
+path=($path ./node_modules/.bin)
 
 whence brew >/dev/null && eval "$(brew shellenv)"
 
 export EDITOR="bbedit -w"
-#export EDITOR=$(where bbedit..sh bbedit code nano vim vi | grep ^/ | head -1)
-# export VISUAL=$(where bbedit code | grep ^/ | head -1)
 export GREP_COLOR=32 # ANSI/VT100: 32 is green, '1;34' is bold blue
 export RSYNC_RSH=ssh
 
