@@ -1,9 +1,4 @@
 # https://volta.sh
-# To upgrade volta:
-#   brew upgrade volta
-#   volta setup
-#
-# export VOLTA_HOME="$HOME/.volta";path=("$VOLTA_HOME/bin" $path)
 if (whence volta >/dev/null) {
     if [[ -d "$HOME/.volta" ]]
     then
@@ -14,13 +9,6 @@ if (whence volta >/dev/null) {
 
     source "$myzshd/vendor/volta-completions.zsh"
 }
-
-# Just use `volta list all`
-# list-volta-packages() {
-#     rg --no-filename --max-count 2 --no-line-number \
-#         -o '"(name|version)": ".+?"' \
-#         ~/.volta/tools/image/packages/*/lib/node_modules/*/package.json
-# }
 
 whence node npm >/dev/null || return
 
