@@ -1,3 +1,4 @@
+# BBEdit-specific settings for ctags integration
 --excmd=number
 --tag-relative=no
 --fields=+a+m+n+S
