@@ -1,0 +1,96 @@
+# Svelte.ctags - Universal Ctags configuration for Svelte files
+#
+# Svelte files (.svelte) contain three sections:
+# 1. <script lang="ts|js"> - JavaScript/TypeScript code
+# 2. Template markup - Svelte-specific HTML with directives
+# 3. <style lang="scss|css"> - CSS/SCSS styles
+#
+# Strategy: Use multi-table regex with guest parsers to delegate
+# JavaScript/TypeScript and SCSS parsing to existing parsers.
+#
+# Guest parsers require the +g extra flag:
+#   ctags --extras=+g -R .
+#
+# References:
+# - /Users/isao/repos/Z👀/ctags/optlib/yacc.ctags (multi-table with guest parsers)
+# - /Users/isao/repos/Z👀/ctags/docs/optlib.rst (optlib documentation)
+
+--langdef=Svelte
+--map-Svelte=+.svelte
+
+#
+# Guest parser kind filtering
+#
+
+# Enable guest parsers for multi-language files (required for Svelte, etc.)
+# Guest parsers allow embedded languages (JS in Svelte, C in YACC) to be indexed
+--extras=+g
+
+# Disable CSS element selectors (p, div, span, etc.) - only index classes
+--CSS-kinds=-s
+
+#
+# Table declarations
+#
+--_tabledef-Svelte=main
+--_tabledef-Svelte=script
+--_tabledef-Svelte=style
+
+#
+# Main table: detect <script> and <style> tags
+#
+# When <script> is found, enter script table and start TypeScript guest parser
+# (TypeScript parser handles both JS and TS)
+--_mtable-regex-Svelte=main/<script>//{tenter=script}{_guest=TypeScript,0end,}
+--_mtable-regex-Svelte=main/<script [^>]+>//{tenter=script}{_guest=TypeScript,0end,}
+
+# When <style> is found, enter style table and start CSS guest parser
+# (CSS parser handles both CSS and SCSS syntax)
+--_mtable-regex-Svelte=main/<style>//{tenter=style}{_guest=CSS,0end,}
+--_mtable-regex-Svelte=main/<style [^>]+>//{tenter=style}{_guest=CSS,0end,}
+
+# Consume all other characters (template markup)
+--_mtable-regex-Svelte=main/.//
+
+#
+# Script table: continue TypeScript parsing until </script>
+#
+# Capture reactive statement variables ($: variable = ...)
+# These may not be declared elsewhere, so we index them here
+--_mtable-regex-Svelte=script/\$:[ \t]+([a-zA-Z_][a-zA-Z0-9_]*)[ \t]*=/\1/v/
+
+# When </script> is found, leave script table and end guest parser
+--_mtable-regex-Svelte=script/<\/script>//{tleave}{_guest=,,0start}
+
+# Continue guest parser for all other content
+--_mtable-regex-Svelte=script/.//
+
+#
+# Style table: continue CSS parsing until </style>
+#
+# When </style> is found, leave style table and end guest parser
+--_mtable-regex-Svelte=style/<\/style>//{tleave}{_guest=,,0start}
+
+# Continue guest parser for all other content
+--_mtable-regex-Svelte=style/.//
+
+#
+# Known limitations:
+# - 'export let' props are tagged as variables (not distinguished as props)
+# - Reactive statements: only single-line assignments captured ($: foo = ...)
+#   Block statements ($: { ... }) and reactive side-effects not captured
+# - Uses TypeScript parser for all <script> tags (handles both JS and TS)
+# - Uses CSS parser for all <style> tags (handles both CSS and SCSS)
+# - CSS/SCSS parsers only index top-level classes, not SCSS nested selectors
+#   (e.g., .container is indexed, but &--enabled inside .container is not)
+# - Template directives ({#if}, {#each}) are not indexed (LSP better for this)
+#
+# Regex engine:
+# - Uses POSIX Extended Regular Expressions (ERE) by default
+# - POSIX ERE is always greedy and lacks modern features
+# - PCRE2 support available with {pcre2} flag if needed
+#
+# Future enhancements:
+# - Add Svelte-specific patterns for 'export let' props
+# - Filter noisy kinds with --Svelte-kinds=-C (constants)
+#
