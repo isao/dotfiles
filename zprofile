@@ -1,11 +1,8 @@
-# PATH configuration for both terminal and GUI applications
-# This file is sourced by login shells, including shells launched by GUI apps
-
+# This file is sourced by login shells, including shells launched by GUI apps.
+# https://www.barebones.com/support/bbedit/zshenv.html
 # shellcheck disable=SC2206,SC2128
 # Disable reason: `path` is not subject to the bash-specific warnings above.
 
-# Prepend homebrew to PATH (highest priority)
-path=(/opt/homebrew/bin $path)
+path=(/opt/homebrew/bin $path ./node_modules/.bin)
 
-# Append volta to PATH (lowest priority), if installed via `brew` or in `path`.
 whence volta >/dev/null && path=($path "$HOME/.volta/bin")

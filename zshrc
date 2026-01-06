@@ -1,13 +1,7 @@
-# shellcheck disable=SC2148,SC2206,SC2034,SC1091
-# SC2148: This file is sourced, not executed
+# shellcheck disable=SC2206,SC2034,SC1091
 # SC2206: Intentional word splitting for zsh arrays
 # SC2034: Variables like WORDCHARS, SAVEHIST, cdpath are used by zsh itself
 # SC1091: Source files may not exist in shellcheck context
-
-# PATH -- See also `.zprofile` for global/non-interative PATH configs.
-# Add relative node_modules to PATH for interactive shells (lowest priority).
-path=($path ./node_modules/.bin)
-
 whence brew >/dev/null && eval "$(brew shellenv)"
 
 export EDITOR="bbedit -w"
