@@ -1,5 +1,5 @@
-#!/bin/bash -eu
-set -eu -o pipefail
+#!/bin/bash
+set -euo pipefail
 
 # For files in this repo[1]:
 # - create a symlink in $HOME, including any intermediate directories.
@@ -12,6 +12,8 @@ set -eu -o pipefail
 # [1]: the `fd` command below makes the list of pathnames to symlink, which are
 # all regular files, except hidden/vcs files and IGNORE_FILE matches.
 
+command -v fd >/dev/null || { echo "Error: fd not found" >&2; exit 1; }
+
 REPO_ABSPATH="$(realpath "$(dirname "$0")")"
 
 IGNORE_FILE="$REPO_ABSPATH/exclude.ini"
@@ -19,7 +21,7 @@ IGNORE_FILE="$REPO_ABSPATH/exclude.ini"
 BACKUP_DIR="${TMPDIR:-/tmp}/dotfiles-$(date +%Y%m%d-%H%M%S)"
 
 # Pass `--dry-run` to echo commands instead of running them.
-[[ "${1:-}" == "--dry-run" ]] && run="echo" || run=
+[[ "${1:-}" == "--dry-run" ]] && run="echo" || run="command"
 
 # Change the working directory for `fd` to output the relative path.
 cd "$REPO_ABSPATH"
@@ -32,24 +34,30 @@ do
 
     # Make parent sub-directories, if the source file is in a subdirectory.
     link_dirname="$(dirname "$link_pathname")"
-    [[ "$link_dirname" != '.' ]] && \
-        $run mkdir -p "$HOME/$link_dirname"
+    [[ "$link_dirname" != '.' ]] &&
+        $run mkdir -p -- "$HOME/$link_dirname"
 
     # Move pre-existing files to a backup directory.
     [[ -e "$HOME/$link_pathname" || -L "$HOME/$link_pathname" ]] && {
-        $run mkdir -p "$BACKUP_DIR/$link_dirname"
-        $run mv "$HOME/$link_pathname" "$BACKUP_DIR/$link_pathname"
+        $run mkdir -p -- "$BACKUP_DIR/$link_dirname"
+        $run mv -- "$HOME/$link_pathname" "$BACKUP_DIR/$link_pathname"
     }
 
     # Symlink source dotfile to $HOME.
-    $run ln -sv "$REPO_ABSPATH/$source_pathname" "$HOME/$link_pathname"
+    $run ln -sv -- "$REPO_ABSPATH/$source_pathname" "$HOME/$link_pathname"
 
 done < <(command fd --type=f --ignore-file="$IGNORE_FILE")
 
 # Clean up backup directory if empty, otherwise report location.
-[[ -d "$BACKUP_DIR" ]] && {
-    rmdir "$BACKUP_DIR" 2>/dev/null || echo "Backups saved to: $BACKUP_DIR"
-}
+if [[ -d "$BACKUP_DIR" ]] && command fd . "$BACKUP_DIR" --hidden --type=f --quiet
+then
+    echo
+    echo "* These files were replaced with symlinks, and backed up here:"
+    command fd . "$BACKUP_DIR" --hidden --type=f
+    echo
+else
+    rmdir "$BACKUP_DIR" 2>/dev/null
+fi
 
 # Fix permissions. `git` operations will apply the default `umask`, but these
 # should be more restrictive. `chmod` follows symlinks.
