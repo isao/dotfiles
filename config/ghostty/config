@@ -20,16 +20,26 @@ macos-secure-input-indication = false
 #macos-icon = xray
 #macos-icon = blueprint
 
+scrollback-limit = 99999
 
 #
 #   Appearance
 #
 
+# Color names <https://en.wikipedia.org/wiki/X11_color_names>
+# Color values: #RRGGBB or RRGGBB
+
+minimum-contrast = 1.2
+
+
 # Choose via `ghostty +list-themes`
 theme = light:Xcode Light hc, dark:Xcode Dark hc
 
 cursor-style = block
-cursor-color = Light Slate Gray
+#cursor-color = Light Slate Gray
+#cursor-color = Sky Blue
+cursor-color = Light Blue
+cursor-text = Dark Blue
 
 # ligatures
 # font-feature = -calt
@@ -39,11 +49,11 @@ cursor-color = Light Slate Gray
 background-opacity = 0.9
 background-blur-radius = 30
 
-unfocused-split-opacity = 0.6
-#unfocused-split-fill = ffffff
+unfocused-split-opacity = 0.7
+unfocused-split-fill = ffffff
 
-font-family = Menlo Regular
-# font-family = 0xProto
+# font-family = Menlo Regular
+font-family = 0xProto
 font-size = 13
 
 
@@ -73,7 +83,6 @@ keybind = cmd+shift+o=toggle_split_zoom
 keybind = super+right=goto_split:next
 keybind = super+left=goto_split:previous
 
-
 focus-follows-mouse = true
 # If true, when there are multiple split panes, the mouse selects the pane
 # that is focused. This only applies to the currently focused window; e.g.
@@ -85,9 +94,11 @@ focus-follows-mouse = true
 #   Other key bindings
 #
 
-# page_up/page_down without needing cmd
+# home/end, page_up/page_down (do not require cmd)
 keybind = page_up=scroll_page_up
 keybind = page_down=scroll_page_down
+keybind = home=scroll_to_top
+keybind = end=scroll_to_bottom
 
 # cmd+period -> ctrl+c
 keybind = cmd+period=text:\x03
@@ -101,3 +112,5 @@ keybind = shift+enter=text:\x1b\r
 
 # Open scrollback as a text file
 keybind = cmd+f=write_scrollback_file:open
+
+# todo make ghostty ignore some other global raycast key shortcuts?
