@@ -57,6 +57,12 @@ cdfinder() {
     cd -P "$(finderpath)"
 }
 
+# `cd` to the `realpath`; defaults to the current directory.
+cdreal() {
+    cd -P "${@:-.}"
+}
+alias cdr=cdreal
+
 # `cd` up to next package or git repo root directory.
 cdup() {
     local lastPwd

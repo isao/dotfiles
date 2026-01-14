@@ -3,7 +3,6 @@
 #
 
 alias cd..='cd ..'  # typo
-alias cdreal='cd -P'  # change to the `realpath` of the cwd.
 alias ls='ls -FGH'  # -F display symbol after pathnames; -G colorize; -H follow symlink
 alias l='ls'
 alias ll='/bin/ls -lhGH'
