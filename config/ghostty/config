@@ -7,6 +7,8 @@
 #   Application
 #
 
+scrollback-limit = 9999999
+
 # https://ghostty.org/docs/config/reference#macos-titlebar-style
 # "tabs" saves vertical space, but removes the window proxy icon and dragging
 # affordance. I'll miss the former somewhat, but not the latter with Moom, which
@@ -18,22 +20,16 @@ macos-secure-input-indication = false
 # Possible values: official, blueprint, chalkboard, microchip, glass,
 # holographic, paper, retro, xray.
 #macos-icon = xray
-#macos-icon = blueprint
 
-scrollback-limit = 99999
 
 #
 #   Appearance
 #
 
-# Color names <https://en.wikipedia.org/wiki/X11_color_names>
-# Color values: #RRGGBB or RRGGBB
-
-minimum-contrast = 1.2
-
-
 # Choose via `ghostty +list-themes`
 theme = light:Xcode Light hc, dark:Xcode Dark hc
+
+# Color names #RRGGBB or RRGGBB or <https://en.wikipedia.org/wiki/X11_color_names>
 
 cursor-style = block
 #cursor-color = Light Slate Gray
@@ -41,10 +37,16 @@ cursor-style = block
 cursor-color = Light Blue
 cursor-text = Dark Blue
 
-# ligatures
+# font-family = Menlo Regular
+font-family = 0xProto
+font-size = 13
+
+# font ligatures
 # font-feature = -calt
 # font-feature = -liga
 # font-feature = -dlig
+
+minimum-contrast = 1.2
 
 background-opacity = 0.9
 background-blur-radius = 30
@@ -52,9 +54,8 @@ background-blur-radius = 30
 unfocused-split-opacity = 0.7
 unfocused-split-fill = ffffff
 
-# font-family = Menlo Regular
-font-family = 0xProto
-font-size = 13
+window-padding-x = 5
+window-padding-balance = true
 
 
 #
@@ -64,53 +65,34 @@ shell-integration-features = no-cursor
 
 # quick-terminal
 quick-terminal-position = center
-quick-terminal-animation-duration = 0.12
-keybind = global:ctrl+opt+1=toggle_quick_terminal
-
+quick-terminal-animation-duration = 0.1
+keybind = global:ctrl+opt+digit_1=toggle_quick_terminal
 
 
 #
-#   Windows/panes
+#   Window/pane/tab controls
 #
 
-window-padding-x = 5
-window-padding-balance = true
-
-# "zoom" the current pane in/out
 keybind = cmd+shift+o=toggle_split_zoom
 
-# next/previous split w/ cmd arrow (default is start/end of line)
-keybind = super+right=goto_split:next
-keybind = super+left=goto_split:previous
+keybind = cmd+right=goto_split:next
+keybind = cmd+left=goto_split:previous
 
 focus-follows-mouse = true
-# If true, when there are multiple split panes, the mouse selects the pane
-# that is focused. This only applies to the currently focused window; e.g.
-# mousing over a split in an unfocused window will not focus that split
-# and bring the window to front.
-
 
 #
-#   Other key bindings
+#   Key bindings
 #
+# https://github.com/ghostty-org/ghostty/blob/485b6b73bf8007dee396ca515c5b45cddfc2f5d3/src/input/key.zig#L260
 
-# home/end, page_up/page_down (do not require cmd)
 keybind = page_up=scroll_page_up
 keybind = page_down=scroll_page_down
 keybind = home=scroll_to_top
 keybind = end=scroll_to_bottom
 
-# cmd+period -> ctrl+c
-keybind = cmd+period=text:\x03
+keybind = opt+`=unbind # ghostty is eating opt+` (Raycast search files)
 
-# ghostty is eating opt+` (Raycast search files) when app is frontmost
-# this doesn't fix it:
-#keybind = unconsumed:opt+`=unbind
+keybind = cmd+f=write_scrollback_file:open # Open scrollback as a text file
 
-# Fix sending shift+enter for Claude Code
-keybind = shift+enter=text:\x1b\r
-
-# Open scrollback as a text file
-keybind = cmd+f=write_scrollback_file:open
-
-# todo make ghostty ignore some other global raycast key shortcuts?
+keybind = cmd+period=text:\x03 # cmd+period -> ctrl+c
+keybind = shift+enter=text:\x1b\r # shift+enter for Claude Code
