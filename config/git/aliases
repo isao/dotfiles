@@ -4,14 +4,29 @@
 
 ;; Queries
 
-    ; list the changed files on the current branch, with diff stats.
-    changed = !"git diff --stat $(git merge-base HEAD ${1:-main})"
+    ; Name of the default branch; e.g. "main".
+    default-branch = config --get init.defaultBranch
 
-    ; list the changed files on the current branch.
-    changed-files = !"git diff --name-only $(git merge-base HEAD ${1:-main})"
+    ; Name of the remote for the default branch; e.g. "up" or "origin".
+    default-remote-name = !"git config --get branch.$(git default-branch).remote"
 
-    ; list commits on the current branch.
-    changed-log = !"git lg HEAD...$(git merge-base HEAD ${1:-main})"
+    ; Ref of the default remote branch; e.g. "up/main" or "origin/main".
+    default-remote-ref = !"echo $(git default-remote-name)/$(git default-branch)"
+
+    ; Commit where the current branch diverged from the default remote branch.
+    fork-point = !"git merge-base HEAD $(git default-remote-ref)"
+
+    ; List filenames for changes on the current branch.
+    changed = changed-diff --name-only
+
+    ; List filenames and stats for changes on the current branch.
+    changed-stat = changed-diff --stat
+
+    ; Show code changes on the current branch. Accepts `git diff` arguments.
+    changed-diff = !"f() { git diff $(git fork-point) \"$@\"; }; f"
+
+    ; Log commits on the current branch.
+    changed-log = !"git lg HEAD...$(git fork-point)"
 
     ; <http://stackoverflow.com/questions/3065650>
     conflicts = diff --name-only --diff-filter=U
