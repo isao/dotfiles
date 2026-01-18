@@ -49,10 +49,10 @@ fif() {
 #   Tip: Show all the custom `bindkey` assignments with alias `showkeys`.
 
 # Helper: Extract word under cursor from LBUFFER/RBUFFER.
-# Sets: _fzf_query, _fzf_prefix, _fzf_suffix
+# Sets: _imy_query, _imy_prefix, _imy_suffix
 #
 # Examples (| = cursor):
-#   command line         LBUFFER            RBUFFER        _fzf_query
+#   command line         LBUFFER            RBUFFER        _imy_query
 #   ──────────────────   ────────────────   ────────────   ─────────────
 #   "cd proj|"           "cd proj"          ""             "proj"
 #   "cd foo/bar/baz|"    "cd foo/bar/baz"   ""             "foo/bar/baz"
@@ -60,35 +60,35 @@ fif() {
 #   "cd proj|ects"       "cd proj"          "ects"         "projects"
 #   "vim |main.ts"       "vim "             "main.ts"      "main.ts"
 #
-_fzf_word_under_cursor() {
+_imy_word_under_cursor() {
     local left="${LBUFFER##*[ =]}"   # partial word before cursor (after last space or =)
     local right="${RBUFFER%% *}"     # partial word after cursor (up to first space)
-    _fzf_query="${left}${right}"     # complete word at/under cursor
-    _fzf_prefix="${LBUFFER%$left}"   # everything before the word
-    _fzf_suffix="${RBUFFER#$right}"  # everything after the word
+    _imy_query="${left}${right}"     # complete word at/under cursor
+    _imy_prefix="${LBUFFER%$left}"   # everything before the word
+    _imy_suffix="${RBUFFER#$right}"  # everything after the word
 }
 
-# Helper: Replace word under cursor with selection (requires _fzf_word_under_cursor first).
-_fzf_replace_word() {
+# Helper: Replace word under cursor with selection (requires _imy_word_under_cursor first).
+_imy_replace_word() {
     if [[ -n "$1" ]]; then
-        LBUFFER="${_fzf_prefix}$1"
-        RBUFFER="${_fzf_suffix}"
+        LBUFFER="${_imy_prefix}$1"
+        RBUFFER="${_imy_suffix}"
     fi
 }
 
 fzf-filenames-widget() {
-    _fzf_word_under_cursor
-    local selected="$(command fd -t f | fzf --query="$_fzf_query" --style full --preview 'fzf-preview.sh {}' --bind 'focus:transform-header:file --brief {}' | xargs)"
-    _fzf_replace_word "$selected"
+    _imy_word_under_cursor
+    local selected="$(command fd -t f | fzf --query="$_imy_query" --style full --preview 'fzf-preview.sh {}' --bind 'focus:transform-header:file --brief {}' | xargs)"
+    _imy_replace_word "$selected"
     zle redisplay
 }
 zle -N fzf-filenames-widget
 bindkey '^f^f' fzf-filenames-widget # Find file.
 
 fzf-dirnames-widget() {
-    _fzf_word_under_cursor
-    local selected="$(fd -t d | fzf --query="$_fzf_query" --preview 'echo {}; ls -1 {}' --preview-window '~1' | xargs)"
-    _fzf_replace_word "$selected"
+    _imy_word_under_cursor
+    local selected="$(fd -t d | fzf --query="$_imy_query" --preview 'echo {}; ls -1 {}' --preview-window '~1' | xargs)"
+    _imy_replace_word "$selected"
     zle redisplay
 }
 zle -N fzf-dirnames-widget
