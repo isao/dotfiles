@@ -26,6 +26,9 @@ WORDCHARS='*?_-.[]~&!#$%^(){}<>'
 
 setopt correct
 
+# Treat `#` as a code comment in an interactive contexts.
+setopt interactive_comments
+
 #
 #       history
 
