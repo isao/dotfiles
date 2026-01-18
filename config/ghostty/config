@@ -74,7 +74,6 @@ keybind = global:ctrl+opt+digit_1=toggle_quick_terminal
 #
 
 keybind = cmd+shift+o=toggle_split_zoom
-
 keybind = cmd+right=goto_split:next
 keybind = cmd+left=goto_split:previous
 
@@ -90,9 +89,14 @@ keybind = page_down=scroll_page_down
 keybind = home=scroll_to_top
 keybind = end=scroll_to_bottom
 
-keybind = opt+`=unbind # ghostty is eating opt+` (Raycast search files)
+# ghostty is eating opt+` (Raycast search files)
+keybind = opt+backquote=unbind
 
-keybind = cmd+f=write_scrollback_file:open # Open scrollback as a text file
+# Open scrollback as a text file
+keybind = cmd+f=write_scrollback_file:open
 
-keybind = cmd+period=text:\x03 # cmd+period -> ctrl+c
-keybind = shift+enter=text:\x1b\r # shift+enter for Claude Code
+# cmd+period -> ctrl+c
+keybind = cmd+period=text:\x03
+
+# shift+enter for Claude Code
+keybind = shift+enter=text:\x1b\r
