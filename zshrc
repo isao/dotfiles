@@ -110,6 +110,7 @@ then
     source "$myzshd/aliases.zsh"
     source "$myzshd/completions.zsh"
     source "$myzshd/functions.zsh"
+    source "$myzshd/widget-helpers.zsh"
 
     source "$myzshd/bbedit.zsh"
     source "$myzshd/git.zsh"
