@@ -40,8 +40,8 @@ zstyle ':completion:*' completer _complete _ignored _files
 
 # Complete from middle of a word, using just what's up to the cursor.
 # http://zsh.sourceforge.net/FAQ/zshfaq04.html#l50
-# Defualt is `bindkey '^I' expand-or-complete`
-bindkey '^I' expand-or-complete-prefix
+# Default is `bindkey '^I' expand-or-complete`
+#bindkey '^I' expand-or-complete-prefix
 
 # Automatically escape shell characters when pasting URLs.
 autoload -U url-quote-magic
