@@ -43,7 +43,7 @@ fzf-dirnames-widget() {
     zle redisplay
 }
 zle -N fzf-dirnames-widget
-bindkey '^f^d' fzf-dirnames-widget # Find dir.
+bindkey '^f^g' fzf-dirnames-widget # Find dir.
 
 #
 #   My FZF functions
