@@ -20,7 +20,19 @@ whence fzf fd >/dev/null || return
 # ctrl-r reveal the selected item in the Finder
 #
 export FZF_DEFAULT_COMMAND=fd
-export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --reverse --bind="ctrl-c:execute(echo -n {-1} | pbcopy)+abort" --bind="ctrl-o:execute(open {-1})+abort" --bind="ctrl-r:execute(open -R {-1})+abort" --bind="ctrl-e:execute($EDITOR {-1})+abort"'
+export FZF_DEFAULT_OPTS='
+    --color=light
+    --tabstop=4
+    --cycle
+    --exact
+    --multi
+    --reverse
+    --ansi
+    --bind="ctrl-c:execute(echo -n {-1} | pbcopy)+abort"
+    --bind="ctrl-o:execute(open {-1})+abort"
+    --bind="ctrl-r:execute(open -R {-1})+abort"
+    --bind="ctrl-e:execute($EDITOR {-1})+abort"
+'
 
 #
 #   MY FZF WIDGETS
@@ -28,8 +40,9 @@ export FZF_DEFAULT_OPTS='--color=light --tabstop=4 --cycle --exact --multi --rev
 #   Tip: Show all the custom `bindkey` assignments with alias `showkeys`.
 
 fzf-filenames-widget() {
+    setopt localoptions pipefail no_aliases
     _imy_word_under_cursor # See widget-helpers.zsh
-    local selected="$(command fd -t f | fzf --query="$_imy_query" --style full --preview 'fzf-preview.sh {}' --bind 'focus:transform-header:file --brief {}' | xargs)"
+    local selected="$(command fd -t f | fzf --query="$_imy_query" --scheme=path --height=40% --min-height=18+ --style=full --preview='fzf-preview.sh {}' --bind='focus:transform-footer:file --brief --dereference --mime -- {}' | xargs)"
     _imy_replace_word "$selected" # See widget-helpers.zsh
     zle redisplay
 }
@@ -37,8 +50,9 @@ zle -N fzf-filenames-widget
 bindkey '^f^f' fzf-filenames-widget # Find file.
 
 fzf-dirnames-widget() {
+    setopt localoptions pipefail no_aliases
     _imy_word_under_cursor # See widget-helpers.zsh
-    local selected="$(command fd -t d | fzf --query="$_imy_query" --preview 'echo {}; ls -1 {}' --preview-window '~1' | xargs)"
+    local selected="$(command fd -t d | fzf --query="$_imy_query" --scheme=path --preview 'echo {}; ls -1c {}' | xargs)"
     _imy_replace_word "$selected"  # See widget-helpers.zsh
     zle redisplay
 }
@@ -99,7 +113,7 @@ fzf-history-widget() {
   local selected num
   setopt localoptions noglobsubst noposixbuiltins pipefail 2> /dev/null
   selected=( $(fc -rl 1 |
-    FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort --query=${(qqq)LBUFFER} +m" fzf) )
+    FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS -n2..,.. --scheme=history --bind=ctrl-r:toggle-sort,alt-r:toggle-raw --query=${(qqq)LBUFFER} +m" fzf) )
   local ret=$?
   if [ -n "$selected" ]; then
     num=$selected[1]
