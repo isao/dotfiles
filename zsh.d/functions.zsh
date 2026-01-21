@@ -63,6 +63,10 @@ cdreal() {
 }
 alias cdr=cdreal
 
+# Enable the same zsh completions for cdr & cdreal.
+compdef cdr=cd
+compdef cdreal=cd
+
 # `cd` up to next package or git repo root directory.
 cdup() {
     local lastPwd

@@ -100,8 +100,9 @@ if [[ -L ~/.zshrc ]]
 then
     myzshd="$HOME/repos/dotfiles/zsh.d"
 
-    source "$myzshd/aliases.zsh"
     source "$myzshd/completions.zsh"
+
+    source "$myzshd/aliases.zsh"
     source "$myzshd/functions.zsh"
     source "$myzshd/widget-helpers.zsh"
 
