@@ -1,0 +1,25 @@
+[core]
+    ; https://github.com/dandavison/delta
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    light = true
+
+    ; Enables n/N keys jumpt to the next/prev file/commit/chunk
+    navigate = true
+
+    ; https://dandavison.github.io/delta/hyperlinks.html
+    hyperlinks = true
+    ; delta bug: "No handler for "x-bbedit" link type"
+    ;hyperlinks-file-link-format = "x-bbedit://open?url=file:///{path}&line={line}"
+
+    ; To disable the line numbers in side-by-side view, but keep a vertical
+    ; delimiter line between the left and right panels, use the line-numbers
+    ; format options.
+    ;line-numbers-left-format = ""
+    ;line-numbers-right-format = "│ "
+    line-numbers = true
+    side-by-side = true
