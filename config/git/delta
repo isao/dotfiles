@@ -6,8 +6,6 @@
     diffFilter = delta --color-only
 
 [delta]
-    light = true
-
     ; Enables n/N keys jumpt to the next/prev file/commit/chunk
     navigate = true
 
