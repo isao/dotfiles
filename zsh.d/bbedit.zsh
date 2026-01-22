@@ -73,11 +73,6 @@ rgbb() {
         | bbresults --pattern '^(?P<file>.+?):(?P<line>\d+):(?P<col>\d+):\s*(?P<msg>.*)$'
 }
 
-# Find in notes
-fin() {
-    (cd ~/notes && rgfzf "$1")
-}
-
 # Display `shellcheck` feedback in a BBEdit results window.
 shellcheckbb() {
     shellcheck -f gcc "$@" | bbresults --pattern gcc
