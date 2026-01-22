@@ -5,10 +5,10 @@
 ;; Queries
 
     ; Name of the default branch; e.g. "main".
-    default-branch = config --get init.defaultBranch
+    default-branch = config get init.defaultBranch
 
     ; Name of the remote for the default branch; e.g. "up" or "origin".
-    default-remote-name = !"git config --get branch.$(git default-branch).remote"
+    default-remote-name = !"git config get branch.$(git default-branch).remote"
 
     ; Ref of the default remote branch; e.g. "up/main" or "origin/main".
     default-remote-ref = !"echo $(git default-remote-name)/$(git default-branch)"
@@ -65,7 +65,7 @@
 ;; Logging
 
     ; log fuller
-    lf = log --graph --stat --decorate --pretty=fuller
+    lf = log --decorate --pretty=fuller --stat
 
     ; log shorter
     lg = log --oneline --decorate
