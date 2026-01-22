@@ -20,4 +20,4 @@
 #   rule: horizontal lines to delimit files.
 #   numbers: show line numbers in the side bar.
 #   snip: draw separation lines between distinct line ranges.
---style=changes,numbers,rule,snip
+--style=changes,header,header-filesize,rule,snip
