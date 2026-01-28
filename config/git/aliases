@@ -10,11 +10,8 @@
     ; Name of the remote for the default branch; e.g. "up" or "origin".
     default-remote-name = !"git config get branch.$(git default-branch).remote"
 
-    ; Ref of the default remote branch; e.g. "up/main" or "origin/main".
-    default-remote-ref = !"echo $(git default-remote-name)/$(git default-branch)"
-
     ; Commit where the current branch diverged from the default remote branch.
-    fork-point = !"git merge-base HEAD $(git default-remote-ref)"
+    fork-point = !"git merge-base HEAD $(git default-remote-name)/$(git default-branch)"
 
     ; List filenames for changes on the current branch.
     changed = changed-diff --name-only
@@ -32,16 +29,15 @@
     conflicts = diff --name-only --diff-filter=U
 
     ; Get the SHA of a ref (default is HEAD) without a trailing newline.
-    sha = "!f() { git rev-parse ${1:-HEAD} | tr -d '\n'; }; f"
-
-    ; In every repo reachable from cwd, do status and summarize results
-    ; <https://github.com/isao/shell/blob/master/git-statuscrazy.sh>
-    ;statuscrazy = !"find . -type d -name .git -execdir git-statuscrazy.sh \\;"
+    sha = "!f() { printf %s $(git rev-parse ${1:-HEAD}); }; f"
 
 ;; Maintenance
 
-    ; Fetch all for every repo reachable from cwd (within max depth).
-    fetchcrazy = !"find . -type d -name .git -maxdepth 3 -execdir pwd \\; -execdir git fetch --all \\;"
+    ; Fetch verbosely, but suppress "up-to-date" lines.
+    fetchq = "!git fetch --prune --verbose 2>&1 | rg -v 'up to date'"
+
+    ; Fetch in every repo reachable from cwd (within max depth `-d=3`).
+    fetchcrazy = "!f() { fd '.git$' -H -t=d -d=3 -x git -C '{//}' fetchq; }; f"
 
     ; Preview the `git rmmerged` alias below.
     showmerged = !git branch --merged | egrep -v '^[^ ]|release/|master|main'
