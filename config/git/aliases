@@ -1,6 +1,9 @@
 [alias]
-    ; list all git aliases
-    aliases = config get --all --show-names --regexp ^alias[.]
+    ; List all git aliases.
+    aliases = config get --all --show-names --regexp ^alias\\.
+
+    ; Edit this file.
+    aliases-edit = !"open $HOME/.config/git/aliases"
 
 ;; Queries
 
@@ -10,7 +13,7 @@
     ; Name of the remote for the default branch; e.g. "up" or "origin".
     default-remote-name = !"git config get branch.$(git default-branch).remote"
 
-    ; Commit where the current branch diverged from the default remote branch.
+    ; Find the commit where the current branch diverged from the default remote branch.
     fork-point = !"git merge-base HEAD $(git default-remote-name)/$(git default-branch)"
 
     ; List filenames for changes on the current branch.
@@ -30,6 +33,11 @@
 
     ; Get the SHA of a ref (default is HEAD) without a trailing newline.
     sha = "!f() { printf %s $(git rev-parse ${1:-HEAD}); }; f"
+
+;; Github
+
+    ; Fetch and checkout a GitHub PR by number.
+    pr-co = "!f() { git fetchq $(git default-remote-name) \"pull/$1/head:pr$1\" && git switch \"pr$1\"; }; f"
 
 ;; Maintenance
 

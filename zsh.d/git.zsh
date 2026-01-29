@@ -3,7 +3,7 @@
 #
 alias gd='git diff'
 alias gdt='git difftool'
-alias gf='git fetch --prune --tags'
+alias gf='git fetchq'
 alias gp='git pull --prune --tags --ff-only'
 alias gr='git remote -v'
 alias gsw='git switch'
@@ -64,10 +64,10 @@ gbs() {
     gb --sort=refname $@
 }
 
-# fetch and switch to an upstream GitHub pull request branch.
-git-fetch-pr() {
-    git fetch up "pull/$1/head:pr$1" && git switch "pr$1"
-}
+# fetch and switch to an upstream GitHub pull request branch -> MOVED TO ALIAS
+# git-fetch-pr() {
+#     git fetch up "pull/$1/head:pr$1" && git switch "pr$1"
+# }
 
 #
 #   GIT WIDGET HELPERS
