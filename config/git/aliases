@@ -82,22 +82,6 @@
     ; Stash files that are not staged.
     stash-unstaged = stash save --keep-index
 
-    ; Stash only the staged changes, from Hsieh Chin Fan.
-    ;   https://github.com/typebrook/settings/blob/dev/gitconfig
-    ; How it works:
-    ; 1. Stash everything, but leave a copy of staged changes alone.
-    ;       git stash --keep-index
-    ; 2. Stash the remaining changes, the things that were staged.
-    ;       git stash
-    ; 3. Restore the original stash with all the changes.
-    ;       git stash pop stash@{1}
-    ; 4. Remove/reverse the previously staged changes from the working area.
-    ;       git stash show --patch | git apply --reverse
-    stash-staged = !git stash --keep-index && \
-       git stash && \
-       git stash pop stash@{1} && \
-       git stash show --patch | git apply --reverse
-
     ; Usage: git stash-rename <stash> <message>
     ; <https://stackoverflow.com/a/35549615/515973>
     stash-rename = !'_() { rev=$(git rev-parse $1) && git stash drop $1 || exit 1 ; git stash store -m "$2" $rev; }; _'
