@@ -48,7 +48,7 @@
 [merge]
     conflictstyle = zdiff3
 
-    ; list (known) installed options with `git mergetool --tool-help`
+    ; List (known) installed options with `git mergetool --tool-help`.
     ; Beyond Compare 5 "bcomp" isn't listed !? but bc/bc3/bc4 are, and b4 works
     ; if symlinking bcomp -> bc4
     tool = bc4
