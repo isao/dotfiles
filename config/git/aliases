@@ -37,7 +37,7 @@
 ;; Github
 
     ; Fetch and checkout a GitHub PR by number.
-    pr-co = "!f() { git fetchq $(git default-remote-name) \"pull/$1/head:pr$1\" && git switch \"pr$1\"; }; f"
+    pr-co = "!f() { git fetch $(git default-remote-name) \"pull/$1/head:pr$1\" && git switch \"pr$1\"; }; f"
 
 ;; Maintenance
 
@@ -85,3 +85,8 @@
     ; Usage: git stash-rename <stash> <message>
     ; <https://stackoverflow.com/a/35549615/515973>
     stash-rename = !'_() { rev=$(git rev-parse $1) && git stash drop $1 || exit 1 ; git stash store -m "$2" $rev; }; _'
+
+;; Hooks
+
+    ; Install a fun post-commit hook.
+    yaaayyy = !cd "$(git rev-parse --git-common-dir)/hooks" && ln -svw "$HOME/repos/dotbin/git-hooks/post-commit"
