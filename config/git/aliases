@@ -1,9 +1,15 @@
+; Git aliases
+;
+; Tips:
+; - debug like `GIT_TRACE=1 git my-alias`.
+; - Use `\\` instead of `\` in regexes.
+;
 [alias]
     ; List all git aliases.
     aliases = config get --all --show-names --regexp ^alias\\.
 
     ; Edit this file.
-    aliases-edit = !"open $HOME/.config/git/aliases"
+    aliases-edit = !open $HOME/.config/git/aliases
 
 ;; Queries
 
@@ -11,10 +17,10 @@
     default-branch = config get init.defaultBranch
 
     ; Name of the remote for the default branch; e.g. "up" or "origin".
-    default-remote-name = !"git config get branch.$(git default-branch).remote"
+    default-remote-name = !git config get branch.$(git default-branch).remote
 
     ; Find the commit where the current branch diverged from the default remote branch.
-    fork-point = !"git merge-base HEAD $(git default-remote-name)/$(git default-branch)"
+    fork-point = !git merge-base HEAD $(git default-remote-name)/$(git default-branch)
 
     ; List filenames for changes on the current branch.
     changed = changed-diff --name-only
@@ -26,26 +32,21 @@
     changed-diff = !"f() { git diff $(git fork-point) \"$@\"; }; f"
 
     ; Log commits on the current branch.
-    changed-log = !"git lg HEAD...$(git fork-point)"
+    changed-log = !git lg HEAD...$(git fork-point)
 
     ; <http://stackoverflow.com/questions/3065650>
     conflicts = diff --name-only --diff-filter=U
 
     ; Get the SHA of a ref (default is HEAD) without a trailing newline.
-    sha = "!f() { printf %s $(git rev-parse ${1:-HEAD}); }; f"
-
-;; Github
-
-    ; Fetch and checkout a GitHub PR by number.
-    pr-co = "!f() { git fetch $(git default-remote-name) \"pull/$1/head:pr$1\" && git switch \"pr$1\"; }; f"
+    sha = !"f() { printf %s $(git rev-parse ${1:-HEAD}); }; f"
 
 ;; Maintenance
 
     ; Fetch verbosely, but suppress "up-to-date" lines.
-    fetchq = "!git fetch --prune --verbose 2>&1 | rg -v 'up to date'"
+    fetchq = !git fetch --prune --verbose 2>&1 | rg -v 'up to date'
 
     ; Fetch in every repo reachable from cwd (within max depth `-d=3`).
-    fetchcrazy = "!f() { fd '.git$' -H -t=d -d=3 -x git -C '{//}' fetchq; }; f"
+    fetchcrazy = !"f() { fd '.git$' -H -t=d -d=3 -x git -C '{//}' fetchq; }; f"
 
     ; Preview the `git rmmerged` alias below.
     showmerged = !git branch --merged | egrep -v '^[^ ]|release/|master|main'
@@ -84,9 +85,19 @@
 
     ; Usage: git stash-rename <stash> <message>
     ; <https://stackoverflow.com/a/35549615/515973>
-    stash-rename = !'_() { rev=$(git rev-parse $1) && git stash drop $1 || exit 1 ; git stash store -m "$2" $rev; }; _'
+    stash-rename = !'f() { rev=$(git rev-parse $1) && git stash drop $1 || exit 1; git stash store -m "$2" $rev; }; f'
 
 ;; Hooks
 
-    ; Install a fun post-commit hook.
+    ; Install my YAAAYYY post-commit hook.
     yaaayyy = !cd "$(git rev-parse --git-common-dir)/hooks" && ln -svw "$HOME/repos/dotbin/git-hooks/post-commit"
+
+;; Github
+
+    ; gh-remote-url = !git remote get-url --push $(git default-remote-name) \
+    ;     | perl -pne 's%^.+@%https://%g and s%\\.com:%.com/% and s%\\.git%%'
+    ;
+    ; web = !"f() { open $(git gh-remote-url)/$1 }; f"
+
+    ; Fetch and checkout a GitHub PR by number.
+    pr-co = !"f() { git fetch $(git default-remote-name) \"pull/$1/head:pr$1\" && git switch \"pr$1\"; }; f"
