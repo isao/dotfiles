@@ -46,7 +46,7 @@
     fetchq = !git fetch --prune --verbose 2>&1 | rg -v 'up to date'
 
     ; Fetch in every repo reachable from cwd (within max depth `-d=3`).
-    fetchcrazy = !"f() { fd '.git$' -H -t=d -d=3 -x git -C '{//}' fetchq; }; f"
+    fetchcrazy = !"f() { cd ${1:-.}; fd .git -F -H -t=d -d=3 -x git -C '{//}' fetchq; }; f"
 
     ; Preview the `git rmmerged` alias below.
     showmerged = !git branch --merged | egrep -v '^[^ ]|release/|master|main'
