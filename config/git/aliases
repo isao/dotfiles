@@ -6,7 +6,7 @@
 ;
 [alias]
     ; List all git aliases.
-    aliases = config get --all --show-names --regexp ^alias\\.
+    aliases = config get --all --show-names --regexp '^alias\\.'
 
     ; Edit this file.
     aliases-edit = !open $HOME/.config/git/aliases
@@ -43,10 +43,10 @@
 ;; Maintenance
 
     ; Fetch verbosely, but suppress "up-to-date" lines.
-    fetchq = !git fetch --prune --verbose 2>&1 | rg -v 'up to date'
+    fetchq = !"git fetch --prune --verbose 2>&1 | rg -v 'up to date'"
 
     ; Fetch in every repo reachable from cwd (within max depth `-d=3`).
-    fetchcrazy = !"f() { cd ${1:-.}; fd .git -F -H -t=d -d=3 -x git -C '{//}' fetchq; }; f"
+    fetchcrazy = !"f() { fd .git -F -H -t=d -d=3 \"$@\" -x git -C '{//}' fetchq; }; f"
 
     ; Preview the `git rmmerged` alias below.
     showmerged = !git branch --merged | egrep -v '^[^ ]|release/|master|main'
