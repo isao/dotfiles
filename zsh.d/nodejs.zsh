@@ -22,8 +22,6 @@ whence node npm >/dev/null || return
 alias nn='npm run'
 alias yy='yarn run'
 
-alias nnci='npm ci && never_index_artifacts'
-
 npm-home() {
     # Emulate `npm home` for packages that only list GitHub (and similar)
     # repository urls.
