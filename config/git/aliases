@@ -94,10 +94,12 @@
 
 ;; Github
 
-    ; gh-remote-url = !git remote get-url --push $(git default-remote-name) \
-    ;     | perl -pne 's%^.+@%https://%g and s%\\.com:%.com/% and s%\\.git%%'
-    ;
-    ; web = !"f() { open $(git gh-remote-url)/$1 }; f"
+    pr = !gh pr view -w 2>&1 /dev/null || gh pr create --web
+
+    prs = !gh pr list
+
+    prs-i-merged = !gh pr list --state=merged --author=@me
 
     ; Fetch and checkout a GitHub PR by number.
-    pr-co = !"f() { git fetch $(git default-remote-name) \"pull/$1/head:pr$1\" && git switch \"pr$1\"; }; f"
+    ;pr-co = !"f() { git fetch $(git default-remote-name) \"pull/$1/head:pr$1\" && git switch \"pr$1\"; }; f"
+    pr-checkout = !gh pr checkout
