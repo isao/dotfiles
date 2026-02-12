@@ -3,9 +3,11 @@
     useConfigOnly = true
 
 [include]
-    ; Optional configs.
+    ; Focused configs.
     path = aliases
     path = delta
+
+    ; Work/other stuff.
     path = includes.config
 
 [core]
