@@ -94,7 +94,7 @@
 
 ;; Github
 
-    pr = !gh pr view -w 2>&1 /dev/null || gh pr create --web
+    pr = !gh pr view -w || gh pr create -w
 
     prs = !gh pr list
 

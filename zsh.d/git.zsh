@@ -3,7 +3,7 @@
 #
 alias gd='git diff'
 alias gdt='git difftool'
-alias gf='git fetchq'
+alias gf='git fetch --prune --tags'
 alias gp='git pull --prune --tags --ff-only'
 alias gr='git remote -v'
 alias gsw='git switch'
