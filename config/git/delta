@@ -13,6 +13,7 @@
     hyperlinks = true
     ; delta bug: "No handler for "x-bbedit" link type"
     ;hyperlinks-file-link-format = "x-bbedit://open?url=file:///{path}&line={line}"
+    ;hyperlinks-commit-link-format = "https://mygitrepo/{commit}/"
 
     ; To disable the line numbers in side-by-side view, but keep a vertical
     ; delimiter line between the left and right panels, use the line-numbers
@@ -21,3 +22,7 @@
     ;line-numbers-right-format = "│ "
     line-numbers = true
     side-by-side = true
+
+[alias]
+    ; Diff without delta. OTOH, you can just pipe to something though.
+    diff-plain = -c core.pager=less diff --color=always
