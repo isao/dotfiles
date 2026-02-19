@@ -1,5 +1,5 @@
 #
-# built-ins
+#   built-ins
 #
 
 alias cd..='cd ..'  # typo
@@ -9,13 +9,13 @@ alias ll='/bin/ls -lhGH'
 alias kk=ll  # typo
 alias lll=ll  # typo
 alias ls.='ls -dG .?*'  # ls dot files & dirs only
-alias ll.='ls -dGl .?*' # ls dot files & dirs only
+alias ll.='ls -dGl .?*' # ll dot files & dirs only
 alias la='ll -A'
 alias lsd='/bin/ls -d */'   # ls just directories
 alias lld='/bin/ls -dl */'  # ll just directories
 
 #
-# one-liners
+#   one-liners
 #
 
 alias grep='grep --color=auto'
@@ -26,9 +26,15 @@ alias showpath="print -l $path"
 alias showkeys='rg --no-line-number -o "^bindkey .+$" $myzshd/*.zsh'
 alias checkpath='ls -ld $(echo $PATH | tr : "\n")'
 
-alias e="$(where bbedit code nano vim vi | grep ^/ | head -1)"
+alias e="$(where bbedit zed code nano vim vi | grep ^/ | head -1)"
 
-# osx
+# Without `setopt share_history`, history is not shared between sessions, until
+# you do this:
+alias sync-history='fc -R'
+
+#
+#   osx
+#
 
 # remove style from any text on the clipboard
 alias plaintext='pbpaste -Prefer txt | pbcopy'
