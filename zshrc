@@ -8,7 +8,15 @@ export EDITOR="bbedit -w"
 export GREP_COLOR=32 # ANSI/VT100: 32 is green, '1;34' is bold blue
 export RSYNC_RSH=ssh
 
-export LESS='--tabs=4 --ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS --no-init --quit-if-one-screen --mouse'
+# --no-init - avoid clearing screen on exit
+export LESS='
+    --ignore-case
+    --mouse
+    --quit-if-one-screen
+    --tabs=4
+    --LONG-PROMPT
+    --RAW-CONTROL-CHARS
+'
 
 # BAUD=38400
 # KEYTIMEOUT=60
@@ -38,7 +46,7 @@ setopt hist_no_functions
 setopt hist_no_store
 setopt hist_reduce_blanks
 setopt hist_save_no_dups
-setopt hist_verify
+# setopt hist_verify # Show, but don't execute, history exansions like `!!` or `!?`
 setopt inc_append_history
 
 setopt auto_cd
