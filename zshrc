@@ -8,18 +8,16 @@ export EDITOR="bbedit -w"
 export GREP_COLOR=32 # ANSI/VT100: 32 is green, '1;34' is bold blue
 export RSYNC_RSH=ssh
 
-# --no-init - avoid clearing screen on exit
-export LESS='
+export LESS=(
     --ignore-case
-    --mouse
+    --mouse # scroll with trackpad/mouse (N.B. selecting text needs shift key).
+    # --no-init # don't clear screen on exit
     --quit-if-one-screen
     --tabs=4
     --LONG-PROMPT
     --RAW-CONTROL-CHARS
-'
-
-# BAUD=38400
-# KEYTIMEOUT=60
+)
+# N.B. Code comments above require `setopt interactive_comments` below.
 
 # default WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>'
 WORDCHARS='*?_-.[]~&!#$%^(){}<>'
@@ -70,6 +68,11 @@ autoload down-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 
+# see also: fzf-history-widget in fzf.zsh
+
+#
+#       buffer keys and widgets
+
 # Edit the current mini-buffer in $EDITOR.
 # http://zsh.sourceforge.net/FAQ/zshfaq03.html#l45
 autoload -U edit-command-line;
@@ -80,7 +83,7 @@ bindkey '^xe' edit-command-line;
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 
-# delete to beginning of line
+# delete to beginning of line like bash/readline (zsh does kill-whole-line).
 bindkey '^u' backward-kill-line
 
 # two `kill-line` or `backward-kill-line` equals one `kill-buffer`.
@@ -89,6 +92,14 @@ bindkey '^u^u' kill-buffer
 
 # forward-delete word ahead of the cursor
 bindkey "^w" delete-word
+
+# Like `esc del`, but include slashes and equals, which are removed from the
+# default WORDCHARS above.
+backward-kill-word-greedy() {
+    WORDCHARS="${WORDCHARS}/=" zle backward-kill-word
+}
+zle -N backward-kill-word-greedy
+bindkey '\e\\' backward-kill-word-greedy
 
 # calculator
 autoload -Uz zcalc
