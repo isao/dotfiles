@@ -1,13 +1,16 @@
 # Symlink to ~/.config/ghostty/config
-# Default is ~/Library/Application\ Support/com.mitchellh.ghostty/config
+
 # File locations: <https://ghostty.org/docs/config#file-location>
 # Config reference: <https://ghostty.org/docs/config/reference>
+
+# full default configuration with docs:
+#   ghostty +show-config --default --docs
 
 #
 #   Application
 #
 
-scrollback-limit = 9999999
+scrollback-limit = 99999999
 
 # https://ghostty.org/docs/config/reference#macos-titlebar-style
 # "tabs" saves vertical space, but removes the window proxy icon and dragging
@@ -66,6 +69,7 @@ shell-integration-features = no-cursor
 # quick-terminal
 quick-terminal-position = center
 quick-terminal-animation-duration = 0.1
+
 keybind = global:ctrl+opt+digit_1=toggle_quick_terminal
 
 
