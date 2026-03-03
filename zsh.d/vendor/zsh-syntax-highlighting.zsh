@@ -3,8 +3,15 @@
 # custom widgets have been created (i.e., after all zle -N calls and after
 # running compinit). Widgets created later will work, but will not update the
 # syntax highlighting."
-if [[ -r "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]
+# if [[ -r "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]
+# then
+#     source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+#     ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+# fi
+
+
+# <https://github.com/zdharma-continuum/fast-syntax-highlighting>
+if [[ -r "$HOMEBREW_PREFIX/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" ]]
 then
-    source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-    ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+    source "$HOMEBREW_PREFIX/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 fi
