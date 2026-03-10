@@ -96,9 +96,6 @@ keybind = end=scroll_to_bottom
 # ghostty is eating opt+` (Raycast search files)
 keybind = opt+backquote=unbind
 
-# Open scrollback as a text file
-keybind = cmd+f=write_scrollback_file:open
-
 # cmd+period -> ctrl+c
 keybind = cmd+period=text:\x03
 
