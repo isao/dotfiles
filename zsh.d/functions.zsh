@@ -133,6 +133,11 @@ brew-outdated() {
     join <(brew outdated) <(comm -13 <(brew ls --pinned) <(brew leaves))
 }
 
+# Print the array of paths with each item on its own line.
+showpath() {
+    print -l $path
+}
+
 # Find wordle words that match a regex
 wordle() {
    rg --pcre2 "$@" ~/Documents/wordle-words.txt
