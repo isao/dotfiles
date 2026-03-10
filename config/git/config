@@ -39,9 +39,6 @@
     ; Sorts tags by version number (e.g. 1.2.10 comes after 1.2.9).
     sort = version:refname
 
-[blame]
-	ignoreRevsFile = .git-blame-ignore-revs
-
 [diff]
     algorithm = histogram
     colorMoved = default
