@@ -43,10 +43,10 @@
 ;; Maintenance
 
     ; Fetch verbosely, but suppress "up-to-date" lines.
-    fetchq = !"git fetch --prune --verbose 2>&1 | rg -v 'up to date'"
+    fetchq = "!git fetch --prune --verbose 2>&1 | rg -v '^ = '"
 
     ; Fetch in every repo reachable from cwd (within max depth `-d=3`).
-    fetchcrazy = !"f() { fd .git -F -H -t=d -d=3 \"$@\" -x git -C '{//}' fetchq; }; f"
+    fetchcrazy = "!f() { fd .git -F -H -t=d -d=3 \"$@\" -x git -C '{//}' fetchq; }; f"
 
     ; Preview the `git rmmerged` alias below.
     showmerged = !git branch --merged | egrep -v '^[^ ]|release/|master|main'
@@ -85,16 +85,11 @@
 
     ; Usage: git stash-rename <stash> <message>
     ; <https://stackoverflow.com/a/35549615/515973>
-    stash-rename = !'f() { rev=$(git rev-parse $1) && git stash drop $1 || exit 1; git stash store -m "$2" $rev; }; f'
-
-;; Hooks
-
-    ; Install my YAAAYYY post-commit hook.
-    yaaayyy = !cd "$(git rev-parse --git-common-dir)/hooks" && ln -svw "$HOME/repos/dotbin/git-hooks/post-commit"
+    stash-rename = '!f() { rev=$(git rev-parse $1) && git stash drop $1 || exit 1; git stash store -m "$2" $rev; }; f'
 
 ;; Github
 
-    pr = !gh pr view -w || gh pr create -w
+    pr = !"f() { gh pr view -w $1 || gh pr create -w; }; f"
 
     prs = !gh pr list
 
