@@ -3,6 +3,6 @@
 # shellcheck disable=SC2206,SC2128
 # Disable reason: `path` is not subject to the bash-specific warnings above.
 
-path=(/opt/homebrew/bin $path ./node_modules/.bin)
+path=(/opt/homebrew/bin $path ./node_modules/.bin "$HOME/.local/bin")
 
 whence volta >/dev/null && path=($path "$HOME/.volta/bin")

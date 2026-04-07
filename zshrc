@@ -2,7 +2,7 @@
 # SC2206: Intentional word splitting for zsh arrays
 # SC2034: Variables like WORDCHARS, SAVEHIST, cdpath are used by zsh itself
 # SC1091: Source files may not exist in shellcheck context
-whence brew >/dev/null && eval "$(brew shellenv)"
+whence brew >/dev/null && eval "$(brew shellenv zsh)"
 
 export EDITOR="bbedit -w"
 export GREP_COLOR=32 # ANSI/VT100: 32 is green, '1;34' is bold blue
