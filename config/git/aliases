@@ -43,10 +43,17 @@
 ;; Maintenance
 
     ; Fetch verbosely, but suppress "up-to-date" lines.
-    fetchq = "!git fetch --prune --verbose 2>&1 | rg -v '^ = '"
+    fetchq = "!git fetch --verbose 2>&1 | rg -v '^ = '"
 
-    ; Fetch in every repo reachable from cwd (within max depth `-d=3`).
-    fetchcrazy = "!f() { fd .git -F -H -t=d -d=3 \"$@\" -x git -C '{//}' fetchq; }; f"
+    ; Find git repos, and `git fetchq` them.
+    fetchcrazy = "!f() { fd  -d=3 -H -j=1 -t=d -g .git \"$@\" -x git -C '{//}' fetchq; }; f"
+    ; -d=3      max directory traversal depth of 3
+    ; -H        include hidden files/dirs (needed to find .git)
+    ; -j=1      run with 1 thread (sequential execution, avoids race conditions)
+    ; -t=d      only match directories
+    ; -g .git   glob match for exactly ".git" (not substring like -F)
+    ; "$@"      pass through any extra args (e.g. a starting directory)
+    ; -x git…   for each match, run `git fetchq` in the parent dir
 
     ; Preview the `git rmmerged` alias below.
     showmerged = !git branch --merged | egrep -v '^[^ ]|release/|master|main'
