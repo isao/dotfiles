@@ -60,16 +60,19 @@ unfocused-split-fill = ffffff
 window-padding-x = 5
 window-padding-balance = true
 
-
 #
 #   Ghostty-specific features
 #
 shell-integration-features = no-cursor
 
 # quick-terminal
-quick-terminal-position = center
-quick-terminal-size = 40%,40%
-quick-terminal-animation-duration = 0.1
+quick-terminal-position = top
+quick-terminal-size = 30%, 40%
+quick-terminal-animation-duration = 0
+
+# Need this to change quick-terminal configs:
+# window-save-state = never
+# ^ https://github.com/ghostty-org/ghostty/discussions/8419#discussioncomment-15725026
 
 keybind = global:opt+cmd+digit_1=toggle_quick_terminal
 
