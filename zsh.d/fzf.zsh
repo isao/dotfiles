@@ -34,6 +34,10 @@ export FZF_DEFAULT_OPTS='
     --bind="ctrl-e:execute($EDITOR {-1})+abort"
 '
 
+# TODO make a better fzf-preview.sh
+# dirs -> eza
+# md, images -> mcat
+
 #
 #   MY FZF WIDGETS
 #
