@@ -105,8 +105,17 @@
 
     prs = !gh pr list
 
-    prs-i-merged = !gh pr list --state=merged --author=@me
+    prs-by-me = !gh pr list --state=open --author=@me
+
+    prs-merged-by-me = !gh pr list --state=merged --author=@me
+
+    prs-involving-me = !gh pr list --search 'involves:@me'
+
+    ; Notes
+    ; `gh pr list` <- based on cwd/repo
+    ; `gh search prs` <- across all repos at `GH_HOST`.
+    ; Example: `GH_HOST="…" gh search prs --state=open 'involves:@me'`
+
 
     ; Fetch and checkout a GitHub PR by number.
-    ;pr-co = !"f() { git fetch $(git default-remote-name) \"pull/$1/head:pr$1\" && git switch \"pr$1\"; }; f"
     pr-checkout = !gh pr checkout
