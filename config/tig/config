@@ -1,3 +1,5 @@
+# See `man tigrc`
+
 set line-graphics = utf-8
 set tab-size = 4
 
@@ -8,17 +10,20 @@ set main-view-date-format = "%m/%d %I:%M"
 set main-view-author = full
 #set main-view-author-width = 10
 
-set split-view-width = 60%
+set split-view-width = 70%
 set vertical-split = true
 
 set editor-line-number = true
 set ignore-case = yes
 
+set mouse = true
+set mouse-scroll = 1
+
 # [tig "bind"]
 # allow escape to toggle between main and status views
 # status = Escape view-main
 # main = Escape view-status
-# 
+#
 # generic = < !git stash
 # generic = > !git stash pop
 # generic = <Ctrl-p> !git pull --rebase --no-ff
