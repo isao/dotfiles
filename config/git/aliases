@@ -101,21 +101,21 @@
 
 ;; Github
 
+    ; Open a PR by number, or create a new PR.
     pr = !"f() { gh pr view -w $1 || gh pr create -w; }; f"
 
+    ; List open PRs by anyone (for the current repo only).
     prs = !gh pr list
 
-    prs-by-me = !gh pr list --state=open --author=@me
+    ; List open PRs by me (for the current repo only).
+    prs-by-me = !gh pr list --author=@me
 
+    ; List PRs merged by me (for the current repo only).
     prs-merged-by-me = !gh pr list --state=merged --author=@me
 
+    ; List PRs I've created, commented on, am assigned, or mentioned (for the
+    ; current repo only); `gh search prs "$SOME_QUERY"` searches all repos.
     prs-involving-me = !gh pr list --search 'involves:@me'
-
-    ; Notes
-    ; `gh pr list` <- based on cwd/repo
-    ; `gh search prs` <- across all repos at `GH_HOST`.
-    ; Example: `GH_HOST="…" gh search prs --state=open 'involves:@me'`
-
 
     ; Fetch and checkout a GitHub PR by number.
     pr-checkout = !gh pr checkout
