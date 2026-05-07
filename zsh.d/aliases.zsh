@@ -15,7 +15,7 @@ alias lsd='/bin/ls -d */'   # ls just directories
 #alias lld='/bin/ls -dl */'  # ll just directories
 
 #   eza
-alias ll='eza -l --header --icons --git --git-repos --time-style=relative --hyperlink --group-directories-first'
+alias ll='eza -l --icons --git --git-repos --time-style=relative --hyperlink --group-directories-first'
 alias lld='ll --only-dirs'
 
 #
