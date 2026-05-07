@@ -4,7 +4,7 @@ if (whence volta >/dev/null) {
     then
         export VOLTA_HOME="$HOME/.volta"
         # path=("$VOLTA_HOME/bin" $path)
-        # ^- Already added to `/etc/paths`
+        # ^- Already appended in `~/.zprofile`
     fi
 
     source "$myzshd/vendor/volta-completions.zsh"
