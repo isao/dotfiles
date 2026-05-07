@@ -18,6 +18,10 @@
     ;use all cpu cores
     threads = 0
 
+[hook "yaaayyy"]
+   event = post-commit
+   command = ~/.config/git/hooks/post-commit
+
 [init]
 	defaultBranch = main
 

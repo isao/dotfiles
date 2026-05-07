@@ -1,0 +1,18 @@
+#!/bin/sh -e
+# Installing
+#
+# Husky: symlink `<repo>/.husky/post-commit` to this file, then add
+# `.husky/post-commit` to `<repo>/.git/info/exclude`.
+#
+# Regular git: symlink `<repo>/.git/hooks/post-commit` to this file.
+
+# Skip during rebase
+git_dir=$(git rev-parse --git-dir 2>/dev/null)
+if [ -d "$git_dir/rebase-merge" ] || [ -d "$git_dir/rebase-apply" ]
+then
+    exit 0
+fi
+
+this_dir="$(dirname "$(realpath "$0")")"
+
+afplay "$this_dir/yaaayyy.wav" > /dev/null 2>&1 &
