@@ -27,7 +27,7 @@ alias nocolors="perl -pe 's/\e\[?.*?[\@-~]//g'"
 alias rot13='perl -wne "tr/a-zA-Z/n-za-mN-ZA-M/;print;"'
 alias showenv='env | sort'
 alias showfunctions='functions + | rg "^[a-z]"'
-alias showkeys='rg --no-line-number -o "^bindkey .+$" $myzshd/*.zsh'
+alias showkeys='rg --no-line-number -o "^bindkey .+$" ~/.zshrc $myzshd/*.zsh'
 alias checkpath='ls -ld $(echo $PATH | tr : "\n")'
 
 alias e="$(where bbedit zed code nano vim vi | grep ^/ | head -1)"
