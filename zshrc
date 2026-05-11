@@ -94,8 +94,8 @@ bindkey '^u^u' kill-buffer
 # forward-delete word ahead of the cursor
 bindkey "^w" delete-word
 
-# Like `esc del`, but include slashes and equals, which are removed from the
-# default WORDCHARS above.
+# Delete a word backwards, but without stopping at "=" or "/" (like `ESC DEL`
+# does, which uses the WORDCHARS above).
 backward-kill-word-greedy() {
     WORDCHARS="${WORDCHARS}/=" zle backward-kill-word
 }
