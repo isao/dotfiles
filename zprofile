@@ -7,8 +7,8 @@
 # $HOMEBREW_CELLAR and $HOMEBREW_REPOSITORY
 whence brew >/dev/null && eval "$(brew shellenv zsh)"
 
-# Appends to $PATH.
-whence volta >/dev/null && path=($path "$HOME/.volta/bin")
+# Appends to $PATH (before `volta`)
+path=($path ./node_modules/.bin "$HOME/.local/bin")
 
 # Appends to $PATH.
-path=($path ./node_modules/.bin "$HOME/.local/bin")
+whence volta >/dev/null && path=($path "$HOME/.volta/bin")
