@@ -49,13 +49,26 @@ zle -N self-insert url-quote-magic
 
 
 #
-#   Other completions
+#   Generic completions
 #
 
 for i in shellcheck tsc ctags claude
 do
     whence "$i" >/dev/null && compdef _gnu_generic "$i"
 done
+
+#
+#   Vendor
+#
+
+whence leaf > /dev/null && source "$myzshd/vendor/leaf-completions.zsh"
+whence uv > /dev/null && source "$myzshd/vendor/uv-completions.zsh"
+# mcat completions loaded by `./mcat.zsh`
+# volta completions loaded by `./volta.zsh`
+
+#
+#   Hand-rolled
+#
 
 # gulp-autocompletion-zsh
 # https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/gulp/gulp.plugin.zsh
