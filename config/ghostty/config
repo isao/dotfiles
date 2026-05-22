@@ -1,9 +1,6 @@
-# Symlink to ~/.config/ghostty/config
-
-# File locations: <https://ghostty.org/docs/config#file-location>
 # Config reference: <https://ghostty.org/docs/config/reference>
-
-# full default configuration with docs:
+#
+# Show full default configuration with docs:
 #   ghostty +show-config --default --docs
 
 #
@@ -13,35 +10,20 @@
 scrollback-limit = 99999999
 
 # https://ghostty.org/docs/config/reference#macos-titlebar-style
-# "tabs" saves vertical space, but removes the window proxy icon and dragging
-# affordance. I'll miss the former somewhat, but not the latter with Moom, which
-# enables drag from anywhere with `fn`.
 macos-titlebar-style = tabs
 
 macos-secure-input-indication = false
 
-# Possible values: official, blueprint, chalkboard, microchip, glass,
-# holographic, paper, retro, xray.
-#macos-icon = xray
+# https://ghostty.org/docs/features/shell-integration#shell-integration-injection
+shell-integration-features = ssh-env,ssh-terminfo,sudo,title,no-cursor
 
-shell-integration-features = ssh-terminfo,ssh-env
 
 #
 #   Appearance
 #
 
-# Choose via `ghostty +list-themes`
-theme = light:Xcode Light hc, dark:Xcode Dark hc
+theme = light:Xcode Light hc, dark:Xcode Dark hc  # See `ghostty +list-themes`
 
-# Color names #RRGGBB or RRGGBB or <https://en.wikipedia.org/wiki/X11_color_names>
-
-cursor-style = block
-#cursor-color = Light Slate Gray
-#cursor-color = Sky Blue
-cursor-color = Light Blue
-cursor-text = Dark Blue
-
-# font-family = Menlo Regular
 font-family = 0xProto
 font-size = 13
 
@@ -49,6 +31,11 @@ font-size = 13
 # font-feature = -calt
 # font-feature = -liga
 # font-feature = -dlig
+
+cursor-style = block
+cursor-color = Light Blue
+cursor-text = Dark Blue
+# Color names #RRGGBB or RRGGBB or <https://en.wikipedia.org/wiki/X11_color_names>
 
 minimum-contrast = 1.2
 
@@ -62,31 +49,29 @@ window-padding-x = 5
 window-padding-balance = true
 
 #
-#   Ghostty-specific features
+#   Quick Terminal
 #
-shell-integration-features = no-cursor
 
-# quick-terminal
 quick-terminal-position = top
-quick-terminal-size = 30%, 40%
-quick-terminal-animation-duration = 0
-
+quick-terminal-size = 35%, 45%
+#quick-terminal-animation-duration = 0
+keybind = global:opt+cmd+digit_1=toggle_quick_terminal
 # Need this to change quick-terminal configs:
 # window-save-state = never
 # ^ https://github.com/ghostty-org/ghostty/discussions/8419#discussioncomment-15725026
 
-keybind = global:opt+cmd+digit_1=toggle_quick_terminal
-
 
 #
-#   Window/pane/tab controls
+#   Interaction
 #
-
-keybind = cmd+shift+o=toggle_split_zoom
-keybind = cmd+right=goto_split:next
-keybind = cmd+left=goto_split:previous
 
 focus-follows-mouse = true
+
+# https://ghostty.org/docs/config/reference#copy-on-select
+# `copy-on-select = true` is the default, but it only copies to the "selection
+# clipboard" which isn't paste-able outside Ghostty afaict.
+copy-on-select = clipboard
+
 
 #
 #   Key bindings
@@ -97,6 +82,11 @@ keybind = page_up=scroll_page_up
 keybind = page_down=scroll_page_down
 keybind = home=scroll_to_top
 keybind = end=scroll_to_bottom
+
+#   Window/pane/tab controls
+keybind = cmd+shift+o=toggle_split_zoom
+keybind = cmd+right=goto_split:next
+keybind = cmd+left=goto_split:previous
 
 # ghostty is eating opt+` (Raycast search files)
 keybind = opt+backquote=unbind
