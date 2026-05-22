@@ -1,0 +1,5 @@
+# https://leaf.rivolink.mg/docs/features/editor/
+editor = "bbedit"
+
+# https://leaf.rivolink.mg/docs/features/themes/
+theme = "arctic"
