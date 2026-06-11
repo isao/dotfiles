@@ -9,6 +9,15 @@ export EDITOR="bbedit -w"
 export GREP_COLOR=32 # ANSI/VT100: 32 is green, '1;34' is bold blue
 export RSYNC_RSH=ssh
 
+export PAGER=moor           # https://github.com/walles/moor
+export MOOR=(
+    --follow                # like tail -f
+    --quit-if-one-screen
+    --reformat              # JSON
+    --style=lovelace        # https://xyproto.github.io/splash/docs/
+    --tab-size=2
+)
+
 export LESS=(
     --ignore-case
     --mouse # scroll with trackpad/mouse (N.B. selecting text needs shift key).

@@ -1,5 +1,5 @@
 zman() {
-    PAGER="less -g -s '+/^       "$1"'" man zshall
+    PAGER="$PAGER '+/^       "$1"'" man zshall
 }
 
 dict() {
