@@ -5,8 +5,15 @@
 #
 #       completion
 
-autoload -Uz compinit
-compinit
+# These commands are required by the rest of this file (and by bbedit.zsh and
+# functions.zsh), which call `compdef` — a function that only exists once
+# `compinit` has run:
+#
+#     autoload -Uz compinit && compinit
+#
+# But they are NOT run here: ~/.zshrc runs them once before the zsh.d/ loop, so
+# that load order among the fragments never matters. If you ever source this
+# file on its own, run those two lines first.
 
 # Display matches in columns.
 setopt list_packed

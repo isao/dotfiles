@@ -120,20 +120,19 @@ if [[ -L ~/.zshrc ]]
 then
     myzshd="$HOME/repos/dotfiles/zsh.d"
 
-    source "$myzshd/completions.zsh"
+    # compinit must run before any fragment calls `compdef` (bbedit, functions).
+    # Run it once here so the load order of the fragments below never matters.
+    autoload -Uz compinit && compinit
 
-    source "$myzshd/aliases.zsh"
-    source "$myzshd/functions.zsh"
-    source "$myzshd/widget-helpers.zsh"
-
-    source "$myzshd/bbedit.zsh"
-    source "$myzshd/git.zsh"
-    source "$myzshd/fzf.zsh"
-    source "$myzshd/ripgrep.zsh"
-    source "$myzshd/nodejs.zsh"
-    source "$myzshd/mcat.zsh"
-
-    source "$myzshd/prompt.zsh"
+    # Load every *.zsh in zsh.d/, sorted by filename. Drop a file in and it's
+    # picked up — no edits here. (N) avoids an error when nothing matches.
+    # vendor/ is a subdir, so the non-recursive glob excludes it on purpose.
+    # For the rare fragment that must load early/late, prefix it: 00-foo.zsh
+    # (first) ... 99-foo.zsh (last), since digits sort before letters.
+    for f in "$myzshd"/*.zsh(N)
+    do
+        source "$f"
+    done
 
     [[ -r "$HOME/repos/dotwork/work.zsh" ]] && \
         source "$HOME/repos/dotwork/work.zsh"
