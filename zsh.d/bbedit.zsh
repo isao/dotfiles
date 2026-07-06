@@ -1,4 +1,3 @@
-# shellcheck shell=bash
 whence bbedit >/dev/null || return
 
 compdef _gnu_generic bbedit bbdiff bbfind bbresults

@@ -110,7 +110,7 @@ backward-kill-word-greedy() {
     WORDCHARS="${WORDCHARS}/=" zle backward-kill-word
 }
 zle -N backward-kill-word-greedy
-bindkey '\e\\' backward-kill-word-greedy
+bindkey "\e\\" backward-kill-word-greedy
 
 # calculator
 autoload -Uz zcalc
