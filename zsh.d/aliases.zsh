@@ -5,18 +5,18 @@
 alias cd..='cd ..'  # typo
 alias ls='ls -FGH'  # -F display symbol after pathnames; -G colorize; -H follow symlink
 alias l='ls'
-#alias ll='/bin/ls -lhGH'
 alias kk=ll  # typo
 alias lll=ll  # typo
-alias ls.='ls -dG .?*'  # ls dot files & dirs only
-alias ll.='ls -dGl .?*' # ll dot files & dirs only
-alias la='ll -A'
+alias ls.='ls -dG .?*'      # ls dot files & dirs only
 alias lsd='/bin/ls -d */'   # ls just directories
-#alias lld='/bin/ls -dl */'  # ll just directories
+alias la='ll -A'
 
-#   eza
-alias ll='eza -l --icons --git --git-repos --time-style=relative --hyperlink --group-directories-first'
-alias lld='ll --only-dirs'
+if (! whence eza >/dev/null) {
+    alias ll='ls -lh'       # -h human readable sizes
+    alias ll.='ll -d .?*'   # ll dot files & dirs only
+    alias lld='ll -dl */'   # ll just directories
+}
+
 
 #
 #   one-liners
