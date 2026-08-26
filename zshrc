@@ -10,14 +10,19 @@ export GREP_COLOR=32 # ANSI/VT100: 32 is green, '1;34' is bold blue
 export RSYNC_RSH=ssh
 export PAGER=moor
 
-# export MOOR=(               # https://github.com/walles/moor
-#     --follow                # like tail -f
-#     --quit-if-one-screen
-#     --reformat              # JSON
-#     --style=lovelace        # https://xyproto.github.io/splash/docs/
-#     --tab-size=2
-# )
-export MOOR='--quit-if-one-screen --reformat --tab-size=2'
+# https://github.com/walles/moor
+#   --follow                like tail -f
+#   --quit-if-one-screen
+#   --reformat              JSON
+#   --style=lovelace        https://xyproto.github.io/splash/docs/
+#   --tab-size=2
+#   --terminal-fg           for transparent backgrounds
+export MOOR='
+--no-search-line-highlight
+--quit-if-one-screen
+--reformat
+--tab-size=2
+--terminal-fg'
 
 export LESS=(
     --ignore-case
@@ -126,19 +131,16 @@ colors
 # cause the summary to be printed in this case.
 export REPORTTIME=3
 
-if [[ -L ~/.zshrc ]]
+myzshd="$HOME/repos/dotfiles/zsh.d"
+if [[ -d "$myzshd" ]]
 then
-    myzshd="$HOME/repos/dotfiles/zsh.d"
 
     # compinit must run before any fragment calls `compdef` (bbedit, functions).
     # Run it once here so the load order of the fragments below never matters.
     autoload -Uz compinit && compinit
 
-    # Load every *.zsh in zsh.d/, sorted by filename. Drop a file in and it's
-    # picked up — no edits here. (N) avoids an error when nothing matches.
-    # vendor/ is a subdir, so the non-recursive glob excludes it on purpose.
-    # For the rare fragment that must load early/late, prefix it: 00-foo.zsh
-    # (first) ... 99-foo.zsh (last), since digits sort before letters.
+    # Load every *.zsh in zsh.d/, sorted by filename.
+    # (N) avoids an error when nothing matches.
     for f in "$myzshd"/*.zsh(N)
     do
         source "$f"
@@ -150,5 +152,4 @@ then
     # Should be last to wrap ZLE widgets.
     [[ -r "$myzshd/vendor/zsh-syntax-highlighting.zsh" ]] &&
         source "$myzshd/vendor/zsh-syntax-highlighting.zsh"
-
 fi
