@@ -11,5 +11,7 @@ alias ll='eza -l \
     --mounts \
     --time-style=relative'
 
+alias lli='ll --git-ignore'
 alias lld='ll --only-dirs'
+alias llf='ll --only-files'
 alias ll.='ll -d .?*'
