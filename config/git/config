@@ -14,6 +14,9 @@
     ; https://news.ycombinator.com/item?id=11388479
     untrackedCache = true
 
+    ; moor has bug where `git log` uses pager horizontal scrolling needed.
+    pager = bat
+
 [pack]
     ;use all cpu cores
     threads = 0
@@ -52,6 +55,7 @@
     prompt = no
 
 [merge]
+    ; delta suggested config:
     conflictstyle = zdiff3
 
     ; List (known) installed options with `git mergetool --tool-help`.

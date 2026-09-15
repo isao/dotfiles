@@ -17,12 +17,7 @@ export PAGER=moor
 #   --style=lovelace        https://xyproto.github.io/splash/docs/
 #   --tab-size=2
 #   --terminal-fg           for transparent backgrounds
-export MOOR='
---no-search-line-highlight
---quit-if-one-screen
---reformat
---tab-size=2
---terminal-fg'
+export MOOR='--no-search-line-highlight --quit-if-one-screen --reformat --style=lovelace --tab-size=2 --terminal-fg'
 
 export LESS=(
     --ignore-case
@@ -95,7 +90,7 @@ autoload -U edit-command-line;
 zle -N edit-command-line;
 bindkey '^xe' edit-command-line;
 
-# ctrl right/left
+# ctrl right/left (make same as opt left/right)
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 

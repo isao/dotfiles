@@ -25,3 +25,5 @@ x-bbedit://open?url=file:///{path}&line={line}&column={column}
 # numbers. Required to hyperlink to a line and column (by clicking on the column
 # number).
 #--column
+
+# TODO colors

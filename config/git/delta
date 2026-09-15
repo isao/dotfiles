@@ -25,4 +25,4 @@
 
 [alias]
     ; Diff without delta. OTOH, you can just pipe to something though.
-    diff-plain = -c core.pager=moor diff --color=always
+    diff-plain = -c core.pager= diff --color=always
