@@ -10,7 +10,8 @@
 scrollback-limit = 99999999
 
 # https://ghostty.org/docs/config/reference#macos-titlebar-style
-macos-titlebar-style = tabs
+# macos-titlebar-style = tabs
+# ^broken in Tahoe
 
 macos-secure-input-indication = false
 
