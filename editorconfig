@@ -13,10 +13,10 @@ x-soft-wrap-mode = WindowWidth
 x-soft-wrap-text = true
 x-typographers-quotes = false
 
-[*.{cjs,js,jsx,json,json5,svelte,ts,tsx}]
+[*.{cjs,js,jsx,svelte,ts,tsx}]
 x-soft-wrap-text = false
 
-[*.{json,json5,pcl,yml,yaml}]
+[*.{json,json5,jsonl,pcl,yml,yaml}]
 x-soft-wrap-text = false
 
 [*.{css,hbs,html,scss,svg}]
