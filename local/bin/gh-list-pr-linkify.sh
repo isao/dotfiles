@@ -1,0 +1,63 @@
+#!/bin/bash -eu
+#
+# List pull requests, with the PR numbers as clickable links.
+#
+# Wraps `gh pr list`, whose normal output has no hyperlinks (GH_FORCE_HYPERLINKS
+# does nothing there). gh's `--template` formatter does expose a `hyperlink`
+# function that emits OSC 8 escapes, so this reproduces gh's default table with
+# the id linked to the pull request.
+#
+# Takes the same arguments as `gh pr list`.
+#
+# This is a script rather than a shell function because git runs its `!` aliases
+# under /bin/sh, which cannot see one. See the `prs` aliases in config/git, and
+# the `gh` wrapper in zsh.d/gh.zsh -- both call this.
+
+# `hyperlink` emits its escapes unconditionally, so anything that is not a
+# terminal -- a pipe, a redirect -- needs gh's plain machine-readable output.
+if [[ ! -t 1 ]]
+then
+    exec gh pr list "$@"
+fi
+
+# Defer to an output flag of the caller's own rather than fighting it.
+for arg in "$@"
+do
+    case $arg in
+        --json|--json=*|--jq|--jq=*|-q|-q=*|--template|--template=*|-t|-t=*|--web|-w|--help|-h)
+            exec gh pr list "$@"
+            ;;
+    esac
+done
+
+# `tablerender` sizes the columns to the terminal, so nothing needs an explicit
+# truncate. The colors are gh's own: the id follows the pull request state, the
+# branch is cyan and the timestamp 242. `isCrossRepository` reproduces gh's
+# `owner:branch` form for pull requests opened from a fork.
+#
+# shellcheck disable=SC2016  # the `$name` below is Go template, not shell.
+template='
+{{- if not . -}}
+No pull requests match your search
+{{ else -}}
+{{- tablerow "ID" "TITLE" "BRANCH" "CREATED AT" -}}
+{{- range . -}}
+{{- $branch := .headRefName -}}
+{{- if and .isCrossRepository .headRepositoryOwner }}{{ $branch = printf "%s:%s" .headRepositoryOwner.login .headRefName }}{{ end -}}
+{{- $color := "green" -}}
+{{- if .isDraft }}{{ $color = "242" }}
+{{- else if eq .state "MERGED" }}{{ $color = "magenta" }}
+{{- else if eq .state "CLOSED" }}{{ $color = "red" }}{{ end -}}
+{{- tablerow
+      (hyperlink .url (autocolor $color (printf "#%v" .number)))
+      .title
+      (autocolor "cyan" $branch)
+      (autocolor "242" (timeago .createdAt)) -}}
+{{- end -}}
+{{- tablerender -}}
+{{- end -}}'
+
+exec gh pr list \
+    --json number,title,url,headRefName,createdAt,isCrossRepository,headRepositoryOwner,state,isDraft \
+    --template "$template" \
+    "$@"
