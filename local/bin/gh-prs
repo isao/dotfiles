@@ -1,9 +1,9 @@
 #!/bin/bash -eu
 #
-# List pull requests, with the PR numbers as clickable links.
+# List GitHub pull requests, with the PR numbers as clickable links.
 #
-# Wraps `gh pr list`, whose normal output has no hyperlinks (GH_FORCE_HYPERLINKS
-# does nothing there). gh's `--template` formatter does expose a `hyperlink`
+# Wraps `gh pr list`, whose normal output has no hyperlinks, and gh has no
+# setting to add them. gh's `--template` formatter does expose a `hyperlink`
 # function that emits OSC 8 escapes, so this reproduces gh's default table with
 # the id linked to the pull request.
 #
@@ -11,7 +11,7 @@
 #
 # This is a script rather than a shell function because git runs its `!` aliases
 # under /bin/sh, which cannot see one. See the `prs` aliases in config/git, and
-# the `gh` wrapper in zsh.d/gh.zsh -- both call this.
+# the `gh prs` alias in config/gh/config.yml -- both call this.
 
 # `hyperlink` emits its escapes unconditionally, so anything that is not a
 # terminal -- a pipe, a redirect -- needs gh's plain machine-readable output.

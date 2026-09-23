@@ -105,17 +105,17 @@
     pr = !"f() { gh pr view -w $1 || gh pr create -w; }; f"
 
     ; List open PRs by anyone (for the current repo only).
-    prs = !gh-list-pr-linkify.sh
+    prs = !gh-prs
 
     ; List open PRs by me (for the current repo only).
-    prs-by-me = !gh-list-pr-linkify.sh --author=@me
+    prs-by-me = !gh-prs --author=@me
 
     ; List PRs merged by me (for the current repo only).
-    prs-merged-by-me = !gh-list-pr-linkify.sh --state=merged --author=@me
+    prs-merged-by-me = !gh-prs --state=merged --author=@me
 
     ; List PRs I've created, commented on, am assigned, or mentioned (for the
     ; current repo only); `gh search prs "$SOME_QUERY"` searches all repos.
-    prs-involving-me = !gh-list-pr-linkify.sh --search 'involves:@me'
+    prs-involving-me = !gh-prs --search 'involves:@me'
 
     ; Fetch and checkout a GitHub PR by number.
     pr-checkout = !gh pr checkout
