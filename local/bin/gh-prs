@@ -20,7 +20,8 @@ then
     exec gh pr list "$@"
 fi
 
-# Defer to an output flag of the caller's own rather than fighting it.
+# If the caller picked their own output format, or wants the browser or help,
+# pass through to plain `gh pr list`.
 for arg in "$@"
 do
     case $arg in
@@ -30,10 +31,10 @@ do
     esac
 done
 
-# `tablerender` sizes the columns to the terminal, so nothing needs an explicit
-# truncate. The colors are gh's own: the id follows the pull request state, the
-# branch is cyan and the timestamp 242. `isCrossRepository` reproduces gh's
-# `owner:branch` form for pull requests opened from a fork.
+# `--template` takes a Go text/template (https://pkg.go.dev/text/template),
+# applied to the JSON that `--json` fetches -- here an array of pull requests.
+# gh adds its own functions (`tablerow`, `tablerender`, `autocolor`, `timeago`,
+# `hyperlink` and more) and a few from Sprig. `gh help formatting` lists them.
 #
 # shellcheck disable=SC2016  # the `$name` below is Go template, not shell.
 template='
@@ -42,18 +43,23 @@ No pull requests match your search
 {{ else -}}
 {{- tablerow "ID" "TITLE" "BRANCH" "CREATED AT" -}}
 {{- range . -}}
+{{- /* gh shows a branch from a fork as owner:branch. */ -}}
 {{- $branch := .headRefName -}}
 {{- if and .isCrossRepository .headRepositoryOwner }}{{ $branch = printf "%s:%s" .headRepositoryOwner.login .headRefName }}{{ end -}}
+{{- /* The id is colored by state, as gh colors it. */ -}}
 {{- $color := "green" -}}
 {{- if .isDraft }}{{ $color = "242" }}
 {{- else if eq .state "MERGED" }}{{ $color = "magenta" }}
 {{- else if eq .state "CLOSED" }}{{ $color = "red" }}{{ end -}}
+{{- /* As in gh, the branch is cyan and the timestamp 242 (gray). */ -}}
 {{- tablerow
       (hyperlink .url (autocolor $color (printf "#%v" .number)))
       .title
       (autocolor "cyan" $branch)
       (autocolor "242" (timeago .createdAt)) -}}
 {{- end -}}
+{{- /* tablerender prints the rows that tablerow buffered, fitting the columns
+       to the terminal width and cutting long cells to fit ("..."). */ -}}
 {{- tablerender -}}
 {{- end -}}'
 
