@@ -8,8 +8,8 @@
     ; List all git aliases.
     aliases = config get --all --show-names --regexp '^alias\\.'
 
-    ; Edit this file.
-    aliases-edit = !open $HOME/.config/git/aliases
+    ; Edit the config files that define aliases, including conditional includes.
+    aliases-edit = "!git config list --show-origin --name-only | awk -F'\\t' '$2 ~ /^alias\\./ && !seen[$1]++ { print $1 }' | xargs open -t"
 
 ;; Queries
 
