@@ -10,33 +10,21 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 x-balance-while-typing = true
 x-soft-wrap-mode = WindowWidth
-x-soft-wrap-text = true
+x-soft-wrap-text = false
 x-typographers-quotes = false
 
-[*.{cjs,js,jsx,svelte,ts,tsx}]
-x-soft-wrap-text = false
+[{*.{markdown,md,mdx,rst,text,txt},CHANGELOG,README}]
+x-soft-wrap-text = true
 
-[*.{json,json5,jsonl,pcl,yml,yaml}]
-x-soft-wrap-text = false
-
-[*.{css,hbs,html,scss,svg}]
-x-soft-wrap-text = false
-
-[*.{bash,sh,zsh}]
-x-soft-wrap-text = false
-
-[*.{md,text}]
+[*.{markdown,md,mdx,text}]
 trim_trailing_whitespace = false
 
 [*.py]
 indent_style = space
 indent_size = 4
-x-soft-wrap-text = false
 
 [{tags,*.ctags}]
 indent_style = tab
-indent_size = 4
-x-soft-wrap-text = false
 
 [{package.json,.travis.yml}]
 indent_style = space
