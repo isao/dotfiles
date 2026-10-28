@@ -12,8 +12,8 @@
 #   ctags --extras=+g -R .
 #
 # References:
-# - /Users/isao/repos/Z👀/ctags/optlib/yacc.ctags (multi-table with guest parsers)
-# - /Users/isao/repos/Z👀/ctags/docs/optlib.rst (optlib documentation)
+# - https://github.com/universal-ctags/ctags/blob/master/optlib/yacc.ctags (multi-table with guest parsers)
+# - https://github.com/universal-ctags/ctags/blob/master/docs/optlib.rst (optlib documentation)
 
 --langdef=Svelte
 --map-Svelte=+.svelte
