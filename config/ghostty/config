@@ -10,8 +10,7 @@
 scrollback-limit = 99999999
 
 # https://ghostty.org/docs/config/reference#macos-titlebar-style
-# macos-titlebar-style = tabs
-# ^broken in Tahoe
+macos-titlebar-style = tabs
 
 macos-secure-input-indication = false
 
@@ -23,7 +22,8 @@ shell-integration-features = ssh-env,ssh-terminfo,sudo,title,no-cursor
 #   Appearance
 #
 
-theme = light:Xcode Light hc, dark:Xcode Dark hc  # See `ghostty +list-themes`
+# See `ghostty +list-themes`
+theme = light:Xcode Light hc, dark:Xcode Dark hc
 
 font-family = 0xProto
 font-size = 13
@@ -55,8 +55,7 @@ window-padding-balance = true
 
 quick-terminal-position = top
 quick-terminal-size = 35%, 45%
-#quick-terminal-animation-duration = 0
-keybind = global:opt+cmd+digit_1=toggle_quick_terminal
+keybind = global:cmd+escape=toggle_quick_terminal
 # Need this to change quick-terminal configs:
 # window-save-state = never
 # ^ https://github.com/ghostty-org/ghostty/discussions/8419#discussioncomment-15725026
