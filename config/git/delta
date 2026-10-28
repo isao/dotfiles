@@ -11,8 +11,7 @@
 
     ; https://dandavison.github.io/delta/hyperlinks.html
     hyperlinks = true
-    ; delta bug: "No handler for "x-bbedit" link type"
-    ;hyperlinks-file-link-format = "x-bbedit://open?url=file:///{path}&line={line}"
+    hyperlinks-file-link-format = "x-bbedit://open?url=file:///{path}&line={line}"
     ;hyperlinks-commit-link-format = "https://mygitrepo/{commit}/"
 
     ; To disable the line numbers in side-by-side view, but keep a vertical
