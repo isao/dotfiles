@@ -17,7 +17,7 @@ export PAGER=moor
 #   --style=lovelace        https://xyproto.github.io/splash/docs/
 #   --tab-size=2
 #   --terminal-fg           for transparent backgrounds
-export MOOR='--no-search-line-highlight --quit-if-one-screen --reformat --style=lovelace --tab-size=2 --terminal-fg'
+export MOOR='--no-search-line-highlight --quit-if-one-screen --style=lovelace --tab-size=2 --terminal-fg'
 
 export LESS=(
     --ignore-case
