@@ -5,6 +5,10 @@
 
 # PATH set in ~/.zprofile
 
+# Keep only the first occurrence of each $path entry. Applies now, and on every
+# later assignment to `path` (but not to `PATH`). Not inherited by subshells.
+typeset -U path
+
 export EDITOR="bbedit -w"
 export GREP_COLOR=32 # ANSI/VT100: 32 is green, '1;34' is bold blue
 export RSYNC_RSH=ssh
