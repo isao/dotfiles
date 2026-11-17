@@ -68,6 +68,18 @@ gbs() {
 # git-fetch-pr() {
 #     git fetch up "pull/$1/head:pr$1" && git switch "pr$1"
 # }
+# git worktree list (alias version of ^wt)
+gw() {
+    git worktree list
+}
+
+# cd to a git worktree using fzf
+cdgw() {
+    local subdir=$(git rev-parse --show-prefix)
+    local worktree=$(gw | fzf --accept-nth=1 --query="$1" --select-1)
+    [ -n "$worktree" ] && cd "$worktree/$subdir"
+}
+
 
 #
 #   GIT WIDGET HELPERS
