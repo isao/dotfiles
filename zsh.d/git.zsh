@@ -64,10 +64,6 @@ gbs() {
     gb --sort=refname $@
 }
 
-# fetch and switch to an upstream GitHub pull request branch -> MOVED TO ALIAS
-# git-fetch-pr() {
-#     git fetch up "pull/$1/head:pr$1" && git switch "pr$1"
-# }
 # git worktree list (alias version of ^wt)
 gw() {
     git worktree list
@@ -90,7 +86,7 @@ __git-branches() {
 }
 
 __fzf_preview_gitlog_branch() {
-    fzf --multi --preview='echo "branch: {}"; git log -9 --color --decorate --format=fuller --stat {}' $@
+    fzf --multi --preview='echo "branch: {}"; git log -9 --color --decorate --format=fuller --stat {}' $@ | xargs
 }
 
 # git log -> fzf with preview. Allows fuzzy finding by email, sha, or commit
@@ -111,22 +107,23 @@ __fzf-git-log() {
 #   FZF GIT WIDGETS
 #
 
-# Select git modified file(s).
 fzf-git-modified-widget() {
-    LBUFFER+="$(git status --short | fzf -n2  --accept-nth=2 --exit-0 --preview 'git diff --color {2}' | xargs)"
+    LBUFFER+="$(git status --short | fzf -n2 --accept-nth=2 --exit-0 --preview 'git diff --color {2}' | xargs)"
     zle redisplay
 }
 zle -N fzf-git-modified-widget
-bindkey '^g^g' fzf-git-modified-widget # Pick changed file in git.
+bindkey '^g^g' fzf-git-modified-widget # Pick a file from git status.
 
 
-# Select a local git branch.
+# Select a local git branch. Pre-populate fzf query with selection, and "!old/".
 fzf-gitbranches-widget() {
-    LBUFFER+="$(__git-branches refs/heads/ | __fzf_preview_gitlog_branch  -q '!old/ ')"
+    _imy_word_under_cursor
+    local selected="$(__git-branches refs/heads/ | __fzf_preview_gitlog_branch -q "!old/ $_imy_query")"
+    _imy_replace_word "$selected"  # See widget-helpers.zsh
     zle redisplay
 }
 zle -N fzf-gitbranches-widget
-bindkey '^g^b' fzf-gitbranches-widget # Pick a git local branch.
+bindkey '^g^b' fzf-gitbranches-widget # Pick a local git branch.
 
 
 # Select any git branch.
@@ -135,7 +132,7 @@ fzf-git-branches-all-widget() {
     zle redisplay
 }
 zle -N fzf-git-branches-all-widget
-bindkey '^g^b^b' fzf-git-branches-all-widget # Pick any git branch.
+bindkey '^g^b^b' fzf-git-branches-all-widget # Pick a git branch.
 
 
 # Select a git stash
@@ -160,7 +157,7 @@ fzf-git-pick-commit() {
     zle redisplay
 }
 zle -N fzf-git-pick-commit
-bindkey '^g^p' fzf-git-pick-commit # Pick a git commit from any branch to cherry-pick
+bindkey '^g^p' fzf-git-pick-commit # Pick a commit from any branch to cherry-pick
 
 
 # Select a commit since the last merge to --fixup or --squash.
@@ -174,7 +171,9 @@ bindkey '^g^f' fzf-git-fixup-commit # Pick a git commit made since the last merg
 
 # Select a git worktree path.
 fzf-git-worktree-path() {
-    LBUFFER+="$(git worktree list | awk '{print $1}' | fzf)"
+    _imy_word_under_cursor
+    local selected="$(gw | fzf --accept-nth=1 --select-1 --query="$_imy_query")"
+    _imy_replace_word "$selected"  # See widget-helpers.zsh
     zle redisplay
 }
 zle -N fzf-git-worktree-path
