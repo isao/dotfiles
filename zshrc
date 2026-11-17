@@ -21,7 +21,8 @@ export PAGER=moor
 #   --style=lovelace        https://xyproto.github.io/splash/docs/
 #   --tab-size=2
 #   --terminal-fg           for transparent backgrounds
-export MOOR='--no-search-line-highlight --quit-if-one-screen --style=lovelace --tab-size=2 --terminal-fg'
+#   --wrap                  so quit-if-one-screen works as expected
+export MOOR='--no-search-line-highlight --quit-if-one-screen --style=lovelace --tab-size=2 --terminal-fg --wrap'
 
 export LESS=(
     --ignore-case
