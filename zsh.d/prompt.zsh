@@ -104,7 +104,9 @@ setopt transient_rprompt
 # print -P '%F{246}gray%f'
 
 RPROMPT=\$vcs_info_msg_0_%(?,'', %{$fg_bold[red]%}err:%?%{$reset_color%})
-PROMPT="%{%F{246}%}%T•%{%f$reset_color%}%2~%# "
+
+# time in gray • path with a maximum of 3 segments
+PROMPT="%{%F{246}%}%T•%{%f$reset_color%}%3~%# "
 
 # Refresh the prompt, including vcs_info, every 60 seconds.
 # http://www.zsh.org/mla/users/2007/msg00944.html
