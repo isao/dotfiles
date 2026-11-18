@@ -131,3 +131,14 @@ fzf-history-widget() {
 }
 zle -N fzf-history-widget
 bindkey '^r' fzf-history-widget # Replay a history entry.
+
+
+fzf-execute-named-cmd() {
+	emulate -L zsh
+	local cmd
+	cmd=$(zle -la | fzf --prompt='execute-named-cmd: ' --height=20% --no-multi --query '!orig !^_ ') || cmd=
+	[[ -n $cmd && $cmd != $WIDGET ]] && zle -n ${NUMERIC:-1} "$cmd"
+	zle reset-prompt
+}
+zle -N fzf-execute-named-cmd
+bindkey '\ex' fzf-execute-named-cmd # Run execute-named-cmd with fzf.
